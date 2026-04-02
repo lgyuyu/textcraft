@@ -444,8 +444,9 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" onerror="console.log('h2c load fail')"></script>
 <script>
 var R=document.documentElement.style;
+var themes={pink:{primary:"#e8457c",light:"#fff0f3",gradient:"linear-gradient(135deg,#e8457c,#ff8fab)",text:"#a01040"},blue:{primary:"#4f6df5",light:"#eef2ff",gradient:"linear-gradient(135deg,#4f6df5,#818cf8)",text:"#1e3a8a"},green:{primary:"#10b981",light:"#ecfdf5",gradient:"linear-gradient(135deg,#10b981,#34d399)",text:"#065f46"},orange:{primary:"#f97316",light:"#fff7ed",gradient:"linear-gradient(135deg,#f97316,#fb923c)",text:"#9a3412"},purple:{primary:"#8b5cf6",light:"#f5f3ff",gradient:"linear-gradient(135deg,#8b5cf6,#a78bfa)",text:"#5b21b6"},cyan:{primary:"#0ea5e9",light:"#f0f9ff",gradient:"linear-gradient(135deg,#0ea5e9,#38bdf8)",text:"#075985"}};
 document.querySelectorAll(".style-btn").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});b.classList.add("active");var e=document.querySelector(".s"+b.dataset.s);if(e)e.classList.add("active")})});
-document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("click",function(){document.querySelectorAll("color-dot").forEach(function(x){x.classList.remove("active")});d.classList.add("active");var t=themes[d.dataset.c];R.setProperty("--primary",t.primary);R.setProperty("--light",t.light);R.setProperty("--gradient",t.gradient);R.setProperty("--text",t.text)})});
+document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("click",function(){document.querySelectorAll(".color-dot").forEach(function(x){x.classList.remove("active")});d.classList.add("active");var t=themes[d.dataset.c];R.setProperty("--primary",t.primary);R.setProperty("--light",t.light);R.setProperty("--gradient",t.gradient);R.setProperty("--text",t.text)})});
 
 function E(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 var emojis=['🎯','📅','⏰','💡','📌','🏆','💪','✨'];
@@ -772,6 +773,10 @@ async function generate(){
   var text=document.getElementById("inputText").value.trim();
   if(!text){alert("请先粘贴内容");return}
   var info=document.getElementById("exportInfo");
+  var gs=document.getElementById("genStatus");
+  var gb=document.getElementById("genBtn");
+  if(gs)gs.style.display="inline-block";
+  if(gb){gb.disabled=true;gb.style.opacity="0.6"}
   info.textContent="🔄 模板生成中...";
   var d=null;
   try{d=await aiParse(text)}
@@ -791,7 +796,8 @@ async function generate(){
   document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
   document.querySelector('.style-btn[data-s="1"]').classList.add("active");
   area.querySelector(".s1").classList.add("active");
-  if(gs)gs.style.display="none";if(gb){gb.disabled=false;gb.style.opacity="1"}info.textContent="✅ 已生成"+d.sections.length+"个板块的8种精美排版 (AI驱动)";
+  if(gs)gs.style.display="none";if(gb){gb.disabled=false;gb.style.opacity="1"}
+  info.textContent="✅ 已生成"+d.sections.length+"个板块的8种精美排版 (AI驱动)";
 }
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
 function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){html2canvas(cs[idx],{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
