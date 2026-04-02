@@ -449,7 +449,39 @@ document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("
 function E(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 var emojis=['🎯','📅','⏰','💡','📌','🏆','💪','✨'];
 function shape(i){var t=i%5,n=i+1;if(t===1)return '<div class="num" style="clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)">'+n+'</div>';if(t===2)return '<div class="num" style="clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)">'+n+'</div>';if(t===3)return '<div class="num" style="border-radius:8px">'+n+'</div>';if(t===4)return '<div class="num" style="border-radius:10px">'+n+'</div>';return '<div class="num">'+n+'</div>'}
-function parseText(text){var lines=text.split(String.fromCharCode(10)).map(function(l){return l.trim()}).filter(function(l){return l.length>0});if(!lines.length)return null;var data={title:lines[0],sections:[]};var curSec=null;for(var i=1;i<lines.length;i++){var l=lines[i];var isH=false;if(/^【/.test(l)&&/】/.test(l)){isH=true;l=l.replace(/^【/,'').replace(/】$/,'')}else if(/：$/.test(l)&&l.length<25){isH=true;l=l.replace(/：$/,'')}else if(/^[一-十]+[、.]/.test(l)){isH=true}else if(/^\d+[、.]/.test(l)&&l.length<25){isH=true}if(isH){if(curSec)data.sections.push(curSec);curSec={title:l.replace(/^[一-十]+[、.]/,'').replace(/^\d+[、.]/,''),items:[]}}else{if(!curSec)curSec={title:'内容',items:[]};curSec.items.push(l)}}if(curSec)data.sections.push(curSec);if(data.sections.length===1&&data.sections[0].items.length>6){var items=data.sections[0].items;data.sections=[];var chunk=[];for(var j=0;j<items.length;j++){chunk.push(items[j]);if(chunk.length>=3||j===items.length-1){data.sections.push({title:chunk[0].substring(0,10),items:chunk});chunk=[]}}}return data}
+function parseText(text){
+  var lines=text.split(String.fromCharCode(10)).map(function(l){return l.trim()}).filter(function(l){return l.length>0});
+  if(!lines.length)return null;
+  var data={title:lines[0],sections:[]};
+  var curSec=null;
+  for(var i=1;i<lines.length;i++){
+    var l=lines[i];
+    if(!l.length) continue;
+    var isHeader=false;
+    var headerTitle=l;
+    // 【xxx】
+    if(/^\u3010/.test(l)&&/\u3011/.test(l)){isHeader=true;headerTitle=l.replace(/^\u3010/,'').replace(/\u3011$/,'')}
+    // 第X天/周/月/阶段
+    else if(/^\u7B2.{1,6}[\u5929\u6BB5]/.test(l)){isHeader=true}
+    // 一、二、三、
+    else if(/^[\u4E00\u4E8C\u4E09\u56DB\u4E94\u5341\u4E8C\u5341]+[\u3001.\uFF0E]/.test(l)){isHeader=true;headerTitle=l.replace(/^[\u4E00\u4E8C\u4E09\u56DB\u4E94\u5341\u4E8C\u5341]+[\u3001.\uFF0E]/,'')}
+    // 1. 2. 
+    else if(/^\d{1,2}[\u3001.\uFF0E] /.test(l)&&l.length<30){isHeader=true;headerTitle=l.replace(/^\d{1,2}[\u3001.\uFF0E] /,'')}
+    // Short line ending with colon
+    else if(/\uFF1A$/.test(l)&&l.length<30){isHeader=true;headerTitle=l.replace(/\uFF1A$/,'')}
+    if(isHeader){
+      if(curSec&&curSec.items.length>0)data.sections.push(curSec);
+      curSec={title:headerTitle.trim(),items:[]};
+    }else{
+      if(!curSec)curSec={title:'\u5185\u5BB9',items:[]};
+      curSec.items.push(l);
+    }
+  }
+  if(curSec&&curSec.items.length>0)data.sections.push(curSec);
+  return data;
+}
+
+
 function bS1(d){var h='<div class="content active s1"><div class="hero"><h1>'+E(d.title)+'</h1></div>';d.sections.forEach(function(s,i){h+='<div class="stitle">'+emojis[i%8]+' '+E(s.title)+'</div>';if(s.items.length<=4){s.items.forEach(function(t,j){h+='<div class="card">'+shape(j)+'<div><p>'+E(t)+'</p></div></div>'})}else{h+='<div class="cbox"><ul class="plist">';s.items.forEach(function(t){h+='<li>'+E(t)+'</li>'});h+='</ul></div>'}});h+='</div>';return h}
 function bS2(d){var h='<div class="content s2"><div class="header"><h1>'+E(d.title)+'</h1></div><div class="timeline">';d.sections.forEach(function(s,i){h+='<div class="tl-item"><span class="days">'+E(s.title)+'</span><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'});h+='</div>'});h+='</div></div>';return h}
 function bS3(d){var h='<div class="content s3"><div class="bighero"><span class="emoji">🚀</span><h1>'+E(d.title)+'</h1></div><div class="bcontent">';d.sections.forEach(function(s,i){h+='<div class="bc"><div class="icon">'+emojis[i%8]+'</div><h3>'+E(s.title)+'</h3>';s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'});h+='</div>'});h+='</div></div>';return h}
