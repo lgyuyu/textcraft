@@ -481,7 +481,6 @@ function parseText(text){
   return data;
 }
 
-
 function bS1(d){var h='<div class="content active s1"><div class="hero"><h1>'+E(d.title)+'</h1></div>';d.sections.forEach(function(s,i){h+='<div class="stitle">'+emojis[i%8]+' '+E(s.title)+'</div>';if(s.items.length<=4){s.items.forEach(function(t,j){h+='<div class="card">'+shape(j)+'<div><p>'+E(t)+'</p></div></div>'})}else{h+='<div class="cbox"><ul class="plist">';s.items.forEach(function(t){h+='<li>'+E(t)+'</li>'});h+='</ul></div>'}});h+='</div>';return h}
 function bS2(d){var h='<div class="content s2"><div class="header"><h1>'+E(d.title)+'</h1></div><div class="timeline">';d.sections.forEach(function(s,i){h+='<div class="tl-item"><span class="days">'+E(s.title)+'</span><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'});h+='</div>'});h+='</div></div>';return h}
 function bS3(d){var h='<div class="content s3"><div class="bighero"><span class="emoji">🚀</span><h1>'+E(d.title)+'</h1></div><div class="bcontent">';d.sections.forEach(function(s,i){h+='<div class="bc"><div class="icon">'+emojis[i%8]+'</div><h3>'+E(s.title)+'</h3>';s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'});h+='</div>'});h+='</div></div>';return h}
