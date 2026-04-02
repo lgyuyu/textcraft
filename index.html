@@ -449,6 +449,39 @@ document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("
 function E(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 var emojis=['🎯','📅','⏰','💡','📌','🏆','💪','✨'];
 function shape(i){var t=i%5,n=i+1;if(t===1)return '<div class="num" style="clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)">'+n+'</div>';if(t===2)return '<div class="num" style="clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)">'+n+'</div>';if(t===3)return '<div class="num" style="border-radius:8px">'+n+'</div>';if(t===4)return '<div class="num" style="border-radius:10px">'+n+'</div>';return '<div class="num">'+n+'</div>'}
+var AI_KEY='4e1068b3b7d8459ca481338876e58fdb.qS8Ml1qDJ0YkfAmU';
+var AI_URL='https://open.bigmodel.cn/api/paas/v4/chat/completions';
+
+var AI_KEY='4e1068b3b7d8459ca481338876e58fdb.qS8Ml1qDJ0YkfAmU';
+var AI_URL='https://open.bigmodel.cn/api/paas/v4/chat/completions';
+
+async function aiParse(text){
+  var sys='你是一个文本结构化解析器。用户会给一段文字，你需要把它解析成JSON格式，用于生成精美信息图卡片。\n\n返回格式（严格JSON，不要任何其他内容）：\n{\n  "title": "主标题",\n  "subtitle": "一句话副标题描述",\n  "sections": [\n    {\n      "title": "板块标题",\n      "type": "text|table|phases|schedule|rules|stats",\n      "icon": "emoji",\n      "items": [\n        {"label": "短标签/时间", "detail": "详细描述", "value": "数值(可选)"}\n      ],\n      "stats": [{"num": "数字", "unit": "单位", "label": "标签"}]\n    }\n  ],\n  "stats": [{"num": "80万", "unit": "冲刺", "label": "总销售额"}]\n}\n\ntype说明：\n- text: 普通文本说明\n- table: 有对比数据（保底vs冲刺、指标对比等），items中每项有label和detail\n- phases: 分阶段计划（第1周、第01-30天等），items中label填阶段名，detail填内容\n- schedule: 时间安排（早读、下午、晚上等），items中label填时间，detail填动作\n- rules: 规则/铁律/注意事项/激励\n- stats: 统计数字\n\ntop-level stats数组（用于信息图的统计圆环），提取3-4个关键数字指标。\nsection.stats用于该板块自己的数据。\n\n重要：\n1. top-level stats数组必须提取3-4个关键数字指标（如金额、天数、百分比等），即使原文没有明确数字也要合理推算\n2. 每条信息独立成item，不要合并多条信息\n3. 有时间的信息，label填时间，detail填内容\n4. 有数值的信息，提取到value字段\n5. 给每个section选一个合适的emoji icon\n6. subtitle要精炼，不超过20字\n7. phases类型的section，label填阶段名（如"第01-30天"），detail填内容';
+  var resp=await fetch(AI_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+AI_KEY},
+    body:JSON.stringify({model:'glm-4-flash',messages:[{role:'system',content:sys},{role:'user',content:text}],max_tokens:2000,temperature:0.1})
+  });
+  var data=await resp.json();
+  var msg=data.choices[0].message.content;
+  // Parse JSON from response (may have markdown code block)
+  var jsonMatch=msg.match(/\{[\s\S]*\}/);
+  if(!jsonMatch)throw new Error('AI返回格式错误');
+  var parsed=JSON.parse(jsonMatch[0]);
+  // Normalize: ensure stats array at top level
+  if(!parsed.stats)parsed.stats=[];
+  // Normalize sections: ensure items have label/detail
+  parsed.sections.forEach(function(s){
+    if(!s.icon)s.icon='📌';
+    if(!s.type)s.type='text';
+    if(!s.items)s.items=[];
+    s.items.forEach(function(item){
+      if(!item.label)item.label='';
+      if(!item.detail)item.detail='';
+    });
+  });
+  return parsed;
+}
 // ===== parseText v3 =====
 // Returns: {title, sections: [{title, items, type}]}
 // type: 'text'|'table'|'phases'|'schedule'|'rules'
@@ -496,124 +529,272 @@ function parseText(text){
   }
   return data;
 }
-// ===== bS1 经典卡片 v2 =====
+// bS1 经典卡片 - AI版
 function bS1(d){
-  var h='<div class="content active s1"><div class="hero"><h1>'+E(d.title)+'</h1></div>';
+  var h='<div class="content active s1"><div class="hero"><h1>'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  h+='</div>';
   d.sections.forEach(function(s,i){
-    h+='<div class="stitle">'+emojis[i%8]+' '+E(s.title)+'</div>';
-    if(s.type==='table'&&s.items.length>2){
-      // Table style for comparison data
-      h+='<div class="cbox"><ul class="plist">';
-      s.items.forEach(function(t){h+='<li>'+E(t)+'</li>'});
-      h+='</ul></div>';
-    }else if(s.type==='phases'&&s.items.length>1){
-      // Numbered card style for phases
+    h+='<div class="stitle">'+(s.icon||emojis[i%8])+' '+E(s.title)+'</div>';
+    if(s.type==='phases'){
       s.items.forEach(function(t,j){
-        h+='<div class="card">'+shape(j)+'<div><p>'+E(t)+'</p></div></div>';
+        h+='<div class="card">'+shape(j)+'<div><h3>'+E(t.label||'')+'</h3><p>'+E(t.detail||t.label||'')+'</p></div></div>';
       });
-    }else if(s.type==='schedule'&&s.items.length>1){
-      // Table for schedule
+    }else if(s.type==='schedule'){
       h+='<div class="twrap"><table><thead><tr><th>时段</th><th>动作</th></tr></thead><tbody>';
       s.items.forEach(function(t){
-        var m=t.match(/^[\d:.-]+[\d:.-]*/);
-        if(m){
-          h+='<tr><td><b>'+E(m[0])+'</b></td><td>'+E(t.substring(m[0].length))+'</td></tr>';
-        }else{
-          h+='<tr><td colspan="2">'+E(t)+'</td></tr>';
-        }
+        h+='<tr><td><b>'+E(t.label)+'</b></td><td>'+E(t.detail)+'</td></tr>';
       });
       h+='</tbody></table></div>';
+    }else if(s.type==='table'){
+      h+='<div class="cbox"><ul class="plist">';
+      s.items.forEach(function(t){
+        var txt=t.detail||t.label;
+        if(t.value)txt=t.label+' '+t.value;
+        h+='<li>'+E(txt)+'</li>';
+      });
+      h+='</ul></div>';
     }else if(s.type==='rules'){
       h+='<div class="cbox"><ul class="plist">';
-      s.items.forEach(function(t){h+='<li>'+E(t)+'</li>'});
-      h+='</ul></div>';
-    }else if(s.items.length<=4){
-      s.items.forEach(function(t,j){
-        h+='<div class="card">'+shape(j)+'<div><p>'+E(t)+'</p></div></div>';
+      s.items.forEach(function(t){
+        h+='<li>'+E(t.detail||t.label)+'</li>';
       });
-    }else{
-      h+='<div class="cbox"><ul class="plist">';
-      s.items.forEach(function(t){h+='<li>'+E(t)+'</li>'});
       h+='</ul></div>';
+    }else{
+      if(s.items.length<=4){
+        s.items.forEach(function(t,j){
+          h+='<div class="card">'+shape(j)+'<div><p>'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</p></div></div>';
+        });
+      }else{
+        h+='<div class="cbox"><ul class="plist">';
+        s.items.forEach(function(t){
+          h+='<li>'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</li>';
+        });
+        h+='</ul></div>';
+      }
     }
+  });
+  if(d.sections.length&&d.sections[d.sections.length-1].type==='rules'){}
+  else if(d.stats&&d.stats.length){
+    h+='<div class="dbox"><h4>🎯 '+E(d.title)+'</h4>';
+    d.stats.forEach(function(st){h+='<p>'+E(st.num)+' '+E(st.unit)+' · '+E(st.label)+'</p>'});
+    h+='</div>';
+  }
+  h+='</div>';
+  return h;
+}
+// bS2 时间轴 - AI版
+function bS2(d){
+  var h='<div class="content s2"><div class="header"><h1>'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  h+='</div>';
+  d.sections.forEach(function(s,i){
+    h+='<div class="sbox"><h3>'+(s.icon||'📌')+' '+E(s.title)+'</h3>';
+    s.items.forEach(function(t){
+      if(t.label)h+='<p><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p>'+E(t.detail||t.label)+'</p>';
+    });
+    h+='</div>';
   });
   h+='</div>';
   return h;
 }
-function bS2(d){var h='<div class="content s2"><div class="header"><h1>'+E(d.title)+'</h1></div><div class="timeline">';d.sections.forEach(function(s,i){h+='<div class="tl-item"><span class="days">'+E(s.title)+'</span><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'});h+='</div>'});h+='</div></div>';return h}
-function bS3(d){var h='<div class="content s3"><div class="bighero"><span class="emoji">🚀</span><h1>'+E(d.title)+'</h1></div><div class="bcontent">';d.sections.forEach(function(s,i){h+='<div class="bc"><div class="icon">'+emojis[i%8]+'</div><h3>'+E(s.title)+'</h3>';s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'});h+='</div>'});h+='</div></div>';return h}
-function bS4(d){var h='<div class="content s4"><div class="mintitle"><h1>'+E(d.title)+'</h1><div class="line"></div></div>';d.sections.forEach(function(s,i){h+='<div class="minsec"><div class="bignum">'+String(i+1).padStart(2,'0')+'</div><h3>'+E(s.title)+'</h3><p>';h+=s.items.map(E).join('<br>');h+='</p></div>';if(i<d.sections.length-1)h+='<hr class="mindiv">'});h+='</div>';return h}
-function bS5(d){var h='<div class="content s5"><div class="mag-header"><h1>'+E(d.title)+'</h1><span class="side-text">TEXTCRAFT</span></div><div class="mag-body">';d.sections.forEach(function(s,i){h+='<div class="mag-sec"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';if(s.items.length>2){h+='<ul class="mag-pri">';s.items.forEach(function(t){h+='<li>'+E(t)+'</li>'});h+='</ul>'}else{s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'})}h+='</div>'});h+='</div></div>';return h}
-function bS6(d){var h='<div class="content s6"><div class="note-header"><h1>'+E(d.title)+'</h1><div class="tape"></div><div class="tape-2"></div></div><div class="note-body">';d.sections.forEach(function(s,i){h+='<div class="nphase"><h4>'+emojis[i%8]+' '+E(s.title)+'</h4><p>';h+=s.items.map(E).join('<br>');h+='</p></div>'});h+='</div></div>';return h}
-// ===== bS7 信息图 v2 =====
+
+// bS3 大卡片 - AI版
+function bS3(d){
+  var h='<div class="content s3"><div class="bighero"><span class="emoji">🚀</span><h1>'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  h+='</div><div class="bcontent">';
+  d.sections.forEach(function(s,i){
+    h+='<div class="bc"><div class="bc-icon">'+(s.icon||emojis[i%8])+'</div><div class="bc-body"><h3>'+E(s.title)+'</h3>';
+    s.items.forEach(function(t){
+      if(t.label)h+='<p><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p>'+E(t.detail||t.label)+'</p>';
+    });
+    h+='</div></div>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
+// bS4 极简留白 - AI版
+function bS4(d){
+  var h='<div class="content s4"><div class="mintitle"><h1>'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<div class="sub">'+E(d.subtitle)+'</div>';
+  h+='<div class="line"></div></div>';
+  d.sections.forEach(function(s,i){
+    h+='<div class="minsec"><div class="minh">'+(s.icon||'')+' '+E(s.title)+'</div>';
+    s.items.forEach(function(t){
+      if(t.label)h+='<p><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p>'+E(t.detail||t.label)+'</p>';
+    });
+    h+='</div>';
+  });
+  h+='</div>';
+  return h;
+}
+
+// bS5 杂志风 - AI版
+function bS5(d){
+  var h='<div class="content s5"><div class="mag-header"><h1>'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  h+='<span class="side-text">TEXTCRAFT</span></div>';
+  h+='<div class="mag-body"><span class="side-deco">内容展示</span>';
+  d.sections.forEach(function(s,i){
+    h+='<div class="mag-sec"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    s.items.forEach(function(t){
+      if(t.label)h+='<p>'+E(t.label)+' · '+E(t.detail)+'</p>';
+      else h+='<p>'+E(t.detail||t.label)+'</p>';
+    });
+    h+='</div>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
+// bS6 笔记本 - AI版
+function bS6(d){
+  var h='<div class="content s6"><div class="note-header"><h1>'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  h+='<div class="tape"></div><div class="tape-2"></div></div>';
+  d.sections.forEach(function(s,i){
+    h+='<div class="note-sec"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    s.items.forEach(function(t){
+      if(t.label)h+='<p><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p>'+E(t.detail||t.label)+'</p>';
+    });
+    h+='</div>';
+  });
+  h+='</div>';
+  return h;
+}
+
+// bS8 网格布局 - AI版
+function bS8(d){
+  var h='<div class="content s8"><div class="grid-hero"><h1>'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  else h+='<p>'+d.sections.length+'个板块</p>';
+  h+='</div><div class="grid">';
+  d.sections.forEach(function(s,i){
+    var full=s.items.length>2?' full':'';
+    h+='<div class="gc'+full+'"><h3><span class="dot"></span>'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    if(s.items.length>2){
+      h+='<ul>';
+      s.items.forEach(function(t){
+        h+='<li>'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</li>';
+      });
+      h+='</ul>';
+    }else{
+      s.items.forEach(function(t){
+        h+='<p>'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</p>';
+      });
+    }
+    h+='</div>';
+  });
+  h+='</div></div>';
+  return h;
+}
+// bS7 信息图 - AI版
 function bS7(d){
   var h='<div class="content s7"><div class="info-hero"><h1>'+E(d.title)+'</h1>';
-  // Stats circles for first 4 sections
-  if(d.sections.length>0){
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  // Stats circles from AI data
+  if(d.stats&&d.stats.length>0){
+    h+='<div class="stats">';
+    d.stats.forEach(function(st,i){
+      var pct=Math.min(95,Math.max(20,30+i*25));
+      h+='<div class="stat-item"><div class="stat-circle" style="--pct:'+pct+'%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">'+E(st.num)+'</span><span class="unit">'+E(st.unit)+'</span></div></div><div class="label">'+E(st.label)+'</div></div>';
+    });
+    h+='</div>';
+  }else if(d.sections.length>0){
     h+='<div class="stats">';
     for(var i=0;i<Math.min(d.sections.length,4);i++){
-      var pct=25+i*20;
+      var pct=Math.min(95,25+i*20);
       var num=d.sections[i].items.length;
-      var unit='项';
-      // Try to extract a number from section title
-      var tn=d.sections[i].title.match(/\d+/);
-      if(tn){num=tn[0];unit=''}
-      h+='<div class="stat-item"><div class="stat-circle" style="--pct:'+pct+'%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">'+num+'</span><span class="unit">'+unit+'</span></div></div><div class="label">'+E(d.sections[i].title)+'</div></div>';
+      h+='<div class="stat-item"><div class="stat-circle" style="--pct:'+pct+'%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">'+num+'</span><span class="unit">项</span></div></div><div class="label">'+E(d.sections[i].title)+'</div></div>';
     }
     h+='</div>';
   }
+  h+='</div>';
   // Render sections
   d.sections.forEach(function(s,i){
+    var icon=s.icon||emojis[i%8];
     if(s.type==='schedule'&&s.items.length>1){
-      h+='<div class="ibox"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';
+      h+='<div class="ibox"><h3>'+icon+' '+E(s.title)+'</h3>';
       s.items.forEach(function(t){
-        var m=t.match(/^[\d:.-]+[\d:.-]*/);
-        if(m){
-          h+='<div class="srow"><span class="badge">'+E(m[0])+'</span><span class="task">'+E(t.substring(m[0].length))+'</span></div>';
-        }else{
-          h+='<div class="srow"><span class="badge">▸</span><span class="task">'+E(t)+'</span></div>';
-        }
+        h+='<div class="srow"><span class="badge">'+E(t.label)+'</span><span class="task">'+E(t.detail)+'</span></div>';
       });
       h+='</div>';
     }else if(s.type==='phases'&&s.items.length>1){
-      // Phases as progress bars
       h+='<div class="phases-row">';
-      s.items.forEach(function(t){
-        var m=t.match(/第?\d+/);
-        var label=m?m[0]:'';
+      s.items.forEach(function(t,j){
         var pct=Math.round(100/s.items.length);
-        h+='<div class="pbar"><div class="dc">'+E(t.substring(0,20))+'</div><div class="dl">'+E(label)+'</div><div class="bar"><div class="bar-fill" style="width:'+pct+'%"></div></div></div>';
+        var lbl=t.label||('阶段'+(j+1));
+        h+='<div class="pbar"><div class="dc">'+E(t.detail?lbl+' · '+t.detail.substring(0,15):lbl)+'</div><div class="dl">'+E(lbl)+'</div><div class="bar"><div class="bar-fill" style="width:'+pct+'%"></div></div></div>';
       });
       h+='</div>';
     }else if(s.type==='rules'){
-      h+='<div class="ibox"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';
-      s.items.forEach(function(t){
-        h+='<div class="pri-row"><div class="name">'+E(t)+'</div><div class="bar"><div class="bar-fill" style="width:80%"></div></div></div>';
+      h+='<div class="ibox"><h3>'+icon+' '+E(s.title)+'</h3>';
+      s.items.forEach(function(t,j){
+        var w=Math.max(40,100-j*15);
+        h+='<div class="pri-row"><div class="name">'+E(t.detail||t.label)+'</div><div class="bar"><div class="bar-fill" style="width:'+w+'%"></div></div></div>';
       });
       h+='</div>';
     }else{
-      h+='<div class="ibox"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';
+      h+='<div class="ibox"><h3>'+icon+' '+E(s.title)+'</h3>';
       if(s.items.length>3){
         s.items.forEach(function(t){
-          var m=t.match(/^[\d:.-]+[\d:.-]*/);
-          if(m){
-            h+='<div class="srow"><span class="badge">'+E(m[0])+'</span><span class="task">'+E(t.substring(m[0].length))+'</span></div>';
+          if(t.label&&t.detail){
+            h+='<div class="srow"><span class="badge">'+E(t.label)+'</span><span class="task">'+E(t.detail)+'</span></div>';
           }else{
-            h+='<div class="srow"><span class="badge">▸</span><span class="task">'+E(t)+'</span></div>';
+            h+='<div class="srow"><span class="badge">▸</span><span class="task">'+E(t.detail||t.label)+'</span></div>';
           }
         });
       }else{
-        s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'});
+        s.items.forEach(function(t){
+          var txt=(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label);
+          h+='<p>'+txt+'</p>';
+        });
       }
       h+='</div>';
     }
   });
+  // Bottom rules/iron law
+  var ruleSec=d.sections.filter(function(s){return s.type==='rules'});
+  if(ruleSec.length>0){
+    h+='<div class="irules"><h4>'+(ruleSec[0].icon||'🔥')+' '+E(ruleSec[0].items[0]?ruleSec[0].items[0].detail:ruleSec[0].title)+'</h4></div>';
+  }
   h+='</div>';
   return h;
-}function bS8(d){var h='<div class="content s8"><div class="grid-hero"><h1>'+E(d.title)+'</h1><p>'+d.sections.length+'个板块</p></div><div class="grid">';d.sections.forEach(function(s,i){var full=s.items.join('').length>60?' full':'';h+='<div class="gc'+full+'"><h3><span class="dot"></span>'+E(s.title)+'</h3>';if(s.items.length>2){h+='<ul>';s.items.forEach(function(t){h+='<li>'+E(t)+'</li>'});h+='</ul>'}else{s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'})}h+='</div>'});h+='</div></div>';return h}
-function generate(){var text=document.getElementById("inputText").value.trim();if(!text){alert("请先粘贴内容");return}var d=parseText(text);if(!d||!d.sections.length){alert("未识别到内容结构，请确保至少有标题和几行内容");return}var area=document.getElementById("contentArea");area.innerHTML=bS1(d)+bS2(d)+bS3(d)+bS4(d)+bS5(d)+bS6(d)+bS7(d)+bS8(d);document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});document.querySelector('.style-btn[data-s="1"]').classList.add("active");area.querySelector(".s1").classList.add("active");document.getElementById("exportInfo").textContent="✅ 已生成"+d.sections.length+"个板块的8种精美排版"}
+}
+async function generate(){
+  var text=document.getElementById("inputText").value.trim();
+  if(!text){alert("请先粘贴内容");return}
+  var info=document.getElementById("exportInfo");
+  info.textContent="🔄 AI正在解析内容...";
+  var d=null;
+  try{d=await aiParse(text)}
+  catch(e){console.log('AI解析失败，使用本地解析:',e);d=parseText(text)}
+  if(!d||!d.sections.length){alert("未识别到内容结构");return}
+  if(!d.subtitle)d.subtitle='';
+  d.sections.forEach(function(s){
+    if(!s.icon)s.icon='📌';
+    if(!s.type)s.type='text';
+    if(s.items&&s.items.length&&typeof s.items[0]==='string'){
+      s.items=s.items.map(function(t){return{label:'',detail:t,value:''}});
+    }
+  });
+  var area=document.getElementById("contentArea");
+  area.innerHTML=bS1(d)+bS2(d)+bS3(d)+bS4(d)+bS5(d)+bS6(d)+bS7(d)+bS8(d);
+  document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});
+  document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
+  document.querySelector('.style-btn[data-s="1"]').classList.add("active");
+  area.querySelector(".s1").classList.add("active");
+  info.textContent="✅ 已生成"+d.sections.length+"个板块的8种精美排版 (AI驱动)";
+}
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
 function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){html2canvas(cs[idx],{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
+
 </script>
 
 </body></html>
