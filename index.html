@@ -192,30 +192,25 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s8 .gc.rules{background:var(--gradient);color:#fff;text-align:center}
 .s8 .gc.rules h3{color:#fff;justify-content:center}.s8 .gc.rules h3 .dot{background:#fff}.s8 .gc.rules p{color:rgba(255,255,255,.95)}
 
-
 .editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
 .editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
-.editor-panel textarea{width:100%;height:150px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
+.editor-panel textarea{width:100%;height:180px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
 .editor-panel textarea:focus{border-color:var(--primary)}
-.hint{font-size:12px;color:#999;margin-top:8px}
+.editor-panel .hint{font-size:12px;color:#999;margin-top:8px}
 .btn-row{display:flex;gap:10px;margin-top:14px}
-.btn-row button{padding:10px 28px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:var(--gradient);color:#fff}
-.export-bar{display:flex;gap:10px;margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);align-items:center;flex-wrap:wrap}
+.btn-row button{padding:10px 24px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:var(--gradient);color:#fff}
+.export-bar{display:flex;gap:10px;margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);align-items:center}
 .export-bar button{padding:8px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);color:#fff;background:var(--gradient)}
 .export-bar .btn-all{background:#4f6df5}
 .export-bar .info{font-size:12px;color:#999;margin-left:auto}
-
 </style>
 </head>
 <body>
 <div class="editor-panel">
-  <h3>📝 粘贴你的内容，自动生成8种精美排版</h3>
-  <textarea id="inputText" placeholder="在这里粘贴你的内容...
-
-第一行为标题，后面为内容
-支持用【】标记小标题，或用"小标题："格式"></textarea>
-  <div class="hint">默认展示销售计划精细排版示例 · 粘贴新内容后点击"生成排版"可预览通用模板效果</div>
-  <div class="btn-row"><button id="genBtn">🚀 生成排版</button></div>
+  <h3>📝 粘贴你的内容，快速预览排版效果</h3>
+  <textarea id="inputText" placeholder="在这里粘贴你的内容..."></textarea>
+  <div class="hint">当前展示为精细排版示例。粘贴新内容可用通用模板快速预览，精细排版请联系墨痕-编程。</div>
+  <div class="btn-row"><button onclick="generate()">🚀 快速预览</button></div>
 </div>
 <div class="controls">
   <div class="style-btns">
@@ -237,9 +232,42 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <div class="color-dot" data-c="cyan" title="深海青"></div>
   </div>
 </div>
+<div class="content active s1">
+  <div class="hero"><h1>2025年4月"AI破局"月度销售冲刺计划</h1><p>高开高走，抓大放小，利用AI热点+痛点成交</p></div>
+  <div class="stitle">🎯 核心目标</div>
+  <div class="cbox"><p>保底<strong>60万</strong>，冲刺<strong>80万</strong>。执行周期：4月1日-4月30日。</p></div>
+  <div class="twrap"><table><thead><tr><th>指标</th><th>保底</th><th>冲刺</th></tr></thead><tbody>
+    <tr><td>总销售额(GMV)</td><td><b>¥600,000</b></td><td><b>¥800,000</b></td></tr>
+    <tr><td>成交单量</td><td>75单</td><td>100单</td></tr>
+    <tr><td>月度转化率</td><td>18%</td><td>25%</td></tr>
+    <tr><td>新增A类客户</td><td>60个</td><td>80个</td></tr>
+    <tr><td>每日有效沟通</td><td>15个/天</td><td>20个/天</td></tr>
+  </tbody></table></div>
+  <div class="stitle">📅 四周节奏</div>
+  <div class="card"><div class="num">1</div><div><h3>第1周：蓄水激活（4/1-4/7）</h3><p>清空遗留意向，预热朋友圈，回访老客户。目标<b>10万</b>。</p></div></div>
+  <div class="card"><div class="num">2</div><div><h3>第2周：爆破收割（4/8-4/15）</h3><p>配合直播/公开课集中邀约，AI焦虑切入。目标<b>20万</b>（黄金周）。</p></div></div>
+  <div class="card"><div class="num">3</div><div><h3>第3周：追单补位（4/16-4/23）</h3><p>攻克犹豫型客户，月底恢复原价紧迫感。目标<b>15万</b>。</p></div></div>
+  <div class="card"><div class="num">4</div><div><h3>第4周：极限冲刺（4/24-4/30）</h3><p>倒计时氛围，最后3天跟最高意向客户。目标<b>保底15万冲刺30万</b>。</p></div></div>
+  <div class="stitle">⏰ 每日执行（721法则）</div>
+  <div class="twrap"><table><thead><tr><th>时段</th><th>动作</th></tr></thead><tbody>
+    <tr><td>08:30-09:00</td><td>晨会：定"必杀单"3人</td></tr>
+    <tr><td>09:00-10:00</td><td>黄金触达：10个有效沟通</td></tr>
+    <tr><td>10:00-12:00</td><td>深度沟通：2-3场语音/视频</td></tr>
+    <tr><td>12:00-13:30</td><td>朋友圈运营</td></tr>
+    <tr><td>13:30-15:00</td><td>公海捞鱼：激活老客户</td></tr>
+    <tr><td>15:00-17:30</td><td>强逼单：≥5次付款链接</td></tr>
+    <tr><td>17:30-18:30</td><td>晚高峰补位</td></tr>
+    <tr><td>20:00-22:00</td><td>复盘：更新CRM，次日30人名单</td></tr>
+  </tbody></table></div>
+  <div class="stitle">🏆 激励与惩罚</div>
+  <div class="cbox"><p><b>即时激励：</b>周冠军¥1000 / 首单¥50星巴克 / 大单(>¥15000)¥288红包</p><p><b>负向鞭策：</b>连续3天未开单→情景演练 / 有效沟通&lt;15个→整理50条素材</p></div>
+  <div class="stitle">⚠️ 风险预案</div>
+  <div class="cbox"><ul class="plist"><li>月中&lt;30万 → 老带新裂变</li><li>竞品低价 → 拼交付服务（1对1答疑+作业批改+永久回放）</li><li>客户投诉 → 30分钟内响应，安抚优先</li></ul></div>
+  <div class="dbox"><h4>🔥 本月誓言</h4><p>AI课程卖的不是知识，是客户在AI时代的安全感。<br>抓住焦虑，给足方案，4月必胜！</p></div>
+</div>
 <div class="export-bar">
-  <button id="expCurBtn">📸 下载当前风格</button>
-  <button class="btn-all" id="expAllBtn">📦 下载全部8种</button>
+  <button onclick="exportCurrent()">📸 下载当前风格</button>
+  <button class="btn-all" onclick="exportAll()">📦 下载全部8种</button>
   <span class="info" id="exportInfo">精细排版示例 · 8种风格 · 6种配色</span>
 </div>
 <div id="contentArea">
@@ -443,119 +471,27 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <div class="gc full rules"><h3><span class="dot"></span>4月必胜</h3><p>抓住焦虑，给足方案！AI课程卖的是安全感。</p></div>
   </div>
 </div>
-
-<script>
-const themes={
-  pink:{primary:'#e8457c',light:'#fff0f3',gradient:'linear-gradient(135deg,#e8457c,#ff8fab)',text:'#a01040'},
-  blue:{primary:'#4f6df5',light:'#eef2ff',gradient:'linear-gradient(135deg,#4f6df5,#8ba4ff)',text:'#2b3fa0'},
-  green:{primary:'#10b981',light:'#ecfdf5',gradient:'linear-gradient(135deg,#10b981,#6ee7b7)',text:'#047857'},
-  orange:{primary:'#f97316',light:'#fff7ed',gradient:'linear-gradient(135deg,#f97316,#fdba74)',text:'#c2410c'},
-  purple:{primary:'#8b5cf6',light:'#f5f3ff',gradient:'linear-gradient(135deg,#8b5cf6,#c4b5fd)',text:'#5b21b6'},
-  cyan:{primary:'#0ea5e9',light:'#f0f9ff',gradient:'linear-gradient(135deg,#0ea5e9,#7dd3fc)',text:'#0369a1'}
-};
-const r=document.documentElement.style;
-document.querySelectorAll('.style-btn').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.style-btn').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.content').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');
-  document.querySelector('.s'+b.dataset.s).classList.add('active');
-}));
-document.querySelectorAll('.color-dot').forEach(d=>d.addEventListener('click',()=>{
-  document.querySelectorAll('.color-dot').forEach(x=>x.classList.remove('active'));
-  d.classList.add('active');
-  const t=themes[d.dataset.c];
-  r.setProperty('--primary',t.primary);
-  r.setProperty('--light',t.light);
-  r.setProperty('--gradient',t.gradient);
-  r.setProperty('--text',t.text);
-}));
-</script>
 </div>
 <script>
-(function(){
 var themes={pink:{primary:'#e8457c',light:'#fff0f3',gradient:'linear-gradient(135deg,#e8457c,#ff8fab)',text:'#a01040'},blue:{primary:'#4f6df5',light:'#eef2ff',gradient:'linear-gradient(135deg,#4f6df5,#8ba4ff)',text:'#2b3fa0'},green:{primary:'#10b981',light:'#ecfdf5',gradient:'linear-gradient(135deg,#10b981,#6ee7b7)',text:'#047857'},orange:{primary:'#f97316',light:'#fff7ed',gradient:'linear-gradient(135deg,#f97316,#fdba74)',text:'#c2410c'},purple:{primary:'#8b5cf6',light:'#f5f3ff',gradient:'linear-gradient(135deg,#8b5cf6,#c4b5fd)',text:'#5b21b6'},cyan:{primary:'#0ea5e9',light:'#f0f9ff',gradient:'linear-gradient(135deg,#0ea5e9,#7dd3fc)',text:'#0369a1'}};
+var R=document.documentElement.style;
+document.querySelectorAll(".style-btn").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});b.classList.add("active");var e=document.querySelector(".s"+b.dataset.s);if(e)e.classList.add("active")})});
+document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("click",function(){document.querySelectorAll(".color-dot").forEach(function(x){x.classList.remove("active")});d.classList.add("active");var t=themes[d.dataset.c];R.setProperty("--primary",t.primary);R.setProperty("--light",t.light);R.setProperty("--gradient",t.gradient);R.setProperty("--text",t.text)})});
 
-function E(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-
-function parseText(text){
-  var lines=text.split('\n').map(function(l){return l.trim()}).filter(function(l){return l.length>0});
-  if(!lines.length) return null;
-  var data={title:lines[0],sections:[]};
-  var curSec=null;
-  for(var i=1;i<lines.length;i++){
-    var l=lines[i];
-    var isHeader=false;
-    if(/^[\[\【]/.test(l)&&/[\]\】]/.test(l)){isHeader=true;l=l.replace(/^[\[\【]/,'').replace(/[\]\】]$/,'')}
-    else if(/[：:]$/.test(l)&&l.length<25){isHeader=true;l=l.replace(/[：:]$/,'')}
-    else if(/^第.{1,6}[阶段周步期章节]/.test(l)){isHeader=true}
-    else if(/^[一二三四五六七八九十]+[、.．]/.test(l)){isHeader=true}
-    else if(/^\d+[、.．]\s*[^\d]/.test(l)&&l.length<25){isHeader=true}
-    if(isHeader){
-      if(curSec) data.sections.push(curSec);
-      curSec={title:l.replace(/^[一二三四五六七八九十]+[、.．]\s*/,'').replace(/^\d+[、.．]\s*/,''),items:[]};
-    }else{
-      if(!curSec) curSec={title:'内容',items:[]};
-      curSec.items.push(l);
-    }
-  }
-  if(curSec) data.sections.push(curSec);
-  if(data.sections.length===1&&data.sections[0].items.length>6){
-    var items=data.sections[0].items;data.sections=[];var chunk=[];
-    for(var j=0;j<items.length;j++){chunk.push(items[j]);if(chunk.length>=3||j===items.length-1){data.sections.push({title:chunk[0].substring(0,10),items:chunk});chunk=[];}}
-  }
-  return data;
-}
-
+function E(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 var emojis=['🎯','📅','⏰','💡','📌','🏆','💪','✨'];
-function shape(idx){var t=idx%5;var n=idx+1;if(t===1)return '<div class="num" style="clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)">'+n+'</div>';if(t===2)return '<div class="num" style="clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)">'+n+'</div>';if(t===3)return '<div class="num" style="border-radius:8px">'+n+'</div>';if(t===4)return '<div class="num" style="border-radius:10px">'+n+'</div>';return '<div class="num">'+n+'</div>'}
-
-function buildS1(d){var h='<div class="content active s1"><div class="hero"><h1>'+E(d.title)+'</h1></div>';d.sections.forEach(function(s,i){h+='<div class="stitle">'+emojis[i%8]+' '+E(s.title)+'</div>';if(s.items.length<=4){s.items.forEach(function(item,j){h+='<div class="card">'+shape(j)+'<div><p>'+E(item)+'</p></div></div>'});}else{h+='<div class="cbox"><ul class="plist">';s.items.forEach(function(item){h+='<li>'+E(item)+'</li>'});h+='</ul></div>';}});h+='<div class="dbox"><h4>✨ TextCraft 精美排版</h4><p>输入任意文字 · 一键生成8种精美风格</p></div></div>';return h}
-function buildS2(d){var h='<div class="content s2"><div class="header"><h1>'+E(d.title)+'</h1></div><div class="timeline">';d.sections.forEach(function(s,i){h+='<div class="tl-item"><span class="days">'+E(s.title)+'</span><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'});h+='</div>'});h+='</div><div class="rules"><h4>✨ TextCraft 精美排版</h4><p>输入任意文字 · 一键生成8种精美风格</p></div></div>';return h}
-function buildS3(d){var h='<div class="content s3"><div class="bighero"><span class="emoji">🚀</span><h1>'+E(d.title)+'</h1></div><div class="bcontent">';d.sections.forEach(function(s,i){h+='<div class="bc"><div class="icon">'+emojis[i%8]+'</div><h3>'+E(s.title)+'</h3>';s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'});h+='</div>'});h+='</div><div class="footer"><h4>✨ TextCraft 精美排版</h4><p>输入任意文字 · 一键生成8种精美风格</p></div></div>';return h}
-function buildS4(d){var h='<div class="content s4"><div class="mintitle"><h1>'+E(d.title)+'</h1><div class="line"></div></div>';d.sections.forEach(function(s,i){h+='<div class="minsec"><div class="bignum">'+String(i+1).padStart(2,'0')+'</div><h3>'+E(s.title)+'</h3><p>';h+=s.items.map(E).join('<br>');h+='</p></div>';if(i<d.sections.length-1)h+='<hr class="mindiv">'});h+='</div>';return h}
-function buildS5(d){var h='<div class="content s5"><div class="mag-header"><h1>'+E(d.title)+'</h1><span class="side-text">TEXTCRAFT</span></div><div class="mag-body"><span class="side-deco">精美排版</span>';d.sections.forEach(function(s,i){h+='<div class="mag-sec"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';if(s.items.length>2){h+='<ul class="mag-pri">';s.items.forEach(function(item){h+='<li>'+E(item)+'</li>'});h+='</ul>';}else{s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'})}h+='</div>'});h+='</div><div class="mag-footer"><h4>TextCraft</h4><p>精美排版 · 一键生成</p></div></div>';return h}
-function buildS6(d){var h='<div class="content s6"><div class="note-header"><h1>'+E(d.title)+'</h1><div class="tape"></div><div class="tape-2"></div></div><div class="note-body"><div class="sticky">📝 TextCraft</div>';d.sections.forEach(function(s,i){h+='<div class="nphase"><h4>'+emojis[i%8]+' '+E(s.title)+'</h4><p>';h+=s.items.map(E).join('<br>');h+='</p></div>'});h+='<div class="nrules"><h4>✨ 精美排版</h4><p>TextCraft 自动生成</p></div></div></div>';return h}
-function buildS7(d){var h='<div class="content s7"><div class="info-hero"><h1>'+E(d.title)+'</h1><p>'+d.sections.length+'个板块</p></div>';d.sections.forEach(function(s,i){h+='<div class="ibox"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';if(s.items.length>3){s.items.forEach(function(item){h+='<div class="srow"><span class="badge">▸</span><span class="task">'+E(item)+'</span></div>'})}else{s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'})}h+='</div>'});h+='<div class="irules"><h4>✨ TextCraft 精美排版</h4></div></div>';return h}
-function buildS8(d){var h='<div class="content s8"><div class="grid-hero"><h1>'+E(d.title)+'</h1><p>'+d.sections.length+'个板块</p></div><div class="grid">';d.sections.forEach(function(s,i){var full=s.items.join('').length>60?' full':'';h+='<div class="gc'+full+'"><h3><span class="dot"></span>'+E(s.title)+'</h3>';if(s.items.length>2){h+='<ul>';s.items.forEach(function(item){h+='<li>'+E(item)+'</li>'});h+='</ul>'}else{s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'})}h+='</div>'});h+='</div></div>';return h}
-
-window.generate=function(){
-  var text=document.getElementById('inputText').value.trim();
-  if(!text){alert('请先粘贴内容');return}
-  var d=parseText(text);
-  if(!d||!d.sections.length){alert('未识别到内容结构');return}
-  var area=document.getElementById('contentArea');
-  area.innerHTML=buildS1(d)+buildS2(d)+buildS3(d)+buildS4(d)+buildS5(d)+buildS6(d)+buildS7(d)+buildS8(d);
-  document.querySelectorAll('.style-btn').forEach(function(x){x.classList.remove('active')});
-  document.querySelector('.style-btn[data-s="1"]').classList.add('active');
-  document.getElementById('exportInfo').textContent='✅ 已生成'+d.sections.length+'个板块的8种排版（通用模板）';
-};
-
-document.getElementById('genBtn').addEventListener('click',window.generate);
-document.getElementById('expCurBtn').addEventListener('click',function(){alert('请使用浏览器截图或右键保存图片')});
-document.getElementById('expAllBtn').addEventListener('click',function(){alert('请切换到每种风格后截图保存')});
-
-document.querySelectorAll('.style-btn').forEach(function(b){
-  b.addEventListener('click',function(){
-    document.querySelectorAll('.style-btn').forEach(function(x){x.classList.remove('active')});
-    document.querySelectorAll('.content').forEach(function(x){x.classList.remove('active')});
-    b.classList.add('active');
-    var el=document.querySelector('.s'+b.dataset.s);
-    if(el) el.classList.add('active');
-  });
-});
-
-document.querySelectorAll('.color-dot').forEach(function(dot){
-  dot.addEventListener('click',function(){
-    document.querySelectorAll('.color-dot').forEach(function(x){x.classList.remove('active')});
-    dot.classList.add('active');
-    var t=themes[dot.dataset.c];
-    document.documentElement.style.setProperty('--primary',t.primary);
-    document.documentElement.style.setProperty('--light',t.light);
-    document.documentElement.style.setProperty('--gradient',t.gradient);
-    document.documentElement.style.setProperty('--text',t.text);
-  });
-});
-
-})();
+function shape(i){var t=i%5,n=i+1;if(t===1)return '<div class="num" style="clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)">'+n+'</div>';if(t===2)return '<div class="num" style="clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)">'+n+'</div>';if(t===3)return '<div class="num" style="border-radius:8px">'+n+'</div>';if(t===4)return '<div class="num" style="border-radius:10px">'+n+'</div>';return '<div class="num">'+n+'</div>'}
+function parseText(text){var lines=text.split('\n').map(function(l){return l.trim()}).filter(function(l){return l.length>0});if(!lines.length)return null;var data={title:lines[0],sections:[]};var curSec=null;for(var i=1;i<lines.length;i++){var l=lines[i];var isH=false;if(/^[\u3010\u3011]/.test(l)){isH=true;l=l.replace(/^[\u3010]/,'').replace(/[\u3011]$/,'')}else if(/[\uff1a:]$/.test(l)&&l.length<25){isH=true;l=l.replace(/[\uff1a:]$/,'')}else if(/^[一-十]+[、.]/.test(l)){isH=true}else if(/^\d+[、.]\s*[^\d]/.test(l)&&l.length<25){isH=true}if(isH){if(curSec)data.sections.push(curSec);curSec={title:l.replace(/^[一-十]+[、.]\s*/,'').replace(/^\d+[、.]\s*/,''),items:[]}}else{if(!curSec)curSec={title:'\u5185\u5bb9',items:[]};curSec.items.push(l)}}if(curSec)data.sections.push(curSec);if(data.sections.length===1&&data.sections[0].items.length>6){var items=data.sections[0].items;data.sections=[];var chunk=[];for(var j=0;j<items.length;j++){chunk.push(items[j]);if(chunk.length>=3||j===items.length-1){data.sections.push({title:chunk[0].substring(0,10),items:chunk});chunk=[]}}}return data}
+function bS1(d){var h='<div class="content active s1"><div class="hero"><h1>'+E(d.title)+'</h1></div>';d.sections.forEach(function(s,i){h+='<div class="stitle">'+emojis[i%8]+' '+E(s.title)+'</div>';if(s.items.length<=4){s.items.forEach(function(t,j){h+='<div class="card">'+shape(j)+'<div><p>'+E(t)+'</p></div></div>'})}else{h+='<div class="cbox"><ul class="plist">';s.items.forEach(function(t){h+='<li>'+E(t)+'</li>'});h+='</ul></div>'}});h+='<div class="dbox"><h4>\u2728 TextCraft \u7cbe\u7f8e\u6392\u7248</h4><p>\u8f93\u5165\u4efb\u610f\u6587\u5b57 \xb7 \u4e00\u952e\u751f\u62108\u79cd\u7cbe\u7f8e\u98ce\u683c</p></div></div>';return h}
+function bS2(d){var h='<div class="content s2"><div class="header"><h1>'+E(d.title)+'</h1></div><div class="sbox"><p>\u5171'+d.sections.length+'\u4e2a\u677f\u5757</p></div><div class="timeline">';d.sections.forEach(function(s,i){h+='<div class="tl-item"><span class="days">'+E(s.title)+'</span><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'});h+='</div>'});h+='</div><div class="rules"><h4>\u2728 TextCraft \u7cbe\u7f8e\u6392\u7248</h4></div></div>';return h}
+function bS3(d){var h='<div class="content s3"><div class="bighero"><span class="emoji">\ud83d\ude80</span><h1>'+E(d.title)+'</h1></div><div class="bcontent">';d.sections.forEach(function(s,i){h+='<div class="bc"><div class="icon">'+emojis[i%8]+'</div><h3>'+E(s.title)+'</h3>';s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'});h+='</div>'});h+='</div><div class="footer"><h4>\u2728 TextCraft \u7cbe\u7f8e\u6392\u7248</h4></div></div>';return h}
+function bS4(d){var h='<div class="content s4"><div class="mintitle"><h1>'+E(d.title)+'</h1><div class="line"></div></div>';d.sections.forEach(function(s,i){h+='<div class="minsec"><div class="bignum">'+String(i+1).padStart(2,'0')+'</div><h3>'+E(s.title)+'</h3><p>';h+=s.items.map(E).join('<br>');h+='</p></div>';if(i<d.sections.length-1)h+='<hr class="mindiv">'});h+='</div>';return h}
+function bS5(d){var h='<div class="content s5"><div class="mag-header"><h1>'+E(d.title)+'</h1><span class="side-text">TEXTCRAFT</span></div><div class="mag-body"><span class="side-deco">\u7cbe\u7f8e\u6392\u7248</span>';d.sections.forEach(function(s,i){h+='<div class="mag-sec"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';if(s.items.length>2){h+='<ul class="mag-pri">';s.items.forEach(function(t){h+='<li>'+E(t)+'</li>'});h+='</ul>'}else{s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'})}h+='</div>'});h+='</div><div class="mag-footer"><h4>TextCraft</h4><p>\u7cbe\u7f8e\u6392\u7248 \xb7 \u4e00\u952e\u751f\u6210</p></div></div>';return h}
+function bS6(d){var h='<div class="content s6"><div class="note-header"><h1>'+E(d.title)+'</h1><div class="tape"></div><div class="tape-2"></div></div><div class="note-body"><div class="sticky">\ud83d\udcdd TextCraft</div>';d.sections.forEach(function(s,i){h+='<div class="nphase"><h4>'+emojis[i%8]+' '+E(s.title)+'</h4><p>';h+=s.items.map(E).join('<br>');h+='</p></div>'});h+='<div class="nrules"><h4>\u2728 \u7cbe\u7f8e\u6392\u7248</h4></div></div></div>';return h}
+function bS7(d){var h='<div class="content s7"><div class="info-hero"><h1>'+E(d.title)+'</h1><p>'+d.sections.length+'\u4e2a\u677f\u5757</p></div>';d.sections.forEach(function(s,i){h+='<div class="ibox"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';if(s.items.length>3){s.items.forEach(function(t){h+='<div class="srow"><span class="badge">\u25b8</span><span class="task">'+E(t)+'</span></div>'})}else{s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'})}h+='</div>'});h+='<div class="irules"><h4>\u2728 TextCraft \u7cbe\u7f8e\u6392\u7248</h4></div></div>';return h}
+function bS8(d){var h='<div class="content s8"><div class="grid-hero"><h1>'+E(d.title)+'</h1><p>'+d.sections.length+'\u4e2a\u677f\u5757</p></div><div class="grid">';d.sections.forEach(function(s,i){var full=s.items.join('').length>60?' full':'';h+='<div class="gc'+full+'"><h3><span class="dot"></span>'+E(s.title)+'</h3>';if(s.items.length>2){h+='<ul>';s.items.forEach(function(t){h+='<li>'+E(t)+'</li>'});h+='</ul>'}else{s.items.forEach(function(t){h+='<p>'+E(t)+'</p>'})}h+='</div>'});h+='</div></div>';return h}
+function generate(){var text=document.getElementById("inputText").value.trim();if(!text){alert("请先粘贴内容");return}var d=parseText(text);if(!d||!d.sections.length){alert("未识别到内容结构");return}var area=document.getElementById("contentArea");area.innerHTML=bS1(d)+bS2(d)+bS3(d)+bS4(d)+bS5(d)+bS6(d)+bS7(d)+bS8(d);document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});document.querySelector('.style-btn[data-s="1"]').classList.add("active");area.querySelector(".s1").classList.add("active");document.getElementById("exportInfo").textContent="\u2705 \u5df2\u751f\u6210"+d.sections.length+"\u4e2a\u677f\u5757\u76848\u79cd\u7cbe\u7f8e\u6392\u7248"}
+function exportCurrent(){alert("请使用浏览器截图功能保存当前排版图片")}
+function exportAll(){alert("请逐一切换风格后使用截图功能保存")}
 </script>
 </body></html>
