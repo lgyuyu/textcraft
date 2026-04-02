@@ -89,17 +89,17 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s3 .footer h4{font-size:16px;margin-bottom:8px}.s3 .footer p{font-size:13px;opacity:.95;line-height:1.8}
 
 /* S4 */
-.s4{background:#fff;border-radius:var(--radius);padding:40px 36px;box-shadow:var(--shadow)}
+.s4{background:#fff;border-radius:var(--radius);padding:56px 44px;box-shadow:var(--shadow)}
 .s4 .mintitle{text-align:center;margin-bottom:48px}
-.s4 .mintitle h1{font-size:24px;font-weight:700;color:#222;letter-spacing:1px}
+.s4 .mintitle h1{font-size:28px;font-weight:300;color:#222;letter-spacing:2px}
 .s4 .mintitle .line{width:40px;height:2px;background:var(--primary);margin:16px auto 0}
-.s4 .minsec{margin-bottom:20px}
+.s4 .minsec{margin-bottom:48px}
 .s4 .minsec .bignum{font-size:48px;font-weight:200;color:var(--primary);opacity:.4;line-height:1}
-.s4 .minsec h3{font-size:17px;font-weight:700;color:var(--text);margin:4px 0 10px;letter-spacing:1px}
-.s4 .minsec p{font-size:14px;color:#555;line-height:2.2;letter-spacing:.5px}
-.s4 .mindiv{border:none;border-top:1px solid #f0f0f0;margin:32px 0}
-.s4 .minsched{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
-.s4 .mintime strong{font-size:14px;color:var(--text)}.s4 .mintime p{font-size:13px;color:#555;margin-top:2px}
+.s4 .minsec h3{font-size:17px;font-weight:600;color:#222;margin:6px 0 14px;letter-spacing:1px}
+.s4 .minsec p{font-size:14px;color:#999;line-height:2.2;letter-spacing:.5px}
+.s4 .mindiv{border:none;border-top:1px solid #f0f0f0;margin:48px 0}
+.s4 .minsched{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin:40px 0}
+.s4 .mintime strong{font-size:14px;color:var(--text)}.s4 .mintime p{font-size:13px;color:#aaa;margin-top:2px}
 .s4 .minrules{text-align:center;padding:40px 0;margin-top:24px;border-top:1px solid #f0f0f0}
 .s4 .minrules p{font-size:15px;color:var(--primary);font-weight:400;letter-spacing:2px;line-height:2.2}
 
@@ -179,8 +179,8 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s8{background:var(--light);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
 .s8 .grid-hero{background:var(--gradient);border-radius:12px;padding:20px;color:#fff;text-align:center;margin-bottom:16px}
 .s8 .grid-hero h1{font-size:20px;font-weight:700}.s8 .grid-hero p{font-size:12px;opacity:.9;margin-top:4px}
-.s8 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.s8 .gc{background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.s8 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.s8 .gc{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
 .s8 .gc.full{grid-column:1/-1}
 .s8 .gc h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .s8 .gc h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--primary)}
@@ -194,7 +194,7 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 
 .editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
 .editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
-.editor-panel textarea{width:100%;height:200px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
+.editor-panel textarea{width:100%;height:180px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
 .editor-panel textarea:focus{border-color:var(--primary)}
 .editor-panel .hint{font-size:12px;color:#999;margin-top:8px}
 .btn-row{display:flex;gap:10px;margin-top:14px}
@@ -207,10 +207,10 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 </head>
 <body>
 <div class="editor-panel">
-  <h3>📝 粘贴你的内容，自动生成精美排版</h3>
-  <textarea id="inputText" placeholder="在这里粘贴你的内容...&#10;&#10;支持任意文本，段落之间用空行分隔"></textarea>
-  <div class="hint">粘贴内容后点击「生成排版」，自动生成8种风格 × 6种配色</div>
-  <div class="btn-row"><button onclick="generate()">🚀 生成排版</button></div>
+  <h3>📝 粘贴你的内容，快速预览排版效果</h3>
+  <textarea id="inputText" placeholder="在这里粘贴你的内容..."></textarea>
+  <div class="hint">当前展示为精细排版示例。粘贴新内容可用通用模板快速预览，精细排版请联系墨痕-编程。</div>
+  <div class="btn-row"><button onclick="generate()">🚀 快速预览</button></div>
 </div>
 <div class="controls">
   <div class="style-btns">
@@ -232,90 +232,255 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <div class="color-dot" data-c="cyan" title="深海青"></div>
   </div>
 </div>
+<div class="content active s1">
+  <div class="hero"><h1>2025年4月"AI破局"月度销售冲刺计划</h1><p>高开高走，抓大放小，利用AI热点+痛点成交</p></div>
+  <div class="stitle">🎯 核心目标</div>
+  <div class="cbox"><p>保底<strong>60万</strong>，冲刺<strong>80万</strong>。执行周期：4月1日-4月30日。</p></div>
+  <div class="twrap"><table><thead><tr><th>指标</th><th>保底</th><th>冲刺</th></tr></thead><tbody>
+    <tr><td>总销售额(GMV)</td><td><b>¥600,000</b></td><td><b>¥800,000</b></td></tr>
+    <tr><td>成交单量</td><td>75单</td><td>100单</td></tr>
+    <tr><td>月度转化率</td><td>18%</td><td>25%</td></tr>
+    <tr><td>新增A类客户</td><td>60个</td><td>80个</td></tr>
+    <tr><td>每日有效沟通</td><td>15个/天</td><td>20个/天</td></tr>
+  </tbody></table></div>
+  <div class="stitle">📅 四周节奏</div>
+  <div class="card"><div class="num">1</div><div><h3>第1周：蓄水激活（4/1-4/7）</h3><p>清空遗留意向，预热朋友圈，回访老客户。目标<b>10万</b>。</p></div></div>
+  <div class="card"><div class="num">2</div><div><h3>第2周：爆破收割（4/8-4/15）</h3><p>配合直播/公开课集中邀约，AI焦虑切入。目标<b>20万</b>（黄金周）。</p></div></div>
+  <div class="card"><div class="num">3</div><div><h3>第3周：追单补位（4/16-4/23）</h3><p>攻克犹豫型客户，月底恢复原价紧迫感。目标<b>15万</b>。</p></div></div>
+  <div class="card"><div class="num">4</div><div><h3>第4周：极限冲刺（4/24-4/30）</h3><p>倒计时氛围，最后3天跟最高意向客户。目标<b>保底15万冲刺30万</b>。</p></div></div>
+  <div class="stitle">⏰ 每日执行（721法则）</div>
+  <div class="twrap"><table><thead><tr><th>时段</th><th>动作</th></tr></thead><tbody>
+    <tr><td>08:30-09:00</td><td>晨会：定"必杀单"3人</td></tr>
+    <tr><td>09:00-10:00</td><td>黄金触达：10个有效沟通</td></tr>
+    <tr><td>10:00-12:00</td><td>深度沟通：2-3场语音/视频</td></tr>
+    <tr><td>12:00-13:30</td><td>朋友圈运营</td></tr>
+    <tr><td>13:30-15:00</td><td>公海捞鱼：激活老客户</td></tr>
+    <tr><td>15:00-17:30</td><td>强逼单：≥5次付款链接</td></tr>
+    <tr><td>17:30-18:30</td><td>晚高峰补位</td></tr>
+    <tr><td>20:00-22:00</td><td>复盘：更新CRM，次日30人名单</td></tr>
+  </tbody></table></div>
+  <div class="stitle">🏆 激励与惩罚</div>
+  <div class="cbox"><p><b>即时激励：</b>周冠军¥1000 / 首单¥50星巴克 / 大单(>¥15000)¥288红包</p><p><b>负向鞭策：</b>连续3天未开单→情景演练 / 有效沟通&lt;15个→整理50条素材</p></div>
+  <div class="stitle">⚠️ 风险预案</div>
+  <div class="cbox"><ul class="plist"><li>月中&lt;30万 → 老带新裂变</li><li>竞品低价 → 拼交付服务（1对1答疑+作业批改+永久回放）</li><li>客户投诉 → 30分钟内响应，安抚优先</li></ul></div>
+  <div class="dbox"><h4>🔥 本月誓言</h4><p>AI课程卖的不是知识，是客户在AI时代的安全感。<br>抓住焦虑，给足方案，4月必胜！</p></div>
+</div>
 <div class="export-bar">
   <button onclick="exportCurrent()">📸 下载当前风格</button>
   <button class="btn-all" onclick="exportAll()">📦 下载全部8种</button>
-  <span class="info" id="exportInfo">粘贴内容 → 生成排版 → 下载图片</span>
+  <span class="info" id="exportInfo">精细排版示例 · 8种风格 · 6种配色</span>
 </div>
-<div id="contentArea"></div>
+<div id="contentArea">
+<div class="content active s1">
+  <div class="hero"><h1>2025年4月"AI破局"月度销售冲刺计划</h1><p>高开高走，抓大放小，利用AI热点+痛点成交</p></div>
+  <div class="stitle">🎯 核心目标</div>
+  <div class="cbox"><p>保底<strong>60万</strong>，冲刺<strong>80万</strong>。执行周期：4月1日-4月30日。</p></div>
+  <div class="twrap"><table><thead><tr><th>指标</th><th>保底</th><th>冲刺</th></tr></thead><tbody>
+    <tr><td>总销售额(GMV)</td><td><b>¥600,000</b></td><td><b>¥800,000</b></td></tr>
+    <tr><td>成交单量</td><td>75单</td><td>100单</td></tr>
+    <tr><td>月度转化率</td><td>18%</td><td>25%</td></tr>
+    <tr><td>新增A类客户</td><td>60个</td><td>80个</td></tr>
+    <tr><td>每日有效沟通</td><td>15个/天</td><td>20个/天</td></tr>
+  </tbody></table></div>
+  <div class="stitle">📅 四周节奏</div>
+  <div class="card"><div class="num">1</div><div><h3>第1周：蓄水激活（4/1-4/7）</h3><p>清空遗留意向，预热朋友圈，回访老客户。目标<b>10万</b>。</p></div></div>
+  <div class="card"><div class="num">2</div><div><h3>第2周：爆破收割（4/8-4/15）</h3><p>配合直播/公开课集中邀约，AI焦虑切入。目标<b>20万</b>（黄金周）。</p></div></div>
+  <div class="card"><div class="num">3</div><div><h3>第3周：追单补位（4/16-4/23）</h3><p>攻克犹豫型客户，月底恢复原价紧迫感。目标<b>15万</b>。</p></div></div>
+  <div class="card"><div class="num">4</div><div><h3>第4周：极限冲刺（4/24-4/30）</h3><p>倒计时氛围，最后3天跟最高意向客户。目标<b>保底15万冲刺30万</b>。</p></div></div>
+  <div class="stitle">⏰ 每日执行（721法则）</div>
+  <div class="twrap"><table><thead><tr><th>时段</th><th>动作</th></tr></thead><tbody>
+    <tr><td>08:30-09:00</td><td>晨会：定"必杀单"3人</td></tr>
+    <tr><td>09:00-10:00</td><td>黄金触达：10个有效沟通</td></tr>
+    <tr><td>10:00-12:00</td><td>深度沟通：2-3场语音/视频</td></tr>
+    <tr><td>12:00-13:30</td><td>朋友圈运营</td></tr>
+    <tr><td>13:30-15:00</td><td>公海捞鱼：激活老客户</td></tr>
+    <tr><td>15:00-17:30</td><td>强逼单：≥5次付款链接</td></tr>
+    <tr><td>17:30-18:30</td><td>晚高峰补位</td></tr>
+    <tr><td>20:00-22:00</td><td>复盘：更新CRM，次日30人名单</td></tr>
+  </tbody></table></div>
+  <div class="stitle">🏆 激励与惩罚</div>
+  <div class="cbox"><p><b>即时激励：</b>周冠军¥1000 / 首单¥50星巴克 / 大单(>¥15000)¥288红包</p><p><b>负向鞭策：</b>连续3天未开单→情景演练 / 有效沟通&lt;15个→整理50条素材</p></div>
+  <div class="stitle">⚠️ 风险预案</div>
+  <div class="cbox"><ul class="plist"><li>月中&lt;30万 → 老带新裂变</li><li>竞品低价 → 拼交付服务（1对1答疑+作业批改+永久回放）</li><li>客户投诉 → 30分钟内响应，安抚优先</li></ul></div>
+  <div class="dbox"><h4>🔥 本月誓言</h4><p>AI课程卖的不是知识，是客户在AI时代的安全感。<br>抓住焦虑，给足方案，4月必胜！</p></div>
+</div>
+
+<div class="content s2">
+  <div class="header"><h1>2025年4月"AI破局"</h1><p>月度销售冲刺计划 · 保底60万冲刺80万</p></div>
+  <div class="sbox"><p><b>核心策略：</b>高开高走，抓大放小，利用AI热点+痛点成交。721法则：70%沟通 / 20%学习复盘 / 10%发圈维护。</p></div>
+  <div class="pinline"><b>核心指标：</b>GMV保底¥600,000冲刺¥800,000 | 75-100单 | 转化率18%-25% | 每日沟通15-20个</div>
+  <div class="timeline">
+    <div class="tl-item"><span class="days">第1周 4/1-4/7</span><h3>蓄水激活 · 目标10万</h3><p>清空遗留意向，预热朋友圈，回访老客户。话术："4月季度冲刺，额外实操大礼包，仅限前20名。"</p></div>
+    <div class="tl-item"><span class="days">第2周 4/8-4/15</span><h3>爆破收割 · 目标20万（黄金周）</h3><p>配合直播/公开课集中邀约，AI焦虑切入。话术："直播限时福利，额外赠送价值¥2999 AI提示词库。"</p></div>
+    <div class="tl-item"><span class="days">第3周 4/16-4/23</span><h3>追单补位 · 目标15万</h3><p>攻克犹豫型客户，月底恢复原价紧迫感。话术："本周是最后的优惠期。"</p></div>
+    <div class="tl-item"><span class="days">第4周 4/24-4/30</span><h3>极限冲刺 · 保底15万冲刺30万</h3><p>倒计时氛围，最后3天跟最高意向客户。话术："仅剩3个名额，财务在等打款。"</p></div>
+  </div>
+  <div class="sbox" style="margin-bottom:20px"><p><b>激励：</b>周冠军¥1000 / 首单¥50 / 大单(>¥15000)¥288<br><b>鞭策：</b>3天未开单→情景演练 / 沟通&lt;15个→整理素材</p></div>
+  <div class="tgrid">
+    <div class="titem"><strong>🌅 08:30-10:00</strong><span>晨会+黄金触达(10沟通)</span></div>
+    <div class="titem"><strong>💬 10:00-12:00</strong><span>深度沟通(2-3场语音/视频)</span></div>
+    <div class="titem"><strong>📱 12:00-15:00</strong><span>朋友圈+公海捞鱼</span></div>
+    <div class="titem"><strong>🔥 15:00-18:30</strong><span>强逼单(≥5次付款链接)</span></div>
+    <div class="titem"><strong>📊 20:00-22:00</strong><span>复盘CRM，次日30人名单</span></div>
+  </div>
+  <div class="rules"><h4>🔥 本月誓言</h4><p>抓住焦虑，给足方案，4月必胜！</p></div>
+</div>
+
+<div class="content s3">
+  <div class="bighero"><span class="emoji">🚀</span><h1>"AI破局"月度销售冲刺</h1><p>2025年4月 · 保底60万 → 冲刺80万</p></div>
+  <div class="bcontent">
+    <div class="bc"><div class="icon">🎯</div><h3>核心策略</h3><p>高开高走，抓大放小，利用AI热点+痛点成交。721法则：70%沟通 / 20%学习复盘 / 10%发圈维护。</p></div>
+    <div class="pricards">
+      <div class="pricard"><div class="rank">💰</div><p><b>¥600K-800K</b><br>总销售额</p></div>
+      <div class="pricard"><div class="rank">📊</div><p><b>75-100单</b><br>成交单量</p></div>
+      <div class="pricard"><div class="rank">📈</div><p><b>18%-25%</b><br>月度转化率</p></div>
+    </div>
+    <div class="bc"><div class="icon">📅</div><h3>第1周：蓄水激活（4/1-4/7）· 目标10万</h3><p>清空遗留意向，预热朋友圈，回访老客户。</p></div>
+    <div class="bc"><div class="icon">💥</div><h3>第2周：爆破收割（4/8-4/15）· 目标20万</h3><p>配合直播/公开课集中邀约，AI焦虑切入。黄金周。</p></div>
+    <div class="bc"><div class="icon">🎯</div><h3>第3周：追单补位（4/16-4/23）· 目标15万</h3><p>攻克犹豫型客户，月底恢复原价紧迫感。</p></div>
+    <div class="bc"><div class="icon">🔥</div><h3>第4周：极限冲刺（4/24-4/30）· 保底15万冲刺30万</h3><p>倒计时氛围，最后3天跟最高意向客户。</p></div>
+    <div class="schedrow">
+      <div class="scheditem"><div class="time">08:30</div><div class="act">🌅 晨会</div></div>
+      <div class="scheditem"><div class="time">09:00</div><div class="act">📞 黄金触达</div></div>
+      <div class="scheditem"><div class="time">15:00</div><div class="act">🔥 强逼单</div></div>
+      <div class="scheditem"><div class="time">20:00</div><div class="act">📊 复盘</div></div>
+    </div>
+  </div>
+  <div class="footer"><h4>🏆 激励：周冠军¥1000 / 首单¥50 / 大单¥288</h4><p>抓住焦虑，给足方案，4月必胜！</p></div>
+</div>
+
+<div class="content s4">
+  <div class="mintitle"><h1>AI破局</h1><div class="sub">2025年4月 · 销售冲刺计划</div><div class="line"></div></div>
+  <div class="minsec"><div class="bignum">01</div><h3>核心目标</h3><p>保底60万，冲刺80万<br>GMV保底¥600,000 / 冲刺¥800,000<br>成交75-100单 · 转化率18%-25%<br>每日有效沟通15-20个</p></div>
+  <hr class="mindiv">
+  <div class="minsec"><div class="bignum">02</div><h3>第1周：蓄水激活 · 10万</h3><p>清空遗留意向，预热朋友圈<br>回访老客户</p></div>
+  <hr class="mindiv">
+  <div class="minsec"><div class="bignum">03</div><h3>第2周：爆破收割 · 20万</h3><p>配合直播/公开课集中邀约<br>AI焦虑切入（黄金周）</p></div>
+  <hr class="mindiv">
+  <div class="minsec"><div class="bignum">04</div><h3>第3周：追单补位 · 15万</h3><p>攻克犹豫型客户<br>月底恢复原价紧迫感</p></div>
+  <hr class="mindiv">
+  <div class="minsec"><div class="bignum">05</div><h3>第4周：极限冲刺 · 15-30万</h3><p>倒计时氛围<br>最后3天跟最高意向客户</p></div>
+  <div class="minsched">
+    <div class="mintime"><strong>08:30</strong><p>晨会</p></div>
+    <div class="mintime"><strong>09:00</strong><p>黄金触达</p></div>
+    <div class="mintime"><strong>15:00</strong><p>强逼单</p></div>
+    <div class="mintime"><strong>20:00</strong><p>复盘</p></div>
+  </div>
+  <div class="minrules"><p>抓住焦虑，给足方案<br>4月必胜</p></div>
+</div>
+
+<div class="content s5">
+  <div class="mag-header"><h1>"AI破局"销售冲刺计划</h1><p>2025年4月<br>保底60万 · 冲刺80万<br>高开高走，抓大放小</p><span class="side-text">SALES PLAN APRIL 2025</span><span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:44px;letter-spacing:10px;opacity:.1;font-weight:900">AI破局</span></div>
+  <div class="mag-body"><span class="side-deco">目标节奏执行激励</span>
+    <div class="mag-sec"><h3>核心目标</h3><p>GMV保底¥600,000 / 冲刺¥800,000 | 75-100单 | 转化率18%-25% | 每日沟通15-20个。721法则：70%沟通/20%学习复盘/10%发圈维护。</p></div>
+    <div class="mag-sec"><h3>四周节奏</h3>
+      <div class="mag-phases">
+        <div class="phase"><span class="plabel">W1 · 10万</span><h4>蓄水激活</h4><p>清空遗留意向，预热朋友圈，回访老客户</p></div>
+        <div class="phase"><span class="plabel">W2 · 20万</span><h4>爆破收割</h4><p>配合直播/公开课集中邀约（黄金周）</p></div>
+        <div class="phase"><span class="plabel">W3 · 15万</span><h4>追单补位</h4><p>攻克犹豫型客户，月底恢复原价</p></div>
+        <div class="phase"><span class="plabel">W4 · 15-30万</span><h4>极限冲刺</h4><p>倒计时，最后3天跟最高意向客户</p></div>
+      </div>
+    </div>
+    <div class="mag-sec"><h3>每日执行</h3>
+      <div class="mag-sched">
+        <div class="mag-time"><strong>08:30-10:00</strong><p>晨会+黄金触达</p></div>
+        <div class="mag-time"><strong>10:00-12:00</strong><p>深度沟通</p></div>
+        <div class="mag-time"><strong>12:00-15:00</strong><p>朋友圈+公海捞鱼</p></div>
+        <div class="mag-time"><strong>15:00-22:00</strong><p>强逼单+晚高峰+复盘</p></div>
+      </div>
+    </div>
+    <div class="mag-sec"><h3>激励与风险</h3><ul class="mag-pri"><li>周冠军¥1000 / 首单¥50 / 大单¥288</li><li>月中&lt;30万→老带新裂变</li><li>竞品低价→拼交付服务</li><li>客户投诉→30分钟内响应</li></ul></div>
+  </div>
+  <div class="mag-footer"><h4>🔥 抓住焦虑，给足方案，4月必胜！</h4><p>AI课程卖的不是知识，是安全感。</p><span class="side-text">WIN APRIL</span></div>
+</div>
+
+<div class="content s6">
+  <div class="note-header"><h1>"AI破局"销售冲刺计划</h1><p>2025年4月 · 保底60万冲刺80万</p><div class="tape"></div><div class="tape-2"></div></div>
+  <div class="note-body">
+    <div class="sticky">📝 721法则<br>70%沟通<br>20%复盘<br>10%发圈</div>
+    <div class="note-title">🎯 核心目标</div>
+    <div class="note-content">GMV保底¥600,000冲刺¥800,000，成交75-100单，转化率18%-25%，每日有效沟通15-20个。</div>
+    <div class="note-title">📅 四周节奏</div>
+    <div class="nphase"><h4>第1周(4/1-4/7) 蓄水激活 · 10万</h4><p>清空遗留意向，预热朋友圈，回访老客户</p></div>
+    <div class="nphase"><h4>第2周(4/8-4/15) 爆破收割 · 20万</h4><p>配合直播/公开课集中邀约，AI焦虑切入（黄金周）</p></div>
+    <div class="nphase"><h4>第3周(4/16-4/23) 追单补位 · 15万</h4><p>攻克犹豫型客户，月底恢复原价紧迫感</p></div>
+    <div class="nphase"><h4>第4周(4/24-4/30) 极限冲刺 · 15-30万</h4><p>倒计时氛围，最后3天跟最高意向客户</p></div>
+    <div class="note-title">⏰ 每日执行</div>
+    <div class="nsched"><span class="clock">🌅</span><span class="act">08:30 晨会</span></div>
+    <div class="nsched"><span class="clock">📞</span><span class="act">09:00 黄金触达(10沟通)</span></div>
+    <div class="nsched"><span class="clock">💬</span><span class="act">10:00 深度沟通(2-3场)</span></div>
+    <div class="nsched"><span class="clock">📱</span><span class="act">12:00 朋友圈</span></div>
+    <div class="nsched"><span class="clock">🐟</span><span class="act">13:30 公海捞鱼</span></div>
+    <div class="nsched"><span class="clock">🔥</span><span class="act">15:00 强逼单(≥5次)</span></div>
+    <div class="nsched"><span class="clock">📊</span><span class="act">20:00 复盘CRM</span></div>
+    <div class="nrules"><h4>🔥 4月必胜</h4><p>周冠军¥1000 / 首单¥50 / 大单¥288<br>抓住焦虑，给足方案！</p></div>
+  </div>
+</div>
+
+<div class="content s7">
+  <div class="info-hero"><h1>"AI破局"销售冲刺计划</h1>
+    <div class="stats">
+      <div class="stat-item"><div class="stat-circle" style="--pct:75%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">80万</span><span class="unit">冲刺</span></div></div><div class="label">总销售额</div></div>
+      <div class="stat-item"><div class="stat-circle" style="--pct:75%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">100</span><span class="unit">单</span></div></div><div class="label">成交单量</div></div>
+      <div class="stat-item"><div class="stat-circle" style="--pct:25%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">25%</span><span class="unit">转化</span></div></div><div class="label">月度转化率</div></div>
+    </div>
+  </div>
+  <div class="ibox"><h3>💡 核心策略</h3><p>高开高走，抓大放小，利用AI热点+痛点成交。721法则：70%沟通 / 20%学习复盘 / 10%发圈维护。</p></div>
+  <div class="phases-row">
+    <div class="pbar"><div class="dc">10万</div><div class="dl">W1</div><h4>蓄水激活</h4><p>清空意向+预热</p><div class="bar"><div class="bar-fill" style="width:13%"></div></div></div>
+    <div class="pbar"><div class="dc">20万</div><div class="dl">W2</div><h4>爆破收割</h4><p>直播邀约（黄金周）</p><div class="bar"><div class="bar-fill" style="width:25%"></div></div></div>
+    <div class="pbar"><div class="dc">15万</div><div class="dl">W3</div><h4>追单补位</h4><p>攻克犹豫型</p><div class="bar"><div class="bar-fill" style="width:19%"></div></div></div>
+    <div class="pbar"><div class="dc">30万</div><div class="dl">W4</div><h4>极限冲刺</h4><p>倒计时逼单</p><div class="bar"><div class="bar-fill" style="width:38%"></div></div></div>
+  </div>
+  <div class="ibox"><h3>⏰ 每日执行</h3>
+    <div class="srow"><span class="badge">08:30-10:00</span><span class="task">晨会+黄金触达(10沟通)</span></div>
+    <div class="srow"><span class="badge">10:00-12:00</span><span class="task">深度沟通(2-3场语音/视频)</span></div>
+    <div class="srow"><span class="badge">12:00-15:00</span><span class="task">朋友圈运营+公海捞鱼</span></div>
+    <div class="srow"><span class="badge">15:00-18:30</span><span class="task">强逼单(≥5次付款链接)+晚高峰</span></div>
+    <div class="srow"><span class="badge">20:00-22:00</span><span class="task">复盘CRM+次日30人名单</span></div>
+  </div>
+  <div class="ibox"><h3>🏆 激励与风险</h3>
+    <div class="pri-row"><div class="name">周冠军 / 首单 / 大单(>¥15K)</div><div class="bar"><div class="bar-fill" style="width:100%"></div></div></div>
+    <div class="pri-row"><div class="name">月中&lt;30万→老带新 / 竞品→拼服务 / 投诉→30min响应</div><div class="bar"><div class="bar-fill" style="width:60%"></div></div></div>
+  </div>
+  <div class="irules"><h4>🔥 抓住焦虑，给足方案，4月必胜！</h4></div>
+</div>
+
+<div class="content s8">
+  <div class="grid-hero"><h1>"AI破局"销售冲刺计划</h1><p>2025年4月 · 保底60万冲刺80万</p></div>
+  <div class="grid">
+    <div class="gc full"><h3><span class="dot"></span>核心指标</h3>
+      <div class="trow"><span class="t">GMV</span><span class="a">保底¥600,000 / 冲刺¥800,000</span></div>
+      <div class="trow"><span class="t">成交</span><span class="a">75-100单（客单价¥8000）</span></div>
+      <div class="trow"><span class="t">转化率</span><span class="a">18%-25%</span></div>
+      <div class="trow"><span class="t">沟通</span><span class="a">15-20个/天</span></div>
+    </div>
+    <div class="gc"><h3><span class="dot"></span>W1 蓄水激活</h3><p>目标<b>10万</b><br>清空意向+预热朋友圈+回访老客户</p></div>
+    <div class="gc"><h3><span class="dot"></span>W2 爆破收割</h3><p>目标<b>20万</b><br>直播邀约+AI焦虑切入（黄金周）</p></div>
+    <div class="gc"><h3><span class="dot"></span>W3 追单补位</h3><p>目标<b>15万</b><br>攻克犹豫型+恢复原价紧迫感</p></div>
+    <div class="gc"><h3><span class="dot"></span>W4 极限冲刺</h3><p>目标<b>15-30万</b><br>倒计时+最后3天逼单</p></div>
+    <div class="gc full"><h3><span class="dot"></span>每日执行(721法则)</h3>
+      <div class="trow"><span class="t">08:30</span><span class="a">晨会：定必杀单</span></div>
+      <div class="trow"><span class="t">09:00</span><span class="a">黄金触达(10沟通)</span></div>
+      <div class="trow"><span class="t">10:00</span><span class="a">深度沟通(2-3场)</span></div>
+      <div class="trow"><span class="t">15:00</span><span class="a">强逼单(≥5次)</span></div>
+      <div class="trow"><span class="t">20:00</span><span class="a">复盘CRM+次日名单</span></div>
+    </div>
+    <div class="gc"><h3><span class="dot"></span>🏆 激励</h3><ul><li>周冠军¥1000</li><li>首单¥50</li><li>大单¥288</li></ul></div>
+    <div class="gc"><h3><span class="dot"></span>⚠️ 风险</h3><ul><li>&lt;30万→裂变</li><li>竞品→拼服务</li><li>投诉→30min</li></ul></div>
+    <div class="gc full rules"><h3><span class="dot"></span>4月必胜</h3><p>抓住焦虑，给足方案！AI课程卖的是安全感。</p></div>
+  </div>
+</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
-var themes={pink:{primary:"#e8457c",light:"#fff0f3",gradient:"linear-gradient(135deg,#e8457c,#ff8fab)",text:"#a01040"},blue:{primary:"#4f6df5",light:"#eef2ff",gradient:"linear-gradient(135deg,#4f6df5,#8ba4ff)",text:"#2b3fa0"},green:{primary:"#10b981",light:"#ecfdf5",gradient:"linear-gradient(135deg,#10b981,#6ee7b7)",text:"#047857"},orange:{primary:"#f97316",light:"#fff7ed",gradient:"linear-gradient(135deg,#f97316,#fdba74)",text:"#c2410c"},purple:{primary:"#8b5cf6",light:"#f5f3ff",gradient:"linear-gradient(135deg,#8b5cf6,#c4b5fd)",text:"#5b21b6"},cyan:{primary:"#0ea5e9",light:"#f0f9ff",gradient:"linear-gradient(135deg,#0ea5e9,#7dd3fc)",text:"#0369a1"}};
 var R=document.documentElement.style;
 document.querySelectorAll(".style-btn").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});b.classList.add("active");var e=document.querySelector(".s"+b.dataset.s);if(e)e.classList.add("active")})});
 document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("click",function(){document.querySelectorAll(".color-dot").forEach(function(x){x.classList.remove("active")});d.classList.add("active");var t=themes[d.dataset.c];R.setProperty("--primary",t.primary);R.setProperty("--light",t.light);R.setProperty("--gradient",t.gradient);R.setProperty("--text",t.text)})});
 
-function E(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
-function parse(text){
-  var lines=text.split(/\n/).map(function(l){return l.trim()}).filter(function(l){return l});
-  if(!lines.length)return{title:"\u8bf7\u8f93\u5165\u5185\u5bb9",sections:[]};
-  var d={title:lines[0],sections:[]},sec=null;
-  for(var i=1;i<lines.length;i++){
-    var l=lines[i];
-    if(/^\u7b2c.+\uff1a$/.test(l)||/^[\u4e00-\u9fa5a-zA-Z]{2,10}\uff1a$/.test(l)||/^[\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341]+[\u3001.\uff0e]?$/.test(l)){
-      if(sec)d.sections.push(sec);sec={title:l.replace(/[\uff1a:]$/,"").trim(),content:[],items:[]};
-    }else if(/^\d+[.\u3001)\uff09]\s/.test(l)||/^[\u25c6\u25cf\u25aa\u25b8\u25a0\u2605\u25ba\u00b7\u2022\u002d\u2013\u2014]\s/.test(l)){
-      if(!sec)sec={title:"\u5185\u5bb9",content:[],items:[]};sec.items.push(l.replace(/^\d+[.\u3001)\uff09]\s*|^[\u25c6\u25cf\u25aa\u25b8\u25a0\u2605\u25ba\u00b7\u2022\u002d\u2013\u2014]\s*/,""));
-    }else{
-      if(!sec)sec={title:"\u5185\u5bb9",content:[],items:[]};sec.content.push(l);
-    }
-  }
-  if(sec)d.sections.push(sec);return d;
-}
-
-var emojis=["\ud83c\udfaf","\ud83d\udcc5","\u23f0","\ud83d\udca1","\ud83d\udccc","\ud83c\udfc6","\ud83d\udcaa","\u2728"];
-
-function generate(){
-  var text=document.getElementById("inputText").value.trim();
-  if(!text){alert("\u8bf7\u5148\u7c98\u8d34\u5185\u5bb9");return}
-  var d=parse(text),area=document.getElementById("contentArea"),out="";
-  for(var si=1;si<=8;si++) out+=buildStyle(d,si);
-  area.innerHTML=out;
-  document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});
-  document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
-  document.querySelector(".style-btn[data-s=1]").classList.add("active");
-  area.querySelector(".s1").classList.add("active");
-  document.getElementById("exportInfo").textContent="\u2714\ufe0f \u5df2\u751f\u6210"+d.sections.length+"\u4e2a\u677f\u5757\u76848\u79cd\u6392\u7248";
-}
-
-function itemsHtml(s){return s.items.length?'<ul class="plist">'+s.items.map(E).map(function(x){return"<li>"+x+"</li>"}).join("")+"</ul>":""}
-function itemsPriHtml(s){return s.items.length?'<ul class="mag-pri">'+s.items.map(E).map(function(x){return"<li>"+x+"</li>"}).join("")+"</ul>":""}
-function contentHtml(s){return s.content.map(E).map(function(x){return"<p>"+x+"</p>"}).join("")}
-function itemsBr(s){return s.items.map(E).join("<br>")}
-
-function buildStyle(d,si){
-  var cls="s"+si,active=si===1?" active":"",h=E(d.title),body="";
-  d.sections.forEach(function(s,i){
-    var e=emojis[i%8],t=E(s.title),it=itemsHtml(s),ip=itemsPriHtml(s),tx=contentHtml(s),ib=itemsBr(s);
-    if(si===1) body+='<div class="stitle">'+e+" "+t+"</div>"+(it?'<div class="cbox">'+it+"</div>":"")+(tx?'<div class="cbox">'+tx+"</div>":"");
-    else if(si===2) body+='<div class="tl-item"><span class="days">'+t+"</span><h3>"+t+"</h3>"+tx+"</div>";
-    else if(si===3) body+='<div class="bc"><div class="icon">'+e+"</div><h3>"+t+"</h3>"+(ip||tx)+"</div>";
-    else if(si===4) body+='<div class="minsec"><h3>'+t+"</h3>"+(ib?"<p>"+ib+"</p>":"")+tx+"</div>";
-    else if(si===5) body+='<div class="mag-sec"><h3>'+t+"</h3>"+(ip||tx)+"</div>";
-    else if(si===6) body+='<div class="nphase"><h4>'+e+" "+t+"</h4>"+(ib?"<p>"+ib+"</p>":"")+tx+"</div>";
-    else if(si===7) body+='<div class="ibox"><h3>'+e+" "+t+"</h3>"+(ip||tx)+"</div>";
-    else if(si===8){var full=s.content.join("").length>50?" full":"";body+='<div class="gc'+full+'"><h3><span class="dot"></span>'+t+"</h3>"+(it?'<ul>'+it+"</ul>":"")+tx+"</div>";}
-  });
-  var w="",f="";
-  if(si===1) w='<div class="hero"><h1>'+h+"</h1></div>";
-  else if(si===2){w='<div class="header"><h1>'+h+"</h1></div><div class=timeline>";f="</div>";}
-  else if(si===3){w='<div class="bighero"><span class="emoji">\ud83d\ude80</span><h1>'+h+"</h1></div><div class=bcontent>";f="</div>";}
-  else if(si===4) w='<div class="mintitle"><h1>'+h+"</h1></div>";
-  else if(si===5) w='<div class="mag-header"><h1>'+h+'</h1><span class="side-text">TEXTCRAFT</span></div><div class="mag-body"><span class="side-deco">\u5185\u5bb9\u5c55\u793a</span>';f='</div><div class="mag-footer"><h4>TextCraft</h4><p>\u7cbe\u7f8e\u6392\u7248\u00b7\u4e00\u952e\u751f\u6210</p></div>';
-  else if(si===6) w='<div class="note-header"><h1>'+h+'</h1><div class="tape"></div><div class="tape-2"></div></div><div class="note-body"><div class="sticky">\ud83d\udcdd TextCraft</div>';
-  else if(si===7) w='<div class="info-hero"><h1>'+h+"</h1><p>"+d.sections.length+"\u4e2a\u677f\u5757</p></div>";
-  else if(si===8){w='<div class="grid-hero"><h1>'+h+"</h1><p>"+d.sections.length+"\u4e2a\u677f\u5757</p></div><div class=grid>";f="</div>";}
-  return '<div class="content'+active+" "+cls+'">'+w+body+f+"</div>";
-}
-
-function exportCurrent(){
-  var el=document.querySelector(".content.active");if(!el){alert("\u8bf7\u5148\u751f\u6210\u6392\u7248");return}
-  html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="\u6392\u7248-"+(document.querySelector(".style-btn.active").textContent||"style")+".png";a.href=c.toDataURL("image/png");a.click()});
-}
-function exportAll(){
-  var ns=["\u7ecf\u5178\u5361\u7247","\u65f6\u95f4\u8f74","\u5927\u5361\u7247","\u6781\u7b80\u7559\u767d","\u6742\u5fd7\u98ce","\u7b14\u8bb0\u672c","\u4fe1\u606f\u56fe","\u7f51\u683c\u5e03\u5c40"],cs=document.querySelectorAll(".content"),idx=0;
-  function next(){if(idx>=cs.length){document.querySelector(".s1").classList.add("active");return}cs[idx].classList.add("active");setTimeout(function(){html2canvas(cs[idx],{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="\u6392\u7248-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},200)}next();
-}
-
+function E(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function generate(){var text=document.getElementById("inputText").value.trim();if(!text){alert("请先粘贴内容");return}var lines=text.split(/\n/).map(function(l){return l.trim()}).filter(function(l){return l});if(!lines.length)return;var title=lines[0],out="";for(var i=1;i<lines.length;i++){var l=lines[i];if(l)out+="<div class=\"cbox\"><p>"+E(l)+"</p></div>"}var area=document.getElementById("contentArea");area.innerHTML="<div class=\"content active s1\"><div class=\"hero\"><h1>"+E(title)+"</h1></div>"+out+"</div>";document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});document.querySelector(".style-btn[data-s=1]").classList.add("active");area.querySelector(".s1").classList.add("active");document.getElementById("exportInfo").textContent="✅ 快速预览已生成（通用模板）"}
+function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先生成");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版.png";a.href=c.toDataURL("image/png");a.click()})}
+function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;cs[idx].classList.add("active");setTimeout(function(){html2canvas(cs[idx],{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},200)}next()}
 </script>
 </body></html>
