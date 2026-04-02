@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=800, initial-scale=1.0">
+<title>排版工具 - 8种风格一键生成</title>
+<style>
+:root{--primary:#e8457c;--light:#fff0f3;--gradient:linear-gradient(135deg,#e8457c,#ff8fab);--text:#a01040;--font:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;--radius:14px;--shadow:0 4px 20px rgba(0,0,0,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margin:0 auto;padding:16px}
+
+/* Controls */
+.controls{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.style-btns{display:flex;gap:6px;flex-wrap:wrap}
+.style-btn{padding:6px 14px;border:2px solid #e0e0e0;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font);color:#666;white-space:nowrap}
+.style-btn:hover{border-color:var(--primary);color:var(--primary)}
+.style-btn.active{background:var(--gradient);color:#fff;border-color:transparent}
+.color-dots{display:flex;gap:8px;align-items:center}
+.color-dot{width:24px;height:24px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s}
+.color-dot:hover{transform:scale(1.15)}
+.color-dot.active{border-color:#333;box-shadow:0 0 0 2px #fff,0 0 0 4px #333}
+.color-dot[data-c="pink"]{background:#e8457c}
+.color-dot[data-c="blue"]{background:#4f6df5}
+.color-dot[data-c="green"]{background:#10b981}
+.color-dot[data-c="orange"]{background:#f97316}
+.color-dot[data-c="purple"]{background:#8b5cf6}
+.color-dot[data-c="cyan"]{background:#0ea5e9}
+.content{display:none}.content.active{display:block}
+
+/* Editor Panel */
+.editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;display:none}
+.editor-panel.show{display:block}
+.editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
+.editor-panel textarea{width:100%;height:300px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none;transition:border .2s}
+.editor-panel textarea:focus{border-color:var(--primary)}
+.editor-panel .hint{font-size:12px;color:#999;margin-top:8px;line-height:1.6}
+.editor-btns{display:flex;gap:10px;margin-top:14px}
+.editor-btns button{padding:10px 24px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--font)}
+.btn-primary{background:var(--gradient);color:#fff}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-secondary{background:#f5f5f5;color:#666;border:1px solid #ddd}
+.btn-secondary:hover{background:#eee}
+.btn-download{background:#10b981;color:#fff;margin-left:auto}
+.btn-download:hover{opacity:.9}
+
+/* Export */
+.export-bar{display:flex;gap:10px;margin-top:14px;padding:12px 16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow)}
+.export-bar button{padding:8px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);color:#fff;transition:all .2s}
+.export-bar .btn-export{background:var(--gradient)}
+.export-bar .btn-export-all{background:#4f6df5}
+.export-bar button:hover{opacity:.9;transform:translateY(-1px)}
+.export-bar .info{font-size:12px;color:#999;margin-left:auto;align-self:center}
+
+/* S1 Classic */
+.s1{background:var(--light);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
+.s1 .hero{background:var(--gradient);border-radius:12px;padding:28px 24px;color:#fff;text-align:center;margin-bottom:28px}
+.s1 .hero h1{font-size:24px;font-weight:700;margin-bottom:6px}
+.s1 .hero p{font-size:14px;opacity:.9}
+.s1 .stitle{font-size:17px;font-weight:700;color:var(--text);margin:24px 0 14px;padding-left:12px;border-left:4px solid var(--primary)}
+.s1 .card{display:flex;align-items:flex-start;gap:14px;background:#fff;border-radius:12px;padding:18px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.s1 .card .num{min-width:36px;height:36px;border-radius:50%;background:var(--gradient);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.s1 .card h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.s1 .card p{font-size:13px;color:#666;line-height:1.7}
+.s1 .cbox{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.s1 .cbox p{font-size:13px;color:#555;line-height:1.8}
+.s1 .plist{list-style:none;padding:0}.s1 .plist li{font-size:13px;color:#555;padding:4px 0}.s1 .plist li::before{content:"★";color:var(--primary);margin-right:6px}
+.s1 .dbox{background:var(--gradient);border-radius:12px;padding:18px 20px;color:#fff;text-align:center;margin-top:20px}
+.s1 .dbox h4{font-size:16px;margin-bottom:8px}.s1 .dbox p{font-size:13px;opacity:.95;line-height:1.8}
+.s1 .twrap{margin-top:12px;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.s1 table{width:100%;border-collapse:collapse;background:#fff}
+.s1 th{background:var(--gradient);color:#fff;padding:10px 14px;font-size:13px;text-align:left}
+.s1 td{padding:10px 14px;font-size:12px;border-bottom:1px solid #f0f0f0;color:#555}
+
+/* S2 Timeline */
+.s2{background:#fff;border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
+.s2 .header{text-align:center;margin-bottom:28px}
+.s2 .header h1{font-size:22px;color:var(--primary);font-weight:700}
+.s2 .header p{font-size:13px;color:#888;margin-top:6px}
+.s2 .sbox{background:var(--light);border-radius:12px;padding:16px 20px;margin-bottom:24px;border-left:4px solid var(--primary)}
+.s2 .sbox p{font-size:13px;color:#555;line-height:1.8}
+.s2 .pinline{background:var(--light);border-radius:10px;padding:12px 16px;margin-bottom:24px;font-size:13px;color:var(--text);line-height:1.8}
+.s2 .timeline{position:relative;padding-left:28px;margin-bottom:24px}
+.s2 .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:3px;background:var(--gradient);border-radius:3px}
+.s2 .tl-item{position:relative;margin-bottom:24px}
+.s2 .tl-item::before{content:'';position:absolute;left:-22px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--primary);border:3px solid #fff;box-shadow:0 0 0 2px var(--primary)}
+.s2 .tl-item h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.s2 .tl-item .days{display:inline-block;background:var(--primary);color:#fff;font-size:11px;padding:2px 10px;border-radius:10px;margin-bottom:6px}
+.s2 .tl-item p{font-size:13px;color:#666;line-height:1.7}
+.s2 .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.s2 .titem{background:var(--light);border-radius:10px;padding:12px 14px;border-left:3px solid var(--primary)}
+.s2 .titem strong{font-size:13px;color:var(--text)}.s2 .titem span{font-size:12px;color:#888;display:block;margin-top:2px}
+.s2 .rules{text-align:center;padding:18px;background:var(--gradient);border-radius:12px;color:#fff}
+.s2 .rules h4{font-size:15px;margin-bottom:6px}.s2 .rules p{font-size:13px;opacity:.95;line-height:1.7}
+
+/* S3 Big Card */
+.s3{padding:0}
+.s3 .bighero{background:var(--gradient);padding:36px 28px;color:#fff;border-radius:var(--radius) var(--radius) 0 0;text-align:center}
+.s3 .bighero .emoji{font-size:48px;margin-bottom:12px}.s3 .bighero h1{font-size:24px;font-weight:700}
+.s3 .bighero p{font-size:14px;opacity:.9;margin-top:8px;line-height:1.6}
+.s3 .bcontent{padding:20px}
+.s3 .bc{background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.s3 .bc::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient)}
+.s3 .bc .icon{font-size:32px;margin-bottom:8px}
+.s3 .bc h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
+.s3 .bc p{font-size:13px;color:#666;line-height:1.7}
+.s3 .pricards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.s3 .pricard{background:#fff;border-radius:12px;padding:14px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.s3 .pricard .rank{width:28px;height:28px;border-radius:50%;background:var(--gradient);color:#fff;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:6px}
+.s3 .pricard p{font-size:12px;color:#555;line-height:1.5}
+.s3 .schedrow{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.s3 .scheditem{flex:1;min-width:140px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-align:center}
+.s3 .scheditem .time{font-size:18px;font-weight:700;color:var(--primary)}.s3 .scheditem .act{font-size:12px;color:#666;margin-top:4px}
+.s3 .footer{background:var(--gradient);padding:20px 28px;color:#fff;border-radius:0 0 var(--radius) var(--radius);text-align:center}
+.s3 .footer h4{font-size:16px;margin-bottom:8px}.s3 .footer p{font-size:13px;opacity:.95;line-height:1.8}
+
+/* S4 Minimal */
+.s4{background:#fff;border-radius:var(--radius);padding:40px 36px;box-shadow:var(--shadow)}
+.s4 .mintitle{text-align:center;margin-bottom:32px}
+.s4 .mintitle h1{font-size:24px;font-weight:700;color:#222;letter-spacing:1px}
+.s4 .mintitle .line{width:40px;height:2px;background:var(--primary);margin:16px auto 0}
+.s4 .minsec{margin-bottom:20px}
+.s4 .minsec .bignum{font-size:48px;font-weight:200;color:var(--primary);opacity:.4;line-height:1}
+.s4 .minsec h3{font-size:17px;font-weight:700;color:var(--text);margin:4px 0 10px;letter-spacing:1px}
+.s4 .minsec p{font-size:14px;color:#555;line-height:2.2;letter-spacing:.5px}
+.s4 .mindiv{border:none;border-top:1px solid #f0f0f0;margin:32px 0}
+.s4 .minsched{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.s4 .mintime strong{font-size:14px;color:var(--text)}.s4 .mintime p{font-size:13px;color:#555;margin-top:2px}
+.s4 .minrules{text-align:center;padding:32px 0;margin-top:24px;border-top:1px solid #f0f0f0}
+.s4 .minrules p{font-size:15px;color:var(--primary);font-weight:400;letter-spacing:2px;line-height:2.2}
+
+/* S5 Magazine */
+.s5{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:0;overflow:hidden}
+.s5 .mag-header{padding:40px 36px 32px;position:relative;background:var(--gradient);color:#fff;overflow:hidden}
+.s5 .mag-header .side-text{position:absolute;right:20px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:13px;letter-spacing:6px;opacity:.4;font-weight:300}
+.s5 .mag-header h1{font-size:26px;font-weight:700;max-width:60%;position:relative;z-index:1}.s5 .mag-header p{font-size:13px;opacity:.85;margin-top:8px;max-width:70%;line-height:1.6}
+.s5 .mag-body{padding:28px 28px 28px 36px;position:relative}
+.s5 .mag-body .side-deco{position:absolute;left:10px;top:20px;bottom:20px;writing-mode:vertical-rl;font-size:11px;letter-spacing:8px;color:var(--primary);opacity:.2;font-weight:700}
+.s5 .mag-sec{margin-bottom:28px}
+.s5 .mag-sec h3{font-size:16px;font-weight:700;color:var(--text);border-bottom:2px solid var(--primary);display:inline-block;padding-bottom:4px;margin-bottom:12px}
+.s5 .mag-sec p{font-size:13px;color:#555;line-height:1.9}
+.s5 .mag-phases{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.s5 .phase{flex:1;min-width:180px;border:1px solid #e8e8e8;border-radius:10px;padding:16px;position:relative}
+.s5 .phase .plabel{position:absolute;top:-10px;left:16px;background:var(--primary);color:#fff;font-size:11px;padding:2px 12px;border-radius:10px}
+.s5 .phase h4{font-size:14px;color:#222;margin-bottom:6px;margin-top:4px}.s5 .phase p{font-size:12px;color:#666;line-height:1.7}
+.s5 .mag-pri{background:var(--light);border-radius:10px;padding:16px 20px;margin-bottom:20px}
+.s5 .mag-pri li{font-size:13px;color:#555;padding:3px 0;list-style:none}.s5 .mag-pri li::before{content:"▸ ";color:var(--primary)}
+.s5 .mag-sched{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.s5 .mag-time{border-left:3px solid var(--primary);padding-left:12px}
+.s5 .mag-time strong{font-size:13px;color:var(--text)}.s5 .mag-time p{font-size:12px;color:#888;margin-top:2px}
+.s5 .mag-footer{background:var(--text);color:#fff;padding:20px 28px;text-align:center;position:relative}
+.s5 .mag-footer .side-text{position:absolute;right:20px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:11px;letter-spacing:6px;opacity:.3}
+.s5 .mag-footer h4{font-size:15px;margin-bottom:6px}.s5 .mag-footer p{font-size:13px;opacity:.85;line-height:1.8}
+
+/* S6 Notebook */
+.s6{background:#fffef5;border-radius:var(--radius);box-shadow:var(--shadow);padding:0;position:relative;background-image:repeating-linear-gradient(transparent,transparent 31px,#e8e4d8 31px,#e8e4d8 32px);background-position:0 20px}
+.s6 .note-header{background:var(--gradient);padding:24px 28px;color:#fff;border-radius:var(--radius) var(--radius) 0 0;position:relative}
+.s6 .note-header h1{font-size:22px;font-weight:700;text-decoration:underline;text-decoration-style:wavy;text-underline-offset:6px}
+.s6 .note-header p{font-size:13px;opacity:.9;margin-top:6px}
+.s6 .note-header .tape{position:absolute;top:-6px;right:40px;width:80px;height:20px;background:rgba(255,255,255,.35);transform:rotate(-2deg);border-radius:2px}
+.s6 .note-header .tape-2{position:absolute;top:-6px;left:60px;width:60px;height:18px;background:rgba(255,255,255,.2);transform:rotate(3deg);border-radius:2px}
+.s6 .note-body::before{content:'';position:absolute;left:52px;top:20px;bottom:20px;width:2px;background:rgba(220,80,80,.2)}
+.s6 .note-body::after{content:'';position:absolute;bottom:0;right:0;width:24px;height:24px;background:linear-gradient(225deg,#f5f5f0 50%,rgba(0,0,0,.05) 50%);border-radius:0 0 var(--radius) 0}
+.s6 .sticky{position:absolute;top:70px;right:12px;width:90px;padding:12px 10px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 8px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#999;line-height:1.6;z-index:2}
+.s6 .sticky::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:36px;height:10px;background:rgba(255,255,200,.7);border-radius:1px}
+.s6 .note-body{padding:28px 32px 32px}
+.s6 .note-title{font-size:16px;font-weight:700;color:var(--text);margin:20px 0 10px;font-style:italic;border-bottom:2px solid var(--primary);display:inline-block}
+.s6 .note-content{font-size:14px;color:#444;line-height:32px;font-style:italic;padding-bottom:2px}
+.s6 .nlist{list-style:none;padding:0}.s6 .nlist li{font-size:14px;color:#444;line-height:32px;padding-left:20px;position:relative;font-style:italic}.s6 .nlist li::before{content:"✎";position:absolute;left:0;color:var(--primary)}
+.s6 .nphase{background:rgba(255,255,255,.6);border-radius:10px;padding:16px 18px;margin-bottom:12px;border:1px dashed var(--primary)}
+.s6 .nphase h4{font-size:15px;color:var(--text);font-style:italic;margin-bottom:4px}.s6 .nphase p{font-size:13px;color:#555;line-height:1.8;font-style:italic}
+.s6 .nsched{display:flex;gap:12px;align-items:baseline;padding:6px 0;border-bottom:1px dashed #ddd}
+.s6 .nsched .clock{font-size:18px}.s6 .nsched .act{font-size:13px;color:#555;font-style:italic}
+.s6 .nrules{background:var(--gradient);border-radius:10px;padding:16px 20px;color:#fff;text-align:center;margin-top:20px}
+.s6 .nrules h4{font-size:15px;margin-bottom:6px}.s6 .nrules p{font-size:13px;opacity:.95;line-height:1.8}
+
+/* S7 Infographic */
+.s7{background:var(--light);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+.s7 .info-hero{text-align:center;margin-bottom:24px}
+.s7 .info-hero h1{font-size:22px;font-weight:700;color:var(--text)}
+.s7 .info-hero p{font-size:13px;color:#888;margin-top:4px}
+.s7 .stats{display:flex;justify-content:center;gap:32px;margin-top:16px}
+.s7 .stat-item{text-align:center}
+.s7 .stat-circle{width:100px;height:100px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;position:relative}
+.s7 .stat-circle .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--primary) var(--pct),#e8e8e8 var(--pct))}
+.s7 .stat-circle .ring-inner{position:absolute;inset:7px;border-radius:50%;background:var(--light)}
+.s7 .stat-circle .inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+.s7 .stat-circle .num{font-size:28px;font-weight:700;color:var(--text);line-height:1}.s7 .stat-circle .unit{font-size:10px;color:#888}
+.s7 .stat-item .label{font-size:12px;color:#666}
+.s7 .ibox{background:#fff;border-radius:12px;padding:18px 20px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.s7 .ibox h3{font-size:15px;color:var(--text);margin-bottom:8px}.s7 .ibox p{font-size:13px;color:#666;line-height:1.8}
+.s7 .phases-row{display:flex;gap:10px;margin-bottom:20px}
+.s7 .pbar{flex:1;background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04);text-align:center}
+.s7 .pbar .dc{font-size:28px;font-weight:700;color:var(--primary)}.s7 .pbar .dl{font-size:11px;color:#aaa}
+.s7 .pbar h4{font-size:14px;color:#333;margin:8px 0 6px}.s7 .pbar p{font-size:12px;color:#888;line-height:1.6}
+.s7 .pbar .bar{height:6px;border-radius:3px;background:#eee;margin-top:10px;overflow:hidden}
+.s7 .pbar .bar-fill{height:100%;border-radius:3px;background:var(--gradient)}
+.s7 .pri-row{margin-bottom:10px}.s7 .pri-row .name{font-size:13px;color:#555;margin-bottom:4px}
+.s7 .pri-row .bar{height:8px;border-radius:4px;background:#eee;overflow:hidden}.s7 .pri-row .bar-fill{height:100%;border-radius:4px;background:var(--gradient)}
+.s7 .srow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.s7 .srow .badge{background:var(--gradient);color:#fff;font-size:12px;padding:5px 12px;border-radius:8px;white-space:nowrap}
+.s7 .srow .task{font-size:13px;color:#555}
+.s7 .irules{background:var(--gradient);border-radius:12px;padding:18px 20px;color:#fff;text-align:center}
+.s7 .irules h4{font-size:16px;margin-bottom:8px}.s7 .irules p{font-size:13px;opacity:.95;line-height:1.8}
+
+/* S8 Grid */
+.s8{background:var(--light);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.s8 .grid-hero{background:var(--gradient);border-radius:12px;padding:20px;color:#fff;text-align:center;margin-bottom:16px}
+.s8 .grid-hero h1{font-size:20px;font-weight:700}.s8 .grid-hero p{font-size:12px;opacity:.9;margin-top:4px}
+.s8 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.s8 .gc{background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.s8 .gc.full{grid-column:1/-1}
+.s8 .gc h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.s8 .gc h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--primary)}
+.s8 .gc p{font-size:12px;color:#666;line-height:1.7}
+.s8 .gc ul{list-style:none;padding:0}.s8 .gc ul li{font-size:12px;color:#666;padding:3px 0}.s8 .gc ul li::before{content:"▸ ";color:var(--primary)}
+.s8 .gc .trow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f5f5f5}
+.s8 .gc .trow:last-child{border-bottom:none}.s8 .gc .trow .t{font-size:12px;color:var(--primary);font-weight:600}.s8 .gc .trow .a{font-size:12px;color:#666}
+.s8 .gc.rules{background:var(--gradient);color:#fff;text-align:center}
+.s8 .gc.rules h3{color:#fff;justify-content:center}.s8 .gc.rules h3 .dot{background:#fff}.s8 .gc.rules p{color:rgba(255,255,255,.95)}
+</style>
+</head>
+<body>
+
+<!-- Editor Panel -->
+<div class="editor-panel show" id="editorPanel">
+  <h3>📝 粘贴你的内容，我来排版</h3>
+  <textarea id="inputText" placeholder="在这里粘贴你的内容...&#10;&#10;支持任意文本，如：&#10;- 计划方案&#10;- 学习计划&#10;- 工作总结&#10;- 产品介绍&#10;&#10;排版会自动识别内容结构，生成8种风格供选择。"></textarea>
+  <div class="hint">💡 提示：粘贴完整内容后点击「生成排版」，我会自动分析内容结构并用8种风格呈现。<br>也可以先切换下方风格预览示例效果。</div>
+  <div class="editor-btns">
+    <button class="btn-primary" onclick="generate()">🚀 生成排版</button>
+    <button class="btn-secondary" onclick="loadExample()">📋 加载示例</button>
+  </div>
+</div>
+
+<!-- Style Controls -->
+<div class="controls">
+  <div class="style-btns">
+    <button class="style-btn active" data-s="1">经典卡片</button>
+    <button class="style-btn" data-s="2">时间轴</button>
+    <button class="style-btn" data-s="3">大卡片</button>
+    <button class="style-btn" data-s="4">极简留白</button>
+    <button class="style-btn" data-s="5">杂志风</button>
+    <button class="style-btn" data-s="6">笔记本</button>
+    <button class="style-btn" data-s="7">信息图</button>
+    <button class="style-btn" data-s="8">网格布局</button>
+  </div>
+  <div class="color-dots">
+    <div class="color-dot active" data-c="pink" title="暖阳粉"></div>
+    <div class="color-dot" data-c="blue" title="星空蓝"></div>
+    <div class="color-dot" data-c="green" title="森林绿"></div>
+    <div class="color-dot" data-c="orange" title="活力橙"></div>
+    <div class="color-dot" data-c="purple" title="薰衣紫"></div>
+    <div class="color-dot" data-c="cyan" title="深海青"></div>
+  </div>
+</div>
+
+<!-- Export Bar -->
+<div class="export-bar">
+  <button class="btn-export" onclick="exportCurrent()">📸 下载当前风格</button>
+  <button class="btn-export-all" onclick="exportAll()">📦 下载全部8种</button>
+  <span class="info" id="exportInfo">点击导出当前风格截图（PNG）</span>
+</div>
+
+<!-- Content Sections (placeholder - will be populated by JS) -->
+<div id="contentArea"></div>
+
+<script>
+const themes={
+  pink:{primary:'#e8457c',light:'#fff0f3',gradient:'linear-gradient(135deg,#e8457c,#ff8fab)',text:'#a01040'},
+  blue:{primary:'#4f6df5',light:'#eef2ff',gradient:'linear-gradient(135deg,#4f6df5,#8ba4ff)',text:'#2b3fa0'},
+  green:{primary:'#10b981',light:'#ecfdf5',gradient:'linear-gradient(135deg,#10b981,#6ee7b7)',text:'#047857'},
+  orange:{primary:'#f97316',light:'#fff7ed',gradient:'linear-gradient(135deg,#f97316,#fdba74)',text:'#c2410c'},
+  purple:{primary:'#8b5cf6',light:'#f5f3ff',gradient:'linear-gradient(135deg,#8b5cf6,#c4b5fd)',text:'#5b21b6'},
+  cyan:{primary:'#0ea5e9',light:'#f0f9ff',gradient:'linear-gradient(135deg,#0ea5e9,#7dd3fc)',text:'#0369a1'}
+};
+const r=document.documentElement.style;
+
+// Style switching
+document.querySelectorAll('.style-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.style-btn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.content').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  const el=document.querySelector('.s'+b.dataset.s);
+  if(el) el.classList.add('active');
+}));
+
+// Color switching
+document.querySelectorAll('.color-dot').forEach(d=>d.addEventListener('click',()=>{
+  document.querySelectorAll('.color-dot').forEach(x=>x.classList.remove('active'));
+  d.classList.add('active');
+  const t=themes[d.dataset.c];
+  r.setProperty('--primary',t.primary);
+  r.setProperty('--light',t.light);
+  r.setProperty('--gradient',t.gradient);
+  r.setProperty('--text',t.text);
+}));
+
+// Example text
+const exampleText=`高三数学70分~100+最后60天冲刺提分计划(极简清晰版)
+核心策略：
+放弃选择/填空最后1题、大题最后2问，死磕基础+中档题(120分)回归课本公式、定义、例题，刷题只刷真题基础题，当天错题当天清
+必拿分：
+必拿分黄金板块(优先级从高到低):
+三角函数/概率统计/数列，立体几何/解析几何(基础)
+函数与导数(基础)
+三阶段冲刺：
+第01-30天：基础夯实，早读背公式30分钟，白天刷课本例题+基础真题，晚上错题复盘(只记思路）
+第31-50天：中档突破，刷真题，中档题；选择1-10、填空1-3、大题前4道，大题练步骤；步骤分=半条命，错题反复刷；
+第51-60天：模拟冲刺，2天1套卷(严格2小时)，只改基础中档，难题不看，保持手感，不搞新难题。
+每日固定时间：
+早读7:00-7:30背公式
+下午15:00-17:00刷题
+基础中档：
+下午1:00-15:00
+17:00 刷题
+难搞新难题
+晚上20:00-21:00 错题复盘
+提分铁律：
+70分提分铁律(最关键):计算零失误，大题写步骤就能拿分，不刷偏题怪题，坚持60天，稳提30+`;
+
+function loadExample(){
+  document.getElementById('inputText').value=exampleText;
+  generate();
+}
+
+function generate(){
+  const text=document.getElementById('inputText').value.trim();
+  if(!text){alert('请先粘贴内容');return;}
+  
+  // Parse content into structured data
+  const data=parseContent(text);
+  
+  // Generate 8 styles
+  const area=document.getElementById('contentArea');
+  area.innerHTML=
+    buildS1(data)+
+    buildS2(data)+
+    buildS3(data)+
+    buildS4(data)+
+    buildS5(data)+
+    buildS6(data)+
+    buildS7(data)+
+    buildS8(data);
+  
+  // Activate first style
+  document.querySelectorAll('.style-btn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.content').forEach(x=>x.classList.remove('active'));
+  document.querySelector('.style-btn[data-s="1"]').classList.add('active');
+  const first=area.querySelector('.s1');
+  if(first) first.classList.add('active');
+  
+  document.getElementById('exportInfo').textContent='排版已生成，点击上方按钮导出';
+}
+
+function parseContent(text){
+  const lines=text.split('\n').map(l=>l.trim()).filter(l=>l);
+  const data={
+    title:'',
+    subtitle:'',
+    sections:[],  };
+
+  // Extract title from first line
+  data.title=lines[0]||'未命名';
+  
+  // Group remaining lines into sections
+  let currentSection=null;
+  for(let i=1;i<lines.length;i++){
+    const line=lines[i];
+    // Detect section headers (lines ending with ：or : or short lines that look like headers)
+    if(line.match(/^[一二三四五六七八九十\d]+\s*[、.．]\s*|^第.+[：:]$|^[A-Za-z\u4e00-\u9fa5]{2,8}[：:]$/)){
+      if(currentSection) data.sections.push(currentSection);
+      currentSection={title:line.replace(/[：:]/g,''),content:[],items:[]};
+    } else if(line.match(/^[◆●▪▸■★●►·•]\s|^[-–—]\s|^\d+[.、)）]\s/)){
+      if(!currentSection) currentSection={title:'概要',content:[],items:[]};
+      currentSection.items.push(line.replace(/^[◆●▪▸■★●►·•\-–—\s]+|^\d+[.、)）]\s*/,''));
+    } else {
+      if(!currentSection) currentSection={title:'内容',content:[],items:[]};
+      currentSection.content.push(line);
+    }
+  }
+  if(currentSection) data.sections.push(currentSection);
+  
+  return data;
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function buildS1(d){
+  let cards=d.sections.map((s,i)=>`<div class="card"><div class="num">${i+1}</div><div><h3>${esc(s.title)}</h3>${s.items.length?'<ul class="plist">'+s.items.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>':''} ${s.content.map(c=>'<p>'+esc(c)+'</p>').join('')}</div></div>`).join('');
+  return `<div class="content active s1">
+  <div class="hero"><h1>${esc(d.title)}</h1></div>
+  ${cards}
+  <div class="dbox"><h4>✨ 自动排版</h4><p>8种风格 · 6种配色 · 一键生成</p></div>
+</div>`;
+}
+
+function buildS2(d){
+  let items=d.sections.map(s=>`<div class="tl-item"><span class="days">${esc(s.title)}</span><h3>${esc(s.title)}</h3>${s.items.length?'<ul class="plist">'+s.items.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>':''} ${s.content.map(c=>'<p>'+esc(c)+'</p>').join('')}</div>`).join('');
+  return `<div class="content s2">
+  <div class="header"><h1>${esc(d.title)}</h1></div>
+  <div class="timeline">${items}</div>
+  <div class="rules"><h4>✨ 自动排版</h4><p>8种风格 · 6种配色 · 一键生成</p></div>
+</div>`;
+}
+
+function buildS3(d){
+  let bcs=d.sections.map(s=>`<div class="bc"><div class="icon">📊</div><div><h3>${esc(s.title)}</h3>${s.items.map(t=>'<p>'+esc(t)+'</p>').join('')}${s.content.map(c=>'<p>'+esc(c)+'</p>').join('')}</div></div>`).join('');
+  return `<div class="content s3">
+  <div class="bighero"><span class="emoji">🚀</span><h1>${esc(d.title)}</h1></div>
+  <div class="bcontent">${bcs}</div>
+  <div class="footer"><h4>✨ 自动排版</h4><p>8种风格 · 6种配色 · 一键生成</p></div>
+</div>`;
+}
+
+function buildS4(d){
+  let secs=d.sections.map(s=>`<div class="minsec"><h3>${esc(s.title)}</h3>${s.items.length?'<p>'+s.items.map(t=>esc(t)).join('<br>')+'</p>':''} ${s.content.map(c=>'<p>'+esc(c)+'</p>').join('')}</div>`).join('<hr class="mindiv">');
+  return `<div class="content s4">
+  <div class="mintitle"><h1>${esc(d.title)}</h1></div>
+  ${secs}
+  <div class="minrules"><p>✨ 自动排版 · 8种风格 · 6种配色</p></div>
+</div>`;
+}
+
+function buildS5(d){
+  let secs=d.sections.map(s=>`<div class="mag-sec"><h3>${esc(s.title)}</h3>${s.items.length?'<ul class="mag-pri">'+s.items.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>':''} ${s.content.map(c=>'<p>'+esc(c)+'</p>').join('')}</div>`).join('');
+  return `<div class="content s5">
+  <div class="mag-header"><h1>${esc(d.title)}</h1><span class="side-text">AUTO LAYOUT</span><span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:44px;letter-spacing:10px;opacity:.1;font-weight:900">排版</span></div>
+  <div class="mag-body"><span class="side-deco">内容展示</span>${secs}</div>
+  <div class="mag-footer"><h4>✨ 自动排版</h4><p>8种风格 · 6种配色 · 一键生成</p><span class="side-text">CREATED</span></div>
+</div>`;
+}
+
+function buildS6(d){
+  let secs=d.sections.map(s=>`<div class="nphase"><h4>${esc(s.title)}</h4>${s.items.map(t=>'<p>'+esc(t)+'</p>').join('')}${s.content.map(c=>'<p>'+esc(c)+'</p>').join('')}</div>`).join('');
+  return `<div class="content s6">
+  <div class="note-header"><h1>${esc(d.title)}</h1><div class="tape"></div><div class="tape-2"></div></div>
+  <div class="note-body"><div class="sticky">📝 自动排版<br>8种风格<br>6种配色</div>${secs}</div>
+</div>`;
+}
+
+function buildS7(d){
+  let secs=d.sections.map(s=>`<div class="ibox"><h3>📊 ${esc(s.title)}</h3>${s.items.length?'<ul class="mag-pri">'+s.items.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>':''} ${s.content.map(c=>'<p>'+esc(c)+'</p>').join('')}</div>`).join('');
+  return `<div class="content s7">
+  <div class="info-hero"><h1>${esc(d.title)}</h1><p>自动排版 · ${d.sections.length}个板块</p></div>
+  ${secs}
+  <div class="irules"><h4>✨ 自动排版</h4><p>8种风格 · 6种配色 · 一键生成</p></div>
+</div>`;
+}
+
+function buildS8(d){
+  let left='',right='';
+  d.sections.forEach((s,i)=>{
+    const card=`<div class="gc${s.content.join('').length>50?' full':''}"><h3><span class="dot"></span>${esc(s.title)}</h3>${s.items.map(t=>'<p>'+esc(t)+'</p>').join('')}${s.content.map(c=>'<p>'+esc(c)+'</p>').join('')}</div>`;
+    if(s.content.join('').length>50){left+=card;}
+    else{right+=card;}
+  });
+  return `<div class="content s8">
+  <div class="grid-hero"><h1>${esc(d.title)}</h1><p>自动排版 · ${d.sections.length}个板块</p></div>
+  <div class="grid">${left}${right}</div>
+</div>`;
+}
+
+// Export functions
+async function exportCurrent(){
+  const active=document.querySelector('.content.active');
+  if(!active){alert('请先生成排版');return;}
+  const canvas=await html2canvas(active,{scale:2,backgroundColor:'#f5f5f5',width:800,scrollX:0,scrollY:0});
+  const link=document.createElement('a');
+  const style=document.querySelector('.style-btn.active')?.textContent||'style';
+  link.download=`排版-${style}.png`;
+  link.href=canvas.toDataURL('image/png');
+  link.click();
+  document.getElementById('exportInfo').textContent='✅ 已下载 '+style;
+}
+
+async function exportAll(){
+  const contents=document.querySelectorAll('.content');
+  const names=['经典卡片','时间轴','大卡片','极简留白','杂志风','笔记本','信息图','网格布局'];
+  for(let i=0;i<contents.length;i++){
+    const el=contents[i];
+    el.classList.add('active');
+    await new Promise(r=>setTimeout(r,100));
+    const canvas=await html2canvas(el,{scale:2,backgroundColor:'#f5f5f5',width:800,scrollX:0,scrollY:0});
+    const link=document.createElement('a');
+    link.download=`排版-${names[i]}.png`;
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+    el.classList.remove('active');
+    await new Promise(r=>setTimeout(r,200));
+  }
+  document.querySelector('.s1')?.classList.add('active');
+  document.getElementById('exportInfo').textContent='✅ 全部8种风格已下载';
+}
+</script>
+<script>
+// Load html2canvas lazily
+function loadHtml2Canvas(){
+  return new Promise((resolve,reject)=>{
+    if(window.html2canvas){resolve();return;}
+    const s=document.createElement("script");
+    s.src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
+    s.onload=resolve;s.onerror=reject;document.head.appendChild(s);
+  });
+}
+const _exportCurrent=exportCurrent;
+exportCurrent=async()=>{await loadHtml2Canvas();return _exportCurrent();};
+const _exportAll=exportAll;
+exportAll=async()=>{await loadHtml2Canvas();return _exportAll();};
+</script>
+</body>
+</html>
