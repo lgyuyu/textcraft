@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=800, initial-scale=1.0">
-<title>高三数学冲刺提分计划</title>
+<title>TextCraft - 文字排版工具</title>
 <style>
+
 :root{--primary:#e8457c;--light:#fff0f3;--gradient:linear-gradient(135deg,#e8457c,#ff8fab);--text:#a01040;--font:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;--radius:14px;--shadow:0 4px 20px rgba(0,0,0,.08)}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margin:0 auto;padding:16px}
@@ -190,8 +191,27 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s8 .gc .trow:last-child{border-bottom:none}.s8 .gc .trow .t{font-size:12px;color:var(--primary);font-weight:600}.s8 .gc .trow .a{font-size:12px;color:#666}
 .s8 .gc.rules{background:var(--gradient);color:#fff;text-align:center}
 .s8 .gc.rules h3{color:#fff;justify-content:center}.s8 .gc.rules h3 .dot{background:#fff}.s8 .gc.rules p{color:rgba(255,255,255,.95)}
+
+.editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
+.editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
+.editor-panel textarea{width:100%;height:200px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
+.editor-panel textarea:focus{border-color:var(--primary)}
+.editor-panel .hint{font-size:12px;color:#999;margin-top:8px}
+.btn-row{display:flex;gap:10px;margin-top:14px}
+.btn-row button{padding:10px 24px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:var(--gradient);color:#fff}
+.export-bar{display:flex;gap:10px;margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);align-items:center}
+.export-bar button{padding:8px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);color:#fff;background:var(--gradient)}
+.export-bar .btn-all{background:#4f6df5}
+.export-bar .info{font-size:12px;color:#999;margin-left:auto}
 </style>
+</head>
 <body>
+<div class="editor-panel">
+  <h3>📝 粘贴你的内容，自动生成精美排版</h3>
+  <textarea id="inputText" placeholder="在这里粘贴你的内容...&#10;&#10;支持任意文本，段落之间用空行分隔"></textarea>
+  <div class="hint">粘贴内容后点击「生成排版」，自动生成8种风格 × 6种配色</div>
+  <div class="btn-row"><button onclick="generate()">🚀 生成排版</button></div>
+</div>
 <div class="controls">
   <div class="style-btns">
     <button class="style-btn active" data-s="1">经典卡片</button>
@@ -212,231 +232,90 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <div class="color-dot" data-c="cyan" title="深海青"></div>
   </div>
 </div>
-
+<div class="export-bar">
+  <button onclick="exportCurrent()">📸 下载当前风格</button>
+  <button class="btn-all" onclick="exportAll()">📦 下载全部8种</button>
+  <span class="info" id="exportInfo">粘贴内容 → 生成排版 → 下载图片</span>
+</div>
+<div id="contentArea"></div>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
-const themes={
-  pink:{primary:'#e8457c',light:'#fff0f3',gradient:'linear-gradient(135deg,#e8457c,#ff8fab)',text:'#a01040'},
-  blue:{primary:'#4f6df5',light:'#eef2ff',gradient:'linear-gradient(135deg,#4f6df5,#8ba4ff)',text:'#2b3fa0'},
-  green:{primary:'#10b981',light:'#ecfdf5',gradient:'linear-gradient(135deg,#10b981,#6ee7b7)',text:'#047857'},
-  orange:{primary:'#f97316',light:'#fff7ed',gradient:'linear-gradient(135deg,#f97316,#fdba74)',text:'#c2410c'},
-  purple:{primary:'#8b5cf6',light:'#f5f3ff',gradient:'linear-gradient(135deg,#8b5cf6,#c4b5fd)',text:'#5b21b6'},
-  cyan:{primary:'#0ea5e9',light:'#f0f9ff',gradient:'linear-gradient(135deg,#0ea5e9,#7dd3fc)',text:'#0369a1'}
-};
-const r=document.documentElement.style;
-document.querySelectorAll('.style-btn').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.style-btn').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.content').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');
-  document.querySelector('.s'+b.dataset.s).classList.add('active');
-}));
-document.querySelectorAll('.color-dot').forEach(d=>d.addEventListener('click',()=>{
-  document.querySelectorAll('.color-dot').forEach(x=>x.classList.remove('active'));
-  d.classList.add('active');
-  const t=themes[d.dataset.c];
-  r.setProperty('--primary',t.primary);
-  r.setProperty('--light',t.light);
-  r.setProperty('--gradient',t.gradient);
-  r.setProperty('--text',t.text);
-}));
+var themes={pink:{primary:"#e8457c",light:"#fff0f3",gradient:"linear-gradient(135deg,#e8457c,#ff8fab)",text:"#a01040"},blue:{primary:"#4f6df5",light:"#eef2ff",gradient:"linear-gradient(135deg,#4f6df5,#8ba4ff)",text:"#2b3fa0"},green:{primary:"#10b981",light:"#ecfdf5",gradient:"linear-gradient(135deg,#10b981,#6ee7b7)",text:"#047857"},orange:{primary:"#f97316",light:"#fff7ed",gradient:"linear-gradient(135deg,#f97316,#fdba74)",text:"#c2410c"},purple:{primary:"#8b5cf6",light:"#f5f3ff",gradient:"linear-gradient(135deg,#8b5cf6,#c4b5fd)",text:"#5b21b6"},cyan:{primary:"#0ea5e9",light:"#f0f9ff",gradient:"linear-gradient(135deg,#0ea5e9,#7dd3fc)",text:"#0369a1"}};
+var R=document.documentElement.style;
+document.querySelectorAll(".style-btn").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});b.classList.add("active");var e=document.querySelector(".s"+b.dataset.s);if(e)e.classList.add("active")})});
+document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("click",function(){document.querySelectorAll(".color-dot").forEach(function(x){x.classList.remove("active")});d.classList.add("active");var t=themes[d.dataset.c];R.setProperty("--primary",t.primary);R.setProperty("--light",t.light);R.setProperty("--gradient",t.gradient);R.setProperty("--text",t.text)})});
+
+function E(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function parse(text){
+  var lines=text.split(/\n/).map(function(l){return l.trim()}).filter(function(l){return l});
+  if(!lines.length)return{title:"\u8bf7\u8f93\u5165\u5185\u5bb9",sections:[]};
+  var d={title:lines[0],sections:[]},sec=null;
+  for(var i=1;i<lines.length;i++){
+    var l=lines[i];
+    if(/^\u7b2c.+\uff1a$/.test(l)||/^[\u4e00-\u9fa5a-zA-Z]{2,10}\uff1a$/.test(l)||/^[\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341]+[\u3001.\uff0e]?$/.test(l)){
+      if(sec)d.sections.push(sec);sec={title:l.replace(/[\uff1a:]$/,"").trim(),content:[],items:[]};
+    }else if(/^\d+[.\u3001)\uff09]\s/.test(l)||/^[\u25c6\u25cf\u25aa\u25b8\u25a0\u2605\u25ba\u00b7\u2022\u002d\u2013\u2014]\s/.test(l)){
+      if(!sec)sec={title:"\u5185\u5bb9",content:[],items:[]};sec.items.push(l.replace(/^\d+[.\u3001)\uff09]\s*|^[\u25c6\u25cf\u25aa\u25b8\u25a0\u2605\u25ba\u00b7\u2022\u002d\u2013\u2014]\s*/,""));
+    }else{
+      if(!sec)sec={title:"\u5185\u5bb9",content:[],items:[]};sec.content.push(l);
+    }
+  }
+  if(sec)d.sections.push(sec);return d;
+}
+
+var emojis=["\ud83c\udfaf","\ud83d\udcc5","\u23f0","\ud83d\udca1","\ud83d\udccc","\ud83c\udfc6","\ud83d\udcaa","\u2728"];
+
+function generate(){
+  var text=document.getElementById("inputText").value.trim();
+  if(!text){alert("\u8bf7\u5148\u7c98\u8d34\u5185\u5bb9");return}
+  var d=parse(text),area=document.getElementById("contentArea"),out="";
+  for(var si=1;si<=8;si++) out+=buildStyle(d,si);
+  area.innerHTML=out;
+  document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});
+  document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
+  document.querySelector(".style-btn[data-s=1]").classList.add("active");
+  area.querySelector(".s1").classList.add("active");
+  document.getElementById("exportInfo").textContent="\u2714\ufe0f \u5df2\u751f\u6210"+d.sections.length+"\u4e2a\u677f\u5757\u76848\u79cd\u6392\u7248";
+}
+
+function itemsHtml(s){return s.items.length?'<ul class="plist">'+s.items.map(E).map(function(x){return"<li>"+x+"</li>"}).join("")+"</ul>":""}
+function itemsPriHtml(s){return s.items.length?'<ul class="mag-pri">'+s.items.map(E).map(function(x){return"<li>"+x+"</li>"}).join("")+"</ul>":""}
+function contentHtml(s){return s.content.map(E).map(function(x){return"<p>"+x+"</p>"}).join("")}
+function itemsBr(s){return s.items.map(E).join("<br>")}
+
+function buildStyle(d,si){
+  var cls="s"+si,active=si===1?" active":"",h=E(d.title),body="";
+  d.sections.forEach(function(s,i){
+    var e=emojis[i%8],t=E(s.title),it=itemsHtml(s),ip=itemsPriHtml(s),tx=contentHtml(s),ib=itemsBr(s);
+    if(si===1) body+='<div class="stitle">'+e+" "+t+"</div>"+(it?'<div class="cbox">'+it+"</div>":"")+(tx?'<div class="cbox">'+tx+"</div>":"");
+    else if(si===2) body+='<div class="tl-item"><span class="days">'+t+"</span><h3>"+t+"</h3>"+tx+"</div>";
+    else if(si===3) body+='<div class="bc"><div class="icon">'+e+"</div><h3>"+t+"</h3>"+(ip||tx)+"</div>";
+    else if(si===4) body+='<div class="minsec"><h3>'+t+"</h3>"+(ib?"<p>"+ib+"</p>":"")+tx+"</div>";
+    else if(si===5) body+='<div class="mag-sec"><h3>'+t+"</h3>"+(ip||tx)+"</div>";
+    else if(si===6) body+='<div class="nphase"><h4>'+e+" "+t+"</h4>"+(ib?"<p>"+ib+"</p>":"")+tx+"</div>";
+    else if(si===7) body+='<div class="ibox"><h3>'+e+" "+t+"</h3>"+(ip||tx)+"</div>";
+    else if(si===8){var full=s.content.join("").length>50?" full":"";body+='<div class="gc'+full+'"><h3><span class="dot"></span>'+t+"</h3>"+(it?'<ul>'+it+"</ul>":"")+tx+"</div>";}
+  });
+  var w="",f="";
+  if(si===1) w='<div class="hero"><h1>'+h+"</h1></div>";
+  else if(si===2){w='<div class="header"><h1>'+h+"</h1></div><div class=timeline>";f="</div>";}
+  else if(si===3){w='<div class="bighero"><span class="emoji">\ud83d\ude80</span><h1>'+h+"</h1></div><div class=bcontent>";f="</div>";}
+  else if(si===4) w='<div class="mintitle"><h1>'+h+"</h1></div>";
+  else if(si===5) w='<div class="mag-header"><h1>'+h+'</h1><span class="side-text">TEXTCRAFT</span></div><div class="mag-body"><span class="side-deco">\u5185\u5bb9\u5c55\u793a</span>';f='</div><div class="mag-footer"><h4>TextCraft</h4><p>\u7cbe\u7f8e\u6392\u7248\u00b7\u4e00\u952e\u751f\u6210</p></div>';
+  else if(si===6) w='<div class="note-header"><h1>'+h+'</h1><div class="tape"></div><div class="tape-2"></div></div><div class="note-body"><div class="sticky">\ud83d\udcdd TextCraft</div>';
+  else if(si===7) w='<div class="info-hero"><h1>'+h+"</h1><p>"+d.sections.length+"\u4e2a\u677f\u5757</p></div>";
+  else if(si===8){w='<div class="grid-hero"><h1>'+h+"</h1><p>"+d.sections.length+"\u4e2a\u677f\u5757</p></div><div class=grid>";f="</div>";}
+  return '<div class="content'+active+" "+cls+'">'+w+body+f+"</div>";
+}
+
+function exportCurrent(){
+  var el=document.querySelector(".content.active");if(!el){alert("\u8bf7\u5148\u751f\u6210\u6392\u7248");return}
+  html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="\u6392\u7248-"+(document.querySelector(".style-btn.active").textContent||"style")+".png";a.href=c.toDataURL("image/png");a.click()});
+}
+function exportAll(){
+  var ns=["\u7ecf\u5178\u5361\u7247","\u65f6\u95f4\u8f74","\u5927\u5361\u7247","\u6781\u7b80\u7559\u767d","\u6742\u5fd7\u98ce","\u7b14\u8bb0\u672c","\u4fe1\u606f\u56fe","\u7f51\u683c\u5e03\u5c40"],cs=document.querySelectorAll(".content"),idx=0;
+  function next(){if(idx>=cs.length){document.querySelector(".s1").classList.add("active");return}cs[idx].classList.add("active");setTimeout(function(){html2canvas(cs[idx],{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="\u6392\u7248-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},200)}next();
+}
+
 </script>
-</body>
-</html>
-
-</body>
-</html><div class="content active s1">
-  <div class="hero"><h1>高三数学70分→100+ 最后60天冲刺提分计划</h1><p>放弃难题，死磕基础+中档，稳提30+</p></div>
-  <div class="stitle">🎯 核心策略</div>
-  <div class="cbox"><p>放弃选择/填空最后1题、大题最后2问，死磕<strong>基础+中档题（120分）</strong>。回归课本公式、定义、例题，刷题只刷真题基础题，当天错题当天清。</p></div>
-  <div class="stitle">🏆 必拿分黄金板块（优先级从高到低）</div>
-  <div class="cbox"><ul class="plist"><li>三角函数 / 概率统计 / 数列</li><li>立体几何 / 解析几何（基础）</li><li>函数与导数（基础）</li></ul></div>
-  <div class="stitle">📅 三阶段冲刺</div>
-  <div class="card"><div class="num">1</div><div><h3>第01-30天：基础夯实</h3><p>早读背公式30分钟，白天刷课本例题+基础真题，晚上错题复盘（只记思路）</p></div></div>
-  <div class="card"><div class="num">2</div><div><h3>第31-50天：中档突破</h3><p>刷真题中档题；选择1-10、填空1-3、大题前4道。大题练步骤；步骤分=半条命，错题反复刷</p></div></div>
-  <div class="card"><div class="num">3</div><div><h3>第51-60天：模拟冲刺</h3><p>2天1套卷（严格2小时），只改基础中档，难题不看，保持手感，不搞新难题</p></div></div>
-  <div class="stitle">⏰ 每日固定时间</div>
-  <div class="twrap"><table><thead><tr><th>时段</th><th>时间</th><th>任务</th></tr></thead><tbody>
-    <tr><td>早读</td><td>7:00-7:30</td><td>背公式</td></tr>
-    <tr><td>下午</td><td>13:00-15:00</td><td>刷基础中档题</td></tr>
-    <tr><td>下午</td><td>15:00-17:00</td><td>刷题</td></tr>
-    <tr><td>晚上</td><td>20:00-21:00</td><td>错题复盘</td></tr>
-  </tbody></table></div>
-  <div class="dbox"><h4>💪 提分铁律</h4><p>计算零失误 · 大题写步骤就能拿分<br>不刷偏题怪题 · 坚持60天，稳提30+</p></div>
-</div>
-
-<div class="content s2">
-  <div class="header"><h1>高三数学 70→100+</h1><p>最后60天冲刺提分计划</p></div>
-  <div class="sbox"><p><strong>核心策略：</strong>放弃选择/填空最后1题、大题最后2问，死磕基础+中档题（120分），回归课本公式、定义、例题，刷题只刷真题基础题，当天错题当天清。</p></div>
-  <div class="pinline"><strong>黄金板块：</strong>三角函数/概率统计/数列 → 立体几何/解析几何（基础）→ 函数与导数（基础）</div>
-  <div class="timeline">
-    <div class="tl-item"><span class="days">第01-30天</span><h3>阶段一：基础夯实</h3><p>早读背公式30分钟，白天刷课本例题+基础真题，晚上错题复盘（只记思路）</p></div>
-    <div class="tl-item"><span class="days">第31-50天</span><h3>阶段二：中档突破</h3><p>刷真题中档题；选择1-10、填空1-3、大题前4道。大题练步骤；步骤分=半条命，错题反复刷</p></div>
-    <div class="tl-item"><span class="days">第51-60天</span><h3>阶段三：模拟冲刺</h3><p>2天1套卷（严格2小时），只改基础中档，难题不看，保持手感，不搞新难题</p></div>
-  </div>
-  <div class="tgrid">
-    <div class="titem"><strong>🌅 早读 7:00-7:30</strong><span>背公式</span></div>
-    <div class="titem"><strong>📚 下午 13:00-15:00</strong><span>刷基础中档题</span></div>
-    <div class="titem"><strong>✏️ 下午 15:00-17:00</strong><span>刷题</span></div>
-    <div class="titem"><strong>🌙 晚上 20:00-21:00</strong><span>错题复盘</span></div>
-  </div>
-  <div class="rules"><h4>💪 提分铁律</h4><p>计算零失误 · 大题写步骤就能拿分<br>不刷偏题怪题 · 坚持60天，稳提30+</p></div>
-</div>
-
-<div class="content s3">
-  <div class="bighero"><span class="emoji">🚀</span><h1>高三数学冲刺提分计划</h1><p>70分→100+ · 最后60天 · 稳提30+</p></div>
-  <div class="bcontent">
-    <div class="bc"><div class="icon">🎯</div><div><h3>核心策略</h3><p>放弃选择/填空最后1题、大题最后2问，死磕基础+中档题（120分），回归课本公式、定义、例题，当天错题当天清。</p></div></div>
-    <div class="pricards">
-      <div class="pricard"><div class="rank">1</div><p>三角函数<br>概率统计<br>数列</p></div>
-      <div class="pricard"><div class="rank">2</div><p>立体几何<br>解析几何（基础）</p></div>
-      <div class="pricard"><div class="rank">3</div><p>函数与导数<br>（基础）</p></div>
-    </div>
-    <div class="bc"><div class="icon">📅</div><div><h3>第01-30天 基础夯实</h3><p>早读背公式30min → 课本例题+基础真题 → 错题复盘（只记思路）</p></div></div>
-    <div class="bc"><div class="icon">⚡</div><div><h3>第31-50天 中档突破</h3><p>选择1-10/填空1-3/大题前4道 → 大题练步骤 → 步骤分=半条命 → 错题反复刷</p></div></div>
-    <div class="bc"><div class="icon">🏆</div><div><h3>第51-60天 模拟冲刺</h3><p>2天1套卷(严格2h) → 只改基础中档 → 难题不看 → 保持手感</p></div></div>
-    <div class="schedrow">
-      <div class="scheditem"><div class="time">7:00</div><div class="act">🌅 背公式</div></div>
-      <div class="scheditem"><div class="time">13:00</div><div class="act">📚 刷基础中档题</div></div>
-      <div class="scheditem"><div class="time">15:00</div><div class="act">✏️ 刷题</div></div>
-      <div class="scheditem"><div class="time">20:00</div><div class="act">🌙 错题复盘</div></div>
-    </div>
-  </div>
-  <div class="footer"><h4>💪 提分铁律</h4><p>计算零失误 · 大题写步骤就能拿分 · 不刷偏题怪题<br>坚持60天，稳提30+</p></div>
-</div>
-
-<div class="content s4">
-  <div class="mintitle"><h1>高三数学冲刺提分计划</h1><p style="font-size:14px;color:#aaa;margin-top:10px">70分→100+ · 最后60天 · 死磕基础+中档</p></div>
-
-  <div class="minsec">
-    <h3>核心策略</h3>
-    <p>放弃选择/填空最后1题、大题最后2问，死磕基础+中档题（120分）。回归课本公式、定义、例题，刷题只刷真题基础题，当天错题当天清。</p>
-  </div>
-  <hr class="mindiv">
-
-  <div class="minsec">
-    <h3>必拿分黄金板块</h3>
-    <p>P1 · 三角函数 / 概率统计 / 数列<br>P2 · 立体几何 / 解析几何（基础）<br>P3 · 函数与导数（基础）</p>
-  </div>
-  <hr class="mindiv">
-
-  <div class="minsec">
-    <h3>第01-30天 · 基础夯实</h3>
-    <p>早读背公式30分钟，白天刷课本例题+基础真题，晚上错题复盘（只记思路）</p>
-  </div>
-  <div class="minsec">
-    <h3>第31-50天 · 中档突破</h3>
-    <p>刷真题中档题；选择1-10、填空1-3、大题前4道。大题练步骤；步骤分=半条命，错题反复刷</p>
-  </div>
-  <div class="minsec">
-    <h3>第51-60天 · 模拟冲刺</h3>
-    <p>2天1套卷（严格2小时），只改基础中档，难题不看，保持手感，不搞新难题</p>
-  </div>
-  <hr class="mindiv">
-
-  <div class="minsec">
-    <h3>每日时间</h3>
-    <p><b>7:00-7:30</b>  早读背公式<br><b>13:00-15:00</b>  刷基础中档题<br><b>15:00-17:00</b>  刷题<br><b>20:00-21:00</b>  错题复盘</p>
-  </div>
-
-  <div class="minrules"><p>计算零失误 · 大题写步骤就能拿分<br>不刷偏题怪题 · 坚持60天，稳提30+</p></div>
-</div><div class="content s5">
-  <div class="mag-header"><h1>高三数学冲刺提分计划</h1><p>70分→100+ · 最后60天<br>死磕基础+中档题，稳提30+</p><span class="side-text">MATH PLAN 60DAYS</span><span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:44px;letter-spacing:10px;opacity:.1;font-weight:900">冲刺</span></div>
-  <div class="mag-body"><span class="side-deco">策略板块冲刺时间</span>
-    <div class="mag-sec"><h3>核心策略</h3><p>放弃选择/填空最后1题、大题最后2问，死磕基础+中档题（120分），回归课本公式、定义、例题，刷题只刷真题基础题，当天错题当天清。</p></div>
-    <div class="mag-sec"><h3>必拿分黄金板块</h3><ul class="mag-pri"><li>三角函数 / 概率统计 / 数列（P1）</li><li>立体几何 / 解析几何基础（P2）</li><li>函数与导数基础（P3）</li></ul></div>
-    <div class="mag-sec"><h3>三阶段冲刺</h3>
-      <div class="mag-phases">
-        <div class="phase"><span class="plabel">01-30天</span><h4>基础夯实</h4><p>早读背公式30min → 课本例题+真题 → 错题复盘</p></div>
-        <div class="phase"><span class="plabel">31-50天</span><h4>中档突破</h4><p>选择1-10/填空1-3/大题前4道 → 练步骤</p></div>
-        <div class="phase"><span class="plabel">51-60天</span><h4>模拟冲刺</h4><p>2天1套卷(2h) → 只改基础中档</p></div>
-      </div>
-    </div>
-    <div class="mag-sec"><h3>每日时间</h3>
-      <div class="mag-sched">
-        <div class="mag-time"><strong>7:00-7:30</strong><p>早读背公式</p></div>
-        <div class="mag-time"><strong>13:00-15:00</strong><p>刷基础中档题</p></div>
-        <div class="mag-time"><strong>15:00-17:00</strong><p>刷题</p></div>
-        <div class="mag-time"><strong>20:00-21:00</strong><p>错题复盘</p></div>
-      </div>
-    </div>
-  </div>
-  <div class="mag-footer"><h4>💪 提分铁律</h4><p>计算零失误 · 大题写步骤就能拿分 · 不刷偏题怪题 · 坚持60天，稳提30+</p><span class="side-text">KEEP GOING</span></div>
-</div>
-
-<div class="content s6">
-  <div class="note-header"><h1>高三数学冲刺提分计划</h1><p>70分→100+ · 最后60天</p><div class="tape"></div><div class="tape-2"></div></div>
-  <div class="note-body">
-    <div class="sticky">📝 关键<br>当天错题<br>必须当天清！</div>
-    <div class="note-title">🎯 核心策略</div>
-    <div class="note-content">放弃选择/填空最后1题、大题最后2问，死磕基础+中档题（120分），回归课本公式、定义、例题，刷题只刷真题基础题，当天错题当天清。</div>
-    <div class="note-title">🏆 必拿分板块</div>
-    <ul class="nlist"><li>三角函数 / 概率统计 / 数列</li><li>立体几何 / 解析几何（基础）</li><li>函数与导数（基础）</li></ul>
-    <div class="note-title">📅 三阶段冲刺</div>
-    <div class="nphase"><h4>第01-30天：基础夯实</h4><p>早读背公式30分钟，白天刷课本例题+基础真题，晚上错题复盘（只记思路）</p></div>
-    <div class="nphase"><h4>第31-50天：中档突破</h4><p>刷真题中档题；选择1-10、填空1-3、大题前4道，大题练步骤；步骤分=半条命，错题反复刷</p></div>
-    <div class="nphase"><h4>第51-60天：模拟冲刺</h4><p>2天1套卷（严格2小时），只改基础中档，难题不看，保持手感，不搞新难题</p></div>
-    <div class="note-title">⏰ 每日时间</div>
-    <div class="nsched"><span class="clock">🌅</span><span class="act">7:00-7:30 背公式</span></div>
-    <div class="nsched"><span class="clock">📚</span><span class="act">13:00-15:00 刷基础中档题</span></div>
-    <div class="nsched"><span class="clock">✏️</span><span class="act">15:00-17:00 刷题</span></div>
-    <div class="nsched"><span class="clock">🌙</span><span class="act">20:00-21:00 错题复盘</span></div>
-    <div class="nrules"><h4>💪 提分铁律</h4><p>计算零失误 · 大题写步骤就能拿分 · 不刷偏题怪题 · 坚持60天，稳提30+</p></div>
-  </div>
-</div>
-
-<div class="content s7">
-  <div class="info-hero"><h1>高三数学冲刺提分计划</h1><p>70分→100+ · 最后60天</p>
-    <div class="stats">
-      <div class="stat-item">
-        <div class="stat-circle" style="--pct:100%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">120</span><span class="unit">分</span></div></div>
-        <div class="label">目标基础盘</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-circle" style="--pct:60%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">60</span><span class="unit">天</span></div></div>
-        <div class="label">冲刺周期</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-circle" style="--pct:25%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">30</span><span class="unit">+</span></div></div>
-        <div class="label">预期提分</div>
-      </div>
-    </div>
-  </div>
-  <div class="ibox"><h3>💡 核心策略</h3><p>放弃选择/填空最后1题、大题最后2问，死磕基础+中档题（120分），回归课本公式、定义、例题，刷题只刷真题基础题，当天错题当天清。</p></div>
-  <div class="ibox"><h3>🏆 必拿分板块</h3>
-    <div class="pri-row"><div class="name">P1 三角函数/概率统计/数列</div><div class="bar"><div class="bar-fill" style="width:100%"></div></div></div>
-    <div class="pri-row"><div class="name">P2 立体几何/解析几何(基础)</div><div class="bar"><div class="bar-fill" style="width:75%"></div></div></div>
-    <div class="pri-row"><div class="name">P3 函数与导数(基础)</div><div class="bar"><div class="bar-fill" style="width:50%"></div></div></div>
-  </div>
-  <div class="phases-row">
-    <div class="pbar"><div class="dc">30</div><div class="dl">天</div><h4>基础夯实</h4><p>背公式+课本例题+错题复盘</p><div class="bar"><div class="bar-fill" style="width:50%"></div></div></div>
-    <div class="pbar"><div class="dc">20</div><div class="dl">天</div><h4>中档突破</h4><p>真题中档+练步骤</p><div class="bar"><div class="bar-fill" style="width:33%"></div></div></div>
-    <div class="pbar"><div class="dc">10</div><div class="dl">天</div><h4>模拟冲刺</h4><p>套卷+保持手感</p><div class="bar"><div class="bar-fill" style="width:17%"></div></div></div>
-  </div>
-  <div class="ibox"><h3>⏰ 每日时间表</h3>
-    <div class="srow"><span class="badge">7:00-7:30</span><span class="task">早读背公式</span></div>
-    <div class="srow"><span class="badge">13:00-15:00</span><span class="task">刷基础中档题</span></div>
-    <div class="srow"><span class="badge">15:00-17:00</span><span class="task">刷题</span></div>
-    <div class="srow"><span class="badge">20:00-21:00</span><span class="task">错题复盘</span></div>
-  </div>
-  <div class="irules"><h4>💪 提分铁律</h4><p>计算零失误 · 大题写步骤就能拿分 · 不刷偏题怪题 · 坚持60天，稳提30+</p></div>
-</div><div class="content s8">
-  <div class="grid-hero"><h1>高三数学冲刺提分计划</h1><p>70→100+ · 最后60天 · 死磕基础+中档</p></div>
-  <div class="grid">
-    <div class="gc full"><h3><span class="dot"></span>核心策略</h3><p>放弃选择/填空最后1题、大题最后2问，死磕基础+中档题（120分），回归课本公式、定义、例题，当天错题当天清。</p></div>
-    <div class="gc"><h3><span class="dot"></span>必拿分 P1</h3><ul><li>三角函数</li><li>概率统计</li><li>数列</li></ul></div>
-    <div class="gc"><h3><span class="dot"></span>必拿分 P2</h3><ul><li>立体几何</li><li>解析几何（基础）</li><li>函数与导数（基础）</li></ul></div>
-    <div class="gc full"><h3><span class="dot"></span>三阶段冲刺</h3>
-      <div class="trow"><span class="t">01-30天</span><span class="a">基础夯实：背公式→课本例题+真题→错题复盘</span></div>
-      <div class="trow"><span class="t">31-50天</span><span class="a">中档突破：选择1-10/填空1-3/大题前4道，练步骤</span></div>
-      <div class="trow"><span class="t">51-60天</span><span class="a">模拟冲刺：2天1套卷(2h)，只改基础中档</span></div>
-    </div>
-    <div class="gc"><h3><span class="dot"></span>每日时间</h3>
-      <div class="trow"><span class="t">07:00</span><span class="a">背公式</span></div>
-      <div class="trow"><span class="t">13:00</span><span class="a">刷基础中档</span></div>
-      <div class="trow"><span class="t">15:00</span><span class="a">刷题</span></div>
-      <div class="trow"><span class="t">20:00</span><span class="a">错题复盘</span></div>
-    </div>
-    <div class="gc full rules"><h3><span class="dot"></span>提分铁律</h3><p>计算零失误 · 大题写步骤就能拿分 · 不刷偏题怪题 · 坚持60天，稳提30+</p></div>
-  </div>
-</div>
-</body>
-</html>
+</body></html>
