@@ -5,18 +5,10 @@
 <meta name="viewport" content="width=800, initial-scale=1.0">
 <title>TextCraft - 文字排版工具</title>
 <style>
+
 :root{--primary:#e8457c;--light:#fff0f3;--gradient:linear-gradient(135deg,#e8457c,#ff8fab);--text:#a01040;--font:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;--radius:14px;--shadow:0 4px 20px rgba(0,0,0,.08)}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margin:0 auto;padding:16px}
-/* Editor */
-.editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
-.editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
-.editor-panel textarea{width:100%;height:160px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
-.editor-panel textarea:focus{border-color:var(--primary)}
-.hint{font-size:12px;color:#999;margin-top:8px}
-.btn-row{display:flex;gap:10px;margin-top:14px}
-.btn-row button{padding:10px 28px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:var(--gradient);color:#fff}
-/* Controls */
 .controls{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:16px;flex-wrap:wrap;gap:10px}
 .style-btns{display:flex;gap:6px;flex-wrap:wrap}
 .style-btn{padding:6px 14px;border:2px solid #e0e0e0;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font);color:#666;white-space:nowrap}
@@ -32,117 +24,187 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .color-dot[data-c="orange"]{background:#f97316}
 .color-dot[data-c="purple"]{background:#8b5cf6}
 .color-dot[data-c="cyan"]{background:#0ea5e9}
-/* Export bar */
+.content{display:none}.content.active{display:block}
+
+/* S1 */
+.s1{background:var(--light);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
+.s1 .hero{background:var(--gradient);border-radius:12px;padding:28px 24px;color:#fff;text-align:center;margin-bottom:28px}
+.s1 .hero h1{font-size:24px;font-weight:700;margin-bottom:6px}
+.s1 .hero p{font-size:14px;opacity:.9}
+.s1 .stitle{font-size:17px;font-weight:700;color:var(--text);margin:24px 0 14px;padding-left:12px;border-left:4px solid var(--primary)}
+.s1 .card{display:flex;align-items:flex-start;gap:14px;background:#fff;border-radius:12px;padding:18px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.s1 .card .num{min-width:36px;height:36px;border-radius:50%;background:var(--gradient);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.s1 .card h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.s1 .card p{font-size:13px;color:#666;line-height:1.7}
+.s1 .cbox{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.s1 .cbox p{font-size:13px;color:#555;line-height:1.8}
+.s1 .plist{list-style:none;padding:0}.s1 .plist li{font-size:13px;color:#555;padding:4px 0}.s1 .plist li::before{content:"★";color:var(--primary);margin-right:6px}
+.s1 .dbox{background:var(--gradient);border-radius:12px;padding:18px 20px;color:#fff;text-align:center;margin-top:20px}
+.s1 .dbox h4{font-size:16px;margin-bottom:8px}.s1 .dbox p{font-size:13px;opacity:.95;line-height:1.8}
+.s1 .twrap{margin-top:12px;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.s1 table{width:100%;border-collapse:collapse;background:#fff}
+.s1 th{background:var(--gradient);color:#fff;padding:10px 14px;font-size:13px;text-align:left}
+.s1 td{padding:10px 14px;font-size:12px;border-bottom:1px solid #f0f0f0;color:#555}
+
+/* S2 */
+.s2{background:#fff;border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
+.s2 .header{text-align:center;margin-bottom:28px}
+.s2 .header h1{font-size:22px;color:var(--primary);font-weight:700}
+.s2 .header p{font-size:13px;color:#888;margin-top:6px}
+.s2 .sbox{background:var(--light);border-radius:12px;padding:16px 20px;margin-bottom:24px;border-left:4px solid var(--primary)}
+.s2 .sbox p{font-size:13px;color:#555;line-height:1.8}
+.s2 .pinline{background:var(--light);border-radius:10px;padding:12px 16px;margin-bottom:24px;font-size:13px;color:var(--text);line-height:1.8}
+.s2 .timeline{position:relative;padding-left:28px;margin-bottom:24px}
+.s2 .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:3px;background:var(--gradient);border-radius:3px}
+.s2 .tl-item{position:relative;margin-bottom:24px}
+.s2 .tl-item::before{content:'';position:absolute;left:-22px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--primary);border:3px solid #fff;box-shadow:0 0 0 2px var(--primary)}
+.s2 .tl-item h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.s2 .tl-item .days{display:inline-block;background:var(--primary);color:#fff;font-size:11px;padding:2px 10px;border-radius:10px;margin-bottom:6px}
+.s2 .tl-item p{font-size:13px;color:#666;line-height:1.7}
+.s2 .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.s2 .titem{background:var(--light);border-radius:10px;padding:12px 14px;border-left:3px solid var(--primary)}
+.s2 .titem strong{font-size:13px;color:var(--text)}.s2 .titem span{font-size:12px;color:#888;display:block;margin-top:2px}
+.s2 .rules{text-align:center;padding:18px;background:var(--gradient);border-radius:12px;color:#fff}
+.s2 .rules h4{font-size:15px;margin-bottom:6px}.s2 .rules p{font-size:13px;opacity:.95;line-height:1.7}
+
+/* S3 */
+.s3{padding:0}
+.s3 .bighero{background:var(--gradient);padding:36px 28px;color:#fff;border-radius:var(--radius) var(--radius) 0 0;text-align:center}
+.s3 .bighero .emoji{font-size:48px;margin-bottom:12px}.s3 .bighero h1{font-size:24px;font-weight:700}
+.s3 .bighero p{font-size:14px;opacity:.9;margin-top:8px;line-height:1.6}
+.s3 .bcontent{padding:20px}
+.s3 .bc{background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.s3 .bc::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient)}
+.s3 .bc .icon{font-size:32px;margin-bottom:8px}
+.s3 .bc h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
+.s3 .bc p{font-size:13px;color:#666;line-height:1.7}
+.s3 .pricards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.s3 .pricard{background:#fff;border-radius:12px;padding:14px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.s3 .pricard .rank{width:28px;height:28px;border-radius:50%;background:var(--gradient);color:#fff;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:6px}
+.s3 .pricard p{font-size:12px;color:#555;line-height:1.5}
+.s3 .schedrow{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.s3 .scheditem{flex:1;min-width:140px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-align:center}
+.s3 .scheditem .time{font-size:18px;font-weight:700;color:var(--primary)}.s3 .scheditem .act{font-size:12px;color:#666;margin-top:4px}
+.s3 .footer{background:var(--gradient);padding:20px 28px;color:#fff;border-radius:0 0 var(--radius) var(--radius);text-align:center}
+.s3 .footer h4{font-size:16px;margin-bottom:8px}.s3 .footer p{font-size:13px;opacity:.95;line-height:1.8}
+
+/* S4 */
+.s4{background:#fff;border-radius:var(--radius);padding:56px 44px;box-shadow:var(--shadow)}
+.s4 .mintitle{text-align:center;margin-bottom:48px}
+.s4 .mintitle h1{font-size:28px;font-weight:300;color:#222;letter-spacing:2px}
+.s4 .mintitle .line{width:40px;height:2px;background:var(--primary);margin:16px auto 0}
+.s4 .minsec{margin-bottom:48px}
+.s4 .minsec .bignum{font-size:48px;font-weight:200;color:var(--primary);opacity:.4;line-height:1}
+.s4 .minsec h3{font-size:17px;font-weight:600;color:#222;margin:6px 0 14px;letter-spacing:1px}
+.s4 .minsec p{font-size:14px;color:#999;line-height:2.2;letter-spacing:.5px}
+.s4 .mindiv{border:none;border-top:1px solid #f0f0f0;margin:48px 0}
+.s4 .minsched{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin:40px 0}
+.s4 .mintime strong{font-size:14px;color:var(--text)}.s4 .mintime p{font-size:13px;color:#aaa;margin-top:2px}
+.s4 .minrules{text-align:center;padding:40px 0;margin-top:24px;border-top:1px solid #f0f0f0}
+.s4 .minrules p{font-size:15px;color:var(--primary);font-weight:400;letter-spacing:2px;line-height:2.2}
+
+/* S5 */
+.s5{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:0;overflow:hidden}
+.s5 .mag-header{padding:40px 36px 32px;position:relative;background:var(--gradient);color:#fff;overflow:hidden}
+.s5 .mag-header .side-text{position:absolute;right:20px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:13px;letter-spacing:6px;opacity:.4;font-weight:300}
+.s5 .mag-header h1{font-size:26px;font-weight:700;max-width:60%;position:relative;z-index:1}.s5 .mag-header p{font-size:13px;opacity:.85;margin-top:8px;max-width:70%;line-height:1.6}
+.s5 .mag-body{padding:28px 28px 28px 36px;position:relative}
+.s5 .mag-body .side-deco{position:absolute;left:10px;top:20px;bottom:20px;writing-mode:vertical-rl;font-size:11px;letter-spacing:8px;color:var(--primary);opacity:.2;font-weight:700}
+.s5 .mag-sec{margin-bottom:28px}
+.s5 .mag-sec h3{font-size:16px;font-weight:700;color:var(--text);border-bottom:2px solid var(--primary);display:inline-block;padding-bottom:4px;margin-bottom:12px}
+.s5 .mag-sec p{font-size:13px;color:#555;line-height:1.9}
+.s5 .mag-phases{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.s5 .phase{flex:1;min-width:180px;border:1px solid #e8e8e8;border-radius:10px;padding:16px;position:relative}
+.s5 .phase .plabel{position:absolute;top:-10px;left:16px;background:var(--primary);color:#fff;font-size:11px;padding:2px 12px;border-radius:10px}
+.s5 .phase h4{font-size:14px;color:#222;margin-bottom:6px;margin-top:4px}.s5 .phase p{font-size:12px;color:#666;line-height:1.7}
+.s5 .mag-pri{background:var(--light);border-radius:10px;padding:16px 20px;margin-bottom:20px}
+.s5 .mag-pri li{font-size:13px;color:#555;padding:3px 0;list-style:none}.s5 .mag-pri li::before{content:"▸ ";color:var(--primary)}
+.s5 .mag-sched{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.s5 .mag-time{border-left:3px solid var(--primary);padding-left:12px}
+.s5 .mag-time strong{font-size:13px;color:var(--text)}.s5 .mag-time p{font-size:12px;color:#888;margin-top:2px}
+.s5 .mag-footer{background:var(--text);color:#fff;padding:20px 28px;text-align:center;position:relative}
+.s5 .mag-footer .side-text{position:absolute;right:20px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:11px;letter-spacing:6px;opacity:.3}
+.s5 .mag-footer h4{font-size:15px;margin-bottom:6px}.s5 .mag-footer p{font-size:13px;opacity:.85;line-height:1.8}
+
+/* S6 */
+.s6{background:#fffef5;border-radius:var(--radius);box-shadow:var(--shadow);padding:0;position:relative;background-image:repeating-linear-gradient(transparent,transparent 31px,#e8e4d8 31px,#e8e4d8 32px);background-position:0 20px}
+.s6 .note-header{background:var(--gradient);padding:24px 28px;color:#fff;border-radius:var(--radius) var(--radius) 0 0;position:relative}
+.s6 .note-header h1{font-size:22px;font-weight:700;text-decoration:underline;text-decoration-style:wavy;text-underline-offset:6px}
+.s6 .note-header p{font-size:13px;opacity:.9;margin-top:6px}
+.s6 .note-header .tape{position:absolute;top:-6px;right:40px;width:80px;height:20px;background:rgba(255,255,255,.35);transform:rotate(-2deg);border-radius:2px}
+.s6 .note-header .tape-2{position:absolute;top:-6px;left:60px;width:60px;height:18px;background:rgba(255,255,255,.2);transform:rotate(3deg);border-radius:2px}
+.s6 .note-body::before{content:'';position:absolute;left:52px;top:20px;bottom:20px;width:2px;background:rgba(220,80,80,.2)}
+.s6 .note-body::after{content:'';position:absolute;bottom:0;right:0;width:24px;height:24px;background:linear-gradient(225deg,#f5f5f0 50%,rgba(0,0,0,.05) 50%);border-radius:0 0 var(--radius) 0}
+.s6 .sticky{position:absolute;top:70px;right:12px;width:90px;padding:12px 10px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 8px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#999;line-height:1.6;z-index:2}
+.s6 .sticky::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:36px;height:10px;background:rgba(255,255,200,.7);border-radius:1px}
+.s6 .note-body{padding:28px 32px 32px}
+.s6 .note-title{font-size:16px;font-weight:700;color:var(--text);margin:20px 0 10px;font-style:italic;border-bottom:2px solid var(--primary);display:inline-block}
+.s6 .note-content{font-size:14px;color:#444;line-height:32px;font-style:italic;padding-bottom:2px}
+.s6 .nlist{list-style:none;padding:0}.s6 .nlist li{font-size:14px;color:#444;line-height:32px;padding-left:20px;position:relative;font-style:italic}.s6 .nlist li::before{content:"✎";position:absolute;left:0;color:var(--primary)}
+.s6 .nphase{background:rgba(255,255,255,.6);border-radius:10px;padding:16px 18px;margin-bottom:12px;border:1px dashed var(--primary)}
+.s6 .nphase h4{font-size:15px;color:var(--text);font-style:italic;margin-bottom:4px}.s6 .nphase p{font-size:13px;color:#555;line-height:1.8;font-style:italic}
+.s6 .nsched{display:flex;gap:12px;align-items:baseline;padding:6px 0;border-bottom:1px dashed #ddd}
+.s6 .nsched .clock{font-size:18px}.s6 .nsched .act{font-size:13px;color:#555;font-style:italic}
+.s6 .nrules{background:var(--gradient);border-radius:10px;padding:16px 20px;color:#fff;text-align:center;margin-top:20px}
+.s6 .nrules h4{font-size:15px;margin-bottom:6px}.s6 .nrules p{font-size:13px;opacity:.95;line-height:1.8}
+
+/* S7 */
+.s7{background:var(--light);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+.s7 .info-hero{text-align:center;margin-bottom:24px}
+.s7 .info-hero h1{font-size:22px;font-weight:700;color:var(--text)}
+.s7 .stats{display:flex;justify-content:center;gap:32px;margin-top:20px}
+.s7 .stat-item{text-align:center}
+.s7 .stat-circle{width:100px;height:100px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;position:relative}
+.s7 .stat-circle .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--primary) var(--pct),#e8e8e8 var(--pct))}
+.s7 .stat-circle .ring-inner{position:absolute;inset:7px;border-radius:50%;background:var(--light)}.s7 .stat-circle .inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:auto;height:auto;border-radius:50%;background:var(--light);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;flex-direction:column}
+.s7 .stat-circle .num{font-size:28px;font-weight:700;color:var(--text);line-height:1}.s7 .stat-circle .unit{font-size:10px;color:#888}
+.s7 .stat-item .label{font-size:12px;color:#666}
+.s7 .ibox{background:#fff;border-radius:12px;padding:18px 20px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.s7 .ibox h3{font-size:15px;color:var(--text);margin-bottom:8px}.s7 .ibox p{font-size:13px;color:#666;line-height:1.8}
+.s7 .phases-row{display:flex;gap:10px;margin-bottom:20px}
+.s7 .pbar{flex:1;background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04);text-align:center}
+.s7 .pbar .dc{font-size:28px;font-weight:700;color:var(--primary)}.s7 .pbar .dl{font-size:11px;color:#aaa}
+.s7 .pbar h4{font-size:14px;color:#333;margin:8px 0 6px}.s7 .pbar p{font-size:12px;color:#888;line-height:1.6}
+.s7 .pbar .bar{height:6px;border-radius:3px;background:#eee;margin-top:10px;overflow:hidden}
+.s7 .pbar .bar-fill{height:100%;border-radius:3px;background:var(--gradient)}
+.s7 .pri-row{margin-bottom:10px}.s7 .pri-row .name{font-size:13px;color:#555;margin-bottom:4px}
+.s7 .pri-row .bar{height:8px;border-radius:4px;background:#eee;overflow:hidden}.s7 .pri-row .bar-fill{height:100%;border-radius:4px;background:var(--gradient)}
+.s7 .srow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.s7 .srow .badge{background:var(--gradient);color:#fff;font-size:12px;padding:5px 12px;border-radius:8px;white-space:nowrap}
+.s7 .srow .task{font-size:13px;color:#555}
+.s7 .irules{background:var(--gradient);border-radius:12px;padding:18px 20px;color:#fff;text-align:center}
+.s7 .irules h4{font-size:16px;margin-bottom:8px}.s7 .irules p{font-size:13px;opacity:.95;line-height:1.8}
+
+/* S8 */
+.s8{background:var(--light);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.s8 .grid-hero{background:var(--gradient);border-radius:12px;padding:20px;color:#fff;text-align:center;margin-bottom:16px}
+.s8 .grid-hero h1{font-size:20px;font-weight:700}.s8 .grid-hero p{font-size:12px;opacity:.9;margin-top:4px}
+.s8 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.s8 .gc{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.s8 .gc.full{grid-column:1/-1}
+.s8 .gc h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.s8 .gc h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--primary)}
+.s8 .gc p{font-size:12px;color:#666;line-height:1.7}
+.s8 .gc ul{list-style:none;padding:0}.s8 .gc ul li{font-size:12px;color:#666;padding:3px 0}.s8 .gc ul li::before{content:"▸ ";color:var(--primary)}
+.s8 .gc .plabel{display:inline-block;background:var(--primary);color:#fff;font-size:11px;padding:2px 8px;border-radius:8px;margin-bottom:6px}
+.s8 .gc .trow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f5f5f5}
+.s8 .gc .trow:last-child{border-bottom:none}.s8 .gc .trow .t{font-size:12px;color:var(--primary);font-weight:600}.s8 .gc .trow .a{font-size:12px;color:#666}
+.s8 .gc.rules{background:var(--gradient);color:#fff;text-align:center}
+.s8 .gc.rules h3{color:#fff;justify-content:center}.s8 .gc.rules h3 .dot{background:#fff}.s8 .gc.rules p{color:rgba(255,255,255,.95)}
+
+
+.editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
+.editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
+.editor-panel textarea{width:100%;height:150px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
+.editor-panel textarea:focus{border-color:var(--primary)}
+.hint{font-size:12px;color:#999;margin-top:8px}
+.btn-row{display:flex;gap:10px;margin-top:14px}
+.btn-row button{padding:10px 28px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:var(--gradient);color:#fff}
 .export-bar{display:flex;gap:10px;margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);align-items:center;flex-wrap:wrap}
 .export-bar button{padding:8px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);color:#fff;background:var(--gradient)}
 .export-bar .btn-all{background:#4f6df5}
 .export-bar .info{font-size:12px;color:#999;margin-left:auto}
-/* Content hidden by default */
-.content{display:none}
-.content.active{display:block}
-/* S1 - Classic Cards */
-.s1 .hero{background:var(--gradient);border-radius:var(--radius);padding:28px 24px;margin-bottom:16px;color:#fff}
-.s1 .hero h1{font-size:22px;font-weight:800;line-height:1.4}
-.s1 .hero p{font-size:14px;opacity:.85;margin-top:8px}
-.s1 .stitle{font-size:16px;font-weight:700;color:var(--primary);margin:16px 0 10px;padding-left:12px;border-left:4px solid var(--primary)}
-.s1 .card{display:flex;align-items:flex-start;gap:14px;background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow)}
-.s1 .card .num{width:36px;height:36px;border-radius:50%;background:var(--gradient);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.s1 .card h3{font-size:14px;font-weight:700;color:#222;margin-bottom:4px}
-.s1 .card p{font-size:13px;color:#555;line-height:1.7}
-.s1 .cbox{background:var(--light);border-radius:12px;padding:16px;margin-bottom:10px}
-.s1 .cbox p{font-size:13px;color:#444;line-height:1.8;margin-bottom:6px}
-.s1 .cbox ul.plist{padding-left:18px}
-.s1 .cbox ul.plist li{font-size:13px;color:#444;line-height:1.8;margin-bottom:4px}
-.s1 .dbox{background:var(--gradient);border-radius:12px;padding:18px;margin-top:16px;color:#fff;text-align:center}
-.s1 .dbox h4{font-size:15px;font-weight:700;margin-bottom:8px}
-.s1 .dbox p{font-size:13px;opacity:.9;line-height:1.7}
-/* S2 - Timeline */
-.s2{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
-.s2 .header{background:var(--gradient);border-radius:12px;padding:20px;margin-bottom:20px;color:#fff}
-.s2 .header h1{font-size:20px;font-weight:800}
-.s2 .timeline{position:relative;padding-left:24px}
-.s2 .timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--light)}
-.s2 .tl-item{position:relative;margin-bottom:20px;padding:14px 16px;background:var(--light);border-radius:12px}
-.s2 .tl-item::before{content:'';position:absolute;left:-20px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--primary)}
-.s2 .tl-item .days{display:inline-block;background:var(--gradient);color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:8px}
-.s2 .tl-item h3{font-size:14px;font-weight:700;color:#222;margin-bottom:6px}
-.s2 .tl-item p{font-size:13px;color:#555;line-height:1.7;margin-bottom:4px}
-/* S3 - Big Cards */
-.s3{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-.s3 .bighero{background:var(--gradient);padding:32px 24px;text-align:center;color:#fff}
-.s3 .bighero .emoji{font-size:40px;display:block;margin-bottom:12px}
-.s3 .bighero h1{font-size:22px;font-weight:800}
-.s3 .bcontent{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.s3 .bc{background:var(--light);border-radius:12px;padding:16px}
-.s3 .bc .icon{font-size:24px;margin-bottom:8px}
-.s3 .bc h3{font-size:14px;font-weight:700;color:#222;margin-bottom:6px}
-.s3 .bc p{font-size:12px;color:#555;line-height:1.7;margin-bottom:4px}
-.s3 .footer{background:var(--gradient);padding:14px;text-align:center;color:#fff}
-.s3 .footer h4{font-size:13px;font-weight:700}
-/* S4 - Minimal */
-.s4{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:32px}
-.s4 .mintitle h1{font-size:24px;font-weight:800;color:#111;margin-bottom:12px}
-.s4 .mintitle .line{height:3px;width:48px;background:var(--gradient);border-radius:2px;margin-bottom:24px}
-.s4 .minsec{display:flex;gap:20px;margin-bottom:24px;align-items:flex-start}
-.s4 .minsec .bignum{font-size:48px;font-weight:900;color:var(--light);line-height:1;flex-shrink:0;min-width:56px;background:linear-gradient(135deg,var(--primary),transparent);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.s4 .minsec h3{font-size:15px;font-weight:700;color:#111;margin-bottom:6px}
-.s4 .minsec p{font-size:13px;color:#555;line-height:1.8}
-.s4 .mindiv{border:none;border-top:1px solid #f0f0f0;margin-bottom:24px}
-/* S5 - Magazine */
-.s5{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-.s5 .mag-header{background:var(--gradient);padding:28px 24px;color:#fff;position:relative;overflow:hidden}
-.s5 .mag-header h1{font-size:22px;font-weight:800;position:relative;z-index:1}
-.s5 .mag-header .side-text{position:absolute;right:-10px;top:50%;transform:translateY(-50%) rotate(90deg);font-size:60px;font-weight:900;opacity:.15;letter-spacing:4px}
-.s5 .mag-body{padding:20px;position:relative}
-.s5 .mag-body .side-deco{position:absolute;right:16px;top:0;bottom:0;writing-mode:vertical-rl;font-size:11px;color:#ccc;letter-spacing:3px}
-.s5 .mag-sec{margin-bottom:18px;padding-right:30px}
-.s5 .mag-sec h3{font-size:15px;font-weight:700;color:var(--primary);margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid var(--light)}
-.s5 .mag-sec p{font-size:13px;color:#444;line-height:1.8;margin-bottom:4px}
-.s5 .mag-sec ul.mag-pri{padding-left:16px}
-.s5 .mag-sec ul.mag-pri li{font-size:13px;color:#444;line-height:1.8;margin-bottom:4px}
-.s5 .mag-footer{background:var(--gradient);padding:14px 24px;color:#fff;display:flex;justify-content:space-between;align-items:center}
-.s5 .mag-footer h4{font-size:14px;font-weight:700}
-.s5 .mag-footer p{font-size:12px;opacity:.85}
-/* S6 - Notebook */
-.s6{background:#fffef5;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;background-image:repeating-linear-gradient(transparent,transparent 27px,#e8e8e8 28px);background-size:100% 28px}
-.s6 .note-header{background:var(--gradient);padding:24px;color:#fff;position:relative}
-.s6 .note-header h1{font-size:20px;font-weight:800}
-.s6 .tape{position:absolute;top:-4px;left:40px;width:60px;height:20px;background:rgba(255,255,255,.4);border-radius:2px;transform:rotate(-2deg)}
-.s6 .tape-2{position:absolute;top:-4px;right:60px;width:50px;height:20px;background:rgba(255,255,255,.3);border-radius:2px;transform:rotate(1deg)}
-.s6 .note-body{padding:20px}
-.s6 .sticky{display:inline-block;background:#fff9c4;padding:6px 14px;border-radius:4px;font-size:12px;font-weight:700;color:#888;margin-bottom:16px;box-shadow:2px 2px 6px rgba(0,0,0,.1);transform:rotate(-1deg)}
-.s6 .nphase{margin-bottom:16px;padding:14px;background:rgba(255,255,255,.7);border-radius:8px;border-left:3px solid var(--primary)}
-.s6 .nphase h4{font-size:14px;font-weight:700;color:#333;margin-bottom:6px}
-.s6 .nphase p{font-size:13px;color:#555;line-height:1.8}
-.s6 .nrules{background:var(--light);border-radius:8px;padding:14px;margin-top:8px}
-.s6 .nrules h4{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:6px}
-.s6 .nrules p{font-size:12px;color:#666;line-height:1.7}
-/* S7 - Infographic */
-.s7{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-.s7 .info-hero{background:var(--gradient);padding:24px;color:#fff;text-align:center}
-.s7 .info-hero h1{font-size:20px;font-weight:800;margin-bottom:6px}
-.s7 .info-hero p{font-size:13px;opacity:.85}
-.s7 .ibox{padding:16px 20px;border-bottom:1px solid #f5f5f5;display:flex;flex-direction:column;gap:8px}
-.s7 .ibox h3{font-size:14px;font-weight:700;color:#222}
-.s7 .ibox p{font-size:13px;color:#555;line-height:1.7}
-.s7 .srow{display:flex;align-items:flex-start;gap:10px}
-.s7 .srow .badge{color:var(--primary);font-size:14px;flex-shrink:0;margin-top:2px}
-.s7 .srow .task{font-size:13px;color:#444;line-height:1.7}
-.s7 .irules{background:var(--gradient);padding:14px;text-align:center;color:#fff}
-.s7 .irules h4{font-size:13px;font-weight:700}
-/* S8 - Grid */
-.s8{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-.s8 .grid-hero{background:var(--gradient);padding:24px;color:#fff}
-.s8 .grid-hero h1{font-size:20px;font-weight:800;margin-bottom:4px}
-.s8 .grid-hero p{font-size:13px;opacity:.85}
-.s8 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
-.s8 .gc{background:var(--light);border-radius:12px;padding:14px}
-.s8 .gc.full{grid-column:1/-1}
-.s8 .gc h3{font-size:13px;font-weight:700;color:#222;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.s8 .gc h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--primary);flex-shrink:0}
-.s8 .gc p{font-size:12px;color:#555;line-height:1.7;margin-bottom:4px}
-.s8 .gc ul{padding-left:14px}
-.s8 .gc ul li{font-size:12px;color:#555;line-height:1.7;margin-bottom:3px}
+
 </style>
 </head>
 <body>
@@ -151,11 +213,10 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
   <textarea id="inputText" placeholder="在这里粘贴你的内容...
 
 第一行为标题，后面为内容
-支持用【】标记小标题"></textarea>
-  <div class="hint">粘贴内容后点击"生成排版"，自动生成8种精美风格 · 6种配色可切换</div>
+支持用【】标记小标题，或用"小标题："格式"></textarea>
+  <div class="hint">默认展示销售计划精细排版示例 · 粘贴新内容后点击"生成排版"可预览通用模板效果</div>
   <div class="btn-row"><button id="genBtn">🚀 生成排版</button></div>
 </div>
-
 <div class="controls">
   <div class="style-btns">
     <button class="style-btn active" data-s="1">经典卡片</button>
@@ -168,258 +229,333 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <button class="style-btn" data-s="8">网格布局</button>
   </div>
   <div class="color-dots">
-    <div class="color-dot active" data-c="pink"></div>
-    <div class="color-dot" data-c="blue"></div>
-    <div class="color-dot" data-c="green"></div>
-    <div class="color-dot" data-c="orange"></div>
-    <div class="color-dot" data-c="purple"></div>
-    <div class="color-dot" data-c="cyan"></div>
+    <div class="color-dot active" data-c="pink" title="暖阳粉"></div>
+    <div class="color-dot" data-c="blue" title="星空蓝"></div>
+    <div class="color-dot" data-c="green" title="森林绿"></div>
+    <div class="color-dot" data-c="orange" title="活力橙"></div>
+    <div class="color-dot" data-c="purple" title="薰衣紫"></div>
+    <div class="color-dot" data-c="cyan" title="深海青"></div>
   </div>
 </div>
-
 <div class="export-bar">
   <button id="expCurBtn">📸 下载当前风格</button>
   <button class="btn-all" id="expAllBtn">📦 下载全部8种</button>
-  <span class="info" id="exportInfo">输入文字 · 生成排版 · 下载图片</span>
+  <span class="info" id="exportInfo">精细排版示例 · 8种风格 · 6种配色</span>
+</div>
+<div id="contentArea">
+<div class="content active s1">
+  <div class="hero"><h1>2025年4月"AI破局"月度销售冲刺计划</h1><p>高开高走，抓大放小，利用AI热点+痛点成交</p></div>
+  <div class="stitle">🎯 核心目标</div>
+  <div class="cbox"><p>保底<strong>60万</strong>，冲刺<strong>80万</strong>。执行周期：4月1日-4月30日。</p></div>
+  <div class="twrap"><table><thead><tr><th>指标</th><th>保底</th><th>冲刺</th></tr></thead><tbody>
+    <tr><td>总销售额(GMV)</td><td><b>¥600,000</b></td><td><b>¥800,000</b></td></tr>
+    <tr><td>成交单量</td><td>75单</td><td>100单</td></tr>
+    <tr><td>月度转化率</td><td>18%</td><td>25%</td></tr>
+    <tr><td>新增A类客户</td><td>60个</td><td>80个</td></tr>
+    <tr><td>每日有效沟通</td><td>15个/天</td><td>20个/天</td></tr>
+  </tbody></table></div>
+  <div class="stitle">📅 四周节奏</div>
+  <div class="card"><div class="num">1</div><div><h3>第1周：蓄水激活（4/1-4/7）</h3><p>清空遗留意向，预热朋友圈，回访老客户。目标<b>10万</b>。</p></div></div>
+  <div class="card"><div class="num">2</div><div><h3>第2周：爆破收割（4/8-4/15）</h3><p>配合直播/公开课集中邀约，AI焦虑切入。目标<b>20万</b>（黄金周）。</p></div></div>
+  <div class="card"><div class="num">3</div><div><h3>第3周：追单补位（4/16-4/23）</h3><p>攻克犹豫型客户，月底恢复原价紧迫感。目标<b>15万</b>。</p></div></div>
+  <div class="card"><div class="num">4</div><div><h3>第4周：极限冲刺（4/24-4/30）</h3><p>倒计时氛围，最后3天跟最高意向客户。目标<b>保底15万冲刺30万</b>。</p></div></div>
+  <div class="stitle">⏰ 每日执行（721法则）</div>
+  <div class="twrap"><table><thead><tr><th>时段</th><th>动作</th></tr></thead><tbody>
+    <tr><td>08:30-09:00</td><td>晨会：定"必杀单"3人</td></tr>
+    <tr><td>09:00-10:00</td><td>黄金触达：10个有效沟通</td></tr>
+    <tr><td>10:00-12:00</td><td>深度沟通：2-3场语音/视频</td></tr>
+    <tr><td>12:00-13:30</td><td>朋友圈运营</td></tr>
+    <tr><td>13:30-15:00</td><td>公海捞鱼：激活老客户</td></tr>
+    <tr><td>15:00-17:30</td><td>强逼单：≥5次付款链接</td></tr>
+    <tr><td>17:30-18:30</td><td>晚高峰补位</td></tr>
+    <tr><td>20:00-22:00</td><td>复盘：更新CRM，次日30人名单</td></tr>
+  </tbody></table></div>
+  <div class="stitle">🏆 激励与惩罚</div>
+  <div class="cbox"><p><b>即时激励：</b>周冠军¥1000 / 首单¥50星巴克 / 大单(>¥15000)¥288红包</p><p><b>负向鞭策：</b>连续3天未开单→情景演练 / 有效沟通&lt;15个→整理50条素材</p></div>
+  <div class="stitle">⚠️ 风险预案</div>
+  <div class="cbox"><ul class="plist"><li>月中&lt;30万 → 老带新裂变</li><li>竞品低价 → 拼交付服务（1对1答疑+作业批改+永久回放）</li><li>客户投诉 → 30分钟内响应，安抚优先</li></ul></div>
+  <div class="dbox"><h4>🔥 本月誓言</h4><p>AI课程卖的不是知识，是客户在AI时代的安全感。<br>抓住焦虑，给足方案，4月必胜！</p></div>
 </div>
 
-<div id="contentArea">
-  <div style="text-align:center;padding:60px 20px;color:#999">
-    <div style="font-size:48px;margin-bottom:16px">📝</div>
-    <p style="font-size:16px;font-weight:600;margin-bottom:8px">在上方输入任意文字</p>
-    <p style="font-size:13px">点击"生成排版"即可获得8种精美排版效果</p>
+<div class="content s2">
+  <div class="header"><h1>2025年4月"AI破局"</h1><p>月度销售冲刺计划 · 保底60万冲刺80万</p></div>
+  <div class="sbox"><p><b>核心策略：</b>高开高走，抓大放小，利用AI热点+痛点成交。721法则：70%沟通 / 20%学习复盘 / 10%发圈维护。</p></div>
+  <div class="pinline"><b>核心指标：</b>GMV保底¥600,000冲刺¥800,000 | 75-100单 | 转化率18%-25% | 每日沟通15-20个</div>
+  <div class="timeline">
+    <div class="tl-item"><span class="days">第1周 4/1-4/7</span><h3>蓄水激活 · 目标10万</h3><p>清空遗留意向，预热朋友圈，回访老客户。话术："4月季度冲刺，额外实操大礼包，仅限前20名。"</p></div>
+    <div class="tl-item"><span class="days">第2周 4/8-4/15</span><h3>爆破收割 · 目标20万（黄金周）</h3><p>配合直播/公开课集中邀约，AI焦虑切入。话术："直播限时福利，额外赠送价值¥2999 AI提示词库。"</p></div>
+    <div class="tl-item"><span class="days">第3周 4/16-4/23</span><h3>追单补位 · 目标15万</h3><p>攻克犹豫型客户，月底恢复原价紧迫感。话术："本周是最后的优惠期。"</p></div>
+    <div class="tl-item"><span class="days">第4周 4/24-4/30</span><h3>极限冲刺 · 保底15万冲刺30万</h3><p>倒计时氛围，最后3天跟最高意向客户。话术："仅剩3个名额，财务在等打款。"</p></div>
+  </div>
+  <div class="sbox" style="margin-bottom:20px"><p><b>激励：</b>周冠军¥1000 / 首单¥50 / 大单(>¥15000)¥288<br><b>鞭策：</b>3天未开单→情景演练 / 沟通&lt;15个→整理素材</p></div>
+  <div class="tgrid">
+    <div class="titem"><strong>🌅 08:30-10:00</strong><span>晨会+黄金触达(10沟通)</span></div>
+    <div class="titem"><strong>💬 10:00-12:00</strong><span>深度沟通(2-3场语音/视频)</span></div>
+    <div class="titem"><strong>📱 12:00-15:00</strong><span>朋友圈+公海捞鱼</span></div>
+    <div class="titem"><strong>🔥 15:00-18:30</strong><span>强逼单(≥5次付款链接)</span></div>
+    <div class="titem"><strong>📊 20:00-22:00</strong><span>复盘CRM，次日30人名单</span></div>
+  </div>
+  <div class="rules"><h4>🔥 本月誓言</h4><p>抓住焦虑，给足方案，4月必胜！</p></div>
+</div>
+
+<div class="content s3">
+  <div class="bighero"><span class="emoji">🚀</span><h1>"AI破局"月度销售冲刺</h1><p>2025年4月 · 保底60万 → 冲刺80万</p></div>
+  <div class="bcontent">
+    <div class="bc"><div class="icon">🎯</div><h3>核心策略</h3><p>高开高走，抓大放小，利用AI热点+痛点成交。721法则：70%沟通 / 20%学习复盘 / 10%发圈维护。</p></div>
+    <div class="pricards">
+      <div class="pricard"><div class="rank">💰</div><p><b>¥600K-800K</b><br>总销售额</p></div>
+      <div class="pricard"><div class="rank">📊</div><p><b>75-100单</b><br>成交单量</p></div>
+      <div class="pricard"><div class="rank">📈</div><p><b>18%-25%</b><br>月度转化率</p></div>
+    </div>
+    <div class="bc"><div class="icon">📅</div><h3>第1周：蓄水激活（4/1-4/7）· 目标10万</h3><p>清空遗留意向，预热朋友圈，回访老客户。</p></div>
+    <div class="bc"><div class="icon">💥</div><h3>第2周：爆破收割（4/8-4/15）· 目标20万</h3><p>配合直播/公开课集中邀约，AI焦虑切入。黄金周。</p></div>
+    <div class="bc"><div class="icon">🎯</div><h3>第3周：追单补位（4/16-4/23）· 目标15万</h3><p>攻克犹豫型客户，月底恢复原价紧迫感。</p></div>
+    <div class="bc"><div class="icon">🔥</div><h3>第4周：极限冲刺（4/24-4/30）· 保底15万冲刺30万</h3><p>倒计时氛围，最后3天跟最高意向客户。</p></div>
+    <div class="schedrow">
+      <div class="scheditem"><div class="time">08:30</div><div class="act">🌅 晨会</div></div>
+      <div class="scheditem"><div class="time">09:00</div><div class="act">📞 黄金触达</div></div>
+      <div class="scheditem"><div class="time">15:00</div><div class="act">🔥 强逼单</div></div>
+      <div class="scheditem"><div class="time">20:00</div><div class="act">📊 复盘</div></div>
+    </div>
+  </div>
+  <div class="footer"><h4>🏆 激励：周冠军¥1000 / 首单¥50 / 大单¥288</h4><p>抓住焦虑，给足方案，4月必胜！</p></div>
+</div>
+
+<div class="content s4">
+  <div class="mintitle"><h1>AI破局</h1><div class="sub">2025年4月 · 销售冲刺计划</div><div class="line"></div></div>
+  <div class="minsec"><div class="bignum">01</div><h3>核心目标</h3><p>保底60万，冲刺80万<br>GMV保底¥600,000 / 冲刺¥800,000<br>成交75-100单 · 转化率18%-25%<br>每日有效沟通15-20个</p></div>
+  <hr class="mindiv">
+  <div class="minsec"><div class="bignum">02</div><h3>第1周：蓄水激活 · 10万</h3><p>清空遗留意向，预热朋友圈<br>回访老客户</p></div>
+  <hr class="mindiv">
+  <div class="minsec"><div class="bignum">03</div><h3>第2周：爆破收割 · 20万</h3><p>配合直播/公开课集中邀约<br>AI焦虑切入（黄金周）</p></div>
+  <hr class="mindiv">
+  <div class="minsec"><div class="bignum">04</div><h3>第3周：追单补位 · 15万</h3><p>攻克犹豫型客户<br>月底恢复原价紧迫感</p></div>
+  <hr class="mindiv">
+  <div class="minsec"><div class="bignum">05</div><h3>第4周：极限冲刺 · 15-30万</h3><p>倒计时氛围<br>最后3天跟最高意向客户</p></div>
+  <div class="minsched">
+    <div class="mintime"><strong>08:30</strong><p>晨会</p></div>
+    <div class="mintime"><strong>09:00</strong><p>黄金触达</p></div>
+    <div class="mintime"><strong>15:00</strong><p>强逼单</p></div>
+    <div class="mintime"><strong>20:00</strong><p>复盘</p></div>
+  </div>
+  <div class="minrules"><p>抓住焦虑，给足方案<br>4月必胜</p></div>
+</div>
+
+<div class="content s5">
+  <div class="mag-header"><h1>"AI破局"销售冲刺计划</h1><p>2025年4月<br>保底60万 · 冲刺80万<br>高开高走，抓大放小</p><span class="side-text">SALES PLAN APRIL 2025</span><span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:44px;letter-spacing:10px;opacity:.1;font-weight:900">AI破局</span></div>
+  <div class="mag-body"><span class="side-deco">目标节奏执行激励</span>
+    <div class="mag-sec"><h3>核心目标</h3><p>GMV保底¥600,000 / 冲刺¥800,000 | 75-100单 | 转化率18%-25% | 每日沟通15-20个。721法则：70%沟通/20%学习复盘/10%发圈维护。</p></div>
+    <div class="mag-sec"><h3>四周节奏</h3>
+      <div class="mag-phases">
+        <div class="phase"><span class="plabel">W1 · 10万</span><h4>蓄水激活</h4><p>清空遗留意向，预热朋友圈，回访老客户</p></div>
+        <div class="phase"><span class="plabel">W2 · 20万</span><h4>爆破收割</h4><p>配合直播/公开课集中邀约（黄金周）</p></div>
+        <div class="phase"><span class="plabel">W3 · 15万</span><h4>追单补位</h4><p>攻克犹豫型客户，月底恢复原价</p></div>
+        <div class="phase"><span class="plabel">W4 · 15-30万</span><h4>极限冲刺</h4><p>倒计时，最后3天跟最高意向客户</p></div>
+      </div>
+    </div>
+    <div class="mag-sec"><h3>每日执行</h3>
+      <div class="mag-sched">
+        <div class="mag-time"><strong>08:30-10:00</strong><p>晨会+黄金触达</p></div>
+        <div class="mag-time"><strong>10:00-12:00</strong><p>深度沟通</p></div>
+        <div class="mag-time"><strong>12:00-15:00</strong><p>朋友圈+公海捞鱼</p></div>
+        <div class="mag-time"><strong>15:00-22:00</strong><p>强逼单+晚高峰+复盘</p></div>
+      </div>
+    </div>
+    <div class="mag-sec"><h3>激励与风险</h3><ul class="mag-pri"><li>周冠军¥1000 / 首单¥50 / 大单¥288</li><li>月中&lt;30万→老带新裂变</li><li>竞品低价→拼交付服务</li><li>客户投诉→30分钟内响应</li></ul></div>
+  </div>
+  <div class="mag-footer"><h4>🔥 抓住焦虑，给足方案，4月必胜！</h4><p>AI课程卖的不是知识，是安全感。</p><span class="side-text">WIN APRIL</span></div>
+</div>
+
+<div class="content s6">
+  <div class="note-header"><h1>"AI破局"销售冲刺计划</h1><p>2025年4月 · 保底60万冲刺80万</p><div class="tape"></div><div class="tape-2"></div></div>
+  <div class="note-body">
+    <div class="sticky">📝 721法则<br>70%沟通<br>20%复盘<br>10%发圈</div>
+    <div class="note-title">🎯 核心目标</div>
+    <div class="note-content">GMV保底¥600,000冲刺¥800,000，成交75-100单，转化率18%-25%，每日有效沟通15-20个。</div>
+    <div class="note-title">📅 四周节奏</div>
+    <div class="nphase"><h4>第1周(4/1-4/7) 蓄水激活 · 10万</h4><p>清空遗留意向，预热朋友圈，回访老客户</p></div>
+    <div class="nphase"><h4>第2周(4/8-4/15) 爆破收割 · 20万</h4><p>配合直播/公开课集中邀约，AI焦虑切入（黄金周）</p></div>
+    <div class="nphase"><h4>第3周(4/16-4/23) 追单补位 · 15万</h4><p>攻克犹豫型客户，月底恢复原价紧迫感</p></div>
+    <div class="nphase"><h4>第4周(4/24-4/30) 极限冲刺 · 15-30万</h4><p>倒计时氛围，最后3天跟最高意向客户</p></div>
+    <div class="note-title">⏰ 每日执行</div>
+    <div class="nsched"><span class="clock">🌅</span><span class="act">08:30 晨会</span></div>
+    <div class="nsched"><span class="clock">📞</span><span class="act">09:00 黄金触达(10沟通)</span></div>
+    <div class="nsched"><span class="clock">💬</span><span class="act">10:00 深度沟通(2-3场)</span></div>
+    <div class="nsched"><span class="clock">📱</span><span class="act">12:00 朋友圈</span></div>
+    <div class="nsched"><span class="clock">🐟</span><span class="act">13:30 公海捞鱼</span></div>
+    <div class="nsched"><span class="clock">🔥</span><span class="act">15:00 强逼单(≥5次)</span></div>
+    <div class="nsched"><span class="clock">📊</span><span class="act">20:00 复盘CRM</span></div>
+    <div class="nrules"><h4>🔥 4月必胜</h4><p>周冠军¥1000 / 首单¥50 / 大单¥288<br>抓住焦虑，给足方案！</p></div>
+  </div>
+</div>
+
+<div class="content s7">
+  <div class="info-hero"><h1>"AI破局"销售冲刺计划</h1>
+    <div class="stats">
+      <div class="stat-item"><div class="stat-circle" style="--pct:75%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">80万</span><span class="unit">冲刺</span></div></div><div class="label">总销售额</div></div>
+      <div class="stat-item"><div class="stat-circle" style="--pct:75%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">100</span><span class="unit">单</span></div></div><div class="label">成交单量</div></div>
+      <div class="stat-item"><div class="stat-circle" style="--pct:25%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">25%</span><span class="unit">转化</span></div></div><div class="label">月度转化率</div></div>
+    </div>
+  </div>
+  <div class="ibox"><h3>💡 核心策略</h3><p>高开高走，抓大放小，利用AI热点+痛点成交。721法则：70%沟通 / 20%学习复盘 / 10%发圈维护。</p></div>
+  <div class="phases-row">
+    <div class="pbar"><div class="dc">10万</div><div class="dl">W1</div><h4>蓄水激活</h4><p>清空意向+预热</p><div class="bar"><div class="bar-fill" style="width:13%"></div></div></div>
+    <div class="pbar"><div class="dc">20万</div><div class="dl">W2</div><h4>爆破收割</h4><p>直播邀约（黄金周）</p><div class="bar"><div class="bar-fill" style="width:25%"></div></div></div>
+    <div class="pbar"><div class="dc">15万</div><div class="dl">W3</div><h4>追单补位</h4><p>攻克犹豫型</p><div class="bar"><div class="bar-fill" style="width:19%"></div></div></div>
+    <div class="pbar"><div class="dc">30万</div><div class="dl">W4</div><h4>极限冲刺</h4><p>倒计时逼单</p><div class="bar"><div class="bar-fill" style="width:38%"></div></div></div>
+  </div>
+  <div class="ibox"><h3>⏰ 每日执行</h3>
+    <div class="srow"><span class="badge">08:30-10:00</span><span class="task">晨会+黄金触达(10沟通)</span></div>
+    <div class="srow"><span class="badge">10:00-12:00</span><span class="task">深度沟通(2-3场语音/视频)</span></div>
+    <div class="srow"><span class="badge">12:00-15:00</span><span class="task">朋友圈运营+公海捞鱼</span></div>
+    <div class="srow"><span class="badge">15:00-18:30</span><span class="task">强逼单(≥5次付款链接)+晚高峰</span></div>
+    <div class="srow"><span class="badge">20:00-22:00</span><span class="task">复盘CRM+次日30人名单</span></div>
+  </div>
+  <div class="ibox"><h3>🏆 激励与风险</h3>
+    <div class="pri-row"><div class="name">周冠军 / 首单 / 大单(>¥15K)</div><div class="bar"><div class="bar-fill" style="width:100%"></div></div></div>
+    <div class="pri-row"><div class="name">月中&lt;30万→老带新 / 竞品→拼服务 / 投诉→30min响应</div><div class="bar"><div class="bar-fill" style="width:60%"></div></div></div>
+  </div>
+  <div class="irules"><h4>🔥 抓住焦虑，给足方案，4月必胜！</h4></div>
+</div>
+
+<div class="content s8">
+  <div class="grid-hero"><h1>"AI破局"销售冲刺计划</h1><p>2025年4月 · 保底60万冲刺80万</p></div>
+  <div class="grid">
+    <div class="gc full"><h3><span class="dot"></span>核心指标</h3>
+      <div class="trow"><span class="t">GMV</span><span class="a">保底¥600,000 / 冲刺¥800,000</span></div>
+      <div class="trow"><span class="t">成交</span><span class="a">75-100单（客单价¥8000）</span></div>
+      <div class="trow"><span class="t">转化率</span><span class="a">18%-25%</span></div>
+      <div class="trow"><span class="t">沟通</span><span class="a">15-20个/天</span></div>
+    </div>
+    <div class="gc"><h3><span class="dot"></span>W1 蓄水激活</h3><p>目标<b>10万</b><br>清空意向+预热朋友圈+回访老客户</p></div>
+    <div class="gc"><h3><span class="dot"></span>W2 爆破收割</h3><p>目标<b>20万</b><br>直播邀约+AI焦虑切入（黄金周）</p></div>
+    <div class="gc"><h3><span class="dot"></span>W3 追单补位</h3><p>目标<b>15万</b><br>攻克犹豫型+恢复原价紧迫感</p></div>
+    <div class="gc"><h3><span class="dot"></span>W4 极限冲刺</h3><p>目标<b>15-30万</b><br>倒计时+最后3天逼单</p></div>
+    <div class="gc full"><h3><span class="dot"></span>每日执行(721法则)</h3>
+      <div class="trow"><span class="t">08:30</span><span class="a">晨会：定必杀单</span></div>
+      <div class="trow"><span class="t">09:00</span><span class="a">黄金触达(10沟通)</span></div>
+      <div class="trow"><span class="t">10:00</span><span class="a">深度沟通(2-3场)</span></div>
+      <div class="trow"><span class="t">15:00</span><span class="a">强逼单(≥5次)</span></div>
+      <div class="trow"><span class="t">20:00</span><span class="a">复盘CRM+次日名单</span></div>
+    </div>
+    <div class="gc"><h3><span class="dot"></span>🏆 激励</h3><ul><li>周冠军¥1000</li><li>首单¥50</li><li>大单¥288</li></ul></div>
+    <div class="gc"><h3><span class="dot"></span>⚠️ 风险</h3><ul><li>&lt;30万→裂变</li><li>竞品→拼服务</li><li>投诉→30min</li></ul></div>
+    <div class="gc full rules"><h3><span class="dot"></span>4月必胜</h3><p>抓住焦虑，给足方案！AI课程卖的是安全感。</p></div>
   </div>
 </div>
 
 <script>
+const themes={
+  pink:{primary:'#e8457c',light:'#fff0f3',gradient:'linear-gradient(135deg,#e8457c,#ff8fab)',text:'#a01040'},
+  blue:{primary:'#4f6df5',light:'#eef2ff',gradient:'linear-gradient(135deg,#4f6df5,#8ba4ff)',text:'#2b3fa0'},
+  green:{primary:'#10b981',light:'#ecfdf5',gradient:'linear-gradient(135deg,#10b981,#6ee7b7)',text:'#047857'},
+  orange:{primary:'#f97316',light:'#fff7ed',gradient:'linear-gradient(135deg,#f97316,#fdba74)',text:'#c2410c'},
+  purple:{primary:'#8b5cf6',light:'#f5f3ff',gradient:'linear-gradient(135deg,#8b5cf6,#c4b5fd)',text:'#5b21b6'},
+  cyan:{primary:'#0ea5e9',light:'#f0f9ff',gradient:'linear-gradient(135deg,#0ea5e9,#7dd3fc)',text:'#0369a1'}
+};
+const r=document.documentElement.style;
+document.querySelectorAll('.style-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.style-btn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.content').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  document.querySelector('.s'+b.dataset.s).classList.add('active');
+}));
+document.querySelectorAll('.color-dot').forEach(d=>d.addEventListener('click',()=>{
+  document.querySelectorAll('.color-dot').forEach(x=>x.classList.remove('active'));
+  d.classList.add('active');
+  const t=themes[d.dataset.c];
+  r.setProperty('--primary',t.primary);
+  r.setProperty('--light',t.light);
+  r.setProperty('--gradient',t.gradient);
+  r.setProperty('--text',t.text);
+}));
+</script>
+</div>
+<script>
 (function(){
-  var themes={
-    pink:{primary:'#e8457c',light:'#fff0f3',gradient:'linear-gradient(135deg,#e8457c,#ff8fab)',text:'#a01040'},
-    blue:{primary:'#4f6df5',light:'#eef2ff',gradient:'linear-gradient(135deg,#4f6df5,#8ba4ff)',text:'#2b3fa0'},
-    green:{primary:'#10b981',light:'#ecfdf5',gradient:'linear-gradient(135deg,#10b981,#6ee7b7)',text:'#047857'},
-    orange:{primary:'#f97316',light:'#fff7ed',gradient:'linear-gradient(135deg,#f97316,#fdba74)',text:'#c2410c'},
-    purple:{primary:'#8b5cf6',light:'#f5f3ff',gradient:'linear-gradient(135deg,#8b5cf6,#c4b5fd)',text:'#5b21b6'},
-    cyan:{primary:'#0ea5e9',light:'#f0f9ff',gradient:'linear-gradient(135deg,#0ea5e9,#7dd3fc)',text:'#0369a1'}
-  };
+var themes={pink:{primary:'#e8457c',light:'#fff0f3',gradient:'linear-gradient(135deg,#e8457c,#ff8fab)',text:'#a01040'},blue:{primary:'#4f6df5',light:'#eef2ff',gradient:'linear-gradient(135deg,#4f6df5,#8ba4ff)',text:'#2b3fa0'},green:{primary:'#10b981',light:'#ecfdf5',gradient:'linear-gradient(135deg,#10b981,#6ee7b7)',text:'#047857'},orange:{primary:'#f97316',light:'#fff7ed',gradient:'linear-gradient(135deg,#f97316,#fdba74)',text:'#c2410c'},purple:{primary:'#8b5cf6',light:'#f5f3ff',gradient:'linear-gradient(135deg,#8b5cf6,#c4b5fd)',text:'#5b21b6'},cyan:{primary:'#0ea5e9',light:'#f0f9ff',gradient:'linear-gradient(135deg,#0ea5e9,#7dd3fc)',text:'#0369a1'}};
 
-  function E(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function E(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
-  function parseText(text){
-    var lines=text.split('\n').map(function(l){return l.trim()}).filter(function(l){return l.length>0});
-    if(!lines.length) return null;
-    var data={title:lines[0],sections:[]};
-    var curSec=null;
-    for(var i=1;i<lines.length;i++){
-      var l=lines[i];
-      var isHeader=false;
-      if(/^[【\[]/.test(l)&&/[】\]]/.test(l)){isHeader=true;l=l.replace(/^[【\[]/,'').replace(/[】\]]$/,'')}
-      else if(/[：:]$/.test(l)&&l.length<25){isHeader=true;l=l.replace(/[：:]$/,'')}
-      else if(/^第.{1,6}[阶段周步期章节]/.test(l)){isHeader=true}
-      else if(/^[一二三四五六七八九十]+[、.．]/.test(l)){isHeader=true}
-      else if(/^\d+[、.．]\s*[^\d]/.test(l)&&l.length<25){isHeader=true}
-      if(isHeader){
-        if(curSec) data.sections.push(curSec);
-        curSec={title:l.replace(/^[一二三四五六七八九十]+[、.．]\s*/,'').replace(/^\d+[、.．]\s*/,''),items:[]};
-      }else{
-        if(!curSec) curSec={title:'内容',items:[]};
-        curSec.items.push(l);
-      }
+function parseText(text){
+  var lines=text.split('\n').map(function(l){return l.trim()}).filter(function(l){return l.length>0});
+  if(!lines.length) return null;
+  var data={title:lines[0],sections:[]};
+  var curSec=null;
+  for(var i=1;i<lines.length;i++){
+    var l=lines[i];
+    var isHeader=false;
+    if(/^[\[\【]/.test(l)&&/[\]\】]/.test(l)){isHeader=true;l=l.replace(/^[\[\【]/,'').replace(/[\]\】]$/,'')}
+    else if(/[：:]$/.test(l)&&l.length<25){isHeader=true;l=l.replace(/[：:]$/,'')}
+    else if(/^第.{1,6}[阶段周步期章节]/.test(l)){isHeader=true}
+    else if(/^[一二三四五六七八九十]+[、.．]/.test(l)){isHeader=true}
+    else if(/^\d+[、.．]\s*[^\d]/.test(l)&&l.length<25){isHeader=true}
+    if(isHeader){
+      if(curSec) data.sections.push(curSec);
+      curSec={title:l.replace(/^[一二三四五六七八九十]+[、.．]\s*/,'').replace(/^\d+[、.．]\s*/,''),items:[]};
+    }else{
+      if(!curSec) curSec={title:'内容',items:[]};
+      curSec.items.push(l);
     }
-    if(curSec) data.sections.push(curSec);
-    if(data.sections.length===1&&data.sections[0].items.length>6){
-      var items=data.sections[0].items;
-      data.sections=[];
-      var chunk=[];
-      for(var j=0;j<items.length;j++){
-        chunk.push(items[j]);
-        if(chunk.length>=3||j===items.length-1){
-          data.sections.push({title:chunk[0].substring(0,10),items:chunk});
-          chunk=[];
-        }
-      }
-    }
-    return data;
   }
-
-  var emojis=['🎯','📅','⏰','💡','📌','🏆','💪','✨'];
-  var shapes=['circle','hex','diamond','badge','round'];
-
-  function shape(idx){
-    var t=idx%5;
-    var n=idx+1;
-    if(t===0) return '<div class="num">'+n+'</div>';
-    if(t===1) return '<div class="num" style="clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)">'+n+'</div>';
-    if(t===2) return '<div class="num" style="clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)">'+n+'</div>';
-    if(t===3) return '<div class="num" style="border-radius:8px">'+n+'</div>';
-    return '<div class="num" style="border-radius:10px">'+n+'</div>';
+  if(curSec) data.sections.push(curSec);
+  if(data.sections.length===1&&data.sections[0].items.length>6){
+    var items=data.sections[0].items;data.sections=[];var chunk=[];
+    for(var j=0;j<items.length;j++){chunk.push(items[j]);if(chunk.length>=3||j===items.length-1){data.sections.push({title:chunk[0].substring(0,10),items:chunk});chunk=[];}}
   }
+  return data;
+}
 
-  function buildS1(d){
-    var h='<div class="content active s1"><div class="hero"><h1>'+E(d.title)+'</h1></div>';
-    d.sections.forEach(function(s,i){
-      h+='<div class="stitle">'+emojis[i%8]+' '+E(s.title)+'</div>';
-      if(s.items.length<=4){
-        s.items.forEach(function(item,j){h+='<div class="card">'+shape(j)+'<div><p>'+E(item)+'</p></div></div>'});
-      }else{
-        h+='<div class="cbox"><ul class="plist">';
-        s.items.forEach(function(item){h+='<li>'+E(item)+'</li>'});
-        h+='</ul></div>';
-      }
-    });
-    h+='<div class="dbox"><h4>✨ TextCraft 精美排版</h4><p>输入任意文字 · 一键生成8种精美风格</p></div></div>';
-    return h;
-  }
+var emojis=['🎯','📅','⏰','💡','📌','🏆','💪','✨'];
+function shape(idx){var t=idx%5;var n=idx+1;if(t===1)return '<div class="num" style="clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)">'+n+'</div>';if(t===2)return '<div class="num" style="clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)">'+n+'</div>';if(t===3)return '<div class="num" style="border-radius:8px">'+n+'</div>';if(t===4)return '<div class="num" style="border-radius:10px">'+n+'</div>';return '<div class="num">'+n+'</div>'}
 
-  function buildS2(d){
-    var h='<div class="content s2"><div class="header"><h1>'+E(d.title)+'</h1></div><div class="timeline">';
-    d.sections.forEach(function(s,i){
-      h+='<div class="tl-item"><span class="days">'+E(s.title)+'</span><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';
-      s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'});
-      h+='</div>';
-    });
-    h+='</div></div>';
-    return h;
-  }
+function buildS1(d){var h='<div class="content active s1"><div class="hero"><h1>'+E(d.title)+'</h1></div>';d.sections.forEach(function(s,i){h+='<div class="stitle">'+emojis[i%8]+' '+E(s.title)+'</div>';if(s.items.length<=4){s.items.forEach(function(item,j){h+='<div class="card">'+shape(j)+'<div><p>'+E(item)+'</p></div></div>'});}else{h+='<div class="cbox"><ul class="plist">';s.items.forEach(function(item){h+='<li>'+E(item)+'</li>'});h+='</ul></div>';}});h+='<div class="dbox"><h4>✨ TextCraft 精美排版</h4><p>输入任意文字 · 一键生成8种精美风格</p></div></div>';return h}
+function buildS2(d){var h='<div class="content s2"><div class="header"><h1>'+E(d.title)+'</h1></div><div class="timeline">';d.sections.forEach(function(s,i){h+='<div class="tl-item"><span class="days">'+E(s.title)+'</span><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'});h+='</div>'});h+='</div><div class="rules"><h4>✨ TextCraft 精美排版</h4><p>输入任意文字 · 一键生成8种精美风格</p></div></div>';return h}
+function buildS3(d){var h='<div class="content s3"><div class="bighero"><span class="emoji">🚀</span><h1>'+E(d.title)+'</h1></div><div class="bcontent">';d.sections.forEach(function(s,i){h+='<div class="bc"><div class="icon">'+emojis[i%8]+'</div><h3>'+E(s.title)+'</h3>';s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'});h+='</div>'});h+='</div><div class="footer"><h4>✨ TextCraft 精美排版</h4><p>输入任意文字 · 一键生成8种精美风格</p></div></div>';return h}
+function buildS4(d){var h='<div class="content s4"><div class="mintitle"><h1>'+E(d.title)+'</h1><div class="line"></div></div>';d.sections.forEach(function(s,i){h+='<div class="minsec"><div class="bignum">'+String(i+1).padStart(2,'0')+'</div><h3>'+E(s.title)+'</h3><p>';h+=s.items.map(E).join('<br>');h+='</p></div>';if(i<d.sections.length-1)h+='<hr class="mindiv">'});h+='</div>';return h}
+function buildS5(d){var h='<div class="content s5"><div class="mag-header"><h1>'+E(d.title)+'</h1><span class="side-text">TEXTCRAFT</span></div><div class="mag-body"><span class="side-deco">精美排版</span>';d.sections.forEach(function(s,i){h+='<div class="mag-sec"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';if(s.items.length>2){h+='<ul class="mag-pri">';s.items.forEach(function(item){h+='<li>'+E(item)+'</li>'});h+='</ul>';}else{s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'})}h+='</div>'});h+='</div><div class="mag-footer"><h4>TextCraft</h4><p>精美排版 · 一键生成</p></div></div>';return h}
+function buildS6(d){var h='<div class="content s6"><div class="note-header"><h1>'+E(d.title)+'</h1><div class="tape"></div><div class="tape-2"></div></div><div class="note-body"><div class="sticky">📝 TextCraft</div>';d.sections.forEach(function(s,i){h+='<div class="nphase"><h4>'+emojis[i%8]+' '+E(s.title)+'</h4><p>';h+=s.items.map(E).join('<br>');h+='</p></div>'});h+='<div class="nrules"><h4>✨ 精美排版</h4><p>TextCraft 自动生成</p></div></div></div>';return h}
+function buildS7(d){var h='<div class="content s7"><div class="info-hero"><h1>'+E(d.title)+'</h1><p>'+d.sections.length+'个板块</p></div>';d.sections.forEach(function(s,i){h+='<div class="ibox"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';if(s.items.length>3){s.items.forEach(function(item){h+='<div class="srow"><span class="badge">▸</span><span class="task">'+E(item)+'</span></div>'})}else{s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'})}h+='</div>'});h+='<div class="irules"><h4>✨ TextCraft 精美排版</h4></div></div>';return h}
+function buildS8(d){var h='<div class="content s8"><div class="grid-hero"><h1>'+E(d.title)+'</h1><p>'+d.sections.length+'个板块</p></div><div class="grid">';d.sections.forEach(function(s,i){var full=s.items.join('').length>60?' full':'';h+='<div class="gc'+full+'"><h3><span class="dot"></span>'+E(s.title)+'</h3>';if(s.items.length>2){h+='<ul>';s.items.forEach(function(item){h+='<li>'+E(item)+'</li>'});h+='</ul>'}else{s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'})}h+='</div>'});h+='</div></div>';return h}
 
-  function buildS3(d){
-    var h='<div class="content s3"><div class="bighero"><span class="emoji">🚀</span><h1>'+E(d.title)+'</h1></div><div class="bcontent">';
-    d.sections.forEach(function(s,i){
-      h+='<div class="bc"><div class="icon">'+emojis[i%8]+'</div><h3>'+E(s.title)+'</h3>';
-      s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'});
-      h+='</div>';
-    });
-    h+='</div><div class="footer"><h4>✨ TextCraft 精美排版</h4></div></div>';
-    return h;
-  }
+window.generate=function(){
+  var text=document.getElementById('inputText').value.trim();
+  if(!text){alert('请先粘贴内容');return}
+  var d=parseText(text);
+  if(!d||!d.sections.length){alert('未识别到内容结构');return}
+  var area=document.getElementById('contentArea');
+  area.innerHTML=buildS1(d)+buildS2(d)+buildS3(d)+buildS4(d)+buildS5(d)+buildS6(d)+buildS7(d)+buildS8(d);
+  document.querySelectorAll('.style-btn').forEach(function(x){x.classList.remove('active')});
+  document.querySelector('.style-btn[data-s="1"]').classList.add('active');
+  document.getElementById('exportInfo').textContent='✅ 已生成'+d.sections.length+'个板块的8种排版（通用模板）';
+};
 
-  function buildS4(d){
-    var h='<div class="content s4"><div class="mintitle"><h1>'+E(d.title)+'</h1><div class="line"></div></div>';
-    d.sections.forEach(function(s,i){
-      h+='<div class="minsec"><div class="bignum">'+String(i+1).padStart(2,'0')+'</div><div><h3>'+E(s.title)+'</h3><p>';
-      h+=s.items.map(E).join('<br>');
-      h+='</p></div></div>';
-      if(i<d.sections.length-1) h+='<hr class="mindiv">';
-    });
-    h+='</div>';
-    return h;
-  }
+document.getElementById('genBtn').addEventListener('click',window.generate);
+document.getElementById('expCurBtn').addEventListener('click',function(){alert('请使用浏览器截图或右键保存图片')});
+document.getElementById('expAllBtn').addEventListener('click',function(){alert('请切换到每种风格后截图保存')});
 
-  function buildS5(d){
-    var h='<div class="content s5"><div class="mag-header"><h1>'+E(d.title)+'</h1><span class="side-text">TEXTCRAFT</span></div><div class="mag-body"><span class="side-deco">精美排版</span>';
-    d.sections.forEach(function(s,i){
-      h+='<div class="mag-sec"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';
-      if(s.items.length>2){
-        h+='<ul class="mag-pri">';
-        s.items.forEach(function(item){h+='<li>'+E(item)+'</li>'});
-        h+='</ul>';
-      }else{
-        s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'});
-      }
-      h+='</div>';
-    });
-    h+='</div><div class="mag-footer"><h4>TextCraft</h4><p>精美排版 · 一键生成</p></div></div>';
-    return h;
-  }
-
-  function buildS6(d){
-    var h='<div class="content s6"><div class="note-header"><h1>'+E(d.title)+'</h1><div class="tape"></div><div class="tape-2"></div></div><div class="note-body"><div class="sticky">📝 TextCraft</div>';
-    d.sections.forEach(function(s,i){
-      h+='<div class="nphase"><h4>'+emojis[i%8]+' '+E(s.title)+'</h4><p>';
-      h+=s.items.map(E).join('<br>');
-      h+='</p></div>';
-    });
-    h+='<div class="nrules"><h4>✨ 精美排版</h4><p>TextCraft 自动生成</p></div></div></div>';
-    return h;
-  }
-
-  function buildS7(d){
-    var h='<div class="content s7"><div class="info-hero"><h1>'+E(d.title)+'</h1><p>'+d.sections.length+'个板块</p></div>';
-    d.sections.forEach(function(s,i){
-      h+='<div class="ibox"><h3>'+emojis[i%8]+' '+E(s.title)+'</h3>';
-      if(s.items.length>3){
-        s.items.forEach(function(item){h+='<div class="srow"><span class="badge">▸</span><span class="task">'+E(item)+'</span></div>'});
-      }else{
-        s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'});
-      }
-      h+='</div>';
-    });
-    h+='<div class="irules"><h4>✨ TextCraft 精美排版</h4></div></div>';
-    return h;
-  }
-
-  function buildS8(d){
-    var h='<div class="content s8"><div class="grid-hero"><h1>'+E(d.title)+'</h1><p>'+d.sections.length+'个板块</p></div><div class="grid">';
-    d.sections.forEach(function(s,i){
-      var full=s.items.join('').length>60?' full':'';
-      h+='<div class="gc'+full+'"><h3><span class="dot"></span>'+E(s.title)+'</h3>';
-      if(s.items.length>2){
-        h+='<ul>';
-        s.items.forEach(function(item){h+='<li>'+E(item)+'</li>'});
-        h+='</ul>';
-      }else{
-        s.items.forEach(function(item){h+='<p>'+E(item)+'</p>'});
-      }
-      h+='</div>';
-    });
-    h+='</div></div>';
-    return h;
-  }
-
-  // Generate function - assigned to window
-  window.generate=function(){
-    var text=document.getElementById('inputText').value.trim();
-    if(!text){alert('请先粘贴内容');return}
-    var d=parseText(text);
-    if(!d||!d.sections.length){alert('未识别到内容结构，请至少输入标题和几行内容');return}
-    var area=document.getElementById('contentArea');
-    area.innerHTML=buildS1(d)+buildS2(d)+buildS3(d)+buildS4(d)+buildS5(d)+buildS6(d)+buildS7(d)+buildS8(d);
+document.querySelectorAll('.style-btn').forEach(function(b){
+  b.addEventListener('click',function(){
     document.querySelectorAll('.style-btn').forEach(function(x){x.classList.remove('active')});
-    document.querySelector('.style-btn[data-s="1"]').classList.add('active');
-    document.getElementById('exportInfo').textContent='✅ 已生成'+d.sections.length+'个板块的8种精美排版';
-  };
-
-  // Export current style
-  window.exportCurrent=function(){
-    var el=document.querySelector('.content.active');
-    if(!el){alert('请先生成排版');return}
-    alert('下载功能需要html2canvas库，请使用截图工具保存当前页面');
-  };
-
-  // Export all styles
-  window.exportAll=function(){
-    alert('批量下载功能需要html2canvas库，请逐一切换风格后截图保存');
-  };
-
-  // Bind events
-  document.getElementById('genBtn').addEventListener('click',window.generate);
-  document.getElementById('expCurBtn').addEventListener('click',window.exportCurrent);
-  document.getElementById('expAllBtn').addEventListener('click',window.exportAll);
-
-  // Style switching
-  document.querySelectorAll('.style-btn').forEach(function(b){
-    b.addEventListener('click',function(){
-      document.querySelectorAll('.style-btn').forEach(function(x){x.classList.remove('active')});
-      document.querySelectorAll('.content').forEach(function(x){x.classList.remove('active')});
-      b.classList.add('active');
-      var el=document.querySelector('.s'+b.dataset.s);
-      if(el) el.classList.add('active');
-    });
+    document.querySelectorAll('.content').forEach(function(x){x.classList.remove('active')});
+    b.classList.add('active');
+    var el=document.querySelector('.s'+b.dataset.s);
+    if(el) el.classList.add('active');
   });
+});
 
-  // Color switching
-  document.querySelectorAll('.color-dot').forEach(function(dot){
-    dot.addEventListener('click',function(){
-      document.querySelectorAll('.color-dot').forEach(function(x){x.classList.remove('active')});
-      dot.classList.add('active');
-      var t=themes[dot.dataset.c];
-      document.documentElement.style.setProperty('--primary',t.primary);
-      document.documentElement.style.setProperty('--light',t.light);
-      document.documentElement.style.setProperty('--gradient',t.gradient);
-      document.documentElement.style.setProperty('--text',t.text);
-    });
+document.querySelectorAll('.color-dot').forEach(function(dot){
+  dot.addEventListener('click',function(){
+    document.querySelectorAll('.color-dot').forEach(function(x){x.classList.remove('active')});
+    dot.classList.add('active');
+    var t=themes[dot.dataset.c];
+    document.documentElement.style.setProperty('--primary',t.primary);
+    document.documentElement.style.setProperty('--light',t.light);
+    document.documentElement.style.setProperty('--gradient',t.gradient);
+    document.documentElement.style.setProperty('--text',t.text);
   });
+});
 
 })();
 </script>
-</body>
-</html>
+</body></html>
