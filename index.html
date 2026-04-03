@@ -259,6 +259,43 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s12 .doodle-sticky{position:absolute;top:12px;right:14px;width:80px;padding:10px 8px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 6px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#444;line-height:1.5;z-index:2}
 .s12 .doodle-footer{margin-top:16px;text-align:center;font-family:'Comic Sans MS','Chalkboard SE',cursive;font-size:14px;color:var(--primary);font-style:italic}
 
+/* S13 思维导图 */
+.s13{background:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);background-image:radial-gradient(#ddd 1px,transparent 1px);background-size:20px 20px}
+.s13 .mm-header{text-align:center;margin-bottom:20px}
+.s13 .mm-header h1{font-size:22px;font-weight:700;color:var(--text)}
+.s13 .mm-header p{font-size:13px;color:#888;margin-top:4px}
+.s13 .mm-root{background:var(--gradient);color:#fff;padding:16px 24px;border-radius:14px;text-align:center;margin:0 auto 20px;max-width:280px;box-shadow:0 4px 16px rgba(232,69,124,.2)}
+.s13 .mm-root h2{font-size:18px;font-weight:700}
+.s13 .mm-branch{padding-left:20px;border-left:3px solid var(--primary);margin-bottom:0}
+.s13 .mm-branch:last-child{margin-bottom:0}
+.s13 .mm-node{margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.s13 .mm-branch:last-child .mm-node{margin-bottom:0}
+.s13 .mm-node h3{font-size:14px;margin-bottom:6px;font-weight:700}
+.s13 .mm-node p{font-size:13px;color:#555;line-height:1.7}
+.s13 .mm-node ul{list-style:none;padding:0;margin:0}
+.s13 .mm-node ul li{font-size:13px;color:#555;line-height:1.8;padding:2px 0}
+.s13 .mm-node ul li::before{content:"▸ ";color:var(--primary)}
+.s13 .mm-schedule .mm-sched-item{display:flex;align-items:baseline;gap:8px;padding:4px 0}
+.s13 .mm-schedule .mm-sched-time{font-size:13px;font-weight:700;color:var(--primary);min-width:60px}
+.s13 .mm-schedule .mm-sched-act{font-size:13px;color:#555}
+
+/* S14 暗色模式 */
+.s14{background:#1a1a2e;border-radius:var(--radius);padding:0;box-shadow:var(--shadow);overflow:hidden}
+.s14 .dark-hero{background:linear-gradient(135deg,#2d2d5e,#1a1a3e);padding:28px;border-radius:12px 12px 0 0;position:relative;overflow:hidden}
+.s14 .dark-hero .glow-tr{position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:rgba(232,69,124,.1)}
+.s14 .dark-hero .glow-bl{position:absolute;bottom:-20px;left:-10px;width:80px;height:80px;border-radius:50%;background:rgba(99,102,241,.08)}
+.s14 .dark-hero h1{font-size:24px;font-weight:700;color:#fff;position:relative}
+.s14 .dark-hero p{color:#8888aa;margin-top:6px;font-size:13px;position:relative}
+.s14 .dark-body{background:#1a1a2e;padding:20px}
+.s14 .dark-card{background:#252540;border-radius:12px;padding:18px 20px;margin-bottom:14px;border:1px solid #333355;position:relative;overflow:hidden}
+.s14 .dark-card:last-child{margin-bottom:0}
+.s14 .dark-card .top-line{position:absolute;top:0;left:0;right:0;height:2px}
+.s14 .dark-card h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid var(--primary);padding-left:10px}
+.s14 .dark-card p{font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px}
+.s14 .dark-card ul{list-style:none;padding:0;margin:0;padding-left:13px}
+.s14 .dark-card ul li{font-size:13px;color:#c8c8d4;line-height:1.8;padding:2px 0}
+.s14 .dark-card ul li::before{content:"▸ ";opacity:.7}
+
 .editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
 .editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
 .editor-panel textarea{width:100%;height:180px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
@@ -300,6 +337,8 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <button class="style-btn" data-s="10">日志</button>
     <button class="style-btn" data-s="11">仪表盘</button>
     <button class="style-btn" data-s="12">涂鸦</button>
+    <button class="style-btn" data-s="13">思维导图</button>
+    <button class="style-btn" data-s="14">暗色模式</button>
   </div>
   <div class="color-dots">
     <div class="color-dot active" data-c="pink" title="暖阳粉"></div>
@@ -313,8 +352,8 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 </div>
 <div class="export-bar">
   <button onclick="exportCurrent()">📸 下载当前风格</button>
-  <button class="btn-all" onclick="exportAll()">📦 下载全部12种</button>
-  <span class="info" id="exportInfo">精细排版示例 · 12种风格 · 6种配色</span>
+  <button class="btn-all" onclick="exportAll()">📦 下载全部14种</button>
+  <span class="info" id="exportInfo">精细排版示例 · 14种风格 · 6种配色</span>
 </div>
 <div id="contentArea">
 <div class="content active s1">
@@ -566,6 +605,29 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
       <p style="font-size:13px;color:#555;line-height:1.8;font-style:italic;margin-top:6px">□ 消除干扰源<br>□ 时间块规划法</p>
     </div>
     <div style="position:absolute;top:12px;right:14px;width:80px;padding:10px 8px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 6px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#444;line-height:1.5;z-index:2">💡<br>重点<br>记忆！</div>
+  </div>
+</div>
+
+<div class="content s13">
+  <div style="text-align:center;margin-bottom:20px"><h1 style="font-size:22px">AI学习路线图</h1><p style="color:#888;margin-top:4px">从零基础到高级</p></div>
+  <div style="background:var(--gradient);color:#fff;padding:16px 24px;border-radius:14px;text-align:center;margin:0 auto 20px;max-width:280px;box-shadow:0 4px 16px rgba(232,69,124,.2)"><div style="font-size:18px;font-weight:700">🧠 AI学习路线</div></div>
+  <div style="padding-left:20px;border-left:3px solid #e8457c;margin-left:140px">
+    <div style="margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:4px solid #e8457c"><h3 style="font-size:14px;margin-bottom:6px">● 基础入门</h3><p style="font-size:13px;color:#555;line-height:1.7">▸ Python语法<br>▸ 数据结构<br>▸ 算法基础</p></div>
+  </div>
+  <div style="padding-left:20px;border-left:3px solid #6366f1;margin-left:100px">
+    <div style="margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:4px solid #6366f1"><h3 style="font-size:14px;margin-bottom:6px">● 进阶提升</h3><p style="font-size:13px;color:#555;line-height:1.7">▸ 机器学习<br>▸ 深度学习<br>▸ 项目实战</p></div>
+  </div>
+  <div style="padding-left:20px;border-left:3px solid #10b981;margin-left:60px">
+    <div style="margin-bottom:0;padding:12px 16px;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:4px solid #10b981"><h3 style="font-size:14px;margin-bottom:6px">● 高级应用</h3><p style="font-size:13px;color:#555;line-height:1.7">▸ 系统设计<br>▸ 模型部署</p></div>
+  </div>
+</div>
+
+<div class="content s14">
+  <div style="background:linear-gradient(135deg,#2d2d5e,#1a1a3e);padding:28px;border-radius:12px 12px 0 0;position:relative;overflow:hidden"><div style="position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:rgba(232,69,124,.1)"></div><div style="position:absolute;bottom:-20px;left:-10px;width:80px;height:80px;border-radius:50%;background:rgba(99,102,241,.08)"></div><h1 style="font-size:24px;font-weight:700;color:#fff;position:relative">🚀 季度业绩总结</h1><p style="color:#8888aa;margin-top:6px;position:relative">2025 Q1 · 数据概览</p></div>
+  <div style="background:#1a1a2e;padding:20px">
+    <div style="background:#252540;border-radius:12px;padding:18px 20px;margin-bottom:14px;border:1px solid #333355;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#e8457c,#6366f1)"></div><h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid #e8457c;padding-left:10px;text-shadow:0 0 10px rgba(232,69,124,.3)">销售业绩</h3><p style="font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px">▸ 线上渠道增长 35%<br>▸ 客单价提升至 280 元<br>▸ 新增会员 12 万</p></div>
+    <div style="background:#252540;border-radius:12px;padding:18px 20px;margin-bottom:14px;border:1px solid #333355;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#6366f1,#10b981)"></div><h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid #6366f1;padding-left:10px;text-shadow:0 0 10px rgba(99,102,241,.3)">市场推广</h3><p style="font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px">▸ 抖音合作 20 位达人<br>▸ 小红书种草 100 篇</p></div>
+    <div style="background:#252540;border-radius:12px;padding:18px 20px;border:1px solid #333355;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#10b981,#f59e0b)"></div><h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid #10b981;padding-left:10px;text-shadow:0 0 10px rgba(16,185,129,.3)">团队建设</h3><p style="font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px">▸ 新增 3 名高级工程师<br>▸ 完成团队培训 5 次</p></div>
   </div>
 </div>
 </div>
@@ -1324,6 +1386,132 @@ function bS12(d, m){
   return h;
 }
 
+// bS13 思维导图 - AI版
+function bS13(d, m){
+  var colors=['#e8457c','#6366f1','#10b981','#f59e0b','#ec4899','#0891b2'];
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '24px' : '22px';
+  var rootSize = m.density === 'dense' ? '16px' : m.density === 'light' ? '20px' : '18px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var nodeTitleSize = m.density === 'dense' ? '13px' : '14px';
+  var secGap = m.density === 'dense' ? '10px' : '16px';
+  var maxMargin = m.density === 'dense' ? 100 : 140;
+  var minMargin = m.density === 'dense' ? 20 : 60;
+  var h='<div class="content s13"><div class="mm-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  h+='</div>';
+  h+='<div class="mm-root"><h2 style="font-size:'+rootSize+'">🧠 '+E(d.title)+'</h2></div>';
+  var secCount=d.sections.length;
+  d.sections.forEach(function(s,i){
+    var color=colors[i%colors.length];
+    var marginLeft=Math.round(maxMargin-(maxMargin-minMargin)*(i/(Math.max(secCount-1,1))));
+    var isLast=i===d.sections.length-1;
+    var showItems=s.items;
+    var maxItems=4;
+    if(s.type!=='schedule'&&showItems.length>maxItems){
+      showItems=showItems.slice(0,maxItems);
+      showItems._truncated=true;
+      showItems._totalCount=s.items.length;
+    }
+    h+='<div class="mm-branch" style="border-left-color:'+color+';margin-left:'+marginLeft+'px">';
+    h+='<div class="mm-node" style="border-left:4px solid '+color+';margin-bottom:'+(isLast?'0':secGap)+'px">';
+    h+='<h3 style="color:'+color+';font-size:'+nodeTitleSize+'">● '+E(s.title)+'</h3>';
+    if(s.type==='phases'&&showItems.length>0){
+      showItems.forEach(function(t,j){
+        h+='<div style="margin-bottom:'+(j<showItems.length-1?'8px':'0')+';padding-left:12px">';
+        if(t.label)h+='<div style="font-weight:700;font-size:'+itemFont+';color:#333;margin-bottom:2px">▸ '+E(t.label)+'</div>';
+        if(t.detail)h+='<div style="font-size:'+itemFont+';color:#666;line-height:1.7;padding-left:8px">'+E(t.detail)+'</div>';
+        h+='</div>';
+      });
+    }else if(s.type==='schedule'&&showItems.length>0){
+      showItems.forEach(function(t){
+        h+='<div class="mm-schedule"><div class="mm-sched-item"><span class="mm-sched-time" style="color:'+color+'">'+E(t.label)+'</span><span class="mm-sched-act">'+E(t.detail)+'</span></div></div>';
+      });
+    }else{
+      h+='<p style="font-size:'+itemFont+';color:#555;line-height:1.7">';
+      showItems.forEach(function(t){
+        var txt=t.detail||t.label||t;
+        if(t.label&&t.detail)txt=t.label+'：'+t.detail;
+        h+='▸ '+E(txt)+'<br>';
+      });
+      h+='</p>';
+    }
+    if(showItems._truncated){
+      h+='<div style="font-size:11px;color:#999;margin-top:6px">...等'+showItems._totalCount+'条</div>';
+    }
+    h+='</div></div>';
+  });
+  h+='</div>';
+  return h;
+}
+
+// bS14 暗色模式 - AI版
+function bS14(d, m){
+  var glowColors=['rgba(232,69,124,.3)','rgba(99,102,241,.3)','rgba(16,185,129,.3)','rgba(245,158,11,.3)','rgba(236,72,153,.3)','rgba(8,145,178,.3)'];
+  var lineColors=[
+    'linear-gradient(90deg,#e8457c,#6366f1)',
+    'linear-gradient(90deg,#6366f1,#10b981)',
+    'linear-gradient(90deg,#10b981,#f59e0b)',
+    'linear-gradient(90deg,#f59e0b,#ec4899)',
+    'linear-gradient(90deg,#ec4899,#0891b2)',
+    'linear-gradient(90deg,#0891b2,#e8457c)'
+  ];
+  var titleSize = m.density === 'dense' ? '20px' : m.density === 'light' ? '28px' : '24px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var cardTitleSize = m.density === 'dense' ? '14px' : '15px';
+  var cardPad = m.density === 'dense' ? '14px 16px' : '18px 20px';
+  var cardGap = m.density === 'dense' ? '10px' : '14px';
+  var heroPad = m.density === 'dense' ? '20px' : '28px';
+  var bodyPad = m.density === 'dense' ? '14px' : '20px';
+  var accentColors=['#e8457c','#6366f1','#10b981','#f59e0b','#ec4899','#0891b2'];
+  var h='<div class="content s14"><div class="dark-hero" style="padding:'+heroPad+'">';
+  h+='<div class="glow-tr"></div><div class="glow-bl"></div>';
+  h+='<h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  h+='</div><div class="dark-body" style="padding:'+bodyPad+'">';
+  d.sections.forEach(function(s,i){
+    var color=accentColors[i%accentColors.length];
+    var glow=glowColors[i%glowColors.length];
+    var line=lineColors[i%lineColors.length];
+    var isLast=i===d.sections.length-1;
+    if(s.type==='rules'){
+      h+='<div class="dark-card" style="margin-bottom:0;background:linear-gradient(135deg,#2d2d5e,#1a1a3e);border-color:#444466"><div class="top-line" style="background:'+line+'"></div>';
+      h+='<h3 style="font-size:'+cardTitleSize+';border-left-color:'+color+';text-shadow:0 0 10px '+glow+'">'+E(s.title)+'</h3>';
+      h+='<p>';
+      s.items.forEach(function(t){h+='▸ '+E(t.detail||t.label)+'<br>'});
+      h+='</p></div>';
+      return;
+    }
+    var showItems=s.items;
+    var maxItems=4;
+    if(s.type!=='schedule'&&showItems.length>maxItems){
+      showItems=showItems.slice(0,maxItems);
+      showItems._truncated=true;
+      showItems._totalCount=s.items.length;
+    }
+    h+='<div class="dark-card" style="margin-bottom:'+(isLast?'0':cardGap)+'px;padding:'+cardPad+'"><div class="top-line" style="background:'+line+'"></div>';
+    h+='<h3 style="font-size:'+cardTitleSize+';border-left-color:'+color+';text-shadow:0 0 10px '+glow+'">'+E(s.title)+'</h3>';
+    if(s.type==='schedule'){
+      showItems.forEach(function(t){
+        h+='<p style="font-size:'+itemFont+'"><span style="color:'+color+';font-weight:600">'+E(t.label)+'</span>  '+E(t.detail)+'</p>';
+      });
+    }else{
+      h+='<p style="font-size:'+itemFont+';color:#c8c8d4;line-height:1.8;padding-left:13px">';
+      showItems.forEach(function(t){
+        var txt=t.detail||t.label||t;
+        if(t.label&&t.detail)txt=t.label+'  '+t.detail;
+        h+='▸ '+E(txt)+'<br>';
+      });
+      h+='</p>';
+    }
+    if(showItems._truncated){
+      h+='<div style="font-size:11px;color:#666688;margin-top:6px;padding-left:13px">...等'+showItems._totalCount+'条</div>';
+    }
+    h+='</div>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
 var _genAborted=false;
 function cancelGenerate(){
   _genAborted=true;
@@ -1362,16 +1550,16 @@ async function generate(){
     }
   });
   var area=document.getElementById("contentArea");
-  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m)+bS9(d,m)+bS10(d,m)+bS11(d,m)+bS12(d,m);
+  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m)+bS9(d,m)+bS10(d,m)+bS11(d,m)+bS12(d,m)+bS13(d,m)+bS14(d,m);
   document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});
   document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
   document.querySelector('.style-btn[data-s="1"]').classList.add("active");
   area.querySelector(".s1").classList.add("active");
   if(gs)gs.style.display="none";if(gc)gc.style.display="none";if(gb)gb.disabled=false;
-  info.textContent="✅ 已生成"+d.sections.length+"个板块的12种精美排版 (AI驱动)";
+  info.textContent="✅ 已生成"+d.sections.length+"个板块的14种精美排版 (AI驱动)";
 }
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
-function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){html2canvas(cs[idx],{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
+function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦","思维导图","暗色模式"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){var bg=idx===13?"#1a1a2e":"#f5f5f5";html2canvas(cs[idx],{scale:2,backgroundColor:bg,width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
 
 </script>
 
