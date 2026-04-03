@@ -137,12 +137,19 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s6 .note-body::after{content:'';position:absolute;bottom:0;right:0;width:24px;height:24px;background:linear-gradient(225deg,#f5f5f0 50%,rgba(0,0,0,.05) 50%);border-radius:0 0 var(--radius) 0}
 .s6 .sticky{position:absolute;top:70px;right:12px;width:90px;padding:12px 10px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 8px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#444;line-height:1.6;z-index:2}
 .s6 .sticky::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:36px;height:10px;background:rgba(255,255,200,.7);border-radius:1px}
-.s6 .note-body{padding:28px 32px 32px}
-.s6 .note-title{font-size:16px;font-weight:700;color:var(--text);margin:20px 0 10px;font-style:italic;border-bottom:2px solid var(--primary);display:inline-block}
+.s6 .note-body{padding:24px 28px 28px 68px}
+.s6 .note-title{font-size:16px;font-weight:700;color:var(--text);margin:18px 0 8px;font-style:italic;border-bottom:2px dashed var(--primary);display:inline-block}
 .s6 .note-content{font-size:14px;color:#444;line-height:32px;font-style:italic;padding-bottom:2px}
 .s6 .nlist{list-style:none;padding:0}.s6 .nlist li{font-size:14px;color:#444;line-height:32px;padding-left:20px;position:relative;font-style:italic}.s6 .nlist li::before{content:"✎";position:absolute;left:0;color:var(--primary)}
-.s6 .nphase{background:rgba(255,255,255,.6);border-radius:10px;padding:16px 18px;margin-bottom:12px;border:1px dashed var(--primary)}
-.s6 .nphase h4{font-size:15px;color:var(--text);font-style:italic;margin-bottom:4px}.s6 .nphase p{font-size:13px;color:#444;line-height:1.8;font-style:italic}
+.s6 .note-sec{margin-bottom:18px}
+.s6 .note-sec h3{font-size:15px;font-weight:700;color:var(--text);font-style:italic;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.s6 .note-sec .step-num{width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.s6 .note-sec .item-line{font-size:13px;color:#444;line-height:32px;padding-left:30px;position:relative;font-style:italic}
+.s6 .note-sec .item-line::before{content:"●";position:absolute;left:8px;color:var(--primary);font-size:6px;top:13px}
+.s6 .nphase{margin-bottom:18px}
+.s6 .nphase h4{font-size:15px;color:var(--text);font-style:italic;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.s6 .nphase p{font-size:13px;color:#444;line-height:32px;padding-left:30px;position:relative;font-style:italic}
+.s6 .nphase p::before{content:"●";position:absolute;left:8px;color:var(--primary);font-size:6px;top:13px}
 .s6 .nsched{display:flex;gap:12px;align-items:baseline;padding:6px 0;border-bottom:1px dashed #ddd}
 .s6 .nsched .clock{font-size:18px}.s6 .nsched .act{font-size:13px;color:#444;font-style:italic}
 .s6 .nrules{background:var(--gradient);border-radius:10px;padding:16px 20px;color:#fff;text-align:center;margin-top:20px}
@@ -762,12 +769,13 @@ function bS5(d, m){
 function bS6(d, m){
   var titleSize = m.density === 'dense' ? '20px' : m.density === 'light' ? '24px' : '22px';
   var noteFontSize = m.density === 'dense' ? '13px' : m.density === 'light' ? '15px' : '14px';
-  var noteLineH = Math.round(parseFloat(noteFontSize) * 1.8) + 'px';
+  var noteLineH = Math.round(parseFloat(noteFontSize) * 2.3) + 'px';
   var h='<div class="content s6"><div class="note-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
-  h+='<div class="tape"></div><div class="tape-2"></div></div>';
+  h+='<div class="tape"></div><div class="tape-2"></div></div><div class="note-body">';
   d.sections.forEach(function(s,i){
-    h+='<div class="note-sec"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    h+='<div class="note-sec">';
+    h+='<h3><span class="step-num">'+(i+1)+'</span>'+E(s.title)+'</h3>';
     var showItems = s.items;
     var maxItems = 4;
     if (s.type !== 'schedule' && showItems.length > maxItems) {
@@ -776,15 +784,18 @@ function bS6(d, m){
       showItems._totalCount = s.items.length;
     }
     showItems.forEach(function(t){
-      if(t.label)h+='<p style="font-size:'+noteFontSize+';line-height:'+noteLineH+'"><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
-      else h+='<p style="font-size:'+noteFontSize+';line-height:'+noteLineH+'">'+E(t.detail||t.label)+'</p>';
+      var text = t.detail || t.label || t;
+      h+='<div class="item-line" style="font-size:'+noteFontSize+';line-height:'+noteLineH+'">'+E(text)+'</div>';
     });
     if (showItems._truncated) {
-      h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems._totalCount + '条</div>';
+      h += '<div style="font-size:12px;color:#777;margin-top:4px;padding-left:30px">...等' + showItems._totalCount + '条</div>';
     }
     h+='</div>';
   });
-  h+='</div>';
+  if(d.quote){
+    h+='<div style="border-top:2px dashed var(--primary);padding-top:14px;margin-top:16px;font-size:13px;color:#444;line-height:1.8;text-align:center;font-style:italic">📌 '+E(d.quote)+'</div>';
+  }
+  h+='</div></div>';
   return h;
 }
 
