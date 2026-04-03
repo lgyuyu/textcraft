@@ -266,6 +266,7 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .editor-panel .hint{font-size:12px;color:#444;margin-top:8px}
 .btn-row{display:flex;gap:10px;margin-top:14px}
 .btn-row button{padding:10px 24px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:var(--gradient);color:#fff}
+.btn-row #genCancel:hover{border-color:#ef4444;color:#ef4444;background:#fef2f2}
 .export-bar{display:flex;gap:10px;margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);align-items:center}
 .export-bar button{padding:8px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);color:#fff;background:var(--gradient)}
 .export-bar .btn-all{background:#4f6df5}
@@ -278,7 +279,7 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
   <h3>📝 粘贴你的内容，快速预览排版效果</h3>
   <textarea id="inputText" placeholder="在这里粘贴你的内容..."></textarea>
   <div class="hint">当前展示为精细排版示例。粘贴新内容可用通用模板快速预览，精细排版请联系墨痕-编程。</div>
-  <div class="btn-row"><button id="genBtn" onclick="generate()">🤖 AI智能解析</button><span id="genStatus" style="display:none;color:#e8457c;font-weight:600;font-size:14px;white-space:nowrap;animation:pulse 1s infinite">⚡ 生成中...</span></div>
+  <div class="btn-row"><button id="genBtn" onclick="generate()">🤖 AI智能解析</button><span id="genStatus" style="display:none;color:#e8457c;font-weight:600;font-size:14px;white-space:nowrap;animation:pulse 1s infinite">⚡ 生成中...</span><button id="genCancel" onclick="cancelGenerate()" style="display:none;padding:10px 18px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:#fff;color:#6b7280;white-space:nowrap">✕ 取消</button></div>
 </div>
 <div class="controls">
   <div class="style-btns">
@@ -1318,19 +1319,34 @@ function bS12(d, m){
   return h;
 }
 
+var _genAborted=false;
+function cancelGenerate(){
+  _genAborted=true;
+  var gs=document.getElementById("genStatus");
+  var gc=document.getElementById("genCancel");
+  var gb=document.getElementById("genBtn");
+  if(gs)gs.style.display="none";
+  if(gc)gc.style.display="none";
+  if(gb){gb.disabled=false;gb.style.opacity="1"}
+}
+
 async function generate(){
   var text=document.getElementById("inputText").value.trim();
   if(!text){alert("请先粘贴内容");return}
   var info=document.getElementById("exportInfo");
   var gs=document.getElementById("genStatus");
   var gb=document.getElementById("genBtn");
+  var gc=document.getElementById("genCancel");
+  _genAborted=false;
   if(gs)gs.style.display="inline-block";
+  if(gc)gc.style.display="inline-block";
   if(gb){gb.disabled=true;gb.style.opacity="0.6"}
   info.textContent="⚡ 生成中...";
   var d=null;
   try{d=await aiParse(text)}
   catch(e){console.log('AI解析失败，使用本地解析:',e);d=parseText(text)}
-  if(!d||!d.sections.length){alert("未识别到内容结构");return}
+  if(_genAborted)return;
+  if(!d||!d.sections.length){if(gs)gs.style.display="none";if(gc)gc.style.display="none";if(gb){gb.disabled=false;gb.style.opacity="1"}alert("未识别到内容结构");return}
   if(!d.subtitle)d.subtitle='';
   var m=measureContent(d);
   d.sections.forEach(function(s){
@@ -1346,7 +1362,7 @@ async function generate(){
   document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
   document.querySelector('.style-btn[data-s="1"]').classList.add("active");
   area.querySelector(".s1").classList.add("active");
-  if(gs)gs.style.display="none";if(gb){gb.disabled=false;gb.style.opacity="1"}
+  if(gs)gs.style.display="none";if(gc)gc.style.display="none";if(gb){gb.disabled=false;gb.style.opacity="1"}
   info.textContent="✅ 已生成"+d.sections.length+"个板块的12种精美排版 (AI驱动)";
 }
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
