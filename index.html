@@ -324,6 +324,32 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s16 .note16-card p{font-size:13px;color:#555;line-height:1.7;font-style:italic}
 .s16 .note16-trunc{font-size:11px;color:#888;margin-top:6px;font-style:italic}
 
+/* S17 复古报纸 */
+.s17{background:#f5f0e1;border-radius:0;padding:0;font-family:'Noto Serif SC','SimSun','Times New Roman',serif}
+.s17 .news-masthead{border-top:4px double #333;border-bottom:4px double #333;padding:14px 0;text-align:center}
+.s17 .news-masthead h1{font-size:22px;font-weight:900;letter-spacing:4px;text-transform:uppercase;font-family:'Times New Roman',serif}
+.s17 .news-date{text-align:center;padding-bottom:8px;border-bottom:1px dashed #999;font-size:11px;color:#777;font-style:italic;font-family:'Times New Roman',serif}
+.s17 .news-columns{font-family:'Times New Roman',serif;padding:0 16px 16px;column-count:2;column-gap:20px}
+.s17 .news-sec{margin-bottom:14px;border-top:3px solid #333;padding-top:10px;break-inside:avoid}
+.s17 .news-sec h3{font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px;text-transform:uppercase}
+.s17 .news-sec p{font-size:13px;color:#444;line-height:1.8}
+.s17 .news-sec.rules-sec{border:2px solid #333;background:rgba(192,57,43,.05);padding:12px 14px;text-align:center}
+.s17 .news-sec.rules-sec h3{color:#c0392b;font-size:15px;border:none;padding:0;letter-spacing:4px}
+.s17 .news-sec.rules-sec p{font-size:13px;color:#333;font-weight:600}
+
+/* S18 社交媒体 */
+.s18{background:#ffffff;border-radius:var(--radius);padding:0;font-family:var(--font)}
+.s18 .social-hero{text-align:center;padding:24px 16px;margin-bottom:20px}
+.s18 .social-hero h1{font-size:30px;font-weight:900;background:linear-gradient(135deg,#e8457c,#6366f1,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.s18 .social-hero p{color:#999;margin-top:8px;font-size:14px}
+.s18 .social-body{padding:0 20px 24px}
+.s18 .social-sec{margin-bottom:28px}
+.s18 .social-sec:last-child{margin-bottom:0}
+.s18 .social-sec h3{font-size:20px;font-weight:700;margin-bottom:12px}
+.s18 .social-sec p{font-size:16px;color:#444;line-height:2}
+.s18 .social-footer{text-align:center;padding:12px;border-top:1px solid #eee;font-size:12px;color:#ccc}
+.s18 .social-rules{background:#f8f0ff;border-radius:12px;padding:16px 20px;text-align:center;margin-bottom:20px;border:1px dashed #c084fc}
+
 .editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
 .editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
 .editor-panel textarea{width:100%;height:180px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
@@ -369,6 +395,8 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <button class="style-btn" data-s="14">暗色模式</button>
     <button class="style-btn" data-s="15">渐变卡片</button>
     <button class="style-btn" data-s="16">便签</button>
+    <button class="style-btn" data-s="17">复古报纸</button>
+    <button class="style-btn" data-s="18">社交媒体</button>
   </div>
   <div class="color-dots">
     <div class="color-dot active" data-c="pink" title="暖阳粉"></div>
@@ -382,8 +410,8 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 </div>
 <div class="export-bar">
   <button onclick="exportCurrent()">📸 下载当前风格</button>
-  <button class="btn-all" onclick="exportAll()">📦 下载全部16种</button>
-  <span class="info" id="exportInfo">精细排版示例 · 16种风格 · 6种配色</span>
+  <button class="btn-all" onclick="exportAll()">📦 下载全部18种</button>
+  <span class="info" id="exportInfo">精细排版示例 · 18种风格 · 6种配色</span>
 </div>
 <div id="contentArea">
 <div class="content active s1">
@@ -679,6 +707,29 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <div class="note16-card" style="background:#f0f8ff;border-left:4px solid #4facfe;transform:rotate(1deg)"><div class="note16-fold"></div><h3>📖 技术提升</h3><p>✦ 代码整洁之道<br>✦ 设计模式</p></div>
     <div class="note16-card" style="background:#f0fff4;border-left:4px solid #43e97b;transform:rotate(-0.5deg)"><div class="note16-fold"></div><h3>📖 人文社科</h3><p>✦ 人类简史<br>✦ 枪炮、病菌与钢铁<br>✦ 社会性动物</p></div>
   </div>
+</div>
+
+<div class="content s17">
+  <div class="news-masthead"><div style="font-size:22px;font-weight:900;letter-spacing:4px;font-family:'Times New Roman',serif">每日要闻简报</div></div>
+  <div class="news-date">2025年3月15日 星期六</div>
+  <div class="news-columns">
+    <div class="news-sec"><div style="font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px">▎ 经济动态</div><div style="font-size:13px;color:#444;line-height:1.8">▸ 央行降准0.5个百分点<br>▸ A股三大指数集体上涨<br>▸ 科技股领涨</div></div>
+    <div class="news-sec"><div style="font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px">▎ 科技前沿</div><div style="font-size:13px;color:#444;line-height:1.8">▸ AI大模型突破性进展<br>▸ 量子计算里程碑</div></div>
+    <div class="news-sec"><div style="font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px">▎ 社会民生</div><div style="font-size:13px;color:#444;line-height:1.8">▸ 教育改革方案出台<br>▸ 医疗保障升级</div></div>
+    <div class="news-sec"><div style="font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px">▎ 体育赛事</div><div style="font-size:13px;color:#444;line-height:1.8">▸ 国足世界杯预选赛告捷<br>▸ NBA常规赛精彩对决</div></div>
+  </div>
+</div>
+
+<div class="content s18">
+  <div class="social-hero"><h1>5个高效工作习惯</h1><p>改变从现在开始 ✨</p></div>
+  <div class="social-body">
+    <div class="social-sec"><div style="font-size:20px;font-weight:700;margin-bottom:12px">🌅 1. 早起</div><p style="font-size:16px;color:#444;line-height:2">→ 每天 6:30 起床，享受安静的清晨时光<br>→ 用 30 分钟冥想开启新一天</p></div>
+    <div class="social-sec"><div style="font-size:20px;font-weight:700;margin-bottom:12px">📱 2. 专注</div><p style="font-size:16px;color:#444;line-height:2">→ 关闭手机通知，使用番茄工作法<br>→ 每次只做一件事</p></div>
+    <div class="social-sec"><div style="font-size:20px;font-weight:700;margin-bottom:12px">📚 3. 阅读</div><p style="font-size:16px;color:#444;line-height:2">→ 每天至少 30 分钟阅读<br>→ 一个月读完 2 本书</p></div>
+    <div class="social-sec"><div style="font-size:20px;font-weight:700;margin-bottom:12px">💪 4. 运动</div><p style="font-size:16px;color:#444;line-height:2">→ 每周运动 3 次以上<br>→ 哪怕只走 15 分钟</p></div>
+    <div class="social-sec" style="margin-bottom:0"><div style="font-size:20px;font-weight:700;margin-bottom:12px">🧘 5. 复盘</div><p style="font-size:16px;color:#444;line-height:2">→ 睡下写 3 件感恩的事<br>→ 回顾今天的收获</p></div>
+  </div>
+  <div class="social-footer">#高效工作 #自我提升 #每日成长</div>
 </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" onerror="console.log('h2c load fail')"></script>
@@ -1682,6 +1733,114 @@ function bS16(d, m){
   return h;
 }
 
+// bS17 复古报纸
+function bS17(d, m){
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '26px' : '22px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var secGap = m.density === 'dense' ? '10px' : '14px';
+  var now=new Date();
+  var dateStr=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日';
+  var days=['日','一','二','三','四','五','六'];
+  dateStr+=' 星期'+days[now.getDay()];
+  var h='<div class="content s17">';
+  h+='<div class="news-masthead"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1></div>';
+  if(d.subtitle)h+='<div class="news-date">'+E(d.subtitle)+'</div>';
+  else h+='<div class="news-date">'+dateStr+'</div>';
+  h+='<div class="news-columns">';
+  d.sections.forEach(function(s,i){
+    if(s.type==='rules'){
+      h+='<div class="news-sec rules-sec" style="column-span:all;margin-bottom:'+secGap+'px">';
+      h+='<h3>'+E(s.title)+'</h3>';
+      s.items.forEach(function(t){h+='<p>'+E(t.detail||t.label)+'</p>'});
+      h+='</div>';
+      return;
+    }
+    var showItems=s.items;
+    var maxItems=4;
+    if(s.type!=='schedule'&&showItems.length>maxItems){
+      showItems=showItems.slice(0,maxItems);
+      showItems._truncated=true;
+      showItems._totalCount=s.items.length;
+    }
+    h+='<div class="news-sec" style="margin-bottom:'+secGap+'px">';
+    h+='<h3>▎ '+E(s.title)+'</h3>';
+    if(s.type==='schedule'){
+      showItems.forEach(function(t){
+        h+='<p style="font-size:'+itemFont+'">▸ '+E(t.label)+' '+E(t.detail)+'</p>';
+      });
+    }else{
+      h+='<p style="font-size:'+itemFont+'">';
+      showItems.forEach(function(t){
+        var txt=t.detail||t.label||t;
+        if(t.label&&t.detail)txt=t.label+' — '+t.detail;
+        h+='▸ '+E(txt)+'<br>';
+      });
+      h+='</p>';
+    }
+    if(showItems._truncated){
+      h+='<div style="font-size:11px;color:#888;margin-top:4px">...等'+showItems._totalCount+'条</div>';
+    }
+    h+='</div>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
+// bS18 社交媒体
+function bS18(d, m){
+  var titleSize = m.density === 'dense' ? '24px' : m.density === 'light' ? '34px' : '30px';
+  var itemFont = m.density === 'dense' ? '15px' : '16px';
+  var secGap = m.density === 'dense' ? '20px' : '28px';
+  var secTitleSize = m.density === 'dense' ? '18px' : '20px';
+  var socialEmojis=['🌅','📱','📚','💪','🧘','🎯','💡','✨'];
+  var h='<div class="content s18">';
+  h+='<div class="social-hero"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+' ✨</p>';
+  else h+='<p>一键收藏 · 随时回顾 ✨</p>';
+  h+='</div><div class="social-body">';
+  d.sections.forEach(function(s,i){
+    if(s.type==='rules'){
+      h+='<div class="social-rules">';
+      h+='<h3 style="font-size:16px;margin-bottom:8px">'+(s.icon||'🔥')+' '+E(s.title)+'</h3>';
+      s.items.forEach(function(t){h+='<p style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</p>'});
+      h+='</div>';
+      return;
+    }
+    var showItems=s.items;
+    var maxItems=4;
+    if(s.type!=='schedule'&&showItems.length>maxItems){
+      showItems=showItems.slice(0,maxItems);
+      showItems._truncated=true;
+      showItems._totalCount=s.items.length;
+    }
+    h+='<div class="social-sec" style="margin-bottom:'+secGap+'px">';
+    h+='<h3 style="font-size:'+secTitleSize+'">'+(s.icon||socialEmojis[i%8])+' '+E(s.title)+'</h3>';
+    if(s.type==='schedule'){
+      h+='<p style="font-size:'+itemFont+'">';
+      showItems.forEach(function(t){h+='→ <b>'+E(t.label)+'</b> '+E(t.detail)+'<br>'});
+      h+='</p>';
+    }else{
+      h+='<p style="font-size:'+itemFont+'">';
+      showItems.forEach(function(t){
+        var txt=t.detail||t.label||t;
+        if(t.label&&t.detail)txt=t.label+' · '+t.detail;
+        h+='→ '+E(txt)+'<br>';
+      });
+      h+='</p>';
+    }
+    if(showItems._truncated){
+      h+='<div style="font-size:12px;color:#999;margin-top:6px">...等'+showItems._totalCount+'条</div>';
+    }
+    h+='</div>';
+  });
+  h+='</div>';
+  // Bottom hashtag
+  var tags=['','#'+E(d.title).replace(/\s/g,'')+'','#每日分享','#知识卡片'];
+  h+='<div class="social-footer">'+tags.join(' ')+'</div>';
+  h+='</div>';
+  return h;
+}
+
 var _genAborted=false;
 function cancelGenerate(){
   _genAborted=true;
@@ -1720,16 +1879,16 @@ async function generate(){
     }
   });
   var area=document.getElementById("contentArea");
-  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m)+bS9(d,m)+bS10(d,m)+bS11(d,m)+bS12(d,m)+bS13(d,m)+bS14(d,m)+bS15(d,m)+bS16(d,m);
+  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m)+bS9(d,m)+bS10(d,m)+bS11(d,m)+bS12(d,m)+bS13(d,m)+bS14(d,m)+bS15(d,m)+bS16(d,m)+bS17(d,m)+bS18(d,m);
   document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});
   document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
   document.querySelector('.style-btn[data-s="1"]').classList.add("active");
   area.querySelector(".s1").classList.add("active");
   if(gs)gs.style.display="none";if(gc)gc.style.display="none";if(gb)gb.disabled=false;
-  info.textContent="✅ 已生成"+d.sections.length+"个板块的16种精美排版 (AI驱动)";
+  info.textContent="✅ 已生成"+d.sections.length+"个板块的18种精美排版 (AI驱动)";
 }
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
-function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦","思维导图","暗色模式","渐变卡片","便签"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){var bg=idx===13?"#1a1a2e":idx===14?"#f0f0f5":idx===15?"#d4c4a8":"#f5f5f5";html2canvas(cs[idx],{scale:2,backgroundColor:bg,width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
+function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦","思维导图","暗色模式","渐变卡片","便签","复古报纸","社交媒体"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){var bg=idx===13?"#1a1a2e":idx===14?"#f0f0f5":idx===15?"#d4c4a8":idx===16?"#f5f0e1":"#f5f5f5";html2canvas(cs[idx],{scale:2,backgroundColor:bg,width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
 
 </script>
 
