@@ -199,6 +199,66 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s8 .gc.rules{background:var(--gradient);color:#fff;text-align:center}
 .s8 .gc.rules h3{color:#fff;justify-content:center}.s8 .gc.rules h3 .dot{background:#fff}.s8 .gc.rules p{color:rgba(255,255,255,.95)}
 
+/* S9 瀑布流 */
+.s9{background:var(--light);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);overflow:hidden}
+.s9 .waterfall-header{padding:20px 20px 12px}
+.s9 .waterfall-header h1{font-size:20px;font-weight:700;color:var(--text)}
+.s9 .waterfall-header p{font-size:13px;color:#666;margin-top:4px}
+.s9 .waterfall-cols{column-count:2;column-gap:14px;padding:0 14px 16px}
+.s9 .wf-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;break-inside:avoid;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden}
+.s9 .wf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient)}
+.s9 .wf-card h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px}
+.s9 .wf-card p{font-size:12px;color:#555;line-height:1.7}
+.s9 .wf-card ul{list-style:none;padding:0;margin:0}.s9 .wf-card ul li{font-size:12px;color:#555;padding:3px 0;line-height:1.6}.s9 .wf-card ul li::before{content:"● ";color:var(--primary);font-size:8px}
+.s9 .wf-card.rules-card{background:var(--gradient);color:#fff;column-span:all;break-inside:avoid}
+.s9 .wf-card.rules-card::before{display:none}
+.s9 .wf-card.rules-card h3{color:#fff}.s9 .wf-card.rules-card ul li{color:rgba(255,255,255,.95)}.s9 .wf-card.rules-card ul li::before{color:#fff}
+.s9 .wf-card.rules-card p{color:rgba(255,255,255,.95)}
+
+/* S10 时间线日志 */
+.s10{background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.s10 .log-banner{background:var(--light);padding:18px 22px;border-radius:10px;margin-bottom:20px}
+.s10 .log-banner h1{font-size:20px;font-weight:700;color:var(--text)}
+.s10 .log-banner p{font-size:13px;color:#666;margin-top:4px}
+.s10 .log-timeline{padding-left:24px;border-left:3px solid var(--primary);margin-left:14px}
+.s10 .log-entry{position:relative;padding:0 0 20px 24px}
+.s10 .log-entry:last-child{padding-bottom:0}
+.s10 .log-entry::before{content:'';position:absolute;left:-29px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid var(--light);box-sizing:content-box}
+.s10 .log-entry h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px}
+.s10 .log-entry p{font-size:13px;color:#555;line-height:1.7}
+.s10 .log-entry .log-time{display:inline-block;background:var(--primary);color:#fff;font-size:11px;padding:2px 10px;border-radius:10px;margin-right:6px;margin-bottom:4px}
+.s10 .log-footer{margin-top:20px;padding:14px 18px;background:var(--gradient);border-radius:10px;color:#fff;text-align:center}
+.s10 .log-footer h4{font-size:14px;margin-bottom:4px}.s10 .log-footer p{font-size:13px;opacity:.95}
+
+/* S11 数据仪表盘 */
+.s11{background:#f8f9fa;border-radius:var(--radius);padding:0;box-shadow:var(--shadow);overflow:hidden}
+.s11 .dash-header{background:linear-gradient(135deg,#2d2d3a,#1a1a2e);padding:22px;color:#fff;border-radius:var(--radius) var(--radius) 0 0}
+.s11 .dash-header h1{font-size:20px;font-weight:700}.s11 .dash-header p{opacity:.7;margin-top:4px;font-size:13px}
+.s11 .dash-stats{display:flex;gap:12px;padding:16px}
+.s11 .dash-stat{flex:1;background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.s11 .dash-stat .num{font-size:24px;font-weight:700;color:var(--primary)}.s11 .dash-stat .label{font-size:11px;color:#666;margin-top:4px}
+.s11 .dash-cards{padding:0 16px 16px}
+.s11 .dash-card{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.s11 .dash-card h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:10px}
+.s11 .dash-row{margin-bottom:8px}.s11 .dash-row:last-child{margin-bottom:0}
+.s11 .dash-row .row-label{font-size:12px;color:#555;margin-bottom:4px}
+.s11 .dash-row .row-bar{height:8px;background:#eee;border-radius:4px;overflow:hidden}
+.s11 .dash-row .row-fill{height:100%;background:var(--gradient);border-radius:4px;transition:width .3s}
+.s11 .dash-card.rules-card{background:var(--gradient);color:#fff}
+.s11 .dash-card.rules-card h3{color:#fff}.s11 .dash-card.rules-card p{color:rgba(255,255,255,.95);font-size:13px;line-height:1.7}
+
+/* S12 手绘涂鸦风 */
+.s12{background:var(--light);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);position:relative}
+.s12 .doodle-wrap{background:#fffef5;border:2px solid #333;border-radius:255px 15px 225px 15px/15px 225px 15px 255px;padding:28px 22px;position:relative}
+.s12 .doodle-wrap h1{font-family:'Comic Sans MS','Chalkboard SE',cursive;font-size:22px;text-align:center;margin-bottom:20px;color:var(--text)}
+.s12 .doodle-sec{border-bottom:2px dashed #aaa;padding-bottom:14px;margin-bottom:14px}
+.s12 .doodle-sec:last-of-type{border-bottom:none;margin-bottom:0}
+.s12 .doodle-sec h3{font-family:'Comic Sans MS','Chalkboard SE',cursive;font-size:15px;color:var(--primary);margin-bottom:8px}
+.s12 .doodle-sec p{font-size:13px;color:#555;line-height:1.8;font-style:italic}
+.s12 .doodle-sec ul{list-style:none;padding:0;margin:0}.s12 .doodle-sec ul li{font-size:13px;color:#555;line-height:1.8;font-style:italic;padding:2px 0}.s12 .doodle-sec ul li::before{content:"□ ";color:var(--primary)}
+.s12 .doodle-sticky{position:absolute;top:12px;right:14px;width:80px;padding:10px 8px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 6px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#444;line-height:1.5;z-index:2}
+.s12 .doodle-footer{margin-top:16px;text-align:center;font-family:'Comic Sans MS','Chalkboard SE',cursive;font-size:14px;color:var(--primary);font-style:italic}
+
 .editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
 .editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
 .editor-panel textarea{width:100%;height:180px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
@@ -230,6 +290,10 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <button class="style-btn" data-s="6">笔记本</button>
     <button class="style-btn" data-s="7">信息图</button>
     <button class="style-btn" data-s="8">网格布局</button>
+    <button class="style-btn" data-s="9">瀑布流</button>
+    <button class="style-btn" data-s="10">日志</button>
+    <button class="style-btn" data-s="11">仪表盘</button>
+    <button class="style-btn" data-s="12">涂鸦</button>
   </div>
   <div class="color-dots">
     <div class="color-dot active" data-c="pink" title="暖阳粉"></div>
@@ -243,8 +307,8 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 </div>
 <div class="export-bar">
   <button onclick="exportCurrent()">📸 下载当前风格</button>
-  <button class="btn-all" onclick="exportAll()">📦 下载全部8种</button>
-  <span class="info" id="exportInfo">精细排版示例 · 8种风格 · 6种配色</span>
+  <button class="btn-all" onclick="exportAll()">📦 下载全部12种</button>
+  <span class="info" id="exportInfo">精细排版示例 · 12种风格 · 6种配色</span>
 </div>
 <div id="contentArea">
 <div class="content active s1">
@@ -445,6 +509,57 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <div class="gc"><h3><span class="dot"></span>🏆 激励</h3><ul><li>周冠军¥1000</li><li>首单¥50</li><li>大单¥288</li></ul></div>
     <div class="gc"><h3><span class="dot"></span>⚠️ 风险</h3><ul><li>&lt;30万→裂变</li><li>竞品→拼服务</li><li>投诉→30min</li></ul></div>
     <div class="gc full rules"><h3><span class="dot"></span>4月必胜</h3><p>抓住焦虑，给足方案！AI课程卖的是安全感。</p></div>
+  </div>
+</div>
+
+<div class="content s9">
+  <div class="waterfall-header"><h1>AI时代学习路线</h1><p style="color:#666;margin-top:4px">从入门到精通</p></div>
+  <div style="column-count:2;column-gap:14px;padding:0 14px 16px">
+    <div style="background:#fff;border-radius:10px;padding:16px;margin-bottom:14px;break-inside:avoid;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden"><div style="height:3px;background:var(--gradient);position:absolute;top:0;left:0;right:0;border-radius:10px 10px 0 0"></div><h3 style="font-size:15px;margin-bottom:8px">📚 基础入门</h3><p style="font-size:13px;color:#555;line-height:1.7">● Python 语法基础<br>● 数据结构入门<br>● 算法思维培养</p></div>
+    <div style="background:#fff;border-radius:10px;padding:16px;margin-bottom:14px;break-inside:avoid;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden"><div style="height:3px;background:var(--gradient);position:absolute;top:0;left:0;right:0;border-radius:10px 10px 0 0"></div><h3 style="font-size:15px;margin-bottom:8px">🎯 进阶提升</h3><p style="font-size:13px;color:#555;line-height:1.7">● 机器学习算法<br>● 深度学习框架<br>● 项目实战练习<br>● 论文阅读与复现</p></div>
+    <div style="background:#fff;border-radius:10px;padding:12px;margin-bottom:14px;break-inside:avoid;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden"><div style="height:3px;background:var(--gradient);position:absolute;top:0;left:0;right:0;border-radius:10px 10px 0 0"></div><h3 style="font-size:15px;margin-bottom:6px">🚀 高级应用</h3><p style="font-size:13px;color:#555;line-height:1.7">● 模型部署上线<br>● 系统架构设计</p></div>
+    <div style="background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;break-inside:avoid;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden"><div style="height:3px;background:var(--gradient);position:absolute;top:0;left:0;right:0;border-radius:10px 10px 0 0"></div><h3 style="font-size:15px;margin-bottom:8px">💡 学习技巧</h3><p style="font-size:13px;color:#555;line-height:1.7">费曼学习法</p></div>
+  </div>
+</div>
+
+<div class="content s10">
+  <div style="background:var(--light);padding:18px 22px;border-radius:10px;margin-bottom:20px"><h1>本周工作日志</h1><p style="color:#666;margin-top:4px">2025.3.17 - 2025.3.21</p></div>
+  <div style="padding-left:24px;border-left:3px solid var(--primary);margin-left:14px">
+    <div style="position:relative;padding:0 0 20px 24px"><div style="position:absolute;left:-29px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid var(--light)"></div><h3 style="font-size:15px;margin-bottom:6px">周一 · 项目启动</h3><p style="font-size:13px;color:#555;line-height:1.7">● 完成需求文档评审<br>● 确认技术方案<br>● 搭建开发环境</p></div>
+    <div style="position:relative;padding:0 0 20px 24px"><div style="position:absolute;left:-29px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid var(--light)"></div><h3 style="font-size:15px;margin-bottom:6px">周三 · 核心开发</h3><p style="font-size:13px;color:#555;line-height:1.7">● 完成用户模块开发<br>● 接口联调<br>● 代码审查</p></div>
+    <div style="position:relative;padding:0 0 0 24px"><div style="position:absolute;left:-29px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid var(--light)"></div><h3 style="font-size:15px;margin-bottom:6px">周五 · 测试上线</h3><p style="font-size:13px;color:#555;line-height:1.7">● 完成单元测试<br>● 部署到测试环境<br>● 提交验收报告</p></div>
+  </div>
+</div>
+
+<div class="content s11">
+  <div style="background:linear-gradient(135deg,#2d2d3a,#1a1a2e);padding:22px;color:#fff;border-radius:12px 12px 0 0"><h1>季度业绩看板</h1><p style="opacity:.7;margin-top:4px">2025 Q1</p></div>
+  <div style="display:flex;gap:12px;padding:16px">
+    <div style="flex:1;background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)"><div style="font-size:24px;font-weight:700;color:var(--primary)">5</div><div style="font-size:11px;color:#666;margin-top:4px">核心指标</div></div>
+    <div style="flex:1;background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)"><div style="font-size:24px;font-weight:700;color:var(--primary)">18</div><div style="font-size:11px;color:#666;margin-top:4px">关键任务</div></div>
+    <div style="flex:1;background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)"><div style="font-size:24px;font-weight:700;color:var(--primary)">85%</div><div style="font-size:11px;color:#666;margin-top:4px">目标达成</div></div>
+  </div>
+  <div style="padding:0 16px 16px">
+    <div style="background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)"><h3 style="font-size:14px;margin-bottom:10px">📈 销售额</h3><div style="margin-bottom:8px"><div style="font-size:12px;color:#555;margin-bottom:4px">线上渠道</div><div style="height:8px;background:#eee;border-radius:4px"><div style="height:100%;width:85%;background:var(--gradient);border-radius:4px"></div></div></div><div><div style="font-size:12px;color:#555;margin-bottom:4px">线下渠道</div><div style="height:8px;background:#eee;border-radius:4px"><div style="height:100%;width:60%;background:var(--gradient);border-radius:4px"></div></div></div></div>
+    <div style="background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)"><h3 style="font-size:14px;margin-bottom:10px">👥 客户增长</h3><div style="margin-bottom:8px"><div style="font-size:12px;color:#555;margin-bottom:4px">新客户</div><div style="height:8px;background:#eee;border-radius:4px"><div style="height:100%;width:72%;background:var(--gradient);border-radius:4px"></div></div></div><div><div style="font-size:12px;color:#555;margin-bottom:4px">复购客户</div><div style="height:8px;background:#eee;border-radius:4px"><div style="height:100%;width:45%;background:var(--gradient);border-radius:4px"></div></div></div></div>
+  </div>
+</div>
+
+<div class="content s12">
+  <div style="background:#fffef5;border:2px solid #333;border-radius:255px 15px 225px 15px/15px 225px 15px 255px;padding:24px 22px;position:relative">
+    <h1 style="font-family:'Comic Sans MS',cursive;font-size:22px;text-align:center;margin-bottom:18px">✦ 读书笔记 ✦</h1>
+    <div style="border-bottom:2px dashed #aaa;padding-bottom:12px;margin-bottom:14px">
+      <h3 style="font-family:'Comic Sans MS',cursive;font-size:15px;color:var(--primary)">★ 第一章：认知升级</h3>
+      <p style="font-size:13px;color:#555;line-height:1.8;font-style:italic;margin-top:6px">□ 成长型思维 vs 固定型思维<br>□ 刻意练习的力量<br>□ 学习区的概念</p>
+    </div>
+    <div style="border-bottom:2px dashed #aaa;padding-bottom:12px;margin-bottom:14px">
+      <h3 style="font-family:'Comic Sans MS',cursive;font-size:15px;color:var(--primary)">★ 第二章：行动指南</h3>
+      <p style="font-size:13px;color:#555;line-height:1.8;font-style:italic;margin-top:6px">□ 每日反思日志<br>□ 21天习惯养成<br>□ 找到你的锚点习惯</p>
+    </div>
+    <div style="border-bottom:2px dashed #aaa;padding-bottom:12px;margin-bottom:14px">
+      <h3 style="font-family:'Comic Sans MS',cursive;font-size:15px;color:var(--primary)">★ 第三章：深度工作</h3>
+      <p style="font-size:13px;color:#555;line-height:1.8;font-style:italic;margin-top:6px">□ 消除干扰源<br>□ 时间块规划法</p>
+    </div>
+    <div style="position:absolute;top:12px;right:14px;width:80px;padding:10px 8px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 6px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#444;line-height:1.5;z-index:2">💡<br>重点<br>记忆！</div>
   </div>
 </div>
 </div>
@@ -989,6 +1104,220 @@ function bS7(d, m){
   h+='</div>';
   return h;
 }
+
+// bS9 瀑布流 - AI版
+function bS9(d, m){
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
+  var itemFont = m.density === 'dense' ? '11px' : '12px';
+  var cardPad = m.density === 'dense' ? '12px' : '14px';
+  var cols = '2';
+  var colGap = m.density === 'dense' ? '10px' : '14px';
+  var h='<div class="content s9"><div class="waterfall-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p style="color:#666">'+E(d.subtitle)+'</p>';
+  h+='</div><div style="column-count:'+cols+';column-gap:'+colGap+';padding:0 14px 16px">';
+  d.sections.forEach(function(s,i){
+    var icon=s.icon||emojis[i%8];
+    if(s.type==='rules'){
+      h+='<div class="wf-card rules-card" style="column-span:all; padding:16px"><h3>'+icon+' '+E(s.title)+'</h3><p>';
+      s.items.forEach(function(t){h+=E(t.detail||t.label)+'<br>'});
+      h+='</p></div>';
+      return;
+    }
+    var showItems = s.items;
+    var maxItems = 4;
+    if(s.type!=='schedule' && showItems.length>maxItems){
+      showItems=showItems.slice(0,maxItems);
+      showItems._truncated=true;
+      showItems._totalCount=s.items.length;
+    }
+    h+='<div class="wf-card" style="padding:'+cardPad+'"><h3>'+icon+' '+E(s.title)+'</h3>';
+    if(s.type==='schedule'&&showItems.length>0){
+      showItems.forEach(function(t){
+        h+='<p style="font-size:'+itemFont+'"><b style="color:var(--primary)">'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      });
+    }else{
+      if(showItems.length>2){
+        h+='<ul>';
+        showItems.forEach(function(t){
+          h+='<li style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</li>';
+        });
+        h+='</ul>';
+      }else{
+        showItems.forEach(function(t){
+          h+='<p style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</p>';
+        });
+      }
+    }
+    if(showItems._truncated){
+      h+='<div style="font-size:11px;color:#888;margin-top:6px">...等'+showItems._totalCount+'条</div>';
+    }
+    h+='</div>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
+// bS10 时间线日志 - AI版
+function bS10(d, m){
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var secFont = m.density === 'dense' ? '13px' : '15px';
+  var entryGap = m.density === 'dense' ? '14px' : '20px';
+  var h='<div class="content s10"><div class="log-banner"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p style="color:#666">'+E(d.subtitle)+'</p>';
+  h+='</div><div class="log-timeline">';
+  d.sections.forEach(function(s,i){
+    var icon=s.icon||emojis[i%8];
+    var isLast=i===d.sections.length-1;
+    if(s.type==='rules'){
+      h+='<div class="log-footer"><h4>'+icon+' '+E(s.title)+'</h4>';
+      s.items.forEach(function(t){h+='<p>'+E(t.detail||t.label)+'</p>'});
+      h+='</div>';
+      return;
+    }
+    var showItems = s.items;
+    var maxItems = 4;
+    if(s.type!=='schedule' && showItems.length>maxItems){
+      showItems=showItems.slice(0,maxItems);
+      showItems._truncated=true;
+      showItems._totalCount=s.items.length;
+    }
+    h+='<div class="log-entry" style="padding-bottom:'+(isLast?'0':entryGap)+'"><h3 style="font-size:'+secFont+'">'+icon+' '+E(s.title)+'</h3>';
+    if(s.type==='schedule'){
+      showItems.forEach(function(t){
+        h+='<p style="font-size:'+itemFont+'"><span class="log-time">'+E(t.label)+'</span>'+E(t.detail)+'</p>';
+      });
+    }else{
+      showItems.forEach(function(t){
+        var text=(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label);
+        h+='<p style="font-size:'+itemFont+'">● '+text+'</p>';
+      });
+    }
+    if(showItems._truncated){
+      h+='<div style="font-size:12px;color:#888;margin-top:4px">...等'+showItems._totalCount+'条</div>';
+    }
+    h+='</div>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
+// bS11 数据仪表盘 - AI版
+function bS11(d, m){
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
+  var itemFont = m.density === 'dense' ? '11px' : '12px';
+  var cardPad = m.density === 'dense' ? '12px' : '16px';
+  var cardGap = m.density === 'dense' ? '8px' : '12px';
+  var totalItems=d.sections.reduce(function(a,s){return a+s.items.length},0);
+  var h='<div class="content s11"><div class="dash-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  else h+='<p>'+d.sections.length+'个板块 · '+totalItems+'项任务</p>';
+  h+='</div><div class="dash-stats">';
+  var statNums=[d.sections.length,totalItems,Math.min(95,Math.round(totalItems/d.sections.length*15))+'%'];
+  var statLabels=['板块总数','任务总计','达成率'];
+  if(d.stats&&d.stats.length>=2){
+    for(var si=0;si<3;si++){
+      var st=d.stats[si]||{num:statNums[si],unit:'',label:statLabels[si]};
+      h+='<div class="dash-stat"><div class="num">'+E(st.num)+'</div><div class="label">'+E(st.unit?(st.num+' '+st.unit):st.label)+'</div></div>';
+    }
+  }else{
+    for(var si2=0;si2<3;si2++){
+      h+='<div class="dash-stat"><div class="num">'+statNums[si2]+'</div><div class="label">'+statLabels[si2]+'</div></div>';
+    }
+  }
+  h+='</div><div class="dash-cards">';
+  d.sections.forEach(function(s,i){
+    var icon=s.icon||emojis[i%8];
+    if(s.type==='rules'){
+      h+='<div class="dash-card rules-card" style="padding:'+cardPad+'"><h3>'+icon+' '+E(s.title)+'</h3>';
+      s.items.forEach(function(t){h+='<p>'+E(t.detail||t.label)+'</p>'});
+      h+='</div>';
+      return;
+    }
+    var showItems=s.items;
+    var maxItems=4;
+    if(s.type!=='schedule'&&showItems.length>maxItems){
+      showItems=showItems.slice(0,maxItems);
+      showItems._truncated=true;
+      showItems._totalCount=s.items.length;
+    }
+    h+='<div class="dash-card" style="padding:'+cardPad+';margin-bottom:'+cardGap+'"><h3>'+icon+' '+E(s.title)+'</h3>';
+    if(s.type==='schedule'){
+      showItems.forEach(function(t){
+        h+='<div class="dash-row"><div class="row-label" style="font-size:'+itemFont+'">'+E(t.label)+'</div><div class="row-bar"><div class="row-fill" style="width:'+(40+Math.floor(Math.random()*50))+'%"></div></div></div>';
+      });
+    }else{
+      showItems.forEach(function(t,j){
+        var w=Math.max(25,95-j*18-Math.floor(Math.random()*10));
+        var detail=t.detail&&t.label?t.label:(t.detail||t.label||'');
+        h+='<div class="dash-row"><div class="row-label" style="font-size:'+itemFont+'">'+E(detail)+'</div><div class="row-bar"><div class="row-fill" style="width:'+w+'%"></div></div></div>';
+      });
+    }
+    if(showItems._truncated){
+      h+='<div style="font-size:11px;color:#888;margin-top:6px">...等'+showItems._totalCount+'条</div>';
+    }
+    h+='</div>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
+// bS12 手绘涂鸦风 - AI版
+function bS12(d, m){
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '24px' : '22px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var secFont = m.density === 'dense' ? '13px' : '15px';
+  var secGap = m.density === 'dense' ? '10px' : '14px';
+  var wrapPad = m.density === 'dense' ? '18px 16px' : '28px 22px';
+  var h='<div class="content s12"><div class="doodle-wrap" style="padding:'+wrapPad+'">';
+  h+='<h1 style="font-size:'+titleSize+'">✦ '+E(d.title)+' ✦</h1>';
+  if(d.subtitle)h+='<p style="text-align:center;font-size:13px;color:#888;margin-bottom:16px;font-style:italic">'+E(d.subtitle)+'</p>';
+  var doodleStars=['★','✦','◆','✧','☆'];
+  d.sections.forEach(function(s,i){
+    var icon=s.icon||doodleStars[i%5];
+    var isLast=i===d.sections.length-1;
+    if(s.type==='rules'){
+      h+='<div class="doodle-footer" style="margin-top:'+(m.density==='dense'?'12px':'16px')+'">★ '+E(s.title)+'：'+E(s.items[0]?s.items[0].detail||s.items[0].label:'')+'</div>';
+      return;
+    }
+    var showItems=s.items;
+    var maxItems=4;
+    if(s.type!=='schedule'&&showItems.length>maxItems){
+      showItems=showItems.slice(0,maxItems);
+      showItems._truncated=true;
+      showItems._totalCount=s.items.length;
+    }
+    h+='<div class="doodle-sec" style="padding-bottom:'+secGap+';margin-bottom:'+secGap+';'+(isLast?'border-bottom:none;margin-bottom:0':'')+'">';
+    h+='<h3 style="font-size:'+secFont+'">'+icon+' '+E(s.title)+'</h3>';
+    if(s.type==='schedule'){
+      showItems.forEach(function(t){
+        h+='<p style="font-size:'+itemFont+'">⏰ <b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      });
+    }else{
+      if(showItems.length>1){
+        h+='<ul>';
+        showItems.forEach(function(t){
+          var txt=t.detail||t.label||t;
+          if(t.label&&t.detail)txt=t.label+' · '+t.detail;
+          h+='<li style="font-size:'+itemFont+'">'+E(txt)+'</li>';
+        });
+        h+='</ul>';
+      }else{
+        showItems.forEach(function(t){
+          h+='<p style="font-size:'+itemFont+'">□ '+E(t.detail||t.label)+'</p>';
+        });
+      }
+    }
+    if(showItems._truncated){
+      h+='<div style="font-size:11px;color:#999;margin-top:6px">...等'+showItems._totalCount+'条</div>';
+    }
+    h+='</div>';
+  });
+  h+='<div class="doodle-sticky">💡<br>重点<br>标记！</div>';
+  h+='</div></div>';
+  return h;
+}
+
 async function generate(){
   var text=document.getElementById("inputText").value.trim();
   if(!text){alert("请先粘贴内容");return}
@@ -1012,16 +1341,16 @@ async function generate(){
     }
   });
   var area=document.getElementById("contentArea");
-  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m);
+  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m)+bS9(d,m)+bS10(d,m)+bS11(d,m)+bS12(d,m);
   document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});
   document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
   document.querySelector('.style-btn[data-s="1"]').classList.add("active");
   area.querySelector(".s1").classList.add("active");
   if(gs)gs.style.display="none";if(gb){gb.disabled=false;gb.style.opacity="1"}
-  info.textContent="✅ 已生成"+d.sections.length+"个板块的8种精美排版 (AI驱动)";
+  info.textContent="✅ 已生成"+d.sections.length+"个板块的12种精美排版 (AI驱动)";
 }
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
-function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){html2canvas(cs[idx],{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
+function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){html2canvas(cs[idx],{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
 
 </script>
 
