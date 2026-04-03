@@ -164,14 +164,14 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s7 .stat-circle{width:100px;height:100px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;position:relative}
 .s7 .stat-circle .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--primary) var(--pct),#e8e8e8 var(--pct))}
 .s7 .stat-circle .ring-inner{position:absolute;inset:7px;border-radius:50%;background:var(--light)}.s7 .stat-circle .inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:auto;height:auto;border-radius:50%;background:var(--light);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;flex-direction:column}
-.s7 .stat-circle .num{font-size:28px;font-weight:700;color:var(--text);line-height:1}.s7 .stat-circle .unit{font-size:10px;color:#444}
+.s7 .stat-circle .num{font-size:22px;font-weight:700;color:var(--text);line-height:1}.s7 .stat-circle .unit{font-size:10px;color:#555}
 .s7 .stat-item .label{font-size:12px;color:#444}
 .s7 .ibox{background:#fff;border-radius:12px;padding:18px 20px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
 .s7 .ibox h3{font-size:15px;color:var(--text);margin-bottom:8px}.s7 .ibox p{font-size:13px;color:#444;line-height:1.8}
 .s7 .phases-row{display:flex;gap:10px;margin-bottom:20px}
 .s7 .pbar{flex:1;background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04);text-align:center}
-.s7 .pbar .dc{font-size:28px;font-weight:700;color:var(--primary)}.s7 .pbar .dl{font-size:11px;color:#aaa}
-.s7 .pbar h4{font-size:14px;color:#333;margin:8px 0 6px}.s7 .pbar p{font-size:12px;color:#444;line-height:1.6}
+.s7 .pbar .dc{font-size:28px;font-weight:700;color:var(--primary)}.s7 .pbar .dc.is-text{font-size:14px;font-weight:600;line-height:1.4}.s7 .pbar .dl{font-size:12px;color:#555}
+.s7 .pbar h4{font-size:14px;color:#333;margin:8px 0 6px}.s7 .pbar p{font-size:13px;color:#444;line-height:1.6}
 .s7 .pbar .bar{height:6px;border-radius:3px;background:#eee;margin-top:10px;overflow:hidden}
 .s7 .pbar .bar-fill{height:100%;border-radius:3px;background:var(--gradient)}
 .s7 .pri-row{margin-bottom:10px}.s7 .pri-row .name{font-size:13px;color:#444;margin-bottom:4px}
@@ -890,7 +890,10 @@ function bS7(d, m){
       showItems7.forEach(function(t,j){
         var pct=Math.round(100/s.items.length);
         var lbl=t.label||('阶段'+(j+1));
-        h+='<div class="pbar"><div class="dc">'+E(t.detail?lbl+' · '+t.detail.substring(0,15):lbl)+'</div><div class="dl">'+E(lbl)+'</div><div class="bar"><div class="bar-fill" style="width:'+pct+'%"></div></div></div>';
+        var dcText=t.detail?lbl+' · '+t.detail.substring(0,15):lbl;
+        var isNum=/^\d+$/.test(dcText.trim().replace(/[^0-9]/g,''))&&dcText.length<=5;
+        var dcClass=isNum?'dc':'dc is-text';
+        h+='<div class="pbar"><div class="'+dcClass+'">'+E(dcText)+'</div><div class="dl">'+E(lbl)+'</div><div class="bar"><div class="bar-fill" style="width:'+pct+'%"></div></div></div>';
       });
       h+='</div>';
       if (showItems7._truncated) {
