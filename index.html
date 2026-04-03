@@ -296,6 +296,34 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s14 .dark-card ul li{font-size:13px;color:#c8c8d4;line-height:1.8;padding:2px 0}
 .s14 .dark-card ul li::before{content:"▸ ";opacity:.7}
 
+/* S15 渐变卡片 */
+.s15{background:#f0f0f5;border-radius:var(--radius);padding:0;box-shadow:var(--shadow);overflow:hidden}
+.s15 .gc15-hero{text-align:center;padding:24px 20px 16px}
+.s15 .gc15-hero h1{font-size:22px;color:#333;font-weight:700}
+.s15 .gc15-hero p{font-size:13px;color:#888;margin-top:4px}
+.s15 .gc15-divider{width:40px;height:3px;background:var(--gradient);margin:0 auto 16px;border-radius:2px}
+.s15 .gc15-body{padding:0 16px 16px;display:flex;flex-direction:column;gap:14px}
+.s15 .gc15-card{border-radius:14px;padding:18px;color:#fff;position:relative;overflow:hidden}
+.s15 .gc15-card .gc15-deco{position:absolute;top:-10px;right:-10px;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.15)}
+.s15 .gc15-card h3{font-size:16px;font-weight:700;margin-bottom:10px;position:relative}
+.s15 .gc15-card p{font-size:13px;opacity:.9;line-height:1.7;position:relative}
+.s15 .gc15-trunc{font-size:11px;opacity:.7;margin-top:6px;position:relative}
+
+/* S16 便签/报事贴 */
+.s16{background:linear-gradient(135deg,#c9b99a,#d4c4a8,#b8a88a);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);overflow:hidden;position:relative}
+.s16::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 19px,rgba(0,0,0,.03) 19px,rgba(0,0,0,.03) 20px),repeating-linear-gradient(90deg,transparent,transparent 19px,rgba(0,0,0,.03) 19px,rgba(0,0,0,.03) 20px);pointer-events:none}
+.s16 .note16-hero{text-align:center;margin-bottom:16px;position:relative;padding:20px 16px 8px}
+.s16 .note16-hero .pin{display:inline-block;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#e8457c,#ff6b8a);box-shadow:0 2px 6px rgba(0,0,0,.2);margin:0 3px;vertical-align:middle}
+.s16 .note16-hero .pin::after{content:'';display:block;width:2px;height:8px;background:#999;margin:0 auto;border-radius:1px}
+.s16 .note16-hero h1{font-size:22px;color:#333;font-weight:700;margin-top:4px}
+.s16 .note16-hero p{font-size:13px;color:#6b5e50;margin-top:4px;font-style:italic}
+.s16 .note16-body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px;position:relative}
+.s16 .note16-card{border-radius:2px;padding:18px 16px 18px 20px;box-shadow:2px 4px 12px rgba(0,0,0,.12);position:relative;overflow:hidden}
+.s16 .note16-card .note16-fold{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 18px 18px 0;border-color:transparent #c9b99a transparent #c9b99a}
+.s16 .note16-card h3{font-size:15px;margin-bottom:8px;font-style:italic;color:#333}
+.s16 .note16-card p{font-size:13px;color:#555;line-height:1.7;font-style:italic}
+.s16 .note16-trunc{font-size:11px;color:#888;margin-top:6px;font-style:italic}
+
 .editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
 .editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
 .editor-panel textarea{width:100%;height:180px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
@@ -339,6 +367,8 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <button class="style-btn" data-s="12">涂鸦</button>
     <button class="style-btn" data-s="13">思维导图</button>
     <button class="style-btn" data-s="14">暗色模式</button>
+    <button class="style-btn" data-s="15">渐变卡片</button>
+    <button class="style-btn" data-s="16">便签</button>
   </div>
   <div class="color-dots">
     <div class="color-dot active" data-c="pink" title="暖阳粉"></div>
@@ -352,8 +382,8 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 </div>
 <div class="export-bar">
   <button onclick="exportCurrent()">📸 下载当前风格</button>
-  <button class="btn-all" onclick="exportAll()">📦 下载全部14种</button>
-  <span class="info" id="exportInfo">精细排版示例 · 14种风格 · 6种配色</span>
+  <button class="btn-all" onclick="exportAll()">📦 下载全部16种</button>
+  <span class="info" id="exportInfo">精细排版示例 · 16种风格 · 6种配色</span>
 </div>
 <div id="contentArea">
 <div class="content active s1">
@@ -628,6 +658,26 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <div style="background:#252540;border-radius:12px;padding:18px 20px;margin-bottom:14px;border:1px solid #333355;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#e8457c,#6366f1)"></div><h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid #e8457c;padding-left:10px;text-shadow:0 0 10px rgba(232,69,124,.3)">销售业绩</h3><p style="font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px">▸ 线上渠道增长 35%<br>▸ 客单价提升至 280 元<br>▸ 新增会员 12 万</p></div>
     <div style="background:#252540;border-radius:12px;padding:18px 20px;margin-bottom:14px;border:1px solid #333355;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#6366f1,#10b981)"></div><h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid #6366f1;padding-left:10px;text-shadow:0 0 10px rgba(99,102,241,.3)">市场推广</h3><p style="font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px">▸ 抖音合作 20 位达人<br>▸ 小红书种草 100 篇</p></div>
     <div style="background:#252540;border-radius:12px;padding:18px 20px;border:1px solid #333355;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#10b981,#f59e0b)"></div><h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid #10b981;padding-left:10px;text-shadow:0 0 10px rgba(16,185,129,.3)">团队建设</h3><p style="font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px">▸ 新增 3 名高级工程师<br>▸ 完成团队培训 5 次</p></div>
+  </div>
+</div>
+
+<div class="content s15">
+  <div class="gc15-hero"><h1>2025年学习计划</h1><p>全年成长路线</p></div>
+  <div class="gc15-divider"></div>
+  <div class="gc15-body">
+    <div class="gc15-card" style="background:linear-gradient(135deg,#667eea,#764ba2)"><div class="gc15-deco"></div><h3>📚 Q1 基础夯实</h3><p>● Python 高级语法<br>● 数据结构与算法<br>● 数据库原理</p></div>
+    <div class="gc15-card" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><div class="gc15-deco"></div><h3>🎯 Q2 技能进阶</h3><p>● 机器学习基础<br>● 深度学习框架</p></div>
+    <div class="gc15-card" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><div class="gc15-deco"></div><h3>🚀 Q3 项目实战</h3><p>● 开源项目贡献<br>● 系统架构设计<br>● 技术博客写作</p></div>
+    <div class="gc15-card" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><div class="gc15-deco"></div><h3>🏆 Q4 突破提升</h3><p>● 参加技术大会<br>● 准备晋升答辩</p></div>
+  </div>
+</div>
+
+<div class="content s16">
+  <div class="note16-hero"><span class="pin"></span><span class="pin"></span><span class="pin"></span><h1>📌 读书清单</h1><p>2025 年必读书目</p></div>
+  <div class="note16-body">
+    <div class="note16-card" style="background:#fffef5;border-left:4px solid #e8457c;transform:rotate(-1.5deg)"><div class="note16-fold"></div><h3>📖 认知觉醒</h3><p>✦ 思考，快与慢<br>✦ 原则<br>✦ 穿梭车悖论</p></div>
+    <div class="note16-card" style="background:#f0f8ff;border-left:4px solid #4facfe;transform:rotate(1deg)"><div class="note16-fold"></div><h3>📖 技术提升</h3><p>✦ 代码整洁之道<br>✦ 设计模式</p></div>
+    <div class="note16-card" style="background:#f0fff4;border-left:4px solid #43e97b;transform:rotate(-0.5deg)"><div class="note16-fold"></div><h3>📖 人文社科</h3><p>✦ 人类简史<br>✦ 枪炮、病菌与钢铁<br>✦ 社会性动物</p></div>
   </div>
 </div>
 </div>
@@ -1512,6 +1562,126 @@ function bS14(d, m){
   return h;
 }
 
+// bS15 渐变卡片
+function bS15(d, m){
+  var gradients = [
+    'linear-gradient(135deg,#667eea,#764ba2)',
+    'linear-gradient(135deg,#f093fb,#f5576c)',
+    'linear-gradient(135deg,#4facfe,#00f2fe)',
+    'linear-gradient(135deg,#43e97b,#38f9d7)',
+    'linear-gradient(135deg,#fa709a,#fee140)',
+    'linear-gradient(135deg,#a18cd1,#fbc2eb)',
+    'linear-gradient(135deg,#fccb90,#d57eeb)',
+    'linear-gradient(135deg,#ff9a9e,#fecfef)'
+  ];
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '26px' : '22px';
+  var heroPad = m.density === 'dense' ? '16px' : '24px';
+  var cardPad = m.density === 'dense' ? '14px' : '18px';
+  var cardGap = m.density === 'dense' ? '10px' : '14px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var cardTitleSize = m.density === 'dense' ? '14px' : '16px';
+  var h='<div class="content s15"><div class="gc15-hero" style="padding:'+heroPad+' 20px '+(m.density==='dense'?'12px':'16px')+'"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  h+='</div><div class="gc15-divider"></div><div class="gc15-body" style="gap:'+cardGap+'px">';
+  d.sections.forEach(function(s,i){
+    var grad=gradients[i%gradients.length];
+    if(s.type==='rules'){
+      h+='<div class="gc15-card" style="background:'+grad+';padding:'+cardPad+'px;border-radius:14px"><div class="gc15-deco"></div>';
+      h+='<h3 style="font-size:'+cardTitleSize+'">'+E(s.title)+'</h3>';
+      h+='<p style="font-size:'+itemFont+'">';
+      s.items.forEach(function(t){h+='● '+E(t.detail||t.label)+'<br>'});
+      h+='</p></div>';
+      return;
+    }
+    var showItems=s.items;
+    var maxItems=4;
+    if(s.type!=='schedule'&&showItems.length>maxItems){
+      showItems=showItems.slice(0,maxItems);
+      showItems._truncated=true;
+      showItems._totalCount=s.items.length;
+    }
+    h+='<div class="gc15-card" style="background:'+grad+';padding:'+cardPad+'px;border-radius:14px"><div class="gc15-deco"></div>';
+    h+='<h3 style="font-size:'+cardTitleSize+'">'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    if(s.type==='schedule'){
+      h+='<p style="font-size:'+itemFont+'">';
+      showItems.forEach(function(t){h+='<span style="opacity:.75;font-weight:600">'+E(t.label)+'</span> '+E(t.detail)+'<br>'});
+      h+='</p>';
+    }else{
+      h+='<p style="font-size:'+itemFont+'">';
+      showItems.forEach(function(t){
+        var txt=t.detail||t.label||t;
+        if(t.label&&t.detail)txt=t.label+'  '+t.detail;
+        h+='● '+E(txt)+'<br>';
+      });
+      h+='</p>';
+    }
+    if(showItems._truncated){
+      h+='<div class="gc15-trunc">...等'+showItems._totalCount+'条</div>';
+    }
+    h+='</div>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
+// bS16 便签/报事贴
+function bS16(d, m){
+  var colors=['#e8457c','#4facfe','#43e97b','#f59e0b','#a855f7','#ec4899','#14b8a6','#f97316'];
+  var rotations=[-2,1.5,-1,2,-1.5,0.5,-0.5,1];
+  var bgColors=['#fffef5','#f0f8ff','#f0fff4','#fffbeb','#f5f3ff','#fdf2f8','#f0fdfa','#fff7ed'];
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '26px' : '22px';
+  var cardPad = m.density === 'dense' ? '14px 14px 14px 18px' : '18px 16px 18px 20px';
+  var cardGap = m.density === 'dense' ? '10px' : '12px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var cardTitleSize = m.density === 'dense' ? '13px' : '15px';
+  var h='<div class="content s16"><div class="note16-hero">';
+  h+='<span class="pin"></span><span class="pin"></span><span class="pin"></span>';
+  h+='<h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
+  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
+  h+='</div><div class="note16-body" style="gap:'+cardGap+'px">';
+  d.sections.forEach(function(s,i){
+    var color=colors[i%colors.length];
+    var rot=rotations[i%rotations.length];
+    var bg=bgColors[i%bgColors.length];
+    if(s.type==='rules'){
+      h+='<div class="note16-card" style="background:'+bg+';border-left:4px solid '+color+';transform:rotate('+rot+'deg);padding:'+cardPad+'"><div class="note16-fold"></div>';
+      h+='<h3 style="font-size:'+cardTitleSize+'">'+E(s.title)+'</h3>';
+      h+='<p style="font-size:'+itemFont+'">';
+      s.items.forEach(function(t){h+='✦ '+E(t.detail||t.label)+'<br>'});
+      h+='</p></div>';
+      return;
+    }
+    var showItems=s.items;
+    var maxItems=4;
+    if(s.type!=='schedule'&&showItems.length>maxItems){
+      showItems=showItems.slice(0,maxItems);
+      showItems._truncated=true;
+      showItems._totalCount=s.items.length;
+    }
+    h+='<div class="note16-card" style="background:'+bg+';border-left:4px solid '+color+';transform:rotate('+rot+'deg);padding:'+cardPad+'"><div class="note16-fold"></div>';
+    h+='<h3 style="font-size:'+cardTitleSize+'">'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    if(s.type==='schedule'){
+      h+='<p style="font-size:'+itemFont+'">';
+      showItems.forEach(function(t){h+='✦ <b>'+E(t.label)+'</b> '+E(t.detail)+'<br>'});
+      h+='</p>';
+    }else{
+      h+='<p style="font-size:'+itemFont+'">';
+      showItems.forEach(function(t){
+        var txt=t.detail||t.label||t;
+        if(t.label&&t.detail)txt=t.label+'  '+t.detail;
+        h+='✦ '+E(txt)+'<br>';
+      });
+      h+='</p>';
+    }
+    if(showItems._truncated){
+      h+='<div class="note16-trunc">...等'+showItems._totalCount+'条</div>';
+    }
+    h+='</div>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
 var _genAborted=false;
 function cancelGenerate(){
   _genAborted=true;
@@ -1550,16 +1720,16 @@ async function generate(){
     }
   });
   var area=document.getElementById("contentArea");
-  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m)+bS9(d,m)+bS10(d,m)+bS11(d,m)+bS12(d,m)+bS13(d,m)+bS14(d,m);
+  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m)+bS9(d,m)+bS10(d,m)+bS11(d,m)+bS12(d,m)+bS13(d,m)+bS14(d,m)+bS15(d,m)+bS16(d,m);
   document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});
   document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
   document.querySelector('.style-btn[data-s="1"]').classList.add("active");
   area.querySelector(".s1").classList.add("active");
   if(gs)gs.style.display="none";if(gc)gc.style.display="none";if(gb)gb.disabled=false;
-  info.textContent="✅ 已生成"+d.sections.length+"个板块的14种精美排版 (AI驱动)";
+  info.textContent="✅ 已生成"+d.sections.length+"个板块的16种精美排版 (AI驱动)";
 }
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
-function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦","思维导图","暗色模式"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){var bg=idx===13?"#1a1a2e":"#f5f5f5";html2canvas(cs[idx],{scale:2,backgroundColor:bg,width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
+function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦","思维导图","暗色模式","渐变卡片","便签"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){var bg=idx===13?"#1a1a2e":idx===14?"#f0f0f5":idx===15?"#d4c4a8":"#f5f5f5";html2canvas(cs[idx],{scale:2,backgroundColor:bg,width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
 
 </script>
 
