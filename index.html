@@ -529,18 +529,54 @@ function parseText(text){
       }
     }
   }
+  // Auto-detect content type
+  var longSections = data.sections.filter(function(s) { return s.items.length >= 3; }).length;
+  var shortSections = data.sections.filter(function(s) { return s.items.length <= 2; }).length;
+  if (data.sections.length <= 3 && longSections >= 2) {
+    data.contentType = 'narrative';
+  } else if (data.sections.length >= 5 && shortSections >= data.sections.length * 0.6) {
+    data.contentType = 'bullet';
+  } else {
+    data.contentType = 'mixed';
+  }
   return data;
 }
+
+// measureContent - 计算内容密度信息用于自适应渲染
+function measureContent(data) {
+  var secCount = data.sections.length;
+  var totalChars = data.title.length + data.sections.reduce(function(a, s) {
+    return a + s.title.length + s.items.reduce(function(b, item) {
+      return b + (item.label || item).length + (item.detail || '').length;
+    }, 0);
+  }, 0);
+  var maxTitleLen = Math.max.apply(null, data.sections.map(function(s) { return s.title.length; }).concat([0]));
+  var avgItems = secCount > 0 ? data.sections.reduce(function(a, s) { return a + s.items.length; }, 0) / secCount : 0;
+  var density = secCount <= 3 ? 'light' : secCount <= 6 ? 'normal' : 'dense';
+  return {
+    sectionCount: secCount,
+    totalChars: totalChars,
+    maxTitleLen: maxTitleLen,
+    avgItems: avgItems,
+    density: density
+  };
+}
+
 // bS1 经典卡片 - AI版
-function bS1(d){
-  var h='<div class="content active s1"><div class="hero"><h1>'+E(d.title)+'</h1>';
+function bS1(d, m){
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '26px' : '22px';
+  var cardGap = m.density === 'dense' ? '8px' : m.density === 'light' ? '18px' : '14px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var heroPad = m.density === 'dense' ? '16px' : m.density === 'light' ? '32px' : '24px';
+  var stitleSize = m.density === 'dense' ? '15px' : m.density === 'light' ? '19px' : '17px';
+  var h='<div class="content active s1"><div class="hero" style="padding:'+heroPad+' 24px"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   h+='</div>';
   d.sections.forEach(function(s,i){
-    h+='<div class="stitle">'+(s.icon||emojis[i%8])+' '+E(s.title)+'</div>';
+    h+='<div class="stitle" style="font-size:'+stitleSize+';margin:'+(m.density==='dense'?'16px':'24px')+' 0 '+(m.density==='dense'?'8px':'14px')+'">'+(s.icon||emojis[i%8])+' '+E(s.title)+'</div>';
     if(s.type==='phases'){
       s.items.forEach(function(t,j){
-        h+='<div class="card">'+shape(j)+'<div><h3>'+E(t.label||'')+'</h3><p>'+E(t.detail||t.label||'')+'</p></div></div>';
+        h+='<div class="card" style="margin-bottom:'+cardGap+';padding:'+(m.density==='dense'?'12px':'18px')+'">'+shape(j)+'<div><h3 style="font-size:'+itemFont+'">'+E(t.label||'')+'</h3><p style="font-size:'+itemFont+'">'+E(t.detail||t.label||'')+'</p></div></div>';
       });
     }else if(s.type==='schedule'){
       h+='<div class="twrap"><table><thead><tr><th>时段</th><th>动作</th></tr></thead><tbody>';
@@ -553,24 +589,24 @@ function bS1(d){
       s.items.forEach(function(t){
         var txt=t.detail||t.label;
         if(t.value)txt=t.label+' '+t.value;
-        h+='<li>'+E(txt)+'</li>';
+        h+='<li style="font-size:'+itemFont+'">'+E(txt)+'</li>';
       });
       h+='</ul></div>';
     }else if(s.type==='rules'){
       h+='<div class="cbox"><ul class="plist">';
       s.items.forEach(function(t){
-        h+='<li>'+E(t.detail||t.label)+'</li>';
+        h+='<li style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</li>';
       });
       h+='</ul></div>';
     }else{
-      if(s.items.length<=4){
+      if(s.items.length<=4||(m.avgItems<=3)){
         s.items.forEach(function(t,j){
-          h+='<div class="card">'+shape(j)+'<div><p>'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</p></div></div>';
+          h+='<div class="card" style="margin-bottom:'+cardGap+';padding:'+(m.density==='dense'?'12px':'18px')+'">'+shape(j)+'<div><p style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</p></div></div>';
         });
       }else{
         h+='<div class="cbox"><ul class="plist">';
         s.items.forEach(function(t){
-          h+='<li>'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</li>';
+          h+='<li style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</li>';
         });
         h+='</ul></div>';
       }
@@ -586,15 +622,18 @@ function bS1(d){
   return h;
 }
 // bS2 时间轴 - AI版
-function bS2(d){
-  var h='<div class="content s2"><div class="header"><h1>'+E(d.title)+'</h1>';
+function bS2(d, m){
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '24px' : '22px';
+  var secFont = m.density === 'dense' ? '12px' : '13px';
+  var secGap = m.density === 'dense' ? '16px' : m.density === 'light' ? '28px' : '24px';
+  var h='<div class="content s2"><div class="header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   h+='</div>';
   d.sections.forEach(function(s,i){
-    h+='<div class="sbox"><h3>'+(s.icon||'📌')+' '+E(s.title)+'</h3>';
+    h+='<div class="sbox" style="margin-bottom:'+secGap+'"><h3>'+(s.icon||'📌')+' '+E(s.title)+'</h3>';
     s.items.forEach(function(t){
-      if(t.label)h+='<p><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
-      else h+='<p>'+E(t.detail||t.label)+'</p>';
+      if(t.label)h+='<p style="font-size:'+secFont+'"><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p style="font-size:'+secFont+'">'+E(t.detail||t.label)+'</p>';
     });
     h+='</div>';
   });
@@ -603,15 +642,19 @@ function bS2(d){
 }
 
 // bS3 大卡片 - AI版
-function bS3(d){
-  var h='<div class="content s3"><div class="bighero"><span class="emoji">🚀</span><h1>'+E(d.title)+'</h1>';
+function bS3(d, m){
+  var titleSize = m.density === 'dense' ? '20px' : m.density === 'light' ? '28px' : '24px';
+  var cardPad = m.density === 'dense' ? '14px' : m.density === 'light' ? '24px' : '20px';
+  var cardGap = m.density === 'dense' ? '8px' : m.density === 'light' ? '18px' : '14px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var h='<div class="content s3"><div class="bighero"><span class="emoji">🚀</span><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   h+='</div><div class="bcontent">';
   d.sections.forEach(function(s,i){
-    h+='<div class="bc"><div class="bc-icon">'+(s.icon||emojis[i%8])+'</div><div class="bc-body"><h3>'+E(s.title)+'</h3>';
+    h+='<div class="bc" style="padding:'+cardPad+';margin-bottom:'+cardGap+'"><div class="bc-icon">'+(s.icon||emojis[i%8])+'</div><div class="bc-body"><h3>'+E(s.title)+'</h3>';
     s.items.forEach(function(t){
-      if(t.label)h+='<p><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
-      else h+='<p>'+E(t.detail||t.label)+'</p>';
+      if(t.label)h+='<p style="font-size:'+itemFont+'"><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</p>';
     });
     h+='</div></div>';
   });
@@ -620,15 +663,20 @@ function bS3(d){
 }
 
 // bS4 极简留白 - AI版
-function bS4(d){
-  var h='<div class="content s4"><div class="mintitle"><h1>'+E(d.title)+'</h1>';
+function bS4(d, m){
+  var titleSize = m.density === 'dense' ? '22px' : m.density === 'light' ? '32px' : '28px';
+  var padTB = m.density === 'dense' ? '32px' : m.density === 'light' ? '60px' : '48px';
+  var padLR = m.density === 'dense' ? '28px' : m.density === 'light' ? '50px' : '44px';
+  var secGap = m.density === 'dense' ? '28px' : m.density === 'light' ? '56px' : '48px';
+  var itemFont = m.density === 'dense' ? '13px' : m.density === 'light' ? '15px' : '14px';
+  var h='<div class="content s4" style="padding:'+padTB+' '+padLR+'"><div class="mintitle"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<div class="sub">'+E(d.subtitle)+'</div>';
   h+='<div class="line"></div></div>';
   d.sections.forEach(function(s,i){
-    h+='<div class="minsec"><div class="minh">'+(s.icon||'')+' '+E(s.title)+'</div>';
+    h+='<div class="minsec" style="margin-bottom:'+secGap+'"><div class="minh">'+(s.icon||'')+' '+E(s.title)+'</div>';
     s.items.forEach(function(t){
-      if(t.label)h+='<p><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
-      else h+='<p>'+E(t.detail||t.label)+'</p>';
+      if(t.label)h+='<p style="font-size:'+itemFont+'"><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</p>';
     });
     h+='</div>';
   });
@@ -637,16 +685,20 @@ function bS4(d){
 }
 
 // bS5 杂志风 - AI版
-function bS5(d){
-  var h='<div class="content s5"><div class="mag-header"><h1>'+E(d.title)+'</h1>';
+function bS5(d, m){
+  var titleSize = m.density === 'dense' ? '22px' : m.density === 'light' ? '30px' : '26px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var secGap = m.density === 'dense' ? '18px' : m.density === 'light' ? '36px' : '28px';
+  var bodyPad = m.density === 'dense' ? '18px' : m.density === 'light' ? '32px' : '28px';
+  var h='<div class="content s5"><div class="mag-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   h+='<span class="side-text">TEXTCRAFT</span></div>';
-  h+='<div class="mag-body"><span class="side-deco">内容展示</span>';
+  h+='<div class="mag-body" style="padding:'+bodyPad+'"><span class="side-deco">内容展示</span>';
   d.sections.forEach(function(s,i){
-    h+='<div class="mag-sec"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    h+='<div class="mag-sec" style="margin-bottom:'+secGap+'"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
     s.items.forEach(function(t){
-      if(t.label)h+='<p>'+E(t.label)+' · '+E(t.detail)+'</p>';
-      else h+='<p>'+E(t.detail||t.label)+'</p>';
+      if(t.label)h+='<p style="font-size:'+itemFont+'">'+E(t.label)+' · '+E(t.detail)+'</p>';
+      else h+='<p style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</p>';
     });
     h+='</div>';
   });
@@ -655,15 +707,18 @@ function bS5(d){
 }
 
 // bS6 笔记本 - AI版
-function bS6(d){
-  var h='<div class="content s6"><div class="note-header"><h1>'+E(d.title)+'</h1>';
+function bS6(d, m){
+  var titleSize = m.density === 'dense' ? '20px' : m.density === 'light' ? '24px' : '22px';
+  var noteFontSize = m.density === 'dense' ? '13px' : m.density === 'light' ? '15px' : '14px';
+  var noteLineH = Math.round(parseFloat(noteFontSize) * 1.8) + 'px';
+  var h='<div class="content s6"><div class="note-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   h+='<div class="tape"></div><div class="tape-2"></div></div>';
   d.sections.forEach(function(s,i){
     h+='<div class="note-sec"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
     s.items.forEach(function(t){
-      if(t.label)h+='<p><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
-      else h+='<p>'+E(t.detail||t.label)+'</p>';
+      if(t.label)h+='<p style="font-size:'+noteFontSize+';line-height:'+noteLineH+'"><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p style="font-size:'+noteFontSize+';line-height:'+noteLineH+'">'+E(t.detail||t.label)+'</p>';
     });
     h+='</div>';
   });
@@ -672,23 +727,28 @@ function bS6(d){
 }
 
 // bS8 网格布局 - AI版
-function bS8(d){
-  var h='<div class="content s8"><div class="grid-hero"><h1>'+E(d.title)+'</h1>';
+function bS8(d, m){
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
+  var itemFont = m.density === 'dense' ? '11px' : '12px';
+  var gridCols = m.density === 'dense' ? '1fr 1fr 1fr' : '1fr 1fr';
+  var cardPad = m.density === 'dense' ? '12px' : '16px';
+  var cardGap = m.density === 'dense' ? '8px' : '12px';
+  var h='<div class="content s8"><div class="grid-hero"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   else h+='<p>'+d.sections.length+'个板块</p>';
-  h+='</div><div class="grid">';
+  h+='</div><div class="grid" style="grid-template-columns:'+gridCols+';gap:'+cardGap+'">';
   d.sections.forEach(function(s,i){
     var full=s.items.length>2?' full':'';
-    h+='<div class="gc'+full+'"><h3><span class="dot"></span>'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    h+='<div class="gc'+full+'" style="padding:'+cardPad+'"><h3><span class="dot"></span>'+(s.icon||'')+' '+E(s.title)+'</h3>';
     if(s.items.length>2){
       h+='<ul>';
       s.items.forEach(function(t){
-        h+='<li>'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</li>';
+        h+='<li style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</li>';
       });
       h+='</ul>';
     }else{
       s.items.forEach(function(t){
-        h+='<p>'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</p>';
+        h+='<p style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</p>';
       });
     }
     h+='</div>';
@@ -697,37 +757,44 @@ function bS8(d){
   return h;
 }
 // bS7 信息图 - AI版
-function bS7(d){
-  var h='<div class="content s7"><div class="info-hero"><h1>'+E(d.title)+'</h1>';
+function bS7(d, m){
+  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '24px' : '22px';
+  var itemFont = m.density === 'dense' ? '12px' : '13px';
+  var secGap = m.density === 'dense' ? '14px' : m.density === 'light' ? '24px' : '20px';
+  // Determine if we should show ring charts (only for steps/phases content)
+  var showRings = d.contentType !== 'bullet' && m.avgItems > 1;
+  var h='<div class="content s7"><div class="info-hero"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
-  // Stats circles from AI data
-  if(d.stats&&d.stats.length>0){
-    h+='<div class="stats">';
-    d.stats.forEach(function(st,i){
-      var pct=Math.min(95,Math.max(20,30+i*25));
-      h+='<div class="stat-item"><div class="stat-circle" style="--pct:'+pct+'%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">'+E(st.num)+'</span><span class="unit">'+E(st.unit)+'</span></div></div><div class="label">'+E(st.label)+'</div></div>';
-    });
-    h+='</div>';
-  }else if(d.sections.length>0){
-    h+='<div class="stats">';
-    for(var i=0;i<Math.min(d.sections.length,4);i++){
-      var pct=Math.min(95,25+i*20);
-      var num=d.sections[i].items.length;
-      h+='<div class="stat-item"><div class="stat-circle" style="--pct:'+pct+'%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">'+num+'</span><span class="unit">项</span></div></div><div class="label">'+E(d.sections[i].title)+'</div></div>';
+  // Stats circles from AI data - only show rings for steps/phases content
+  if(showRings){
+    if(d.stats&&d.stats.length>0){
+      h+='<div class="stats">';
+      d.stats.forEach(function(st,i){
+        var pct=Math.min(95,Math.max(20,30+i*25));
+        h+='<div class="stat-item"><div class="stat-circle" style="--pct:'+pct+'%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">'+E(st.num)+'</span><span class="unit">'+E(st.unit)+'</span></div></div><div class="label">'+E(st.label)+'</div></div>';
+      });
+      h+='</div>';
+    }else if(d.sections.length>0){
+      h+='<div class="stats">';
+      for(var i=0;i<Math.min(d.sections.length,4);i++){
+        var pct=Math.min(95,25+i*20);
+        var num=d.sections[i].items.length;
+        h+='<div class="stat-item"><div class="stat-circle" style="--pct:'+pct+'%"><div class="ring"></div><div class="ring-inner"></div><div class="inner"><span class="num">'+num+'</span><span class="unit">项</span></div></div><div class="label">'+E(d.sections[i].title)+'</div></div>';
+      }
+      h+='</div>';
     }
-    h+='</div>';
   }
   h+='</div>';
   // Render sections
   d.sections.forEach(function(s,i){
     var icon=s.icon||emojis[i%8];
     if(s.type==='schedule'&&s.items.length>1){
-      h+='<div class="ibox"><h3>'+icon+' '+E(s.title)+'</h3>';
+      h+='<div class="ibox" style="margin-bottom:'+secGap+'"><h3>'+icon+' '+E(s.title)+'</h3>';
       s.items.forEach(function(t){
-        h+='<div class="srow"><span class="badge">'+E(t.label)+'</span><span class="task">'+E(t.detail)+'</span></div>';
+        h+='<div class="srow"><span class="badge">'+E(t.label)+'</span><span class="task" style="font-size:'+itemFont+'">'+E(t.detail)+'</span></div>';
       });
       h+='</div>';
-    }else if(s.type==='phases'&&s.items.length>1){
+    }else if(s.type==='phases'&&s.items.length>1&&showRings){
       h+='<div class="phases-row">';
       s.items.forEach(function(t,j){
         var pct=Math.round(100/s.items.length);
@@ -735,27 +802,34 @@ function bS7(d){
         h+='<div class="pbar"><div class="dc">'+E(t.detail?lbl+' · '+t.detail.substring(0,15):lbl)+'</div><div class="dl">'+E(lbl)+'</div><div class="bar"><div class="bar-fill" style="width:'+pct+'%"></div></div></div>';
       });
       h+='</div>';
+    }else if(s.type==='phases'&&s.items.length>1&&!showRings){
+      // Simple numbered layout instead of ring progress bars
+      h+='<div class="ibox" style="margin-bottom:'+secGap+'"><h3>'+icon+' '+E(s.title)+'</h3>';
+      s.items.forEach(function(t,j){
+        h+='<div class="srow"><span class="badge">'+(j+1)+'</span><span class="task" style="font-size:'+itemFont+'"><b>'+E(t.label||'')+'</b> '+E(t.detail||'')+'</span></div>';
+      });
+      h+='</div>';
     }else if(s.type==='rules'){
-      h+='<div class="ibox"><h3>'+icon+' '+E(s.title)+'</h3>';
+      h+='<div class="ibox" style="margin-bottom:'+secGap+'"><h3>'+icon+' '+E(s.title)+'</h3>';
       s.items.forEach(function(t,j){
         var w=Math.max(40,100-j*15);
-        h+='<div class="pri-row"><div class="name">'+E(t.detail||t.label)+'</div><div class="bar"><div class="bar-fill" style="width:'+w+'%"></div></div></div>';
+        h+='<div class="pri-row"><div class="name" style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</div><div class="bar"><div class="bar-fill" style="width:'+w+'%"></div></div></div>';
       });
       h+='</div>';
     }else{
-      h+='<div class="ibox"><h3>'+icon+' '+E(s.title)+'</h3>';
+      h+='<div class="ibox" style="margin-bottom:'+secGap+'"><h3>'+icon+' '+E(s.title)+'</h3>';
       if(s.items.length>3){
         s.items.forEach(function(t){
           if(t.label&&t.detail){
-            h+='<div class="srow"><span class="badge">'+E(t.label)+'</span><span class="task">'+E(t.detail)+'</span></div>';
+            h+='<div class="srow"><span class="badge">'+E(t.label)+'</span><span class="task" style="font-size:'+itemFont+'">'+E(t.detail)+'</span></div>';
           }else{
-            h+='<div class="srow"><span class="badge">▸</span><span class="task">'+E(t.detail||t.label)+'</span></div>';
+            h+='<div class="srow"><span class="badge">▸</span><span class="task" style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</span></div>';
           }
         });
       }else{
         s.items.forEach(function(t){
           var txt=(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label);
-          h+='<p>'+txt+'</p>';
+          h+='<p style="font-size:'+itemFont+'">'+txt+'</p>';
         });
       }
       h+='</div>';
@@ -783,6 +857,7 @@ async function generate(){
   catch(e){console.log('AI解析失败，使用本地解析:',e);d=parseText(text)}
   if(!d||!d.sections.length){alert("未识别到内容结构");return}
   if(!d.subtitle)d.subtitle='';
+  var m=measureContent(d);
   d.sections.forEach(function(s){
     if(!s.icon)s.icon='📌';
     if(!s.type)s.type='text';
@@ -791,7 +866,7 @@ async function generate(){
     }
   });
   var area=document.getElementById("contentArea");
-  area.innerHTML=bS1(d)+bS2(d)+bS3(d)+bS4(d)+bS5(d)+bS6(d)+bS7(d)+bS8(d);
+  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m);
   document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});
   document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
   document.querySelector('.style-btn[data-s="1"]').classList.add("active");
