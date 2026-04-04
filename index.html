@@ -763,16 +763,44 @@ var AI_URL='https://open.bigmodel.cn/api/paas/v4/chat/completions';
 var AI_KEY='4e1068b3b7d8459ca481338876e58fdb.qS8Ml1qDJ0YkfAmU';
 var AI_URL='https://open.bigmodel.cn/api/paas/v4/chat/completions';
 
-async function aiParse(text){
-  var sys='你是一个文本结构化解析器。用户会给一段文字，你需要把它解析成JSON格式，用于生成精美信息图卡片。\n\n返回格式（严格JSON，不要任何其他内容）：\n{\n  "title": "主标题",\n  "subtitle": "一句话副标题描述",\n  "sections": [\n    {\n      "title": "板块标题",\n      "type": "text|table|phases|schedule|rules|stats",\n      "icon": "emoji",\n      "items": [\n        {"label": "短标签/时间", "detail": "详细描述", "value": "数值(可选)"}\n      ],\n      "stats": [{"num": "数字", "unit": "单位", "label": "标签"}]\n    }\n  ],\n  "stats": [{"num": "80万", "unit": "冲刺", "label": "总销售额"}]\n}\n\ntype说明：\n- text: 普通文本说明\n- table: 有对比数据（保底vs冲刺、指标对比等），items中每项有label和detail\n- phases: 分阶段计划（第1周、第01-30天等），items中label填阶段名，detail填内容\n- schedule: 时间安排（早读、下午、晚上等），items中label填时间，detail填动作\n- rules: 规则/铁律/注意事项/激励\n- stats: 统计数字\n\ntop-level stats数组（用于信息图的统计圆环），提取3-4个关键数字指标。\nsection.stats用于该板块自己的数据。\n\n重要（必须严格遵守）：\n1. 【最重要】必须保留用户原文的每一条信息，绝不删减、省略或合并任何内容！即使内容很长也要全部输出。\n2. top-level stats数组必须提取3-4个关键数字指标（如金额、天数、百分比等），即使原文没有明确数字也要合理推算\n3. 每条信息独立成item，不要合并多条信息\n4. 有时间的信息，label填时间，detail填内容\n5. 有数值的信息，提取到value字段\n6. 给每个section选一个合适的emoji icon\n7. subtitle要精炼，不超过20字\n8. phases类型的section，label填阶段名（如"第01-30天"），detail填内容\n9. 如果原文有很多子项目（如每天的具体任务），全部作为items列出，不能只取前几条';
+async function aiCall(messages, max_tokens){
   var resp=await fetch(AI_URL,{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+AI_KEY},
-    body:JSON.stringify({model:'glm-4-flash',messages:[{role:'system',content:sys},{role:'user',content:text}],max_tokens:8192,temperature:0.1})
+    body:JSON.stringify({model:'glm-4-flash',messages:messages,max_tokens:max_tokens||8192,temperature:0.1})
   });
   var data=await resp.json();
-  var msg=data.choices[0].message.content;
+  return data;
+}
+
+async function aiParse(text){
+  var sys='你是一个文本结构化解析器。用户会给一段文字，你需要把它解析成JSON格式，用于生成精美信息图卡片。\n\n返回格式（严格JSON，不要任何其他内容）：\n{\n  "title": "主标题",\n  "subtitle": "一句话副标题描述",\n  "sections": [\n    {\n      "title": "板块标题",\n  "type": "text|table|phases|schedule|rules|stats",\n  "icon": "emoji",\n  "items": [\n        {"label": "短标签/时间", "detail": "详细描述", "value": "数值(可选)"}\n  ],\n  "stats": [{"num": "数字", "unit": "单位", "label": "标签"}]\n    }\n  ],\n  "stats": [{"num": "80万", "unit": "冲刺", "label": "总销售额"}]\n}\n\ntype说明：\n- text: 普通文本说明\n- table: 有对比数据（保底vs冲刺、指标对比等），items中每项有label和detail\n- phases: 分阶段计划（第1周、第01-30天等），items中label填阶段名，detail填内容\n- schedule: 时间安排（早读、下午、晚上等），items中label填时间，detail填动作\n- rules: 规则/铁律/注意事项/激励\n- stats: 统计数字\n\ntop-level stats数组（用于信息图的统计圆环），提取3-4个关键数字指标。\nsection.stats用于该板块自己的数据。\n\n重要（必须严格遵守）：\n1. 【最重要】必须保留用户原文的每一条信息，绝不删减、省略或合并任何内容！即使内容很长也要全部输出。\n2. top-level stats数组必须提取3-4个关键数字指标（如金额、天数、百分比等），即使原文没有明确数字也要合理推算\n3. 每条信息独立成item，不要合并多条信息\n4. 有时间的信息，label填时间，detail填内容\n5. 有数值的信息，提取到value字段\n6. 给每个section选一个合适的emoji icon\n7. subtitle要精炼，不超过20字\n8. phases类型的section，label填阶段名（如"第01-30天"），detail填内容\n9. 如果原文有很多子项目（如每天的具体任务），全部作为items列出，不能只取前几条';
+  
+  // First call
+  var messages=[{role:'system',content:sys},{role:'user',content:text}];
+  var result=await aiCall(messages);
+  var msg=result.choices[0].message.content;
+  var finishReason=result.choices[0].finish_reason;
+  
+  // Check if truncated - if so, auto-continue
+  var MAX_ROUNDS=5;
+  var round=1;
+  while(finishReason==='length' && round<MAX_ROUNDS){
+    console.log('AI output truncated, auto-continuing... round '+round);
+    messages.push({role:'assistant',content:msg});
+    messages.push({role:'user',content:'继续输出剩余的JSON内容，从你上次截断的地方接着写，不要重复已输出的内容。直接输出JSON片段。'});
+    result=await aiCall(messages);
+    var contMsg=result.choices[0].message.content;
+    finishReason=result.choices[0].finish_reason;
+    msg+=contMsg;
+    round++;
+  }
+  if(finishReason==='length'){
+    console.warn('AI output still truncated after '+MAX_ROUNDS+' rounds');
+  }
+  
   // Parse JSON from response (may have markdown code block)
+  // Try to extract the largest valid JSON object
   var jsonMatch=msg.match(/\{[\s\S]*\}/);
   if(!jsonMatch)throw new Error('AI返回格式错误');
   var parsed=JSON.parse(jsonMatch[0]);
