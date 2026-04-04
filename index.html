@@ -920,12 +920,22 @@ function measureContent(data) {
   }, 0);
   var maxTitleLen = Math.max.apply(null, data.sections.map(function(s) { return s.title.length; }).concat([0]));
   var avgItems = secCount > 0 ? data.sections.reduce(function(a, s) { return a + s.items.length; }, 0) / secCount : 0;
+  var maxItemDetailLen = 0;
+  data.sections.forEach(function(s) {
+    s.items.forEach(function(item) {
+      var d = (item.detail || '').length;
+      if (d > maxItemDetailLen) maxItemDetailLen = d;
+    });
+  });
   var density = secCount <= 3 ? 'light' : secCount <= 6 ? 'normal' : 'dense';
+  // Upgrade density if content is very long
+  if (totalChars > 2000 && density !== 'dense') density = 'dense';
   return {
     sectionCount: secCount,
     totalChars: totalChars,
     maxTitleLen: maxTitleLen,
     avgItems: avgItems,
+    maxItemDetailLen: maxItemDetailLen,
     density: density
   };
 }
@@ -1024,7 +1034,9 @@ function bS1(d, m){
         showItems._totalCount = s.items.length;
       }
       showItems.forEach(function(t,j){
-        h+='<div class="card" style="margin-bottom:'+cardGap+';padding:'+(m.density==='dense'?'12px':'18px')+'">'+shape(j)+'<div>'+renderItemContent(t,{font:itemFont})+'</div></div>';
+        var itemPad = m.density==='dense'?'10px 14px':'14px 18px';
+        var itemW = t.detail && t.detail.length > 200 ? '' : '';
+        h+='<div class="card" style="margin-bottom:'+cardGap+';padding:'+itemPad+itemW+'">'+shape(j)+'<div>'+renderItemContent(t,{font:itemFont})+'</div></div>';
       });
       if (showItems._truncated) {
         h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems._totalCount + '条</div>';
@@ -1049,7 +1061,8 @@ function bS2(d, m){
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   h+='</div>';
   d.sections.forEach(function(s,i){
-    h+='<div class="sbox" style="margin-bottom:'+secGap+'"><h3>'+(s.icon||'📌')+' '+E(s.title)+'</h3>';
+    var secPad = m.density==='dense'?'12px 14px':'14px 20px';
+        h+='<div class="sbox" style="margin-bottom:'+secGap+';padding:'+secPad+'"><h3>'+(s.icon||'📌')+' '+E(s.title)+'</h3>';
     var showItems = s.items;
     var maxItems = 99;
     if (s.type !== 'schedule' && showItems.length > maxItems) {
@@ -1141,7 +1154,8 @@ function bS5(d, m){
   h+='<span class="side-text">TEXTCRAFT</span></div>';
   h+='<div class="mag-body" style="padding:'+bodyPad+'"><span class="side-deco">内容展示</span>';
   d.sections.forEach(function(s,i){
-    h+='<div class="mag-sec" style="margin-bottom:'+secGap+'"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    var magSecPad = m.density==='dense'?'14px 16px':'16px 20px';
+        h+='<div class="mag-sec" style="margin-bottom:'+secGap+';padding:'+magSecPad+'"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
     var showItems = s.items;
     var maxItems = 99;
     if (s.type !== 'schedule' && showItems.length > maxItems) {
@@ -1170,7 +1184,8 @@ function bS6(d, m){
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   h+='<div class="tape"></div><div class="tape-2"></div></div><div class="note-body">';
   d.sections.forEach(function(s,i){
-    h+='<div class="note-sec">';
+    var noteSecGap = m.density==='dense'?'10px':'14px';
+        h+='<div class="note-sec" style="margin-bottom:'+noteSecGap+'">';
     h+='<h3><span class="step-num">'+(i+1)+'</span>'+E(s.title)+'</h3>';
     var showItems = s.items;
     var maxItems = 99;
@@ -1198,9 +1213,10 @@ function bS6(d, m){
 function bS8(d, m){
   var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
   var itemFont = m.density === 'dense' ? '11px' : '12px';
-  var gridCols = m.density === 'dense' ? '1fr 1fr 1fr' : '1fr 1fr';
+  var gridCols = m.sectionCount >= 8 ? '1fr 1fr 1fr' : m.sectionCount >= 5 ? '1fr 1fr' : '1fr';
+  if(m.totalChars > 3000) gridCols = '1fr';
   var cardPad = m.density === 'dense' ? '12px' : '16px';
-  var cardGap = m.density === 'dense' ? '8px' : '12px';
+  var cardGap = m.density === 'dense' ? '6px' : m.sectionCount <= 4 ? '14px' : '10px';
   var h='<div class="content s8"><div class="grid-hero"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   else h+='<p>'+d.sections.length+'个板块</p>';
@@ -1366,7 +1382,7 @@ function bS9(d, m){
   var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
   var itemFont = m.density === 'dense' ? '11px' : '12px';
   var cardPad = m.density === 'dense' ? '12px' : '14px';
-  var cols = '2';
+  var cols = m.sectionCount >= 8 ? '3' : '2';
   var colGap = m.density === 'dense' ? '10px' : '14px';
   var h='<div class="content s9"><div class="waterfall-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p style="color:#666">'+E(d.subtitle)+'</p>';
@@ -1418,7 +1434,7 @@ function bS10(d, m){
   var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
   var itemFont = m.density === 'dense' ? '12px' : '13px';
   var secFont = m.density === 'dense' ? '13px' : '15px';
-  var entryGap = m.density === 'dense' ? '14px' : '20px';
+  var entryGap = m.density === 'dense' ? '12px' : m.sectionCount <= 4 ? '24px' : '18px';
   var h='<div class="content s10"><div class="log-banner"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p style="color:#666">'+E(d.subtitle)+'</p>';
   h+='</div><div class="log-timeline">';
@@ -1463,7 +1479,7 @@ function bS11(d, m){
   var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
   var itemFont = m.density === 'dense' ? '11px' : '12px';
   var cardPad = m.density === 'dense' ? '12px' : '16px';
-  var cardGap = m.density === 'dense' ? '8px' : '12px';
+  var cardGap = m.density === 'dense' ? '6px' : m.sectionCount <= 4 ? '14px' : '10px';
   var totalItems=d.sections.reduce(function(a,s){return a+s.items.length},0);
   var h='<div class="content s11"><div class="dash-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
@@ -1523,7 +1539,7 @@ function bS12(d, m){
   var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '24px' : '22px';
   var itemFont = m.density === 'dense' ? '12px' : '13px';
   var secFont = m.density === 'dense' ? '13px' : '15px';
-  var secGap = m.density === 'dense' ? '10px' : '14px';
+  var secGap = m.density === 'dense' ? '8px' : m.sectionCount <= 4 ? '16px' : '12px';
   var wrapPad = m.density === 'dense' ? '18px 16px' : '28px 22px';
   var h='<div class="content s12"><div class="doodle-wrap" style="padding:'+wrapPad+'">';
   h+='<h1 style="font-size:'+titleSize+'">✦ '+E(d.title)+' ✦</h1>';
@@ -1783,7 +1799,7 @@ function bS16(d, m){
   var bgColors=['#fffef5','#f0f8ff','#f0fff4','#fffbeb','#f5f3ff','#fdf2f8','#f0fdfa','#fff7ed'];
   var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '26px' : '22px';
   var cardPad = m.density === 'dense' ? '14px 14px 14px 18px' : '18px 16px 18px 20px';
-  var cardGap = m.density === 'dense' ? '10px' : '12px';
+  var cardGap = m.density === 'dense' ? '8px' : m.sectionCount >= 6 ? '8px' : '12px';
   var itemFont = m.density === 'dense' ? '12px' : '13px';
   var cardTitleSize = m.density === 'dense' ? '13px' : '15px';
   var h='<div class="content s16"><div class="note16-hero">';
@@ -1843,7 +1859,7 @@ function bS16(d, m){
 function bS17(d, m){
   var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '26px' : '22px';
   var itemFont = m.density === 'dense' ? '12px' : '13px';
-  var secGap = m.density === 'dense' ? '10px' : '14px';
+  var secGap = m.density === 'dense' ? '8px' : m.sectionCount <= 4 ? '16px' : '12px';
   var now=new Date();
   var dateStr=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日';
   var days=['日','一','二','三','四','五','六'];
@@ -2077,7 +2093,7 @@ async function generate(){
   document.querySelector('.style-btn[data-s="1"]').classList.add("active");
   area.querySelector(".s1").classList.add("active");
   if(gs)gs.style.display="none";if(gc)gc.style.display="none";if(gb)gb.disabled=false;
-  info.textContent="✅ 已生成"+d.sections.length+"个板块的18种精美排版 (AI驱动)";
+  info.textContent="✅ 已生成"+d.sections.length+"个板块 · "+m.totalChars+"字 · 18种排版 (AI驱动)";
 }
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
 function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦","思维导图","暗色模式","渐变卡片","便签","复古报纸","社交媒体"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){var bg=idx===13?"#1a1a2e":idx===14?"#f0f0f5":idx===15?"#d4c4a8":idx===16?"#f5f0e1":idx===17?"#fafafa":"#f5f5f5";html2canvas(cs[idx],{scale:2,backgroundColor:bg,width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
