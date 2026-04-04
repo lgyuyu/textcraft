@@ -799,10 +799,17 @@ async function aiParse(text){
     console.warn('AI output still truncated after '+MAX_ROUNDS+' rounds');
   }
   
-  // Parse JSON from response (may have markdown code block)
-  var jsonMatch=msg.match(/\{[\s\S]*\}/);
-  if(!jsonMatch)throw new Error('AI返回格式错误: '+msg.substring(0,200));
-  var parsed=JSON.parse(jsonMatch[0]);
+  // Parse JSON by balanced brace matching (handles duplicate JSON from continuation)
+  var jsonStart=msg.indexOf('{');
+  if(jsonStart===-1)throw new Error('AI返回格式错误: 未找到JSON '+msg.substring(0,200));
+  var depth=0,jsonEnd=-1;
+  for(var ji=jsonStart;ji<msg.length;ji++){
+    if(msg[ji]==='{')depth++;
+    else if(msg[ji]==='}')depth--;
+    if(depth===0){jsonEnd=ji+1;break;}
+  }
+  if(jsonEnd===-1)throw new Error('AI返回格式错误: JSON未闭合');
+  var parsed=JSON.parse(msg.substring(jsonStart,jsonEnd));
   // Normalize
   if(!parsed.stats)parsed.stats=[];
   function normalizeItems(items){
