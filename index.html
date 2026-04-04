@@ -757,17 +757,17 @@ document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("
 function E(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 var emojis=['🎯','📅','⏰','💡','📌','🏆','💪','✨'];
 function shape(i){var t=i%5,n=i+1;if(t===1)return '<div class="num" style="clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)">'+n+'</div>';if(t===2)return '<div class="num" style="clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)">'+n+'</div>';if(t===3)return '<div class="num" style="border-radius:8px">'+n+'</div>';if(t===4)return '<div class="num" style="border-radius:10px">'+n+'</div>';return '<div class="num">'+n+'</div>'}
-var AI_KEY='4e1068b3b7d8459ca481338876e58fdb.qS8Ml1qDJ0YkfAmU';
-var AI_URL='https://open.bigmodel.cn/api/paas/v4/chat/completions';
+var AI_KEY='sk-zzvrUixgjkur9EThE42jbtVyZdg9UCEehCZKCnvBspdV3pyX';
+var AI_URL='https://api.moonshot.cn/v1/chat/completions';
 
-var AI_KEY='4e1068b3b7d8459ca481338876e58fdb.qS8Ml1qDJ0YkfAmU';
-var AI_URL='https://open.bigmodel.cn/api/paas/v4/chat/completions';
+var AI_KEY='sk-zzvrUixgjkur9EThE42jbtVyZdg9UCEehCZKCnvBspdV3pyX';
+var AI_URL='https://api.moonshot.cn/v1/chat/completions';
 
 async function aiCall(messages, max_tokens){
   var resp=await fetch(AI_URL,{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+AI_KEY},
-    body:JSON.stringify({model:'glm-4-plus',messages:messages,max_tokens:max_tokens||8192,temperature:0.1})
+    body:JSON.stringify({model:'moonshot-v1-128k',messages:messages,max_tokens:max_tokens||8192,temperature:0.1})
   });
   var data=await resp.json();
   return data;
