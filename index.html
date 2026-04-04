@@ -2078,6 +2078,15 @@ async function generate(){
   if(!d||!d.sections.length){if(gs)gs.style.display="none";if(gc)gc.style.display="none";if(gb)gb.disabled=false;alert("未识别到内容结构");return}
   if(!d.subtitle)d.subtitle='';
   var m=measureContent(d);
+  // Content coverage check: warn if AI output seems too short
+  var inputLen=text.length;
+  var outputDetailLen=0;
+  d.sections.forEach(function(s){s.items.forEach(function(it){outputDetailLen+=(it.detail||'').length;});});
+  var coverage=inputLen>0?outputDetailLen/inputLen:0;
+  if(coverage<0.7&&inputLen>200){
+    console.warn('Low coverage:',(coverage*100).toFixed(0)+'%','input:',inputLen,'output:',outputDetailLen);
+    if(!confirm('AI可能精简了部分内容（覆盖率约'+Math.round(coverage*100)+'%），是否重新生成？'))_genAborted=true;
+  }
   d.sections.forEach(function(s){
     if(!s.icon)s.icon='📌';
     if(!s.type)s.type='text';
