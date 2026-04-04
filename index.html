@@ -764,11 +764,11 @@ var AI_KEY='4e1068b3b7d8459ca481338876e58fdb.qS8Ml1qDJ0YkfAmU';
 var AI_URL='https://open.bigmodel.cn/api/paas/v4/chat/completions';
 
 async function aiParse(text){
-  var sys='你是一个文本结构化解析器。用户会给一段文字，你需要把它解析成JSON格式，用于生成精美信息图卡片。\n\n返回格式（严格JSON，不要任何其他内容）：\n{\n  "title": "主标题",\n  "subtitle": "一句话副标题描述",\n  "sections": [\n    {\n      "title": "板块标题",\n      "type": "text|table|phases|schedule|rules|stats",\n      "icon": "emoji",\n      "items": [\n        {"label": "短标签/时间", "detail": "详细描述", "value": "数值(可选)"}\n      ],\n      "stats": [{"num": "数字", "unit": "单位", "label": "标签"}]\n    }\n  ],\n  "stats": [{"num": "80万", "unit": "冲刺", "label": "总销售额"}]\n}\n\ntype说明：\n- text: 普通文本说明\n- table: 有对比数据（保底vs冲刺、指标对比等），items中每项有label和detail\n- phases: 分阶段计划（第1周、第01-30天等），items中label填阶段名，detail填内容\n- schedule: 时间安排（早读、下午、晚上等），items中label填时间，detail填动作\n- rules: 规则/铁律/注意事项/激励\n- stats: 统计数字\n\ntop-level stats数组（用于信息图的统计圆环），提取3-4个关键数字指标。\nsection.stats用于该板块自己的数据。\n\n重要：\n1. top-level stats数组必须提取3-4个关键数字指标（如金额、天数、百分比等），即使原文没有明确数字也要合理推算\n2. 每条信息独立成item，不要合并多条信息\n3. 有时间的信息，label填时间，detail填内容\n4. 有数值的信息，提取到value字段\n5. 给每个section选一个合适的emoji icon\n6. subtitle要精炼，不超过20字\n7. phases类型的section，label填阶段名（如"第01-30天"），detail填内容';
+  var sys='你是一个文本结构化解析器。用户会给一段文字，你需要把它解析成JSON格式，用于生成精美信息图卡片。\n\n返回格式（严格JSON，不要任何其他内容）：\n{\n  "title": "主标题",\n  "subtitle": "一句话副标题描述",\n  "sections": [\n    {\n      "title": "板块标题",\n      "type": "text|table|phases|schedule|rules|stats",\n      "icon": "emoji",\n      "items": [\n        {"label": "短标签/时间", "detail": "详细描述", "value": "数值(可选)"}\n      ],\n      "stats": [{"num": "数字", "unit": "单位", "label": "标签"}]\n    }\n  ],\n  "stats": [{"num": "80万", "unit": "冲刺", "label": "总销售额"}]\n}\n\ntype说明：\n- text: 普通文本说明\n- table: 有对比数据（保底vs冲刺、指标对比等），items中每项有label和detail\n- phases: 分阶段计划（第1周、第01-30天等），items中label填阶段名，detail填内容\n- schedule: 时间安排（早读、下午、晚上等），items中label填时间，detail填动作\n- rules: 规则/铁律/注意事项/激励\n- stats: 统计数字\n\ntop-level stats数组（用于信息图的统计圆环），提取3-4个关键数字指标。\nsection.stats用于该板块自己的数据。\n\n重要（必须严格遵守）：\n1. 【最重要】必须保留用户原文的每一条信息，绝不删减、省略或合并任何内容！即使内容很长也要全部输出。\n2. top-level stats数组必须提取3-4个关键数字指标（如金额、天数、百分比等），即使原文没有明确数字也要合理推算\n3. 每条信息独立成item，不要合并多条信息\n4. 有时间的信息，label填时间，detail填内容\n5. 有数值的信息，提取到value字段\n6. 给每个section选一个合适的emoji icon\n7. subtitle要精炼，不超过20字\n8. phases类型的section，label填阶段名（如"第01-30天"），detail填内容\n9. 如果原文有很多子项目（如每天的具体任务），全部作为items列出，不能只取前几条';
   var resp=await fetch(AI_URL,{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+AI_KEY},
-    body:JSON.stringify({model:'glm-4-flash',messages:[{role:'system',content:sys},{role:'user',content:text}],max_tokens:2000,temperature:0.1})
+    body:JSON.stringify({model:'glm-4-flash',messages:[{role:'system',content:sys},{role:'user',content:text}],max_tokens:8192,temperature:0.1})
   });
   var data=await resp.json();
   var msg=data.choices[0].message.content;
@@ -912,7 +912,7 @@ function bS1(d, m){
     h+='<div class="stitle" style="font-size:'+stitleSize+';margin:'+(m.density==='dense'?'16px':'24px')+' 0 '+(m.density==='dense'?'8px':'14px')+'">'+(s.icon||emojis[i%8])+' '+E(s.title)+'</div>';
     if(s.type==='phases'){
       var showItems = s.items;
-      var maxItems = 4;
+      var maxItems = 99;
       if (showItems.length > maxItems) {
         showItems = showItems.slice(0, maxItems);
         showItems._truncated = true;
@@ -946,7 +946,7 @@ function bS1(d, m){
       h+='</ul></div>';
     }else{
       var showItems = s.items;
-      var maxItems = 4;
+      var maxItems = 99;
       if (showItems.length > maxItems) {
         showItems = showItems.slice(0, maxItems);
         showItems._truncated = true;
@@ -980,7 +980,7 @@ function bS2(d, m){
   d.sections.forEach(function(s,i){
     h+='<div class="sbox" style="margin-bottom:'+secGap+'"><h3>'+(s.icon||'📌')+' '+E(s.title)+'</h3>';
     var showItems = s.items;
-    var maxItems = 4;
+    var maxItems = 99;
     if (s.type !== 'schedule' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
@@ -1011,7 +1011,7 @@ function bS3(d, m){
   d.sections.forEach(function(s,i){
     h+='<div class="bc" style="padding:'+cardPad+';margin-bottom:'+cardGap+'"><div class="bc-icon">'+(s.icon||emojis[i%8])+'</div><div class="bc-body"><h3>'+E(s.title)+'</h3>';
     var showItems = s.items;
-    var maxItems = 4;
+    var maxItems = 99;
     if (s.type !== 'schedule' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
@@ -1043,7 +1043,7 @@ function bS4(d, m){
   d.sections.forEach(function(s,i){
     h+='<div class="minsec" style="margin-bottom:'+secGap+'"><div class="minh">'+(s.icon||'')+' '+E(s.title)+'</div>';
     var showItems = s.items;
-    var maxItems = 4;
+    var maxItems = 99;
     if (s.type !== 'schedule' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
@@ -1075,7 +1075,7 @@ function bS5(d, m){
   d.sections.forEach(function(s,i){
     h+='<div class="mag-sec" style="margin-bottom:'+secGap+'"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
     var showItems = s.items;
-    var maxItems = 4;
+    var maxItems = 99;
     if (s.type !== 'schedule' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
@@ -1106,7 +1106,7 @@ function bS6(d, m){
     h+='<div class="note-sec">';
     h+='<h3><span class="step-num">'+(i+1)+'</span>'+E(s.title)+'</h3>';
     var showItems = s.items;
-    var maxItems = 4;
+    var maxItems = 99;
     if (s.type !== 'schedule' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
@@ -1143,7 +1143,7 @@ function bS8(d, m){
     var full=s.items.length>2?' full':'';
     h+='<div class="gc'+full+'" style="padding:'+cardPad+'"><h3><span class="dot"></span>'+(s.icon||'')+' '+E(s.title)+'</h3>';
     var showItems = s.items;
-    var maxItems = 4;
+    var maxItems = 99;
     if (s.type !== 'schedule' && s.type !== 'rules' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
@@ -1209,7 +1209,7 @@ function bS7(d, m){
       h+='</div>';
     }else if(s.type==='phases'&&s.items.length>1&&showRings){
       var showItems7 = s.items;
-      var maxItems7 = 4;
+      var maxItems7 = 99;
       if (showItems7.length > maxItems7) {
         showItems7 = showItems7.slice(0, maxItems7);
         showItems7._truncated = true;
@@ -1230,7 +1230,7 @@ function bS7(d, m){
       }
     }else if(s.type==='phases'&&s.items.length>1&&!showRings){
       var showItems7b = s.items;
-      var maxItems7b = 4;
+      var maxItems7b = 99;
       if (showItems7b.length > maxItems7b) {
         showItems7b = showItems7b.slice(0, maxItems7b);
         showItems7b._truncated = true;
@@ -1308,7 +1308,7 @@ function bS9(d, m){
       return;
     }
     var showItems = s.items;
-    var maxItems = 4;
+    var maxItems = 99;
     if(s.type!=='schedule' && showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1360,7 +1360,7 @@ function bS10(d, m){
       return;
     }
     var showItems = s.items;
-    var maxItems = 4;
+    var maxItems = 99;
     if(s.type!=='schedule' && showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1840,7 +1840,7 @@ function bS18(d, m){
   d.sections.forEach(function(s,i){
     var bg = cardColors[i % cardColors.length];
     var showItems = s.items;
-    var maxItems = 4;
+    var maxItems = 99;
     if (s.type !== 'schedule' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
