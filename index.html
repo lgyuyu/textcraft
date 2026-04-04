@@ -767,7 +767,7 @@ async function aiCall(messages, max_tokens){
   var resp=await fetch(AI_URL,{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+AI_KEY},
-    body:JSON.stringify({model:'glm-4-flash',messages:messages,max_tokens:max_tokens||8192,temperature:0.1})
+    body:JSON.stringify({model:'glm-4-plus',messages:messages,max_tokens:max_tokens||8192,temperature:0.1})
   });
   var data=await resp.json();
   return data;
