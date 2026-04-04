@@ -774,34 +774,28 @@ async function aiCall(messages, max_tokens){
 }
 
 async function aiParse(text){
-  var sys='你是一个文本结构化解析器。用户会给一段文字，你需要把它解析成JSON格式，用于生成精美信息图卡片。\n\n返回格式（严格JSON，不要任何其他内容）：\n{\n  "title": "主标题",\n  "subtitle": "一句话副标题描述",\n  "sections": [\n    {\n      "title": "板块标题",\n  "type": "text|table|phases|schedule|rules|stats",\n  "icon": "emoji",\n  "items": [\n        {\n          "label": "短标签",\n          "detail": "该条目的完整内容描述",\n          "sub_items": [\n            {"label": "子标签(可选)", "detail": "子条目完整内容", "sub_items": [...]}\n          ]\n        }\n      ],\n  "stats": [{"num": "数字", "unit": "单位", "label": "标签"}]\n    }\n  ],\n  "stats": [{"num": "80万", "unit": "冲刺", "label": "总销售额"}]\n}\n\n核心概念：sub_items嵌套\n- 当原文存在层级结构时（如"第1周"下面有"周一～周五"、"周六"、"周日"，而"周一～周五"下面又有"内容"、"每天配套"、"目标"），必须用sub_items嵌套表达！\n- 每一层级的条目都用 {label, detail, sub_items} 格式\n- sub_items可以继续嵌套sub_items，不限层级\n- 如果一个条目没有子内容，sub_items留空数组[]，不要省略此字段\n\n完整示例（照这个格式来）：\n原文"第1周：捡最容易拿分的基础（必拿20-30分）周一～周五（在校）早/晚自习碎片：30分钟视频课 内容：复数 集合 每天配套：5道基础题 周六 9:00直播课 周日 不做新题"\nJSON应为：\n{"label":"第 1 周","detail":"捡最容易拿分的基础（必拿20-30分）","sub_items":[\n  {"label":"周一～周五（在校）","detail":"","sub_items":[\n    {"label":"","detail":"早/晚自习碎片：30分钟视频课","sub_items":[]},\n    {"label":"内容","detail":"","sub_items":[\n      {"label":"","detail":"复数","sub_items":[]},\n      {"label":"","detail":"集合","sub_items":[]}\n    ]},\n    {"label":"每天配套","detail":"5道基础题","sub_items":[]}\n  ]},\n  {"label":"周六（在家）","detail":"","sub_items":[\n    {"label":"9:00","detail":"直播课完整听完","sub_items":[]}\n  ]},\n  {"label":"周日（返校）","detail":"","sub_items":[\n    {"label":"","detail":"不做新题","sub_items":[]}\n  ]}\n]}\n\ntype说明：\n- text: 普通文本说明，items扁平排列\n- phases: 分阶段计划（第1周、第01-30天等），每个阶段是item，用sub_items存放该阶段的详细子内容\n- schedule: 时间安排（早读、下午、晚上等），用sub_items存放每个时段的具体任务\n- rules: 规则/铁律/注意事项/激励，items扁平排列\n- table: 有对比数据（保底vs冲刺、指标对比等）\n\nitems/sub_items填写规则：\n- label：仅填极短标签（如"周一～周五"、"①"），没有就留空字符串""\n- detail：填该条目的完整描述内容\n- 如果条目包含冒号分隔的标签和内容（如"每天配套：5道基础题"），label填"每天配套"，detail填"5道基础题"\n- 如果条目没有子内容，sub_items填[]，绝不能省略\n\n重要（必须严格遵守）：\n1. 【最重要】内容修改原则：用户输入的内容，你只能修改以下情况：表达不通顺、表达啰嗦、有错别字、有常识错误。除此之外，原文内容一律不得删减、改写、省略或合并！\n2. 【最重要】必须忠实还原原文的层级结构！有层级必须用sub_items嵌套，绝对不允许丢弃子内容！\n3. 每条信息（包括子条目）的detail必须包含完整原文。\n4. 每条信息独立成item/sub_item，不要合并多条信息。\n5. 给每个section选一个合适的emoji icon。\n6. subtitle要精炼，不超过20字。\n10.【关键】当一行文本（如内容：）后面跟着多行具体条目时，该行是父节点，后面多行是它的sub_items，绝不能平级排列或丢弃子内容！';
+  var sys='你是一个文本结构化解析器。将用户文字解析为JSON，用于生成信息图卡片。\n\n返回格式（严格JSON，不要其他内容）：\n{\n  "title": "主标题",\n  "subtitle": "一句话副标题",\n  "sections": [\n    {\n      "title": "板块标题",\n  "type": "text|table|phases|schedule|rules",\n  "icon": "emoji",\n  "items": [\n        {"label": "短标签", "detail": "完整内容描述（含换行分隔的子条目）"}\n      ]\n    }\n  ],\n  "stats": [{"num": "数字", "unit": "单位", "label": "标签"}]\n}\n\n填写规则：\n1. label：极短标签（如时间"周一～周五"、编号"①"、周名"第 1 周"），没有就留空""\n2. detail：该条目的【全部】内容，用\\n分隔不同子条目。\n3. 每条item独立，不合并！\n\n完整示例（照这个格式来）：\n原文：\n第 1 周：捡最容易拿分的基础（必拿 20-30 分）\n周一～周五（在校）\n早/晚自习碎片：30 分钟视频课\n内容：\n复数\n集合、充分必要条件\n简单不等式\n每天配套：5 道基础题\n目标：选择前 3 题、填空前 2 题稳拿\n周六（在家）\n9:00-11:00：直播课完整听完\n下午：复盘直播 + 刷基础选择填空20 题\n晚上：整理本周错题\n\n对应JSON items应为：\n[\n  {"label":"第 1 周","detail":"捡最容易拿分的基础（必拿 20-30 分）\\n周一～周五（在校）：\\n  早/晚自习碎片：30 分钟视频课\\n  内容：\\n    复数\\n    集合、充分必要条件\\n    简单不等式\\n  每天配套：5 道基础题\\n  目标：选择前 3 题、填空前 2 题稳拿\\n周六（在家）：\\n  9:00-11:00：直播课完整听完\\n  下午：复盘直播 + 刷基础选择填空20 题\\n  晚上：整理本周错题"}\n]\n注意：以上是一个item！每周是一个item，detail中包含该周的全部内容，用\\n分隔。\n\ntype说明：\n- text: 普通文本说明\n- phases: 分阶段计划（第1周、第01-30天等），每个阶段是1个item，detail包含该阶段的全部子内容\n- schedule: 时间安排（早读、下午、晚上等），每个时段是1个item\n- rules: 规则/铁律/注意事项/激励，每条规则是1个item\n\n重要（必须严格遵守）：\n1.【最重要】内容修改原则：只能修改表达不通顺、啰嗦、错别字、常识错误。除此之外一律不得删减、改写、省略或合并！\n2.【最重要】detail字段必须包含该条目的全部原文内容！如果原文有子层级（如"周一"下面有多个任务），全部用\\n分隔放进detail中！\n3. 每条信息独立成item，不合并！\n4. 给每个section选一个合适的emoji icon\n5. subtitle精炼，不超过20字\n6. top-level stats提取3-4个关键数字指标';
   
-  // First call
   var messages=[{role:'system',content:sys},{role:'user',content:text}];
   var result=await aiCall(messages);
   var msg=result.choices[0].message.content;
   var finishReason=result.choices[0].finish_reason;
   
-  // Check if truncated - if so, auto-continue
   var MAX_ROUNDS=5;
   var round=1;
   while(finishReason==='length' && round<MAX_ROUNDS){
-    console.log('AI output truncated, auto-continuing... round '+round);
+    console.log('AI truncated, continuing... round '+round);
     messages.push({role:'assistant',content:msg});
-    messages.push({role:'user',content:'继续输出剩余的JSON内容，从你上次截断的地方接着写，不要重复已输出的内容。直接输出JSON片段。'});
+    messages.push({role:'user',content:'继续输出剩余JSON，从截断处接着写，不要重复。直接输出JSON片段。'});
     result=await aiCall(messages);
     var contMsg=result.choices[0].message.content;
     finishReason=result.choices[0].finish_reason;
     msg+=contMsg;
     round++;
   }
-  if(finishReason==='length'){
-    console.warn('AI output still truncated after '+MAX_ROUNDS+' rounds');
-  }
   
-  // Parse JSON by balanced brace matching (handles duplicate JSON from continuation)
   var jsonStart=msg.indexOf('{');
-  if(jsonStart===-1)throw new Error('AI返回格式错误: 未找到JSON '+msg.substring(0,200));
+  if(jsonStart===-1)throw new Error('AI返回格式错误: 未找到JSON');
   var depth=0,jsonEnd=-1;
   for(var ji=jsonStart;ji<msg.length;ji++){
     if(msg[ji]==='{')depth++;
@@ -810,15 +804,14 @@ async function aiParse(text){
   }
   if(jsonEnd===-1)throw new Error('AI返回格式错误: JSON未闭合');
   var parsed=JSON.parse(msg.substring(jsonStart,jsonEnd));
-  // Normalize
   if(!parsed.stats)parsed.stats=[];
   function normalizeItems(items){
     if(!items)return;
     items.forEach(function(item){
       if(!item.label)item.label='';
       if(!item.detail)item.detail='';
-      if(!item.sub_items)item.sub_items=[];
-      normalizeItems(item.sub_items);
+      // Remove sub_items field if exists (legacy compat)
+      if(item.sub_items)delete item.sub_items;
     });
   }
   parsed.sections.forEach(function(s){
