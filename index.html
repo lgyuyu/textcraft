@@ -831,44 +831,52 @@ function parseText(text){
   var data={title:lines[0],sections:[]};
   var curSec=null;
   var phaseParent=null; // when set, numbered lines become sub-items instead of new sections
+  // Pre-scan: detect if content has "第 N 周/天" patterns → enable phase-gather mode
+  var hasPhasePattern = text.match(/第\s*\d+\s*[周天期章节篇步轮]/);
+  function isTopHeader(l){
+    return /^【/.test(l)&&/】/.test(l)
+      || /^[一二三四五六七八九十]+[、.]/.test(l)
+      || /^第\s*\d+\s*[周天期章节篇步轮]/.test(l)
+      || /：$/.test(l)&&l.length<30
+      || /^\d+[、.．)）]\s*/.test(l)&&l.length<25;
+  }
   for(var i=1;i<lines.length;i++){
     var l=lines[i];var isH=false;
     var isNum=/^\d+[、.．)）]\s*/.test(l)&&l.length<25;
-    if(/^【/.test(l)&&/】/.test(l)){isH=true;l=l.replace(/^【/,'').replace(/】$/,'')}
-    else if(/：$/.test(l)&&l.length<25){isH=true;l=l.replace(/：$/,'')}
-    else if(/^[一-十]+[、.]/.test(l)){isH=true}
-    else if(isNum){
+    if(isTopHeader(l)){isH=true;l=l.replace(/^【/,'').replace(/】$/,'').replace(/^[一二三四五六七八九十]+[、.]/,'').replace(/^\d+[、.．)）]\s*/,'').replace(/：$/,'')}
+    if(isH){
+      // In phase-gather mode, "第 N 周" captures everything until next top header
+      if(hasPhasePattern && /^第\s*\d+\s*[周天期章节篇步轮]/.test(l)){
+        if(curSec)data.sections.push(curSec);
+        curSec={title:l,items:[],type:'text'};
+        // Gather all subsequent non-header lines into this section
+        while(i+1<lines.length && !isTopHeader(lines[i+1])){
+          i++;
+          curSec.items.push(lines[i]);
+        }
+        continue;
+      }
+      // Non-numbered header ends phase grouping
+      phaseParent = null;
+      if(curSec)data.sections.push(curSec);
+      curSec={title:l,items:[],type:'text'};
+    }else if(isNum){
       // Numbered lines inside a phase parent → add as structured item
       if(phaseParent){
         var numLabel=l.replace(/^\d+[、.．)）]\s*/,'');
-        // Create a structured item with label and collect subsequent items as details
         var subItems=[];
-        while(i+1<lines.length){
-          var next=lines[i+1];
-          if(/^【/.test(next)||/：$/.test(next)&&next.length<25||/^[一-十]+[、.]/.test(next)||/^\d+[、.．)）]\s*/.test(next)&&next.length<25){
-            break; // next line is a header
-          }
-          subItems.push(next);
-          i++;
+        while(i+1<lines.length && !isTopHeader(lines[i+1])){
+          subItems.push(lines[i+1]);i++;
         }
         phaseParent.items.push({label:numLabel,detail:subItems.join('；')});
         continue;
       }
-      // Otherwise check: if curSec has no items, this might be the start of a phase group
       if(curSec && curSec.items.length === 0){
-        // Start phase mode: curSec becomes the parent, this line is its first item
-        phaseParent = curSec;
-        curSec.items.push(l);
-        continue;
+        phaseParent = curSec;curSec.items.push(l);continue;
       }
-      // Otherwise it's a normal new section header
       isH = true;
-    }
-    if(isH){
-      // Non-numbered header ends phase grouping
-      phaseParent = null;
       if(curSec)data.sections.push(curSec);
-      curSec={title:l.replace(/^[一-十]+[、.]/,'').replace(/^\d+[、.．)）]\s*/,''),items:[],type:'text'};
+      curSec={title:l,items:[],type:'text'};
     }else{
       if(!curSec)curSec={title:'内容',items:[],type:'text'};
       curSec.items.push(l);
