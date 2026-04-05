@@ -1347,7 +1347,7 @@ function bS7(d, m){
       h+='</div>';
     }else{
       var showItems7c = s.items;
-      var maxItems7c = 4;
+      var maxItems7c = (s.type==='phases')?99:8;
       if (showItems7c.length > maxItems7c) {
         showItems7c = showItems7c.slice(0, maxItems7c);
         showItems7c._truncated = true;
@@ -1515,7 +1515,7 @@ function bS11(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=4;
+    var maxItems=(s.type==='phases')?99:8;
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1561,7 +1561,7 @@ function bS12(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=4;
+    var maxItems=(s.type==='phases')?99:8;
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1622,7 +1622,7 @@ function bS13(d, m){
     var marginLeft=Math.round(maxMargin-(maxMargin-minMargin)*(i/(Math.max(secCount-1,1))));
     var isLast=i===d.sections.length-1;
     var showItems=s.items;
-    var maxItems=4;
+    var maxItems=(s.type==='phases')?99:8;
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1698,7 +1698,7 @@ function bS14(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=4;
+    var maxItems=(s.type==='phases')?99:8;
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1765,7 +1765,7 @@ function bS15(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=4;
+    var maxItems=(s.type==='phases')?99:8;
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1828,7 +1828,7 @@ function bS16(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=4;
+    var maxItems=(s.type==='phases')?99:8;
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1886,7 +1886,7 @@ function bS17(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=4;
+    var maxItems=(s.type==='phases')?99:8;
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
