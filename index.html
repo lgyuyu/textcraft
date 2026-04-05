@@ -1073,7 +1073,7 @@ function bS2(d, m){
         h+='<div class="sbox" style="margin-bottom:'+secGap+';padding:'+secPad+'"><h3>'+(s.icon||'📌')+' '+E(s.title)+'</h3>';
     var showItems = s.items;
     var maxItems = 99;
-    if (s.type !== 'schedule' && showItems.length > maxItems) {
+    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
       showItems._totalCount = s.items.length;
@@ -1103,7 +1103,7 @@ function bS3(d, m){
     h+='<div class="bc" style="padding:'+cardPad+';margin-bottom:'+cardGap+'"><div class="bc-icon">'+(s.icon||emojis[i%8])+'</div><div class="bc-body"><h3>'+E(s.title)+'</h3>';
     var showItems = s.items;
     var maxItems = 99;
-    if (s.type !== 'schedule' && showItems.length > maxItems) {
+    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
       showItems._totalCount = s.items.length;
@@ -1134,7 +1134,7 @@ function bS4(d, m){
     h+='<div class="minsec" style="margin-bottom:'+secGap+'"><div class="minh">'+(s.icon||'')+' '+E(s.title)+'</div>';
     var showItems = s.items;
     var maxItems = 99;
-    if (s.type !== 'schedule' && showItems.length > maxItems) {
+    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
       showItems._totalCount = s.items.length;
@@ -1166,7 +1166,7 @@ function bS5(d, m){
         h+='<div class="mag-sec" style="margin-bottom:'+secGap+';padding:'+magSecPad+'"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
     var showItems = s.items;
     var maxItems = 99;
-    if (s.type !== 'schedule' && showItems.length > maxItems) {
+    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
       showItems._totalCount = s.items.length;
@@ -1197,7 +1197,7 @@ function bS6(d, m){
     h+='<h3><span class="step-num">'+(i+1)+'</span>'+E(s.title)+'</h3>';
     var showItems = s.items;
     var maxItems = 99;
-    if (s.type !== 'schedule' && showItems.length > maxItems) {
+    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
       showItems._totalCount = s.items.length;
@@ -1234,7 +1234,7 @@ function bS8(d, m){
     h+='<div class="gc'+full+'" style="padding:'+cardPad+'"><h3><span class="dot"></span>'+(s.icon||'')+' '+E(s.title)+'</h3>';
     var showItems = s.items;
     var maxItems = 99;
-    if (s.type !== 'schedule' && s.type !== 'rules' && showItems.length > maxItems) {
+    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
       showItems._totalCount = s.items.length;
@@ -1347,7 +1347,7 @@ function bS7(d, m){
       h+='</div>';
     }else{
       var showItems7c = s.items;
-      var maxItems7c = (s.type==='phases')?99:8;
+      var maxItems7c = 99;
       if (showItems7c.length > maxItems7c) {
         showItems7c = showItems7c.slice(0, maxItems7c);
         showItems7c._truncated = true;
@@ -1405,7 +1405,7 @@ function bS9(d, m){
     }
     var showItems = s.items;
     var maxItems = 99;
-    if(s.type!=='schedule' && showItems.length>maxItems){
+    if(s.type!=='schedule' && s.type!=='phases' && showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
       showItems._totalCount=s.items.length;
@@ -1457,7 +1457,7 @@ function bS10(d, m){
     }
     var showItems = s.items;
     var maxItems = 99;
-    if(s.type!=='schedule' && showItems.length>maxItems){
+    if(s.type!=='schedule' && s.type!=='phases' && showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
       showItems._totalCount=s.items.length;
@@ -1515,7 +1515,9 @@ function bS11(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=(s.type==='phases')?99:8;
+    var maxItems=99;
+    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
+    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1561,7 +1563,9 @@ function bS12(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=(s.type==='phases')?99:8;
+    var maxItems=99;
+    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
+    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1622,7 +1626,9 @@ function bS13(d, m){
     var marginLeft=Math.round(maxMargin-(maxMargin-minMargin)*(i/(Math.max(secCount-1,1))));
     var isLast=i===d.sections.length-1;
     var showItems=s.items;
-    var maxItems=(s.type==='phases')?99:8;
+    var maxItems=99;
+    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
+    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1698,7 +1704,9 @@ function bS14(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=(s.type==='phases')?99:8;
+    var maxItems=99;
+    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
+    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1765,7 +1773,9 @@ function bS15(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=(s.type==='phases')?99:8;
+    var maxItems=99;
+    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
+    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1828,7 +1838,9 @@ function bS16(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=(s.type==='phases')?99:8;
+    var maxItems=99;
+    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
+    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1886,7 +1898,9 @@ function bS17(d, m){
       return;
     }
     var showItems=s.items;
-    var maxItems=(s.type==='phases')?99:8;
+    var maxItems=99;
+    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
+    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
     if(s.type!=='schedule'&&showItems.length>maxItems){
       showItems=showItems.slice(0,maxItems);
       showItems._truncated=true;
@@ -1961,7 +1975,7 @@ function bS18(d, m){
     var bg = cardColors[i % cardColors.length];
     var showItems = s.items;
     var maxItems = 99;
-    if (s.type !== 'schedule' && showItems.length > maxItems) {
+    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
       showItems = showItems.slice(0, maxItems);
       showItems._truncated = true;
       showItems._totalCount = s.items.length;
