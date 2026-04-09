@@ -6,12 +6,12 @@
 <title>TextCraft - 文字排版工具</title>
 <style>
 
-:root{--primary:#e8457c;--primary-bg:rgba(232,69,124,0.05);--light:#fff0f3;--gradient:linear-gradient(135deg,#e8457c,#ff8fab);--text:#1a1a2e;--font:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;--radius:14px;--shadow:0 4px 20px rgba(0,0,0,.08)}
+:root{--primary:#e8457c;--light:#fff0f3;--gradient:linear-gradient(135deg,#e8457c,#ff8fab);--text:#a01040;--font:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;--radius:14px;--shadow:0 4px 20px rgba(0,0,0,.08)}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margin:0 auto;padding:16px}
 .controls{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:16px;flex-wrap:wrap;gap:10px}
 .style-btns{display:flex;gap:6px;flex-wrap:wrap}
-.style-btn{padding:6px 14px;border:2px solid #e0e0e0;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font);color:#444;white-space:nowrap}
+.style-btn{padding:6px 14px;border:2px solid #e0e0e0;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font);color:#666;white-space:nowrap}
 .style-btn:hover{border-color:var(--primary);color:var(--primary)}
 .style-btn.active{background:var(--gradient);color:#fff;border-color:transparent}
 .color-dots{display:flex;gap:8px;align-items:center}
@@ -35,24 +35,24 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s1 .card{display:flex;align-items:flex-start;gap:14px;background:#fff;border-radius:12px;padding:18px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
 .s1 .card .num{min-width:36px;height:36px;border-radius:50%;background:var(--gradient);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 .s1 .card h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
-.s1 .card p{font-size:13px;color:#444;line-height:1.7}
+.s1 .card p{font-size:13px;color:#666;line-height:1.7}
 .s1 .cbox{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-.s1 .cbox p{font-size:13px;color:#444;line-height:1.8}
-.s1 .plist{list-style:none;padding:0}.s1 .plist li{font-size:13px;color:#444;padding:4px 0}.s1 .plist li::before{content:"★";color:var(--primary);margin-right:6px}
+.s1 .cbox p{font-size:13px;color:#555;line-height:1.8}
+.s1 .plist{list-style:none;padding:0}.s1 .plist li{font-size:13px;color:#555;padding:4px 0}.s1 .plist li::before{content:"★";color:var(--primary);margin-right:6px}
 .s1 .dbox{background:var(--gradient);border-radius:12px;padding:18px 20px;color:#fff;text-align:center;margin-top:20px}
 .s1 .dbox h4{font-size:16px;margin-bottom:8px}.s1 .dbox p{font-size:13px;opacity:.95;line-height:1.8}
 .s1 .twrap{margin-top:12px;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
 .s1 table{width:100%;border-collapse:collapse;background:#fff}
 .s1 th{background:var(--gradient);color:#fff;padding:10px 14px;font-size:13px;text-align:left}
-.s1 td{padding:10px 14px;font-size:12px;border-bottom:1px solid #f0f0f0;color:#444}
+.s1 td{padding:10px 14px;font-size:12px;border-bottom:1px solid #f0f0f0;color:#555}
 
 /* S2 */
 .s2{background:#fff;border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
 .s2 .header{text-align:center;margin-bottom:28px}
 .s2 .header h1{font-size:22px;color:var(--primary);font-weight:700}
-.s2 .header p{font-size:13px;color:#444;margin-top:6px}
+.s2 .header p{font-size:13px;color:#888;margin-top:6px}
 .s2 .sbox{background:var(--light);border-radius:12px;padding:16px 20px;margin-bottom:24px;border-left:4px solid var(--primary)}
-.s2 .sbox p{font-size:13px;color:#444;line-height:1.8}
+.s2 .sbox p{font-size:13px;color:#555;line-height:1.8}
 .s2 .pinline{background:var(--light);border-radius:10px;padding:12px 16px;margin-bottom:24px;font-size:13px;color:var(--text);line-height:1.8}
 .s2 .timeline{position:relative;padding-left:28px;margin-bottom:24px}
 .s2 .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:3px;background:var(--gradient);border-radius:3px}
@@ -60,10 +60,10 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s2 .tl-item::before{content:'';position:absolute;left:-22px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--primary);border:3px solid #fff;box-shadow:0 0 0 2px var(--primary)}
 .s2 .tl-item h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
 .s2 .tl-item .days{display:inline-block;background:var(--primary);color:#fff;font-size:11px;padding:2px 10px;border-radius:10px;margin-bottom:6px}
-.s2 .tl-item p{font-size:13px;color:#444;line-height:1.7}
+.s2 .tl-item p{font-size:13px;color:#666;line-height:1.7}
 .s2 .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
 .s2 .titem{background:var(--light);border-radius:10px;padding:12px 14px;border-left:3px solid var(--primary)}
-.s2 .titem strong{font-size:13px;color:var(--text)}.s2 .titem span{font-size:12px;color:#444;display:block;margin-top:2px}
+.s2 .titem strong{font-size:13px;color:var(--text)}.s2 .titem span{font-size:12px;color:#888;display:block;margin-top:2px}
 .s2 .rules{text-align:center;padding:18px;background:var(--gradient);border-radius:12px;color:#fff}
 .s2 .rules h4{font-size:15px;margin-bottom:6px}.s2 .rules p{font-size:13px;opacity:.95;line-height:1.7}
 
@@ -77,14 +77,14 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s3 .bc::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient)}
 .s3 .bc .icon{font-size:32px;margin-bottom:8px}
 .s3 .bc h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
-.s3 .bc p{font-size:13px;color:#444;line-height:1.7}
+.s3 .bc p{font-size:13px;color:#666;line-height:1.7}
 .s3 .pricards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
 .s3 .pricard{background:#fff;border-radius:12px;padding:14px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.05)}
 .s3 .pricard .rank{width:28px;height:28px;border-radius:50%;background:var(--gradient);color:#fff;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:6px}
-.s3 .pricard p{font-size:12px;color:#444;line-height:1.5}
+.s3 .pricard p{font-size:12px;color:#555;line-height:1.5}
 .s3 .schedrow{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .s3 .scheditem{flex:1;min-width:140px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-align:center}
-.s3 .scheditem .time{font-size:18px;font-weight:700;color:var(--primary)}.s3 .scheditem .act{font-size:12px;color:#444;margin-top:4px}
+.s3 .scheditem .time{font-size:18px;font-weight:700;color:var(--primary)}.s3 .scheditem .act{font-size:12px;color:#666;margin-top:4px}
 .s3 .footer{background:var(--gradient);padding:20px 28px;color:#fff;border-radius:0 0 var(--radius) var(--radius);text-align:center}
 .s3 .footer h4{font-size:16px;margin-bottom:8px}.s3 .footer p{font-size:13px;opacity:.95;line-height:1.8}
 
@@ -96,7 +96,7 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s4 .minsec{margin-bottom:48px}
 .s4 .minsec .bignum{font-size:48px;font-weight:200;color:var(--primary);opacity:.4;line-height:1}
 .s4 .minsec h3{font-size:17px;font-weight:600;color:#222;margin:6px 0 14px;letter-spacing:1px}
-.s4 .minsec p{font-size:14px;color:#444;line-height:2.2;letter-spacing:.5px}
+.s4 .minsec p{font-size:14px;color:#999;line-height:2.2;letter-spacing:.5px}
 .s4 .mindiv{border:none;border-top:1px solid #f0f0f0;margin:48px 0}
 .s4 .minsched{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin:40px 0}
 .s4 .mintime strong{font-size:14px;color:var(--text)}.s4 .mintime p{font-size:13px;color:#aaa;margin-top:2px}
@@ -112,16 +112,16 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s5 .mag-body .side-deco{position:absolute;left:10px;top:20px;bottom:20px;writing-mode:vertical-rl;font-size:11px;letter-spacing:8px;color:var(--primary);opacity:.2;font-weight:700}
 .s5 .mag-sec{margin-bottom:28px}
 .s5 .mag-sec h3{font-size:16px;font-weight:700;color:var(--text);border-bottom:2px solid var(--primary);display:inline-block;padding-bottom:4px;margin-bottom:12px}
-.s5 .mag-sec p{font-size:13px;color:#444;line-height:1.9}
+.s5 .mag-sec p{font-size:13px;color:#555;line-height:1.9}
 .s5 .mag-phases{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
 .s5 .phase{flex:1;min-width:180px;border:1px solid #e8e8e8;border-radius:10px;padding:16px;position:relative}
 .s5 .phase .plabel{position:absolute;top:-10px;left:16px;background:var(--primary);color:#fff;font-size:11px;padding:2px 12px;border-radius:10px}
-.s5 .phase h4{font-size:14px;color:#222;margin-bottom:6px;margin-top:4px}.s5 .phase p{font-size:12px;color:#444;line-height:1.7}
+.s5 .phase h4{font-size:14px;color:#222;margin-bottom:6px;margin-top:4px}.s5 .phase p{font-size:12px;color:#666;line-height:1.7}
 .s5 .mag-pri{background:var(--light);border-radius:10px;padding:16px 20px;margin-bottom:20px}
-.s5 .mag-pri li{font-size:13px;color:#444;padding:3px 0;list-style:none}.s5 .mag-pri li::before{content:"▸ ";color:var(--primary)}
+.s5 .mag-pri li{font-size:13px;color:#555;padding:3px 0;list-style:none}.s5 .mag-pri li::before{content:"▸ ";color:var(--primary)}
 .s5 .mag-sched{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
 .s5 .mag-time{border-left:3px solid var(--primary);padding-left:12px}
-.s5 .mag-time strong{font-size:13px;color:var(--text)}.s5 .mag-time p{font-size:12px;color:#444;margin-top:2px}
+.s5 .mag-time strong{font-size:13px;color:var(--text)}.s5 .mag-time p{font-size:12px;color:#888;margin-top:2px}
 .s5 .mag-footer{background:var(--text);color:#fff;padding:20px 28px;text-align:center;position:relative}
 .s5 .mag-footer .side-text{position:absolute;right:20px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:11px;letter-spacing:6px;opacity:.3}
 .s5 .mag-footer h4{font-size:15px;margin-bottom:6px}.s5 .mag-footer p{font-size:13px;opacity:.85;line-height:1.8}
@@ -135,23 +135,16 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s6 .note-header .tape-2{position:absolute;top:-6px;left:60px;width:60px;height:18px;background:rgba(255,255,255,.2);transform:rotate(3deg);border-radius:2px}
 .s6 .note-body::before{content:'';position:absolute;left:52px;top:20px;bottom:20px;width:2px;background:rgba(220,80,80,.2)}
 .s6 .note-body::after{content:'';position:absolute;bottom:0;right:0;width:24px;height:24px;background:linear-gradient(225deg,#f5f5f0 50%,rgba(0,0,0,.05) 50%);border-radius:0 0 var(--radius) 0}
-.s6 .sticky{position:absolute;top:70px;right:12px;width:90px;padding:12px 10px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 8px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#444;line-height:1.6;z-index:2}
+.s6 .sticky{position:absolute;top:70px;right:12px;width:90px;padding:12px 10px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 8px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#999;line-height:1.6;z-index:2}
 .s6 .sticky::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:36px;height:10px;background:rgba(255,255,200,.7);border-radius:1px}
-.s6 .note-body{padding:24px 28px 28px 68px}
-.s6 .note-title{font-size:16px;font-weight:700;color:var(--text);margin:18px 0 8px;font-style:italic;border-bottom:2px dashed var(--primary);display:inline-block}
+.s6 .note-body{padding:28px 32px 32px}
+.s6 .note-title{font-size:16px;font-weight:700;color:var(--text);margin:20px 0 10px;font-style:italic;border-bottom:2px solid var(--primary);display:inline-block}
 .s6 .note-content{font-size:14px;color:#444;line-height:32px;font-style:italic;padding-bottom:2px}
 .s6 .nlist{list-style:none;padding:0}.s6 .nlist li{font-size:14px;color:#444;line-height:32px;padding-left:20px;position:relative;font-style:italic}.s6 .nlist li::before{content:"✎";position:absolute;left:0;color:var(--primary)}
-.s6 .note-sec{margin-bottom:18px}
-.s6 .note-sec h3{font-size:15px;font-weight:700;color:var(--text);font-style:italic;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.s6 .note-sec .step-num{width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-.s6 .note-sec .item-line{font-size:13px;color:#444;line-height:32px;padding-left:30px;position:relative;font-style:italic}
-.s6 .note-sec .item-line::before{content:"●";position:absolute;left:8px;color:var(--primary);font-size:6px;top:13px}
-.s6 .nphase{margin-bottom:18px}
-.s6 .nphase h4{font-size:15px;color:var(--text);font-style:italic;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-.s6 .nphase p{font-size:13px;color:#444;line-height:32px;padding-left:30px;position:relative;font-style:italic}
-.s6 .nphase p::before{content:"●";position:absolute;left:8px;color:var(--primary);font-size:6px;top:13px}
+.s6 .nphase{background:rgba(255,255,255,.6);border-radius:10px;padding:16px 18px;margin-bottom:12px;border:1px dashed var(--primary)}
+.s6 .nphase h4{font-size:15px;color:var(--text);font-style:italic;margin-bottom:4px}.s6 .nphase p{font-size:13px;color:#555;line-height:1.8;font-style:italic}
 .s6 .nsched{display:flex;gap:12px;align-items:baseline;padding:6px 0;border-bottom:1px dashed #ddd}
-.s6 .nsched .clock{font-size:18px}.s6 .nsched .act{font-size:13px;color:#444;font-style:italic}
+.s6 .nsched .clock{font-size:18px}.s6 .nsched .act{font-size:13px;color:#555;font-style:italic}
 .s6 .nrules{background:var(--gradient);border-radius:10px;padding:16px 20px;color:#fff;text-align:center;margin-top:20px}
 .s6 .nrules h4{font-size:15px;margin-bottom:6px}.s6 .nrules p{font-size:13px;opacity:.95;line-height:1.8}
 
@@ -164,21 +157,21 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s7 .stat-circle{width:100px;height:100px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;position:relative}
 .s7 .stat-circle .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--primary) var(--pct),#e8e8e8 var(--pct))}
 .s7 .stat-circle .ring-inner{position:absolute;inset:7px;border-radius:50%;background:var(--light)}.s7 .stat-circle .inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:auto;height:auto;border-radius:50%;background:var(--light);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;flex-direction:column}
-.s7 .stat-circle .num{font-size:22px;font-weight:700;color:var(--text);line-height:1}.s7 .stat-circle .unit{font-size:10px;color:#555}
-.s7 .stat-item .label{font-size:12px;color:#444}
+.s7 .stat-circle .num{font-size:28px;font-weight:700;color:var(--text);line-height:1}.s7 .stat-circle .unit{font-size:10px;color:#888}
+.s7 .stat-item .label{font-size:12px;color:#666}
 .s7 .ibox{background:#fff;border-radius:12px;padding:18px 20px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
-.s7 .ibox h3{font-size:15px;color:var(--text);margin-bottom:8px}.s7 .ibox p{font-size:13px;color:#444;line-height:1.8}
+.s7 .ibox h3{font-size:15px;color:var(--text);margin-bottom:8px}.s7 .ibox p{font-size:13px;color:#666;line-height:1.8}
 .s7 .phases-row{display:flex;gap:10px;margin-bottom:20px}
 .s7 .pbar{flex:1;background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04);text-align:center}
-.s7 .pbar .dc{font-size:28px;font-weight:700;color:var(--primary)}.s7 .pbar .dc.is-text{font-size:14px;font-weight:600;line-height:1.4}.s7 .pbar .dl{font-size:12px;color:#555}
-.s7 .pbar h4{font-size:14px;color:#333;margin:8px 0 6px}.s7 .pbar p{font-size:13px;color:#444;line-height:1.6}
+.s7 .pbar .dc{font-size:28px;font-weight:700;color:var(--primary)}.s7 .pbar .dl{font-size:11px;color:#aaa}
+.s7 .pbar h4{font-size:14px;color:#333;margin:8px 0 6px}.s7 .pbar p{font-size:12px;color:#888;line-height:1.6}
 .s7 .pbar .bar{height:6px;border-radius:3px;background:#eee;margin-top:10px;overflow:hidden}
 .s7 .pbar .bar-fill{height:100%;border-radius:3px;background:var(--gradient)}
-.s7 .pri-row{margin-bottom:10px}.s7 .pri-row .name{font-size:13px;color:#444;margin-bottom:4px}
+.s7 .pri-row{margin-bottom:10px}.s7 .pri-row .name{font-size:13px;color:#555;margin-bottom:4px}
 .s7 .pri-row .bar{height:8px;border-radius:4px;background:#eee;overflow:hidden}.s7 .pri-row .bar-fill{height:100%;border-radius:4px;background:var(--gradient)}
 .s7 .srow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .s7 .srow .badge{background:var(--gradient);color:#fff;font-size:12px;padding:5px 12px;border-radius:8px;white-space:nowrap}
-.s7 .srow .task{font-size:13px;color:#444}
+.s7 .srow .task{font-size:13px;color:#555}
 .s7 .irules{background:var(--gradient);border-radius:12px;padding:18px 20px;color:#fff;text-align:center}
 .s7 .irules h4{font-size:16px;margin-bottom:8px}.s7 .irules p{font-size:13px;opacity:.95;line-height:1.8}
 
@@ -191,197 +184,83 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .s8 .gc.full{grid-column:1/-1}
 .s8 .gc h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .s8 .gc h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--primary)}
-.s8 .gc p{font-size:12px;color:#444;line-height:1.7}
-.s8 .gc ul{list-style:none;padding:0}.s8 .gc ul li{font-size:12px;color:#444;padding:3px 0}.s8 .gc ul li::before{content:"▸ ";color:var(--primary)}
+.s8 .gc p{font-size:12px;color:#666;line-height:1.7}
+.s8 .gc ul{list-style:none;padding:0}.s8 .gc ul li{font-size:12px;color:#666;padding:3px 0}.s8 .gc ul li::before{content:"▸ ";color:var(--primary)}
 .s8 .gc .plabel{display:inline-block;background:var(--primary);color:#fff;font-size:11px;padding:2px 8px;border-radius:8px;margin-bottom:6px}
 .s8 .gc .trow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f5f5f5}
-.s8 .gc .trow:last-child{border-bottom:none}.s8 .gc .trow .t{font-size:12px;color:var(--primary);font-weight:600}.s8 .gc .trow .a{font-size:12px;color:#444}
+.s8 .gc .trow:last-child{border-bottom:none}.s8 .gc .trow .t{font-size:12px;color:var(--primary);font-weight:600}.s8 .gc .trow .a{font-size:12px;color:#666}
 .s8 .gc.rules{background:var(--gradient);color:#fff;text-align:center}
 .s8 .gc.rules h3{color:#fff;justify-content:center}.s8 .gc.rules h3 .dot{background:#fff}.s8 .gc.rules p{color:rgba(255,255,255,.95)}
-
-/* S9 瀑布流 */
-.s9{background:var(--light);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);overflow:hidden}
-.s9 .waterfall-header{padding:20px 20px 12px}
-.s9 .waterfall-header h1{font-size:20px;font-weight:700;color:var(--text)}
-.s9 .waterfall-header p{font-size:13px;color:#666;margin-top:4px}
-.s9 .waterfall-cols{column-count:2;column-gap:14px;padding:0 14px 16px}
-.s9 .wf-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;break-inside:avoid;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden}
-.s9 .wf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient)}
-.s9 .wf-card h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px}
-.s9 .wf-card p{font-size:12px;color:#555;line-height:1.7}
-.s9 .wf-card ul{list-style:none;padding:0;margin:0}.s9 .wf-card ul li{font-size:12px;color:#555;padding:3px 0;line-height:1.6}.s9 .wf-card ul li::before{content:"● ";color:var(--primary);font-size:8px}
-.s9 .wf-card.rules-card{background:var(--gradient);color:#fff;column-span:all;break-inside:avoid}
-.s9 .wf-card.rules-card::before{display:none}
-.s9 .wf-card.rules-card h3{color:#fff}.s9 .wf-card.rules-card ul li{color:rgba(255,255,255,.95)}.s9 .wf-card.rules-card ul li::before{color:#fff}
-.s9 .wf-card.rules-card p{color:rgba(255,255,255,.95)}
-
-/* S10 时间线日志 */
-.s10{background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
-.s10 .log-banner{background:var(--light);padding:18px 22px;border-radius:10px;margin-bottom:20px}
-.s10 .log-banner h1{font-size:20px;font-weight:700;color:var(--text)}
-.s10 .log-banner p{font-size:13px;color:#666;margin-top:4px}
-.s10 .log-timeline{padding-left:24px;border-left:3px solid var(--primary);margin-left:14px}
-.s10 .log-entry{position:relative;padding:0 0 20px 24px}
-.s10 .log-entry:last-child{padding-bottom:0}
-.s10 .log-entry::before{content:'';position:absolute;left:-29px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid var(--light);box-sizing:content-box}
-.s10 .log-entry h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px}
-.s10 .log-entry p{font-size:13px;color:#555;line-height:1.7}
-.s10 .log-entry .log-time{display:inline-block;background:var(--primary);color:#fff;font-size:11px;padding:2px 10px;border-radius:10px;margin-right:6px;margin-bottom:4px}
-.s10 .log-footer{margin-top:20px;padding:14px 18px;background:var(--gradient);border-radius:10px;color:#fff;text-align:center}
-.s10 .log-footer h4{font-size:14px;margin-bottom:4px}.s10 .log-footer p{font-size:13px;opacity:.95}
-
-/* S11 数据仪表盘 */
-.s11{background:#f8f9fa;border-radius:var(--radius);padding:0;box-shadow:var(--shadow);overflow:hidden}
-.s11 .dash-header{background:linear-gradient(135deg,#2d2d3a,#1a1a2e);padding:22px;color:#fff;border-radius:var(--radius) var(--radius) 0 0}
-.s11 .dash-header h1{font-size:20px;font-weight:700}.s11 .dash-header p{opacity:.7;margin-top:4px;font-size:13px}
-.s11 .dash-stats{display:flex;gap:12px;padding:16px}
-.s11 .dash-stat{flex:1;background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.s11 .dash-stat .num{font-size:24px;font-weight:700;color:var(--primary)}.s11 .dash-stat .label{font-size:11px;color:#666;margin-top:4px}
-.s11 .dash-cards{padding:0 16px 16px}
-.s11 .dash-card{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.s11 .dash-card h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:10px}
-.s11 .dash-row{margin-bottom:8px}.s11 .dash-row:last-child{margin-bottom:0}
-.s11 .dash-row .row-label{font-size:12px;color:#555;margin-bottom:4px}
-.s11 .dash-row .row-bar{height:8px;background:#eee;border-radius:4px;overflow:hidden}
-.s11 .dash-row .row-fill{height:100%;background:var(--gradient);border-radius:4px;transition:width .3s}
-.s11 .dash-card.rules-card{background:var(--gradient);color:#fff}
-.s11 .dash-card.rules-card h3{color:#fff}.s11 .dash-card.rules-card p{color:rgba(255,255,255,.95);font-size:13px;line-height:1.7}
-
-/* S12 手绘涂鸦风 */
-.s12{background:var(--light);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);position:relative}
-.s12 .doodle-wrap{background:#fffef5;border:2px solid #333;border-radius:255px 15px 225px 15px/15px 225px 15px 255px;padding:28px 22px;position:relative}
-.s12 .doodle-wrap h1{font-family:'Comic Sans MS','Chalkboard SE',cursive;font-size:22px;text-align:center;margin-bottom:20px;color:var(--text)}
-.s12 .doodle-sec{border-bottom:2px dashed #aaa;padding-bottom:14px;margin-bottom:14px}
-.s12 .doodle-sec:last-of-type{border-bottom:none;margin-bottom:0}
-.s12 .doodle-sec h3{font-family:'Comic Sans MS','Chalkboard SE',cursive;font-size:15px;color:var(--primary);margin-bottom:8px}
-.s12 .doodle-sec p{font-size:13px;color:#555;line-height:1.8;font-style:italic}
-.s12 .doodle-sec ul{list-style:none;padding:0;margin:0}.s12 .doodle-sec ul li{font-size:13px;color:#555;line-height:1.8;font-style:italic;padding:2px 0}.s12 .doodle-sec ul li::before{content:"□ ";color:var(--primary)}
-.s12 .doodle-sticky{position:absolute;top:12px;right:14px;width:80px;padding:10px 8px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 6px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#444;line-height:1.5;z-index:2}
-.s12 .doodle-footer{margin-top:16px;text-align:center;font-family:'Comic Sans MS','Chalkboard SE',cursive;font-size:14px;color:var(--primary);font-style:italic}
-
-/* S13 思维导图 */
-.s13{background:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);background-image:radial-gradient(#ddd 1px,transparent 1px);background-size:20px 20px}
-.s13 .mm-header{text-align:center;margin-bottom:20px}
-.s13 .mm-header h1{font-size:22px;font-weight:700;color:var(--text)}
-.s13 .mm-header p{font-size:13px;color:#888;margin-top:4px}
-.s13 .mm-root{background:var(--gradient);color:#fff;padding:16px 24px;border-radius:14px;text-align:center;margin:0 auto 20px;max-width:280px;box-shadow:0 4px 16px rgba(232,69,124,.2)}
-.s13 .mm-root h2{font-size:18px;font-weight:700}
-.s13 .mm-branch{padding-left:20px;border-left:3px solid var(--primary);margin-bottom:0}
-.s13 .mm-branch:last-child{margin-bottom:0}
-.s13 .mm-node{margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.s13 .mm-branch:last-child .mm-node{margin-bottom:0}
-.s13 .mm-node h3{font-size:14px;margin-bottom:6px;font-weight:700}
-.s13 .mm-node p{font-size:13px;color:#555;line-height:1.7}
-.s13 .mm-node ul{list-style:none;padding:0;margin:0}
-.s13 .mm-node ul li{font-size:13px;color:#555;line-height:1.8;padding:2px 0}
-.s13 .mm-node ul li::before{content:"▸ ";color:var(--primary)}
-.s13 .mm-schedule .mm-sched-item{display:flex;align-items:baseline;gap:8px;padding:4px 0}
-.s13 .mm-schedule .mm-sched-time{font-size:13px;font-weight:700;color:var(--primary);min-width:60px}
-.s13 .mm-schedule .mm-sched-act{font-size:13px;color:#555}
-
-/* S14 暗色模式 */
-.s14{background:#1a1a2e;border-radius:var(--radius);padding:0;box-shadow:var(--shadow);overflow:hidden}
-.s14 .dark-hero{background:linear-gradient(135deg,#2d2d5e,#1a1a3e);padding:28px;border-radius:12px 12px 0 0;position:relative;overflow:hidden}
-.s14 .dark-hero .glow-tr{position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:rgba(232,69,124,.1)}
-.s14 .dark-hero .glow-bl{position:absolute;bottom:-20px;left:-10px;width:80px;height:80px;border-radius:50%;background:rgba(99,102,241,.08)}
-.s14 .dark-hero h1{font-size:24px;font-weight:700;color:#fff;position:relative}
-.s14 .dark-hero p{color:#8888aa;margin-top:6px;font-size:13px;position:relative}
-.s14 .dark-body{background:#1a1a2e;padding:20px}
-.s14 .dark-card{background:#252540;border-radius:12px;padding:18px 20px;margin-bottom:14px;border:1px solid #333355;position:relative;overflow:hidden}
-.s14 .dark-card:last-child{margin-bottom:0}
-.s14 .dark-card .top-line{position:absolute;top:0;left:0;right:0;height:2px}
-.s14 .dark-card h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid var(--primary);padding-left:10px}
-.s14 .dark-card p{font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px}
-.s14 .dark-card ul{list-style:none;padding:0;margin:0;padding-left:13px}
-.s14 .dark-card ul li{font-size:13px;color:#c8c8d4;line-height:1.8;padding:2px 0}
-.s14 .dark-card ul li::before{content:"▸ ";opacity:.7}
-
-/* S15 渐变卡片 */
-.s15{background:#f0f0f5;border-radius:var(--radius);padding:0;box-shadow:var(--shadow);overflow:hidden}
-.s15 .gc15-hero{text-align:center;padding:24px 20px 16px}
-.s15 .gc15-hero h1{font-size:22px;color:#333;font-weight:700}
-.s15 .gc15-hero p{font-size:13px;color:#888;margin-top:4px}
-.s15 .gc15-divider{width:40px;height:3px;background:var(--gradient);margin:0 auto 16px;border-radius:2px}
-.s15 .gc15-body{padding:0 16px 16px;display:flex;flex-direction:column;gap:14px}
-.s15 .gc15-card{border-radius:14px;padding:18px;color:#fff;position:relative;overflow:hidden}
-.s15 .gc15-card .gc15-deco{position:absolute;top:-10px;right:-10px;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.15)}
-.s15 .gc15-card h3{font-size:16px;font-weight:700;margin-bottom:10px;position:relative}
-.s15 .gc15-card p{font-size:13px;opacity:.9;line-height:1.7;position:relative}
-.s15 .gc15-trunc{font-size:11px;opacity:.7;margin-top:6px;position:relative}
-
-/* S16 便签/报事贴 */
-.s16{background:linear-gradient(135deg,#c9b99a,#d4c4a8,#b8a88a);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);overflow:hidden;position:relative}
-.s16::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 19px,rgba(0,0,0,.03) 19px,rgba(0,0,0,.03) 20px),repeating-linear-gradient(90deg,transparent,transparent 19px,rgba(0,0,0,.03) 19px,rgba(0,0,0,.03) 20px);pointer-events:none}
-.s16 .note16-hero{text-align:center;margin-bottom:16px;position:relative;padding:20px 16px 8px}
-.s16 .note16-hero .pin{display:inline-block;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#e8457c,#ff6b8a);box-shadow:0 2px 6px rgba(0,0,0,.2);margin:0 3px;vertical-align:middle}
-.s16 .note16-hero .pin::after{content:'';display:block;width:2px;height:8px;background:#999;margin:0 auto;border-radius:1px}
-.s16 .note16-hero h1{font-size:22px;color:#333;font-weight:700;margin-top:4px}
-.s16 .note16-hero p{font-size:13px;color:#6b5e50;margin-top:4px;font-style:italic}
-.s16 .note16-body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px;position:relative}
-.s16 .note16-card{border-radius:2px;padding:18px 16px 18px 20px;box-shadow:2px 4px 12px rgba(0,0,0,.12);position:relative;overflow:hidden}
-.s16 .note16-card .note16-fold{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 18px 18px 0;border-color:transparent #c9b99a transparent #c9b99a}
-.s16 .note16-card h3{font-size:15px;margin-bottom:8px;font-style:italic;color:#333}
-.s16 .note16-card p{font-size:13px;color:#555;line-height:1.7;font-style:italic}
-.s16 .note16-trunc{font-size:11px;color:#888;margin-top:6px;font-style:italic}
-
-/* S17 复古报纸 */
-.s17{background:#f5f0e1;border-radius:0;padding:0;font-family:'Noto Serif SC','SimSun','Times New Roman',serif}
-.s17 .news-masthead{border-top:4px double #333;border-bottom:4px double #333;padding:14px 0;text-align:center}
-.s17 .news-masthead h1{font-size:22px;font-weight:900;letter-spacing:4px;text-transform:uppercase;font-family:'Times New Roman',serif}
-.s17 .news-date{text-align:center;padding-bottom:8px;border-bottom:1px dashed #999;font-size:11px;color:#777;font-style:italic;font-family:'Times New Roman',serif}
-.s17 .news-columns{font-family:'Times New Roman',serif;padding:0 16px 16px;column-count:2;column-gap:20px}
-.s17 .news-sec{margin-bottom:14px;border-top:3px solid #333;padding-top:10px;break-inside:avoid}
-.s17 .news-sec h3{font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px;text-transform:uppercase}
-.s17 .news-sec p{font-size:13px;color:#444;line-height:1.8}
-.s17 .news-sec.rules-sec{border:2px solid #333;background:rgba(192,57,43,.05);padding:12px 14px;text-align:center}
-.s17 .news-sec.rules-sec h3{color:#c0392b;font-size:15px;border:none;padding:0;letter-spacing:4px}
-.s17 .news-sec.rules-sec p{font-size:13px;color:#333;font-weight:600}
-
-/* S18 社交媒体 - 小红书/朋友圈风格 */
-.s18{background:#fafafa}
-.s18 .social-header{text-align:center;padding:16px;border-bottom:1px solid #eee;margin-bottom:16px}
-.s18 .social-header h1{font-size:20px;font-weight:700;color:#333}
-.s18 .social-header p{font-size:12px;color:#999;margin-top:2px}
-.s18 .social-stats{display:flex;justify-content:center;gap:24px;margin-bottom:16px;padding:10px 0;border-bottom:1px solid #eee}
-.s18 .social-stat-item{text-align:center}
-.s18 .social-stat-item .num{font-size:22px;font-weight:700;color:var(--primary)}
-.s18 .social-stat-item .label{font-size:11px;color:#999}
-.s18 .social-feed{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 16px 16px}
-.s18 .social-card{border-radius:12px;padding:16px;box-shadow:0 1px 6px rgba(0,0,0,.06);border:1px solid #f0f0f0;position:relative;overflow:hidden}
-.s18 .social-card .avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;margin-bottom:10px}
-.s18 .social-card .name{font-size:14px;font-weight:700;color:#333;margin-bottom:6px}
-.s18 .social-card .time{font-size:11px;color:#bbb;position:absolute;top:12px;right:14px}
-.s18 .social-card .content{font-size:13px;color:#555;line-height:1.7}
-.s18 .social-card .actions{display:flex;gap:16px;margin-top:12px;padding-top:10px;border-top:1px solid #f0f0f0}
-.s18 .social-card .actions span{font-size:12px;color:#999;display:flex;align-items:center;gap:4px}
-.s18 .social-card .actions .tag{color:var(--primary);font-size:11px}
-.s18 .social-rules{background:#fff;border-radius:12px;padding:16px;border:1px dashed #e8457c;text-align:center;margin-bottom:12px}
-.s18 .social-rules h3{font-size:15px;margin-bottom:6px;color:#333}
-.s18 .social-rules p{font-size:13px;color:#555;line-height:1.7}
-.s18 .dark .social-card{border-color:#333}
-.s18 .dark .social-card .name{color:#eee}
-.s18 .dark .social-card .content{color:#bbb}
-.s18 .dark .social-card .time{color:#777}
-.s18 .dark .social-card .actions span{color:#666}
 
 .editor-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
 .editor-panel h3{font-size:15px;font-weight:700;color:#333;margin-bottom:12px}
 .editor-panel textarea{width:100%;height:180px;border:2px solid #e8e8e8;border-radius:10px;padding:14px;font-size:14px;font-family:var(--font);line-height:1.8;color:#333;resize:vertical;outline:none}
 .editor-panel textarea:focus{border-color:var(--primary)}
-.editor-panel .hint{font-size:12px;color:#444;margin-top:8px}
-.btn-row{display:flex;align-items:center;gap:10px;margin-top:14px}
-.btn-row #genBtn{padding:11px 28px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);background:var(--gradient);color:#fff;box-shadow:0 3px 12px rgba(232,69,124,.3);transition:all .15s}
-.btn-row #genBtn:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(232,69,124,.4)}
-.btn-row #genBtn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.btn-row #genStatus{display:none;font-size:13px;color:#888;font-weight:500;white-space:nowrap}
-.btn-row #genStatus.show{display:inline-flex;align-items:center;gap:6px;animation:pulse 1.2s infinite}
-.btn-row #genCancel{display:none;padding:9px 18px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);background:#fff;color:#888;white-space:nowrap;transition:all .15s}
-.btn-row #genCancel:hover{border-color:#ef4444;color:#ef4444;background:#fef2f2}
+.editor-panel .hint{font-size:12px;color:#999;margin-top:8px}
+.btn-row{display:flex;gap:10px;margin-top:14px}
+.btn-row button{padding:10px 24px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:var(--gradient);color:#fff}
 .export-bar{display:flex;gap:10px;margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);align-items:center}
 .export-bar button{padding:8px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);color:#fff;background:var(--gradient)}
 .export-bar .btn-all{background:#4f6df5}
-.export-bar .info{font-size:12px;color:#444;margin-left:auto}
+.export-bar .info{font-size:12px;color:#999;margin-left:auto}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}transform:scale(1.02)}
+
+/* ========== 竞品对比样式 ========== */
+.cmp-style-btn{padding:6px 14px;border:2px solid #e0e0e0;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font);color:#666;white-space:nowrap}
+.cmp-style-btn:hover{border-color:var(--primary);color:var(--primary)}
+.cmp-style-btn.active{background:var(--gradient);color:#fff;border-color:transparent}
+.cmp-btn-row{display:flex;gap:10px;margin-top:10px}
+.cmp-btn-row button{padding:10px 20px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);color:#fff;background:linear-gradient(135deg,#4f6df5,#818cf8)}
+.cmp-btn-row button:hover{opacity:.9}
+.cmp-btn-row button.active{box-shadow:0 0 0 3px rgba(79,109,245,.3)}
+/* 竞品对比基础 */
+.c-base{background:var(--light);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
+.c-base .c-hero{background:var(--gradient);border-radius:12px;padding:28px 24px;color:#fff;text-align:center;margin-bottom:24px}
+.c-base .c-hero h1{font-size:22px;font-weight:700;margin-bottom:8px}
+.c-base .c-hero p{font-size:13px;opacity:.9}
+.c-base .c-products{display:flex;justify-content:center;gap:16px;margin-top:14px;flex-wrap:wrap}
+.c-base .c-prod-tag{padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;color:#fff}
+.c-base .c-dim-title{font-size:16px;font-weight:700;color:var(--text);margin:20px 0 12px;padding-left:12px;border-left:4px solid var(--primary);display:flex;align-items:center;gap:8px}
+.c-base .c-dim-block{background:#fff;border-radius:12px;padding:16px 18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.c-base .c-dim-block.highlight{border:2px solid var(--primary);box-shadow:0 0 12px rgba(232,69,124,.2)}
+.c-base .c-metric-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f5f5f5}
+.c-base .c-metric-row:last-child{border-bottom:none}
+.c-base .c-metric-name{font-size:13px;color:#555;min-width:80px;flex-shrink:0}
+.c-base .c-metric-val{font-size:13px;color:#333;font-weight:600;flex:1;text-align:right}
+.c-base .c-winner{color:var(--primary)!important;font-weight:700!important}
+/* 条形图版 */
+.c-bar .c-bar-wrap{margin-bottom:6px}
+.c-bar .c-bar-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px}
+.c-bar .c-bar-label .name{color:#666}.c-bar .c-bar-label .val{color:#333;font-weight:600}
+.c-bar .c-bar-track{height:22px;background:#f0f0f0;border-radius:11px;overflow:hidden;position:relative}
+.c-bar .c-bar-fill{height:100%;border-radius:11px;transition:width .3s;min-width:4px}
+.c-bar .c-bar-fill.best::after{content:'🏆';position:absolute;right:-20px;top:0;font-size:14px;line-height:22px}
+/* 表格版 */
+.c-table-wrap{overflow-x:auto;margin-bottom:14px}
+.c-table-wrap table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+.c-table-wrap th{padding:12px 14px;font-size:13px;font-weight:700;text-align:center;color:#fff}
+.c-table-wrap td{padding:10px 14px;font-size:13px;border-bottom:1px solid #f0f0f0;text-align:center;color:#555}
+.c-table-wrap td:first-child{text-align:left;font-weight:600;color:#333}
+.c-table-wrap tr:last-child td{border-bottom:none}
+.c-table-wrap .best-cell{font-weight:700;color:var(--primary);position:relative}
+.c-table-wrap .best-cell::before{content:'✅ '}
+/* 评分卡版 */
+.c-score .c-ring-wrap{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;justify-content:center}
+.c-score .c-ring-item{text-align:center;min-width:100px}
+.c-score .c-ring{width:80px;height:80px;border-radius:50%;margin:0 auto 6px;position:relative;display:flex;align-items:center;justify-content:center}
+.c-score .c-ring-bg{position:absolute;inset:0;border-radius:50%;background:#f0f0f0}
+.c-score .c-ring-fg{position:absolute;inset:0;border-radius:50%}
+.c-score .c-ring-inner{position:absolute;inset:8px;border-radius:50%;background:var(--light)}
+.c-score .c-ring .score-num{position:relative;z-index:1;font-size:18px;font-weight:700;color:var(--text)}
+.c-score .c-ring .score-lbl{font-size:11px;color:#888}
+.c-score .c-rank-bar{background:var(--gradient);border-radius:12px;padding:18px;color:#fff;text-align:center;margin-top:16px}
+.c-score .c-rank-bar h4{font-size:15px;margin-bottom:8px}
+.c-score .c-rank-item{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0;font-size:13px}
+.c-score .c-rank-medal{font-size:18px}
+/* 全能对比版 */
+.c-full .c-full-sec{margin-bottom:20px}
+.c-full .c-full-sec-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.c-full .c-full-sec-title::before{content:'';width:4px;height:16px;background:var(--gradient);border-radius:2px}
 </style>
 </head>
 <body>
@@ -389,10 +268,10 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
   <h3>📝 粘贴你的内容，快速预览排版效果</h3>
   <textarea id="inputText" placeholder="在这里粘贴你的内容..."></textarea>
   <div class="hint">当前展示为精细排版示例。粘贴新内容可用通用模板快速预览，精细排版请联系墨痕-编程。</div>
-  <div class="btn-row"><button id="genBtn" onclick="generate()">✨ AI智能生成</button><span id="genStatus">⚡ 生成中...</span><button id="genCancel" onclick="cancelGenerate()">✕ 取消</button></div>
+  <div class="btn-row" style="position:relative"><button id="genBtn" onclick="generate()">🖼️ 排版生成</button><button id="cmpBtn" onclick="generateCompare()">⚔️ 竞品对比生成</button><span id="genStatus" style="display:none;position:absolute;top:100%;left:0;right:0;text-align:center;color:#fff;background:linear-gradient(90deg,#e8457c,#ff8fab);padding:10px 0;font-weight:700;font-size:18px;border-radius:0 0 8px 8px;letter-spacing:2px;animation:pulse 1s infinite">⚡ 生成中，请稍候...</span></div>
 </div>
 <div class="controls">
-  <div class="style-btns">
+  <div id="normStyleBtns" class="style-btns">
     <button class="style-btn active" data-s="1">经典卡片</button>
     <button class="style-btn" data-s="2">时间轴</button>
     <button class="style-btn" data-s="3">大卡片</button>
@@ -401,16 +280,12 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <button class="style-btn" data-s="6">笔记本</button>
     <button class="style-btn" data-s="7">信息图</button>
     <button class="style-btn" data-s="8">网格布局</button>
-    <button class="style-btn" data-s="9">瀑布流</button>
-    <button class="style-btn" data-s="10">日志</button>
-    <button class="style-btn" data-s="11">仪表盘</button>
-    <button class="style-btn" data-s="12">涂鸦</button>
-    <button class="style-btn" data-s="13">思维导图</button>
-    <button class="style-btn" data-s="14">暗色模式</button>
-    <button class="style-btn" data-s="15">渐变卡片</button>
-    <button class="style-btn" data-s="16">便签</button>
-    <button class="style-btn" data-s="17">复古报纸</button>
-    <button class="style-btn" data-s="18">社交媒体</button>
+  </div>
+  <div id="cmpStyleBtns" class="style-btns" style="display:none">
+    <button class="cmp-style-btn active" data-cs="1">条形图版</button>
+    <button class="cmp-style-btn" data-cs="2">表格版</button>
+    <button class="cmp-style-btn" data-cs="3">评分卡版</button>
+    <button class="cmp-style-btn" data-cs="4">全能对比版</button>
   </div>
   <div class="color-dots">
     <div class="color-dot active" data-c="pink" title="暖阳粉"></div>
@@ -424,8 +299,8 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 </div>
 <div class="export-bar">
   <button onclick="exportCurrent()">📸 下载当前风格</button>
-  <button class="btn-all" onclick="exportAll()">📦 下载全部18种</button>
-  <span class="info" id="exportInfo">精细排版示例 · 18种风格 · 6种配色</span>
+  <button class="btn-all" onclick="exportAll()">📦 下载全部8种</button>
+  <span class="info" id="exportInfo">精细排版示例 · 8种风格 · 6种配色</span>
 </div>
 <div id="contentArea">
 <div class="content active s1">
@@ -628,123 +503,68 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <div class="gc full rules"><h3><span class="dot"></span>4月必胜</h3><p>抓住焦虑，给足方案！AI课程卖的是安全感。</p></div>
   </div>
 </div>
-
-<div class="content s9">
-  <div class="waterfall-header"><h1>AI时代学习路线</h1><p style="color:#666;margin-top:4px">从入门到精通</p></div>
-  <div style="column-count:2;column-gap:14px;padding:0 14px 16px">
-    <div style="background:#fff;border-radius:10px;padding:16px;margin-bottom:14px;break-inside:avoid;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden"><div style="height:3px;background:var(--gradient);position:absolute;top:0;left:0;right:0;border-radius:10px 10px 0 0"></div><h3 style="font-size:15px;margin-bottom:8px">📚 基础入门</h3><p style="font-size:13px;color:#555;line-height:1.7">● Python 语法基础<br>● 数据结构入门<br>● 算法思维培养</p></div>
-    <div style="background:#fff;border-radius:10px;padding:16px;margin-bottom:14px;break-inside:avoid;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden"><div style="height:3px;background:var(--gradient);position:absolute;top:0;left:0;right:0;border-radius:10px 10px 0 0"></div><h3 style="font-size:15px;margin-bottom:8px">🎯 进阶提升</h3><p style="font-size:13px;color:#555;line-height:1.7">● 机器学习算法<br>● 深度学习框架<br>● 项目实战练习<br>● 论文阅读与复现</p></div>
-    <div style="background:#fff;border-radius:10px;padding:12px;margin-bottom:14px;break-inside:avoid;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden"><div style="height:3px;background:var(--gradient);position:absolute;top:0;left:0;right:0;border-radius:10px 10px 0 0"></div><h3 style="font-size:15px;margin-bottom:6px">🚀 高级应用</h3><p style="font-size:13px;color:#555;line-height:1.7">● 模型部署上线<br>● 系统架构设计</p></div>
-    <div style="background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;break-inside:avoid;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden"><div style="height:3px;background:var(--gradient);position:absolute;top:0;left:0;right:0;border-radius:10px 10px 0 0"></div><h3 style="font-size:15px;margin-bottom:8px">💡 学习技巧</h3><p style="font-size:13px;color:#555;line-height:1.7">费曼学习法</p></div>
+<!-- 竞品对比示例（默认隐藏） -->
+<div class="content c1 c-base" style="display:none">
+  <div class="c-hero"><h1>⚔️ 云数据库竞品对比</h1>
+  <div class="c-products"><span class="c-prod-tag" style="background:#e8457c">华为云GaussDB</span><span class="c-prod-tag" style="background:#94a3b8">阿里云PolarDB</span><span class="c-prod-tag" style="background:#a8a29e">AWS Aurora</span></div></div>
+  <div class="c-dim-title">⚡ 核心性能</div>
+  <div class="c-dim-block highlight">
+    <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#e8457c">华为云GaussDB</span><span class="val">150万QPS 🏆</span></div><div class="c-bar-track"><div class="c-bar-fill best" style="width:95%;background:#e8457c"></div></div></div>
+    <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#94a3b8">阿里云PolarDB</span><span class="val">100万QPS</span></div><div class="c-bar-track"><div class="c-bar-fill" style="width:63%;background:#94a3b8"></div></div></div>
+    <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#a8a29e">AWS Aurora</span><span class="val">80万QPS</span></div><div class="c-bar-track"><div class="c-bar-fill" style="width:50%;background:#a8a29e"></div></div></div>
+    <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#e8457c">华为云GaussDB</span><span class="val">2ms 🏆</span></div><div class="c-bar-track"><div class="c-bar-fill best" style="width:95%;background:#e8457c"></div></div></div>
+    <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#94a3b8">阿里云PolarDB</span><span class="val">5ms</span></div><div class="c-bar-track"><div class="c-bar-fill" style="width:60%;background:#94a3b8"></div></div></div>
+    <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#a8a29e">AWS Aurora</span><span class="val">8ms</span></div><div class="c-bar-track"><div class="c-bar-fill" style="width:40%;background:#a8a29e"></div></div></div>
   </div>
+  <div class="c-dim-title">💰 价格方案</div>
+  <div class="c-dim-block highlight">
+    <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#e8457c">华为云GaussDB</span><span class="val">¥0.92/小时 🏆</span></div><div class="c-bar-track"><div class="c-bar-fill best" style="width:90%;background:#e8457c"></div></div></div>
+    <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#94a3b8">阿里云PolarDB</span><span class="val">¥1.36/小时</span></div><div class="c-bar-track"><div class="c-bar-fill" style="width:60%;background:#94a3b8"></div></div></div>
+    <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#a8a29e">AWS Aurora</span><span class="val">¥2.10/小时</span></div><div class="c-bar-track"><div class="c-bar-fill" style="width:38%;background:#a8a29e"></div></div></div>
+  </div>
+  <div class="c-dim-title">🛡️ 服务支持</div>
+  <div class="c-dim-block">
+    <div class="c-metric-row"><div class="c-metric-name">7x24支持</div><div style="display:flex;flex:1;justify-content:space-around"><span class="c-metric-val" style="color:#e8457c" class="c-winner">✅ 专属 🏆</span><span class="c-metric-val" style="color:#94a3b8">工单</span><span class="c-metric-val" style="color:#a8a29e">工单</span></div></div>
+    <div class="c-metric-row"><div class="c-metric-name">SLA保障</div><div style="display:flex;flex:1;justify-content:space-around"><span class="c-metric-val" style="color:#e8457c">99.99%</span><span class="c-metric-val" style="color:#94a3b8">99.95%</span><span class="c-metric-val" style="color:#a8a29e">99.99%</span></div></div>
+    <div class="c-metric-row"><div class="c-metric-name">数据驻留</div><div style="display:flex;flex:1;justify-content:space-around"><span class="c-metric-val" style="color:#e8457c" class="c-winner">境内 🏆</span><span class="c-metric-val" style="color:#94a3b8">境内</span><span class="c-metric-val" style="color:#a8a29e">境外</span></div></div>
+  </div>
+  <div class="c-score c-rank-bar"><h4>🏆 综合排名</h4><div class="c-rank-item"><span class="c-rank-medal">🥇</span><span style="font-weight:600">华为云GaussDB</span><span>92分</span></div><div class="c-rank-item"><span class="c-rank-medal">🥈</span><span style="font-weight:600">AWS Aurora</span><span>78分</span></div><div class="c-rank-item"><span class="c-rank-medal">🥉</span><span style="font-weight:600">阿里云PolarDB</span><span>71分</span></div></div>
 </div>
-
-<div class="content s10">
-  <div style="background:var(--light);padding:18px 22px;border-radius:10px;margin-bottom:20px"><h1>本周工作日志</h1><p style="color:#666;margin-top:4px">2025.3.17 - 2025.3.21</p></div>
-  <div style="padding-left:24px;border-left:3px solid var(--primary);margin-left:14px">
-    <div style="position:relative;padding:0 0 20px 24px"><div style="position:absolute;left:-29px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid var(--light)"></div><h3 style="font-size:15px;margin-bottom:6px">周一 · 项目启动</h3><p style="font-size:13px;color:#555;line-height:1.7">● 完成需求文档评审<br>● 确认技术方案<br>● 搭建开发环境</p></div>
-    <div style="position:relative;padding:0 0 20px 24px"><div style="position:absolute;left:-29px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid var(--light)"></div><h3 style="font-size:15px;margin-bottom:6px">周三 · 核心开发</h3><p style="font-size:13px;color:#555;line-height:1.7">● 完成用户模块开发<br>● 接口联调<br>● 代码审查</p></div>
-    <div style="position:relative;padding:0 0 0 24px"><div style="position:absolute;left:-29px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid var(--light)"></div><h3 style="font-size:15px;margin-bottom:6px">周五 · 测试上线</h3><p style="font-size:13px;color:#555;line-height:1.7">● 完成单元测试<br>● 部署到测试环境<br>● 提交验收报告</p></div>
-  </div>
+<div class="content c2 c-base" style="display:none">
+  <div class="c-hero"><h1>📊 云数据库竞品对比</h1>
+  <div class="c-products"><span class="c-prod-tag" style="background:#e8457c">华为云GaussDB</span><span class="c-prod-tag" style="background:#94a3b8">阿里云PolarDB</span><span class="c-prod-tag" style="background:#a8a29e">AWS Aurora</span></div></div>
+  <div class="c-dim-title">⚡ 核心性能</div>
+  <div class="c-table-wrap"><table><thead><tr><th style="background:#888">指标</th><th style="background:#e8457c">华为云</th><th style="background:#94a3b8">阿里云</th><th style="background:#a8a29e">AWS</th></tr></thead><tbody>
+    <tr style="background:#fff8f0"><td>QPS</td><td class="best-cell">150万 🏆</td><td>100万</td><td>80万</td></tr>
+    <tr style="background:#fff8f0"><td>延迟</td><td class="best-cell">2ms 🏆</td><td>5ms</td><td>8ms</td></tr>
+  </tbody></table></div>
+  <div class="c-dim-title">💰 价格方案</div>
+  <div class="c-table-wrap"><table><thead><tr><th style="background:#888">指标</th><th style="background:#e8457c">华为云</th><th style="background:#94a3b8">阿里云</th><th style="background:#a8a29e">AWS</th></tr></thead><tbody>
+    <tr style="background:#fff8f0"><td>基础版</td><td class="best-cell">¥0.92/时 🏆</td><td>¥1.36/时</td><td>¥2.10/时</td></tr>
+  </tbody></table></div>
+  <div class="c-dim-title">🛡️ 服务支持</div>
+  <div class="c-table-wrap"><table><thead><tr><th style="background:#888">指标</th><th style="background:#e8457c">华为云</th><th style="background:#94a3b8">阿里云</th><th style="background:#a8a29e">AWS</th></tr></thead><tbody>
+    <tr><td>7x24支持</td><td class="best-cell">✅ 专属</td><td>工单</td><td>工单</td></tr>
+    <tr><td>SLA</td><td>99.99%</td><td>99.95%</td><td>99.99%</td></tr>
+  </tbody></table></div>
+  <div class="c-score c-rank-bar"><h4>🏆 综合排名</h4><div class="c-rank-item"><span class="c-rank-medal">🥇</span><span style="font-weight:600">华为云GaussDB</span><span>92分</span></div><div class="c-rank-item"><span class="c-rank-medal">🥈</span><span style="font-weight:600">AWS Aurora</span><span>78分</span></div><div class="c-rank-item"><span class="c-rank-medal">🥉</span><span style="font-weight:600">阿里云PolarDB</span><span>71分</span></div></div>
 </div>
-
-<div class="content s11">
-  <div style="background:linear-gradient(135deg,#2d2d3a,#1a1a2e);padding:22px;color:#fff;border-radius:12px 12px 0 0"><h1>季度业绩看板</h1><p style="opacity:.7;margin-top:4px">2025 Q1</p></div>
-  <div style="display:flex;gap:12px;padding:16px">
-    <div style="flex:1;background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)"><div style="font-size:24px;font-weight:700;color:var(--primary)">5</div><div style="font-size:11px;color:#666;margin-top:4px">核心指标</div></div>
-    <div style="flex:1;background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)"><div style="font-size:24px;font-weight:700;color:var(--primary)">18</div><div style="font-size:11px;color:#666;margin-top:4px">关键任务</div></div>
-    <div style="flex:1;background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)"><div style="font-size:24px;font-weight:700;color:var(--primary)">85%</div><div style="font-size:11px;color:#666;margin-top:4px">目标达成</div></div>
-  </div>
-  <div style="padding:0 16px 16px">
-    <div style="background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)"><h3 style="font-size:14px;margin-bottom:10px">📈 销售额</h3><div style="margin-bottom:8px"><div style="font-size:12px;color:#555;margin-bottom:4px">线上渠道</div><div style="height:8px;background:#eee;border-radius:4px"><div style="height:100%;width:85%;background:var(--gradient);border-radius:4px"></div></div></div><div><div style="font-size:12px;color:#555;margin-bottom:4px">线下渠道</div><div style="height:8px;background:#eee;border-radius:4px"><div style="height:100%;width:60%;background:var(--gradient);border-radius:4px"></div></div></div></div>
-    <div style="background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)"><h3 style="font-size:14px;margin-bottom:10px">👥 客户增长</h3><div style="margin-bottom:8px"><div style="font-size:12px;color:#555;margin-bottom:4px">新客户</div><div style="height:8px;background:#eee;border-radius:4px"><div style="height:100%;width:72%;background:var(--gradient);border-radius:4px"></div></div></div><div><div style="font-size:12px;color:#555;margin-bottom:4px">复购客户</div><div style="height:8px;background:#eee;border-radius:4px"><div style="height:100%;width:45%;background:var(--gradient);border-radius:4px"></div></div></div></div>
-  </div>
+<div class="content c3 c-base" style="display:none">
+  <div class="c-hero"><h1>🏆 云数据库竞品对比</h1>
+  <div class="c-products"><span class="c-prod-tag" style="background:#e8457c">华为云GaussDB</span><span class="c-prod-tag" style="background:#94a3b8">阿里云PolarDB</span><span class="c-prod-tag" style="background:#a8a29e">AWS Aurora</span></div></div>
+  <div class="c-score c-rank-bar"><h4>📊 综合排名</h4><div class="c-rank-item"><span class="c-rank-medal">🥇</span><span style="font-weight:600">华为云GaussDB</span><span>92分</span></div><div class="c-rank-item"><span class="c-rank-medal">🥈</span><span style="font-weight:600">AWS Aurora</span><span>78分</span></div><div class="c-rank-item"><span class="c-rank-medal">🥉</span><span style="font-weight:600">阿里云PolarDB</span><span>71分</span></div></div>
 </div>
-
-<div class="content s12">
-  <div style="background:#fffef5;border:2px solid #333;border-radius:255px 15px 225px 15px/15px 225px 15px 255px;padding:24px 22px;position:relative">
-    <h1 style="font-family:'Comic Sans MS',cursive;font-size:22px;text-align:center;margin-bottom:18px">✦ 读书笔记 ✦</h1>
-    <div style="border-bottom:2px dashed #aaa;padding-bottom:12px;margin-bottom:14px">
-      <h3 style="font-family:'Comic Sans MS',cursive;font-size:15px;color:var(--primary)">★ 第一章：认知升级</h3>
-      <p style="font-size:13px;color:#555;line-height:1.8;font-style:italic;margin-top:6px">□ 成长型思维 vs 固定型思维<br>□ 刻意练习的力量<br>□ 学习区的概念</p>
+<div class="content c4 c-base" style="display:none">
+  <div class="c-hero"><h1>🎯 云数据库竞品对比</h1>
+  <div class="c-products"><span class="c-prod-tag" style="background:#e8457c">华为云GaussDB</span><span class="c-prod-tag" style="background:#94a3b8">阿里云PolarDB</span><span class="c-prod-tag" style="background:#a8a29e">AWS Aurora</span></div></div>
+  <div class="c-full-sec"><div class="c-full-sec-title">📈 数据指标对比</div>
+    <div class="c-dim-block highlight"><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px">⚡ 核心性能</div>
+      <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#e8457c">华为云GaussDB</span><span class="val">150万QPS 🏆</span></div><div class="c-bar-track"><div class="c-bar-fill best" style="width:95%;background:#e8457c"></div></div></div>
+      <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#94a3b8">阿里云PolarDB</span><span class="val">100万QPS</span></div><div class="c-bar-track"><div class="c-bar-fill" style="width:63%;background:#94a3b8"></div></div></div>
+      <div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:#a8a29e">AWS Aurora</span><span class="val">80万QPS</span></div><div class="c-bar-track"><div class="c-bar-fill" style="width:50%;background:#a8a29e"></div></div></div>
     </div>
-    <div style="border-bottom:2px dashed #aaa;padding-bottom:12px;margin-bottom:14px">
-      <h3 style="font-family:'Comic Sans MS',cursive;font-size:15px;color:var(--primary)">★ 第二章：行动指南</h3>
-      <p style="font-size:13px;color:#555;line-height:1.8;font-style:italic;margin-top:6px">□ 每日反思日志<br>□ 21天习惯养成<br>□ 找到你的锚点习惯</p>
-    </div>
-    <div style="border-bottom:2px dashed #aaa;padding-bottom:12px;margin-bottom:14px">
-      <h3 style="font-family:'Comic Sans MS',cursive;font-size:15px;color:var(--primary)">★ 第三章：深度工作</h3>
-      <p style="font-size:13px;color:#555;line-height:1.8;font-style:italic;margin-top:6px">□ 消除干扰源<br>□ 时间块规划法</p>
-    </div>
-    <div style="position:absolute;top:12px;right:14px;width:80px;padding:10px 8px;background:#fffde7;transform:rotate(3deg);box-shadow:2px 2px 6px rgba(0,0,0,.1);border-radius:1px;font-size:11px;color:#444;line-height:1.5;z-index:2">💡<br>重点<br>记忆！</div>
   </div>
-</div>
-
-<div class="content s13">
-  <div style="text-align:center;margin-bottom:20px"><h1 style="font-size:22px">AI学习路线图</h1><p style="color:#888;margin-top:4px">从零基础到高级</p></div>
-  <div style="background:var(--gradient);color:#fff;padding:16px 24px;border-radius:14px;text-align:center;margin:0 auto 20px;max-width:280px;box-shadow:0 4px 16px rgba(232,69,124,.2)"><div style="font-size:18px;font-weight:700">🧠 AI学习路线</div></div>
-  <div style="padding-left:20px;border-left:3px solid #e8457c;margin-left:140px">
-    <div style="margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:4px solid #e8457c"><h3 style="font-size:14px;margin-bottom:6px">● 基础入门</h3><p style="font-size:13px;color:#555;line-height:1.7">▸ Python语法<br>▸ 数据结构<br>▸ 算法基础</p></div>
-  </div>
-  <div style="padding-left:20px;border-left:3px solid #6366f1;margin-left:100px">
-    <div style="margin-bottom:16px;padding:12px 16px;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:4px solid #6366f1"><h3 style="font-size:14px;margin-bottom:6px">● 进阶提升</h3><p style="font-size:13px;color:#555;line-height:1.7">▸ 机器学习<br>▸ 深度学习<br>▸ 项目实战</p></div>
-  </div>
-  <div style="padding-left:20px;border-left:3px solid #10b981;margin-left:60px">
-    <div style="margin-bottom:0;padding:12px 16px;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:4px solid #10b981"><h3 style="font-size:14px;margin-bottom:6px">● 高级应用</h3><p style="font-size:13px;color:#555;line-height:1.7">▸ 系统设计<br>▸ 模型部署</p></div>
-  </div>
-</div>
-
-<div class="content s14">
-  <div style="background:linear-gradient(135deg,#2d2d5e,#1a1a3e);padding:28px;border-radius:12px 12px 0 0;position:relative;overflow:hidden"><div style="position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:rgba(232,69,124,.1)"></div><div style="position:absolute;bottom:-20px;left:-10px;width:80px;height:80px;border-radius:50%;background:rgba(99,102,241,.08)"></div><h1 style="font-size:24px;font-weight:700;color:#fff;position:relative">🚀 季度业绩总结</h1><p style="color:#8888aa;margin-top:6px;position:relative">2025 Q1 · 数据概览</p></div>
-  <div style="background:#1a1a2e;padding:20px">
-    <div style="background:#252540;border-radius:12px;padding:18px 20px;margin-bottom:14px;border:1px solid #333355;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#e8457c,#6366f1)"></div><h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid #e8457c;padding-left:10px;text-shadow:0 0 10px rgba(232,69,124,.3)">销售业绩</h3><p style="font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px">▸ 线上渠道增长 35%<br>▸ 客单价提升至 280 元<br>▸ 新增会员 12 万</p></div>
-    <div style="background:#252540;border-radius:12px;padding:18px 20px;margin-bottom:14px;border:1px solid #333355;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#6366f1,#10b981)"></div><h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid #6366f1;padding-left:10px;text-shadow:0 0 10px rgba(99,102,241,.3)">市场推广</h3><p style="font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px">▸ 抖音合作 20 位达人<br>▸ 小红书种草 100 篇</p></div>
-    <div style="background:#252540;border-radius:12px;padding:18px 20px;border:1px solid #333355;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#10b981,#f59e0b)"></div><h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;border-left:3px solid #10b981;padding-left:10px;text-shadow:0 0 10px rgba(16,185,129,.3)">团队建设</h3><p style="font-size:13px;color:#c8c8d4;line-height:1.8;padding-left:13px">▸ 新增 3 名高级工程师<br>▸ 完成团队培训 5 次</p></div>
-  </div>
-</div>
-
-<div class="content s15">
-  <div class="gc15-hero"><h1>2025年学习计划</h1><p>全年成长路线</p></div>
-  <div class="gc15-divider"></div>
-  <div class="gc15-body">
-    <div class="gc15-card" style="background:linear-gradient(135deg,#667eea,#764ba2)"><div class="gc15-deco"></div><h3>📚 Q1 基础夯实</h3><p>● Python 高级语法<br>● 数据结构与算法<br>● 数据库原理</p></div>
-    <div class="gc15-card" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><div class="gc15-deco"></div><h3>🎯 Q2 技能进阶</h3><p>● 机器学习基础<br>● 深度学习框架</p></div>
-    <div class="gc15-card" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><div class="gc15-deco"></div><h3>🚀 Q3 项目实战</h3><p>● 开源项目贡献<br>● 系统架构设计<br>● 技术博客写作</p></div>
-    <div class="gc15-card" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><div class="gc15-deco"></div><h3>🏆 Q4 突破提升</h3><p>● 参加技术大会<br>● 准备晋升答辩</p></div>
-  </div>
-</div>
-
-<div class="content s16">
-  <div class="note16-hero"><span class="pin"></span><span class="pin"></span><span class="pin"></span><h1>📌 读书清单</h1><p>2025 年必读书目</p></div>
-  <div class="note16-body">
-    <div class="note16-card" style="background:#fffef5;border-left:4px solid #e8457c;transform:rotate(-1.5deg)"><div class="note16-fold"></div><h3>📖 认知觉醒</h3><p>✦ 思考，快与慢<br>✦ 原则<br>✦ 穿梭车悖论</p></div>
-    <div class="note16-card" style="background:#f0f8ff;border-left:4px solid #4facfe;transform:rotate(1deg)"><div class="note16-fold"></div><h3>📖 技术提升</h3><p>✦ 代码整洁之道<br>✦ 设计模式</p></div>
-    <div class="note16-card" style="background:#f0fff4;border-left:4px solid #43e97b;transform:rotate(-0.5deg)"><div class="note16-fold"></div><h3>📖 人文社科</h3><p>✦ 人类简史<br>✦ 枪炮、病菌与钢铁<br>✦ 社会性动物</p></div>
-  </div>
-</div>
-
-<div class="content s17">
-  <div class="news-masthead"><div style="font-size:22px;font-weight:900;letter-spacing:4px;font-family:'Times New Roman',serif">每日要闻简报</div></div>
-  <div class="news-date">2025年3月15日 星期六</div>
-  <div class="news-columns">
-    <div class="news-sec"><div style="font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px">▎ 经济动态</div><div style="font-size:13px;color:#444;line-height:1.8">▸ 央行降准0.5个百分点<br>▸ A股三大指数集体上涨<br>▸ 科技股领涨</div></div>
-    <div class="news-sec"><div style="font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px">▎ 科技前沿</div><div style="font-size:13px;color:#444;line-height:1.8">▸ AI大模型突破性进展<br>▸ 量子计算里程碑</div></div>
-    <div class="news-sec"><div style="font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px">▎ 社会民生</div><div style="font-size:13px;color:#444;line-height:1.8">▸ 教育改革方案出台<br>▸ 医疗保障升级</div></div>
-    <div class="news-sec"><div style="font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px">▎ 体育赛事</div><div style="font-size:13px;color:#444;line-height:1.8">▸ 国足世界杯预选赛告捷<br>▸ NBA常规赛精彩对决</div></div>
-  </div>
-</div>
-
-<div class="content s18">
-  <div class="social-header"><h1>职场人的5个黄金习惯</h1><p>坚持180天，脱胎换骨</p></div>
-  <div class="social-stats"><div class="social-stat-item"><div class="num">5</div><div class="label">核心板块</div></div><div class="social-stat-item"><div class="num">15</div><div class="label">条要点</div></div></div>
-  <div class="social-feed">
-    <div class="social-card" style="background:rgba(232,69,124,.12);border-left:3px solid #e8457c"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div class="avatar" style="background:#e8457c">早</div><div><div class="name" style="color:#e8457c">早起仪式</div></div></div><div class="time">刚刚</div><p style="font-size:13px">→ 每天 6:30 起床，用 30 分钟冥想<br>→ 写晨间日记，设定今日目标</p><div class="actions"><span style="color:#e8457c">❤ 328</span><span style="color:#e8457c;opacity:.5">♡ 156</span><span class="tag" style="color:#e8457c">#早起</span></div></div>
-    <div class="social-card" style="background:rgba(99,102,241,.12);border-left:3px solid #6366f1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div class="avatar" style="background:#6366f1">专</div><div><div class="name" style="color:#6366f1">深度工作</div></div></div><div class="time">3分钟前</div><p style="font-size:13px">→ 关闭手机通知 45 分钟<br>→ 使用番茄工作法 25+5 模式<br>→ 记录每日三件成就感</p><div class="actions"><span style="color:#6366f1">❤ 512</span><span style="color:#6366f1;opacity:.5">♡ 289</span><span class="tag" style="color:#6366f1">#专注力</span></div></div>
-    <div class="social-card" style="background:rgba(16,185,129,.12);border-left:3px solid #10b981"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div class="avatar" style="background:#10b981">学</div><div><div class="name" style="color:#10b981">持续输入</div></div></div><div class="time">5分钟前</div><p style="font-size:13px">→ 每天阅读 30 分钟<br>→ 每周读完 1 本书<br>→ 用费曼技巧提高效率</p><div class="actions"><span style="color:#10b981">❤ 198</span><span style="color:#10b981;opacity:.5">♡ 87</span><span class="tag" style="color:#10b981">#学习</span></div></div>
-    <div class="social-card" style="background:rgba(245,158,11,.12);border-left:3px solid #f59e0b"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div class="avatar" style="background:#f59e0b">运</div><div><div class="name" style="color:#f59e0b">身体管理</div></div></div><div class="time">10分钟前</div><p style="font-size:13px">→ 每周 3 次有氧运动<br>→ 哪怕只散步 15 分钟<br>→ 保持良好睡眠质量</p><div class="actions"><span style="color:#f59e0b">❤ 156</span><span style="color:#f59e0b;opacity:.5">♡ 73</span><span class="tag" style="color:#f59e0b">#运动</span></div></div>
-    <div class="social-card" style="background:rgba(168,85,247,.12);border-left:3px solid #a855f7"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div class="avatar" style="background:#a855f7">复</div><div><div class="name" style="color:#a855f7">每日反思</div></div></div><div class="time">2小时前</div><p style="font-size:13px">→ 睡下写 3 件感恩的事<br>→ 回顾今天的收获<br>→ 记录改进空间</p><div class="actions"><span style="color:#a855f7">❤ 89</span><span style="color:#a855f7;opacity:.5">♡ 45</span><span class="tag" style="color:#a855f7">#复盘</span></div></div>
-  </div>
-  <div class="social-footer">#职场人 #自我提升 #每日成长</div>
+  <div class="c-score c-rank-bar"><h4>🏆 综合评分</h4><div class="c-rank-item"><span class="c-rank-medal">🥇</span><span style="font-weight:600">华为云GaussDB</span><span>92分</span></div><div class="c-rank-item"><span class="c-rank-medal">🥈</span><span style="font-weight:600">AWS Aurora</span><span>78分</span></div><div class="c-rank-item"><span class="c-rank-medal">🥉</span><span style="font-weight:600">阿里云PolarDB</span><span>71分</span></div></div>
 </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" onerror="console.log('h2c load fail')"></script>
@@ -752,73 +572,41 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 var R=document.documentElement.style;
 var themes={pink:{primary:"#e8457c",light:"#fff0f3",gradient:"linear-gradient(135deg,#e8457c,#ff8fab)",text:"#a01040"},blue:{primary:"#4f6df5",light:"#eef2ff",gradient:"linear-gradient(135deg,#4f6df5,#818cf8)",text:"#1e3a8a"},green:{primary:"#10b981",light:"#ecfdf5",gradient:"linear-gradient(135deg,#10b981,#34d399)",text:"#065f46"},orange:{primary:"#f97316",light:"#fff7ed",gradient:"linear-gradient(135deg,#f97316,#fb923c)",text:"#9a3412"},purple:{primary:"#8b5cf6",light:"#f5f3ff",gradient:"linear-gradient(135deg,#8b5cf6,#a78bfa)",text:"#5b21b6"},cyan:{primary:"#0ea5e9",light:"#f0f9ff",gradient:"linear-gradient(135deg,#0ea5e9,#38bdf8)",text:"#075985"}};
 document.querySelectorAll(".style-btn").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});b.classList.add("active");var e=document.querySelector(".s"+b.dataset.s);if(e)e.classList.add("active")})});
-document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("click",function(){document.querySelectorAll(".color-dot").forEach(function(x){x.classList.remove("active")});d.classList.add("active");var t=themes[d.dataset.c];R.setProperty("--primary",t.primary);R.setProperty("--light",t.light);R.setProperty("--gradient",t.gradient);R.setProperty("--text",t.text);var mc=t.primary.match(/^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);if(mc)R.setProperty("--primary-bg","rgba("+parseInt(mc[1],16)+","+parseInt(mc[2],16)+","+parseInt(mc[3],16)+",0.05)")})});
+document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("click",function(){document.querySelectorAll(".color-dot").forEach(function(x){x.classList.remove("active")});d.classList.add("active");var t=themes[d.dataset.c];R.setProperty("--primary",t.primary);R.setProperty("--light",t.light);R.setProperty("--gradient",t.gradient);R.setProperty("--text",t.text)})});
 
 function E(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 var emojis=['🎯','📅','⏰','💡','📌','🏆','💪','✨'];
 function shape(i){var t=i%5,n=i+1;if(t===1)return '<div class="num" style="clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)">'+n+'</div>';if(t===2)return '<div class="num" style="clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)">'+n+'</div>';if(t===3)return '<div class="num" style="border-radius:8px">'+n+'</div>';if(t===4)return '<div class="num" style="border-radius:10px">'+n+'</div>';return '<div class="num">'+n+'</div>'}
-var AI_KEY='sk-zzvrUixgjkur9EThE42jbtVyZdg9UCEehCZKCnvBspdV3pyX';
-var AI_URL='https://api.moonshot.cn/v1/chat/completions';
+var AI_KEY='4e1068b3b7d8459ca481338876e58fdb.qS8Ml1qDJ0YkfAmU';
+var AI_URL='https://open.bigmodel.cn/api/paas/v4/chat/completions';
 
-var AI_KEY='sk-zzvrUixgjkur9EThE42jbtVyZdg9UCEehCZKCnvBspdV3pyX';
-var AI_URL='https://api.moonshot.cn/v1/chat/completions';
+var AI_KEY='4e1068b3b7d8459ca481338876e58fdb.qS8Ml1qDJ0YkfAmU';
+var AI_URL='https://open.bigmodel.cn/api/paas/v4/chat/completions';
 
-async function aiCall(messages, max_tokens){
+async function aiParse(text){
+  var sys='你是一个文本结构化解析器。用户会给一段文字，你需要把它解析成JSON格式，用于生成精美信息图卡片。\n\n返回格式（严格JSON，不要任何其他内容）：\n{\n  "title": "主标题",\n  "subtitle": "一句话副标题描述",\n  "sections": [\n    {\n      "title": "板块标题",\n      "type": "text|table|phases|schedule|rules|stats",\n      "icon": "emoji",\n      "items": [\n        {"label": "短标签/时间", "detail": "详细描述", "value": "数值(可选)"}\n      ],\n      "stats": [{"num": "数字", "unit": "单位", "label": "标签"}]\n    }\n  ],\n  "stats": [{"num": "80万", "unit": "冲刺", "label": "总销售额"}]\n}\n\ntype说明：\n- text: 普通文本说明\n- table: 有对比数据（保底vs冲刺、指标对比等），items中每项有label和detail\n- phases: 分阶段计划（第1周、第01-30天等），items中label填阶段名，detail填内容\n- schedule: 时间安排（早读、下午、晚上等），items中label填时间，detail填动作\n- rules: 规则/铁律/注意事项/激励\n- stats: 统计数字\n\ntop-level stats数组（用于信息图的统计圆环），提取3-4个关键数字指标。\nsection.stats用于该板块自己的数据。\n\n重要：\n1. top-level stats数组必须提取3-4个关键数字指标（如金额、天数、百分比等），即使原文没有明确数字也要合理推算\n2. 每条信息独立成item，不要合并多条信息\n3. 有时间的信息，label填时间，detail填内容\n4. 有数值的信息，提取到value字段\n5. 给每个section选一个合适的emoji icon\n6. subtitle要精炼，不超过20字\n7. phases类型的section，label填阶段名（如"第01-30天"），detail填内容';
   var resp=await fetch(AI_URL,{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+AI_KEY},
-    body:JSON.stringify({model:'moonshot-v1-128k',messages:messages,max_tokens:max_tokens||8192,temperature:0.1})
+    body:JSON.stringify({model:'glm-4-flash',messages:[{role:'system',content:sys},{role:'user',content:text}],max_tokens:2000,temperature:0.1})
   });
   var data=await resp.json();
-  return data;
-}
-
-async function aiParse(text){
-  var sys='你是一个文本结构化解析器。将用户文字解析为JSON，用于生成信息图卡片。\n\n返回格式（严格JSON，不要其他内容）：\n{\n  "title": "主标题",\n  "subtitle": "一句话副标题",\n  "sections": [\n    {\n      "title": "板块标题",\n  "type": "text|table|phases|schedule|rules",\n  "icon": "emoji",\n  "items": [\n        {"label": "短标签", "detail": "完整内容描述（含换行分隔的子条目）"}\n      ]\n    }\n  ],\n  "stats": [{"num": "数字", "unit": "单位", "label": "标签"}]\n}\n\n填写规则：\n1. label：极短标签（如时间"周一～周五"、编号"①"、周名"第 1 周"），没有就留空""\n2. detail：该条目的【全部】内容，用\\n分隔不同子条目。\n3. 每条item独立，不合并！\n\n完整示例（照这个格式来）：\n原文：\n第 1 周：捡最容易拿分的基础（必拿 20-30 分）\n周一～周五（在校）\n早/晚自习碎片：30 分钟视频课\n内容：\n复数\n集合、充分必要条件\n简单不等式\n每天配套：5 道基础题\n目标：选择前 3 题、填空前 2 题稳拿\n周六（在家）\n9:00-11:00：直播课完整听完\n下午：复盘直播 + 刷基础选择填空20 题\n晚上：整理本周错题\n\n对应JSON items应为：\n[\n  {"label":"第 1 周","detail":"捡最容易拿分的基础（必拿 20-30 分）\\n周一～周五（在校）：\\n  早/晚自习碎片：30 分钟视频课\\n  内容：\\n    复数\\n    集合、充分必要条件\\n    简单不等式\\n  每天配套：5 道基础题\\n  目标：选择前 3 题、填空前 2 题稳拿\\n周六（在家）：\\n  9:00-11:00：直播课完整听完\\n  下午：复盘直播 + 刷基础选择填空20 题\\n  晚上：整理本周错题"}\n]\n注意：以上是一个item！每周是一个item，detail中包含该周的全部内容，用\\n分隔。\n\ntype说明：\n- text: 普通文本说明\n- phases: 分阶段计划（第1周、第01-30天等），每个阶段是1个item，detail包含该阶段的全部子内容\n- schedule: 时间安排（早读、下午、晚上等），每个时段是1个item\n- rules: 规则/铁律/注意事项/激励，每条规则是1个item\n\n重要（必须严格遵守）：\n1.【最重要】内容修改原则：只能修改表达不通顺、啰嗦、错别字、常识错误。除此之外一律不得删减、改写、省略或合并！\n2.【最重要】detail字段必须包含该条目的全部原文内容！如果原文有子层级（如"周一"下面有多个任务），全部用\\n分隔放进detail中！\n3. 每条信息独立成item，不合并！\n4. 给每个section选一个合适的emoji icon\n5. subtitle精炼，不超过20字\n6. top-level stats提取3-4个关键数字指标\n7. 原文中的总结性语句（如每天总耗时约70分钟等）也必须保留！绝不能因为是总结语就省略！';
-  
-  var messages=[{role:'system',content:sys},{role:'user',content:text}];
-  var result=await aiCall(messages);
-  var msg=result.choices[0].message.content;
-  var finishReason=result.choices[0].finish_reason;
-  
-  var MAX_ROUNDS=5;
-  var round=1;
-  while(finishReason==='length' && round<MAX_ROUNDS){
-    console.log('AI truncated, continuing... round '+round);
-    messages.push({role:'assistant',content:msg});
-    messages.push({role:'user',content:'继续输出剩余JSON，从截断处接着写，不要重复。直接输出JSON片段。'});
-    result=await aiCall(messages);
-    var contMsg=result.choices[0].message.content;
-    finishReason=result.choices[0].finish_reason;
-    msg+=contMsg;
-    round++;
-  }
-  
-  var jsonStart=msg.indexOf('{');
-  if(jsonStart===-1)throw new Error('AI返回格式错误: 未找到JSON');
-  var depth=0,jsonEnd=-1;
-  for(var ji=jsonStart;ji<msg.length;ji++){
-    if(msg[ji]==='{')depth++;
-    else if(msg[ji]==='}')depth--;
-    if(depth===0){jsonEnd=ji+1;break;}
-  }
-  if(jsonEnd===-1)throw new Error('AI返回格式错误: JSON未闭合');
-  var parsed=JSON.parse(msg.substring(jsonStart,jsonEnd));
+  var msg=data.choices[0].message.content;
+  // Parse JSON from response (may have markdown code block)
+  var jsonMatch=msg.match(/\{[\s\S]*\}/);
+  if(!jsonMatch)throw new Error('AI返回格式错误');
+  var parsed=JSON.parse(jsonMatch[0]);
+  // Normalize: ensure stats array at top level
   if(!parsed.stats)parsed.stats=[];
-  function normalizeItems(items){
-    if(!items)return;
-    items.forEach(function(item){
-      if(!item.label)item.label='';
-      if(!item.detail)item.detail='';
-      // Remove sub_items field if exists (legacy compat)
-      if(item.sub_items)delete item.sub_items;
-    });
-  }
+  // Normalize sections: ensure items have label/detail
   parsed.sections.forEach(function(s){
     if(!s.icon)s.icon='📌';
     if(!s.type)s.type='text';
     if(!s.items)s.items=[];
-    normalizeItems(s.items);
+    s.items.forEach(function(item){
+      if(!item.label)item.label='';
+      if(!item.detail)item.detail='';
+    });
   });
   return parsed;
 }
@@ -830,53 +618,15 @@ function parseText(text){
   if(!lines.length)return null;
   var data={title:lines[0],sections:[]};
   var curSec=null;
-  var phaseParent=null; // when set, numbered lines become sub-items instead of new sections
-  // Pre-scan: detect if content has "第 N 周/天" patterns → enable phase-gather mode
-  var hasPhasePattern = text.match(/第\s*\d+\s*[周天期章节篇步轮]/);
-  function isTopHeader(l){
-    return /^【/.test(l)&&/】/.test(l)
-      || /^[一二三四五六七八九十]+[、.]/.test(l)
-      || /^第\s*\d+\s*[周天期章节篇步轮]/.test(l)
-      || /：$/.test(l)&&l.length<30
-      || /^\d+[、.．)）]\s*/.test(l)&&l.length<25;
-  }
   for(var i=1;i<lines.length;i++){
     var l=lines[i];var isH=false;
-    var isNum=/^\d+[、.．)）]\s*/.test(l)&&l.length<25;
-    if(isTopHeader(l)){isH=true;l=l.replace(/^【/,'').replace(/】$/,'').replace(/^[一二三四五六七八九十]+[、.]/,'').replace(/^\d+[、.．)）]\s*/,'').replace(/：$/,'')}
+    if(/^【/.test(l)&&/】/.test(l)){isH=true;l=l.replace(/^【/,'').replace(/】$/,'')}
+    else if(/：$/.test(l)&&l.length<25){isH=true;l=l.replace(/：$/,'')}
+    else if(/^[一-十]+[、.]/.test(l)){isH=true}
+    else if(/^\d+[、.]/.test(l)&&l.length<25){isH=true}
     if(isH){
-      // In phase-gather mode, "第 N 周" captures everything until next top header
-      if(hasPhasePattern && /^第\s*\d+\s*[周天期章节篇步轮]/.test(l)){
-        if(curSec)data.sections.push(curSec);
-        curSec={title:l,items:[],type:'text'};
-        // Gather all subsequent non-header lines into this section
-        while(i+1<lines.length && !isTopHeader(lines[i+1])){
-          i++;
-          curSec.items.push(lines[i]);
-        }
-        continue;
-      }
-      // Non-numbered header ends phase grouping
-      phaseParent = null;
       if(curSec)data.sections.push(curSec);
-      curSec={title:l,items:[],type:'text'};
-    }else if(isNum){
-      // Numbered lines inside a phase parent → add as structured item
-      if(phaseParent){
-        var numLabel=l.replace(/^\d+[、.．)）]\s*/,'');
-        var subItems=[];
-        while(i+1<lines.length && !isTopHeader(lines[i+1])){
-          subItems.push(lines[i+1]);i++;
-        }
-        phaseParent.items.push({label:numLabel,detail:subItems.join('；')});
-        continue;
-      }
-      if(curSec && curSec.items.length === 0){
-        phaseParent = curSec;curSec.items.push(l);continue;
-      }
-      isH = true;
-      if(curSec)data.sections.push(curSec);
-      curSec={title:l,items:[],type:'text'};
+      curSec={title:l.replace(/^[一-十]+[、.]/,'').replace(/^\d+[、.]/,''),items:[],type:'text'};
     }else{
       if(!curSec)curSec={title:'内容',items:[],type:'text'};
       curSec.items.push(l);
@@ -928,63 +678,14 @@ function measureContent(data) {
   }, 0);
   var maxTitleLen = Math.max.apply(null, data.sections.map(function(s) { return s.title.length; }).concat([0]));
   var avgItems = secCount > 0 ? data.sections.reduce(function(a, s) { return a + s.items.length; }, 0) / secCount : 0;
-  var maxItemDetailLen = 0;
-  data.sections.forEach(function(s) {
-    s.items.forEach(function(item) {
-      var d = (item.detail || '').length;
-      if (d > maxItemDetailLen) maxItemDetailLen = d;
-    });
-  });
   var density = secCount <= 3 ? 'light' : secCount <= 6 ? 'normal' : 'dense';
-  // Upgrade density if content is very long
-  if (totalChars > 2000 && density !== 'dense') density = 'dense';
   return {
     sectionCount: secCount,
     totalChars: totalChars,
     maxTitleLen: maxTitleLen,
     avgItems: avgItems,
-    maxItemDetailLen: maxItemDetailLen,
     density: density
   };
-}
-
-// ED - escape HTML and convert \n to <br>
-function ED(text){return E(text||'').replace(/\\n/g,'<br>')}
-
-// renderItemContent - 递归渲染 item 及其 sub_items
-function renderItemContent(item, opts){
-  opts = opts || {};
-  var font = opts.font || '13px';
-  var color = opts.color || '#555';
-  var titleColor = opts.titleColor || '#333';
-  var bullet = opts.bullet || '▸';
-  var h = '';
-  if(item.sub_items && item.sub_items.length){
-    if(item.label) h += '<div style="font-weight:600;font-size:'+font+';margin-bottom:4px;color:'+titleColor+'">'+E(item.label)+'</div>';
-    if(item.detail) h += '<div style="font-size:'+font+';color:'+color+';margin-bottom:6px">'+ED(item.detail)+'</div>';
-    h += '<div style="padding-left:12px;border-left:2px solid var(--primary);margin-left:4px">';
-    item.sub_items.forEach(function(si){
-      if(si.sub_items && si.sub_items.length){
-        var siLabel = si.label ? '<div style="font-weight:600;font-size:'+font+';margin:6px 0 3px;color:'+titleColor+'">'+E(si.label)+'</div>' : '';
-        var siDetail = si.detail ? '<div style="font-size:'+font+';color:'+color+';margin-bottom:3px">'+ED(si.detail)+'</div>' : '';
-        var siSubs = '<div style="padding-left:10px">';
-        si.sub_items.forEach(function(ssi){
-          var ssText = ssi.label && ssi.detail ? '<b>'+E(ssi.label)+'</b> '+ED(ssi.detail) : ED(ssi.label||ssi.detail||'');
-          if(ssText) siSubs += '<div style="font-size:'+font+';color:'+color+';line-height:1.7;padding:1px 0">· '+ssText+'</div>';
-        });
-        siSubs += '</div>';
-        h += siLabel + siDetail + siSubs;
-      } else {
-        var siText = si.label && si.detail ? '<b>'+E(si.label)+'</b> '+ED(si.detail) : (si.label ? '<b>'+E(si.label)+'</b>' : ED(si.detail||''));
-        if(siText) h += '<div style="font-size:'+font+';color:'+color+';line-height:1.7;padding:2px 0">'+bullet+' '+siText+'</div>';
-      }
-    });
-    h += '</div>';
-  } else {
-    var text = item.label && item.detail ? '<b>'+E(item.label)+'</b> '+ED(item.detail) : (item.label ? '<b>'+E(item.label)+'</b>' : ED(item.detail||''));
-    if(text) h = '<div style="font-size:'+font+';color:'+color+';line-height:1.7">'+text+'</div>';
-  }
-  return h;
 }
 
 // bS1 经典卡片 - AI版
@@ -1000,23 +701,13 @@ function bS1(d, m){
   d.sections.forEach(function(s,i){
     h+='<div class="stitle" style="font-size:'+stitleSize+';margin:'+(m.density==='dense'?'16px':'24px')+' 0 '+(m.density==='dense'?'8px':'14px')+'">'+(s.icon||emojis[i%8])+' '+E(s.title)+'</div>';
     if(s.type==='phases'){
-      var showItems = s.items;
-      var maxItems = 99;
-      if (showItems.length > maxItems) {
-        showItems = showItems.slice(0, maxItems);
-        showItems._truncated = true;
-        showItems._totalCount = s.items.length;
-      }
-      showItems.forEach(function(t,j){
-        h+='<div class="card" style="margin-bottom:'+cardGap+';padding:'+(m.density==='dense'?'12px':'18px')+'">'+shape(i)+'<div><h3 style="font-size:'+itemFont+'">'+E(t.label||'')+'</h3><p style="font-size:'+itemFont+'">'+ED(t.detail||t.label||'')+'</p></div></div>';
+      s.items.forEach(function(t,j){
+        h+='<div class="card" style="margin-bottom:'+cardGap+';padding:'+(m.density==='dense'?'12px':'18px')+'">'+shape(j)+'<div><h3 style="font-size:'+itemFont+'">'+E(t.label||'')+'</h3><p style="font-size:'+itemFont+'">'+E(t.detail||t.label||'')+'</p></div></div>';
       });
-      if (showItems._truncated) {
-        h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems._totalCount + '条</div>';
-      }
     }else if(s.type==='schedule'){
       h+='<div class="twrap"><table><thead><tr><th>时段</th><th>动作</th></tr></thead><tbody>';
       s.items.forEach(function(t){
-        h+='<tr><td><b>'+E(t.label)+'</b></td><td>'+ED(t.detail)+'</td></tr>';
+        h+='<tr><td><b>'+E(t.label)+'</b></td><td>'+E(t.detail)+'</td></tr>';
       });
       h+='</tbody></table></div>';
     }else if(s.type==='table'){
@@ -1030,24 +721,20 @@ function bS1(d, m){
     }else if(s.type==='rules'){
       h+='<div class="cbox"><ul class="plist">';
       s.items.forEach(function(t){
-        h+='<li style="font-size:'+itemFont+'">'+ED(t.detail||t.label)+'</li>';
+        h+='<li style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</li>';
       });
       h+='</ul></div>';
     }else{
-      var showItems = s.items;
-      var maxItems = 99;
-      if (showItems.length > maxItems) {
-        showItems = showItems.slice(0, maxItems);
-        showItems._truncated = true;
-        showItems._totalCount = s.items.length;
-      }
-      showItems.forEach(function(t,j){
-        var itemPad = m.density==='dense'?'10px 14px':'14px 18px';
-        var itemW = t.detail && t.detail.length > 200 ? '' : '';
-        h+='<div class="card" style="margin-bottom:'+cardGap+';padding:'+itemPad+itemW+'">'+shape(j)+'<div>'+renderItemContent(t,{font:itemFont})+'</div></div>';
-      });
-      if (showItems._truncated) {
-        h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems._totalCount + '条</div>';
+      if(s.items.length<=4||(m.avgItems<=3)){
+        s.items.forEach(function(t,j){
+          h+='<div class="card" style="margin-bottom:'+cardGap+';padding:'+(m.density==='dense'?'12px':'18px')+'">'+shape(j)+'<div><p style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</p></div></div>';
+        });
+      }else{
+        h+='<div class="cbox"><ul class="plist">';
+        s.items.forEach(function(t){
+          h+='<li style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</li>';
+        });
+        h+='</ul></div>';
       }
     }
   });
@@ -1069,21 +756,11 @@ function bS2(d, m){
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   h+='</div>';
   d.sections.forEach(function(s,i){
-    var secPad = m.density==='dense'?'12px 14px':'14px 20px';
-        h+='<div class="sbox" style="margin-bottom:'+secGap+';padding:'+secPad+'"><h3>'+(s.icon||'📌')+' '+E(s.title)+'</h3>';
-    var showItems = s.items;
-    var maxItems = 99;
-    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
-      showItems = showItems.slice(0, maxItems);
-      showItems._truncated = true;
-      showItems._totalCount = s.items.length;
-    }
-    showItems.forEach(function(t){
-      h+=renderItemContent(t,{font:secFont});
+    h+='<div class="sbox" style="margin-bottom:'+secGap+'"><h3>'+(s.icon||'📌')+' '+E(s.title)+'</h3>';
+    s.items.forEach(function(t){
+      if(t.label)h+='<p style="font-size:'+secFont+'"><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p style="font-size:'+secFont+'">'+E(t.detail||t.label)+'</p>';
     });
-    if (showItems._truncated) {
-      h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems._totalCount + '条</div>';
-    }
     h+='</div>';
   });
   h+='</div>';
@@ -1101,19 +778,10 @@ function bS3(d, m){
   h+='</div><div class="bcontent">';
   d.sections.forEach(function(s,i){
     h+='<div class="bc" style="padding:'+cardPad+';margin-bottom:'+cardGap+'"><div class="bc-icon">'+(s.icon||emojis[i%8])+'</div><div class="bc-body"><h3>'+E(s.title)+'</h3>';
-    var showItems = s.items;
-    var maxItems = 99;
-    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
-      showItems = showItems.slice(0, maxItems);
-      showItems._truncated = true;
-      showItems._totalCount = s.items.length;
-    }
-    showItems.forEach(function(t){
-      h+=renderItemContent(t,{font:itemFont});
+    s.items.forEach(function(t){
+      if(t.label)h+='<p style="font-size:'+itemFont+'"><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</p>';
     });
-    if (showItems._truncated) {
-      h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems._totalCount + '条</div>';
-    }
     h+='</div></div>';
   });
   h+='</div></div>';
@@ -1132,19 +800,10 @@ function bS4(d, m){
   h+='<div class="line"></div></div>';
   d.sections.forEach(function(s,i){
     h+='<div class="minsec" style="margin-bottom:'+secGap+'"><div class="minh">'+(s.icon||'')+' '+E(s.title)+'</div>';
-    var showItems = s.items;
-    var maxItems = 99;
-    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
-      showItems = showItems.slice(0, maxItems);
-      showItems._truncated = true;
-      showItems._totalCount = s.items.length;
-    }
-    showItems.forEach(function(t){
-      h+=renderItemContent(t,{font:itemFont});
+    s.items.forEach(function(t){
+      if(t.label)h+='<p style="font-size:'+itemFont+'"><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</p>';
     });
-    if (showItems._truncated) {
-      h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems._totalCount + '条</div>';
-    }
     h+='</div>';
   });
   h+='</div>';
@@ -1162,21 +821,11 @@ function bS5(d, m){
   h+='<span class="side-text">TEXTCRAFT</span></div>';
   h+='<div class="mag-body" style="padding:'+bodyPad+'"><span class="side-deco">内容展示</span>';
   d.sections.forEach(function(s,i){
-    var magSecPad = m.density==='dense'?'14px 16px':'16px 20px';
-        h+='<div class="mag-sec" style="margin-bottom:'+secGap+';padding:'+magSecPad+'"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
-    var showItems = s.items;
-    var maxItems = 99;
-    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
-      showItems = showItems.slice(0, maxItems);
-      showItems._truncated = true;
-      showItems._totalCount = s.items.length;
-    }
-    showItems.forEach(function(t){
-      h+=renderItemContent(t,{font:itemFont});
+    h+='<div class="mag-sec" style="margin-bottom:'+secGap+'"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    s.items.forEach(function(t){
+      if(t.label)h+='<p style="font-size:'+itemFont+'">'+E(t.label)+' · '+E(t.detail)+'</p>';
+      else h+='<p style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</p>';
     });
-    if (showItems._truncated) {
-      h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems._totalCount + '条</div>';
-    }
     h+='</div>';
   });
   h+='</div></div>';
@@ -1187,33 +836,19 @@ function bS5(d, m){
 function bS6(d, m){
   var titleSize = m.density === 'dense' ? '20px' : m.density === 'light' ? '24px' : '22px';
   var noteFontSize = m.density === 'dense' ? '13px' : m.density === 'light' ? '15px' : '14px';
-  var noteLineH = Math.round(parseFloat(noteFontSize) * 2.3) + 'px';
+  var noteLineH = Math.round(parseFloat(noteFontSize) * 1.8) + 'px';
   var h='<div class="content s6"><div class="note-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
-  h+='<div class="tape"></div><div class="tape-2"></div></div><div class="note-body">';
+  h+='<div class="tape"></div><div class="tape-2"></div></div>';
   d.sections.forEach(function(s,i){
-    var noteSecGap = m.density==='dense'?'10px':'14px';
-        h+='<div class="note-sec" style="margin-bottom:'+noteSecGap+'">';
-    h+='<h3><span class="step-num">'+(i+1)+'</span>'+E(s.title)+'</h3>';
-    var showItems = s.items;
-    var maxItems = 99;
-    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
-      showItems = showItems.slice(0, maxItems);
-      showItems._truncated = true;
-      showItems._totalCount = s.items.length;
-    }
-    showItems.forEach(function(t){
-      h+='<div style="font-size:'+noteFontSize+';line-height:'+noteLineH+'">'+renderItemContent(t,{font:noteFontSize})+'</div>';
+    h+='<div class="note-sec"><h3>'+(s.icon||'')+' '+E(s.title)+'</h3>';
+    s.items.forEach(function(t){
+      if(t.label)h+='<p style="font-size:'+noteFontSize+';line-height:'+noteLineH+'"><b>'+E(t.label)+'</b> '+E(t.detail)+'</p>';
+      else h+='<p style="font-size:'+noteFontSize+';line-height:'+noteLineH+'">'+E(t.detail||t.label)+'</p>';
     });
-    if (showItems._truncated) {
-      h += '<div style="font-size:12px;color:#777;margin-top:4px;padding-left:30px">...等' + showItems._totalCount + '条</div>';
-    }
     h+='</div>';
   });
-  if(d.quote){
-    h+='<div style="border-top:2px dashed var(--primary);padding-top:14px;margin-top:16px;font-size:13px;color:#444;line-height:1.8;text-align:center;font-style:italic">📌 '+E(d.quote)+'</div>';
-  }
-  h+='</div></div>';
+  h+='</div>';
   return h;
 }
 
@@ -1221,10 +856,9 @@ function bS6(d, m){
 function bS8(d, m){
   var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
   var itemFont = m.density === 'dense' ? '11px' : '12px';
-  var gridCols = m.sectionCount >= 8 ? '1fr 1fr 1fr' : m.sectionCount >= 5 ? '1fr 1fr' : '1fr';
-  if(m.totalChars > 3000) gridCols = '1fr';
+  var gridCols = m.density === 'dense' ? '1fr 1fr 1fr' : '1fr 1fr';
   var cardPad = m.density === 'dense' ? '12px' : '16px';
-  var cardGap = m.density === 'dense' ? '6px' : m.sectionCount <= 4 ? '14px' : '10px';
+  var cardGap = m.density === 'dense' ? '8px' : '12px';
   var h='<div class="content s8"><div class="grid-hero"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   else h+='<p>'+d.sections.length+'个板块</p>';
@@ -1232,30 +866,16 @@ function bS8(d, m){
   d.sections.forEach(function(s,i){
     var full=s.items.length>2?' full':'';
     h+='<div class="gc'+full+'" style="padding:'+cardPad+'"><h3><span class="dot"></span>'+(s.icon||'')+' '+E(s.title)+'</h3>';
-    var showItems = s.items;
-    var maxItems = 99;
-    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
-      showItems = showItems.slice(0, maxItems);
-      showItems._truncated = true;
-      showItems._totalCount = s.items.length;
-    }
-    if(showItems.length>2){
+    if(s.items.length>2){
       h+='<ul>';
-      showItems.forEach(function(t){
-        if(t.sub_items&&t.sub_items.length){
-          h+='<li style="font-size:'+itemFont+';list-style:none">'+renderItemContent(t,{font:itemFont})+'</li>';
-        }else{
-          h+='<li style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+ED(t.detail||t.label)+'</li>';
-        }
+      s.items.forEach(function(t){
+        h+='<li style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</li>';
       });
       h+='</ul>';
     }else{
-      showItems.forEach(function(t){
-        h+=renderItemContent(t,{font:itemFont});
+      s.items.forEach(function(t){
+        h+='<p style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label)+'</p>';
       });
-    }
-    if (showItems._truncated) {
-      h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems._totalCount + '条</div>';
     }
     h+='</div>';
   });
@@ -1267,9 +887,8 @@ function bS7(d, m){
   var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '24px' : '22px';
   var itemFont = m.density === 'dense' ? '12px' : '13px';
   var secGap = m.density === 'dense' ? '14px' : m.density === 'light' ? '24px' : '20px';
-  // Determine if we should show ring charts (only when content has explicit phases/steps)
-  var hasPhases = d.sections.some(function(s){ return s.type === 'phases'; });
-  var showRings = hasPhases;
+  // Determine if we should show ring charts (only for steps/phases content)
+  var showRings = d.contentType !== 'bullet' && m.avgItems > 1;
   var h='<div class="content s7"><div class="info-hero"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
   if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
   // Stats circles from AI data - only show rings for steps/phases content
@@ -1298,80 +917,46 @@ function bS7(d, m){
     if(s.type==='schedule'&&s.items.length>1){
       h+='<div class="ibox" style="margin-bottom:'+secGap+'"><h3>'+icon+' '+E(s.title)+'</h3>';
       s.items.forEach(function(t){
-        h+='<div class="srow"><span class="badge">'+E(t.label)+'</span><span class="task" style="font-size:'+itemFont+'">'+ED(t.detail)+'</span></div>';
+        h+='<div class="srow"><span class="badge">'+E(t.label)+'</span><span class="task" style="font-size:'+itemFont+'">'+E(t.detail)+'</span></div>';
       });
       h+='</div>';
     }else if(s.type==='phases'&&s.items.length>1&&showRings){
-      var showItems7 = s.items;
-      var maxItems7 = 99;
-      if (showItems7.length > maxItems7) {
-        showItems7 = showItems7.slice(0, maxItems7);
-        showItems7._truncated = true;
-        showItems7._totalCount = s.items.length;
-      }
       h+='<div class="phases-row">';
-      showItems7.forEach(function(t,j){
+      s.items.forEach(function(t,j){
         var pct=Math.round(100/s.items.length);
         var lbl=t.label||('阶段'+(j+1));
-        var dcText=t.detail?lbl+' · '+t.detail.substring(0,15):lbl;
-        var isNum=/^\d+$/.test(dcText.trim().replace(/[^0-9]/g,''))&&dcText.length<=5;
-        var dcClass=isNum?'dc':'dc is-text';
-        h+='<div class="pbar"><div class="'+dcClass+'">'+E(dcText)+'</div><div class="dl">'+E(lbl)+'</div><div class="bar"><div class="bar-fill" style="width:'+pct+'%"></div></div></div>';
+        h+='<div class="pbar"><div class="dc">'+E(t.detail?lbl+' · '+t.detail.substring(0,15):lbl)+'</div><div class="dl">'+E(lbl)+'</div><div class="bar"><div class="bar-fill" style="width:'+pct+'%"></div></div></div>';
       });
       h+='</div>';
-      if (showItems7._truncated) {
-        h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems7._totalCount + '条</div>';
-      }
     }else if(s.type==='phases'&&s.items.length>1&&!showRings){
-      var showItems7b = s.items;
-      var maxItems7b = 99;
-      if (showItems7b.length > maxItems7b) {
-        showItems7b = showItems7b.slice(0, maxItems7b);
-        showItems7b._truncated = true;
-        showItems7b._totalCount = s.items.length;
-      }
+      // Simple numbered layout instead of ring progress bars
       h+='<div class="ibox" style="margin-bottom:'+secGap+'"><h3>'+icon+' '+E(s.title)+'</h3>';
-      showItems7b.forEach(function(t,j){
+      s.items.forEach(function(t,j){
         h+='<div class="srow"><span class="badge">'+(j+1)+'</span><span class="task" style="font-size:'+itemFont+'"><b>'+E(t.label||'')+'</b> '+E(t.detail||'')+'</span></div>';
       });
-      if (showItems7b._truncated) {
-        h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems7b._totalCount + '条</div>';
-      }
       h+='</div>';
     }else if(s.type==='rules'){
       h+='<div class="ibox" style="margin-bottom:'+secGap+'"><h3>'+icon+' '+E(s.title)+'</h3>';
       s.items.forEach(function(t,j){
         var w=Math.max(40,100-j*15);
-        h+='<div class="pri-row"><div class="name" style="font-size:'+itemFont+'">'+ED(t.detail||t.label)+'</div><div class="bar"><div class="bar-fill" style="width:'+w+'%"></div></div></div>';
+        h+='<div class="pri-row"><div class="name" style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</div><div class="bar"><div class="bar-fill" style="width:'+w+'%"></div></div></div>';
       });
       h+='</div>';
     }else{
-      var showItems7c = s.items;
-      var maxItems7c = 99;
-      if (showItems7c.length > maxItems7c) {
-        showItems7c = showItems7c.slice(0, maxItems7c);
-        showItems7c._truncated = true;
-        showItems7c._totalCount = s.items.length;
-      }
       h+='<div class="ibox" style="margin-bottom:'+secGap+'"><h3>'+icon+' '+E(s.title)+'</h3>';
-      if(showItems7c.length>3){
-        showItems7c.forEach(function(t){
-          if(t.sub_items&&t.sub_items.length){
-            h+=renderItemContent(t,{font:itemFont});
-          } else if(t.label&&t.detail){
-            h+='<div class="srow"><span class="badge">'+E(t.label)+'</span><span class="task" style="font-size:'+itemFont+'">'+ED(t.detail)+'</span></div>';
+      if(s.items.length>3){
+        s.items.forEach(function(t){
+          if(t.label&&t.detail){
+            h+='<div class="srow"><span class="badge">'+E(t.label)+'</span><span class="task" style="font-size:'+itemFont+'">'+E(t.detail)+'</span></div>';
           }else{
-            h+='<div class="srow"><span class="badge">▸</span><span class="task" style="font-size:'+itemFont+'">'+ED(t.detail||t.label)+'</span></div>';
+            h+='<div class="srow"><span class="badge">▸</span><span class="task" style="font-size:'+itemFont+'">'+E(t.detail||t.label)+'</span></div>';
           }
         });
       }else{
-        showItems7c.forEach(function(t){
+        s.items.forEach(function(t){
           var txt=(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label);
           h+='<p style="font-size:'+itemFont+'">'+txt+'</p>';
         });
-      }
-      if (showItems7c._truncated) {
-        h += '<div style="font-size:12px;color:#444;margin-top:6px;padding-left:4px">...等' + showItems7c._totalCount + '条</div>';
       }
       h+='</div>';
     }
@@ -1384,750 +969,366 @@ function bS7(d, m){
   h+='</div>';
   return h;
 }
-
-// bS9 瀑布流 - AI版
-function bS9(d, m){
-  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
-  var itemFont = m.density === 'dense' ? '11px' : '12px';
-  var cardPad = m.density === 'dense' ? '12px' : '14px';
-  var cols = m.sectionCount >= 8 ? '3' : '2';
-  var colGap = m.density === 'dense' ? '10px' : '14px';
-  var h='<div class="content s9"><div class="waterfall-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
-  if(d.subtitle)h+='<p style="color:#666">'+E(d.subtitle)+'</p>';
-  h+='</div><div style="column-count:'+cols+';column-gap:'+colGap+';padding:0 14px 16px">';
-  d.sections.forEach(function(s,i){
-    var icon=s.icon||emojis[i%8];
-    if(s.type==='rules'){
-      h+='<div class="wf-card rules-card" style="column-span:all; padding:16px"><h3>'+icon+' '+E(s.title)+'</h3><p>';
-      s.items.forEach(function(t){h+=ED(t.detail||t.label)+'<br>'});
-      h+='</p></div>';
-      return;
-    }
-    var showItems = s.items;
-    var maxItems = 99;
-    if(s.type!=='schedule' && s.type!=='phases' && showItems.length>maxItems){
-      showItems=showItems.slice(0,maxItems);
-      showItems._truncated=true;
-      showItems._totalCount=s.items.length;
-    }
-    h+='<div class="wf-card" style="padding:'+cardPad+'"><h3>'+icon+' '+E(s.title)+'</h3>';
-    if(s.type==='schedule'&&showItems.length>0){
-      showItems.forEach(function(t){
-        h+=renderItemContent(t,{font:itemFont});
-      });
-    }else{
-      if(showItems.length>2){
-        h+='<ul>';
-        showItems.forEach(function(t){
-          h+='<li style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+ED(t.detail||t.label)+'</li>';
-        });
-        h+='</ul>';
-      }else{
-        showItems.forEach(function(t){
-          h+='<p style="font-size:'+itemFont+'">'+(t.label?'<b>'+E(t.label)+'</b>：':'')+ED(t.detail||t.label)+'</p>';
-        });
-      }
-    }
-    if(showItems._truncated){
-      h+='<div style="font-size:11px;color:#888;margin-top:6px">...等'+showItems._totalCount+'条</div>';
-    }
-    h+='</div>';
-  });
-  h+='</div></div>';
-  return h;
-}
-
-// bS10 时间线日志 - AI版
-function bS10(d, m){
-  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
-  var itemFont = m.density === 'dense' ? '12px' : '13px';
-  var secFont = m.density === 'dense' ? '13px' : '15px';
-  var entryGap = m.density === 'dense' ? '12px' : m.sectionCount <= 4 ? '24px' : '18px';
-  var h='<div class="content s10"><div class="log-banner"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
-  if(d.subtitle)h+='<p style="color:#666">'+E(d.subtitle)+'</p>';
-  h+='</div><div class="log-timeline">';
-  d.sections.forEach(function(s,i){
-    var icon=s.icon||emojis[i%8];
-    var isLast=i===d.sections.length-1;
-    if(s.type==='rules'){
-      h+='<div class="log-footer"><h4>'+icon+' '+E(s.title)+'</h4>';
-      s.items.forEach(function(t){h+='<p>'+ED(t.detail||t.label)+'</p>'});
-      h+='</div>';
-      return;
-    }
-    var showItems = s.items;
-    var maxItems = 99;
-    if(s.type!=='schedule' && s.type!=='phases' && showItems.length>maxItems){
-      showItems=showItems.slice(0,maxItems);
-      showItems._truncated=true;
-      showItems._totalCount=s.items.length;
-    }
-    h+='<div class="log-entry" style="padding-bottom:'+(isLast?'0':entryGap)+'"><h3 style="font-size:'+secFont+'">'+icon+' '+E(s.title)+'</h3>';
-    if(s.type==='schedule'){
-      showItems.forEach(function(t){
-        h+=renderItemContent(t,{font:itemFont});
-      });
-    }else{
-      showItems.forEach(function(t){
-        var text=(t.label?'<b>'+E(t.label)+'</b>：':'')+E(t.detail||t.label);
-        h+='<p style="font-size:'+itemFont+'">● '+text+'</p>';
-      });
-    }
-    if(showItems._truncated){
-      h+='<div style="font-size:12px;color:#888;margin-top:4px">...等'+showItems._totalCount+'条</div>';
-    }
-    h+='</div>';
-  });
-  h+='</div></div>';
-  return h;
-}
-
-// bS11 数据仪表盘 - AI版
-function bS11(d, m){
-  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '22px' : '20px';
-  var itemFont = m.density === 'dense' ? '11px' : '12px';
-  var cardPad = m.density === 'dense' ? '12px' : '16px';
-  var cardGap = m.density === 'dense' ? '6px' : m.sectionCount <= 4 ? '14px' : '10px';
-  var totalItems=d.sections.reduce(function(a,s){return a+s.items.length},0);
-  var h='<div class="content s11"><div class="dash-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
-  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
-  else h+='<p>'+d.sections.length+'个板块 · '+totalItems+'项任务</p>';
-  h+='</div><div class="dash-stats">';
-  var statNums=[d.sections.length,totalItems,Math.min(95,Math.round(totalItems/d.sections.length*15))+'%'];
-  var statLabels=['板块总数','任务总计','达成率'];
-  if(d.stats&&d.stats.length>=2){
-    for(var si=0;si<3;si++){
-      var st=d.stats[si]||{num:statNums[si],unit:'',label:statLabels[si]};
-      h+='<div class="dash-stat"><div class="num">'+E(st.num)+'</div><div class="label">'+E(st.unit?(st.num+' '+st.unit):st.label)+'</div></div>';
-    }
-  }else{
-    for(var si2=0;si2<3;si2++){
-      h+='<div class="dash-stat"><div class="num">'+statNums[si2]+'</div><div class="label">'+statLabels[si2]+'</div></div>';
-    }
-  }
-  h+='</div><div class="dash-cards">';
-  d.sections.forEach(function(s,i){
-    var icon=s.icon||emojis[i%8];
-    if(s.type==='rules'){
-      h+='<div class="dash-card rules-card" style="padding:'+cardPad+'"><h3>'+icon+' '+E(s.title)+'</h3>';
-      s.items.forEach(function(t){h+='<p>'+ED(t.detail||t.label)+'</p>'});
-      h+='</div>';
-      return;
-    }
-    var showItems=s.items;
-    var maxItems=99;
-    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
-    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
-    if(s.type!=='schedule'&&showItems.length>maxItems){
-      showItems=showItems.slice(0,maxItems);
-      showItems._truncated=true;
-      showItems._totalCount=s.items.length;
-    }
-    h+='<div class="dash-card" style="padding:'+cardPad+';margin-bottom:'+cardGap+'"><h3>'+icon+' '+E(s.title)+'</h3>';
-    if(s.type==='schedule'){
-      showItems.forEach(function(t){
-        h+='<div class="dash-row"><div class="row-label" style="font-size:'+itemFont+'">'+E(t.label)+'</div><div class="row-bar"><div class="row-fill" style="width:'+(40+Math.floor(Math.random()*50))+'%"></div></div></div>';
-      });
-    }else{
-      showItems.forEach(function(t,j){
-        var w=Math.max(25,95-j*18-Math.floor(Math.random()*10));
-        var detail=t.detail&&t.label?t.label:(t.detail||t.label||'');
-        h+='<div class="dash-row"><div class="row-label" style="font-size:'+itemFont+'">'+E(detail)+'</div><div class="row-bar"><div class="row-fill" style="width:'+w+'%"></div></div></div>';
-      });
-    }
-    if(showItems._truncated){
-      h+='<div style="font-size:11px;color:#888;margin-top:6px">...等'+showItems._totalCount+'条</div>';
-    }
-    h+='</div>';
-  });
-  h+='</div></div>';
-  return h;
-}
-
-// bS12 手绘涂鸦风 - AI版
-function bS12(d, m){
-  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '24px' : '22px';
-  var itemFont = m.density === 'dense' ? '12px' : '13px';
-  var secFont = m.density === 'dense' ? '13px' : '15px';
-  var secGap = m.density === 'dense' ? '8px' : m.sectionCount <= 4 ? '16px' : '12px';
-  var wrapPad = m.density === 'dense' ? '18px 16px' : '28px 22px';
-  var h='<div class="content s12"><div class="doodle-wrap" style="padding:'+wrapPad+'">';
-  h+='<h1 style="font-size:'+titleSize+'">✦ '+E(d.title)+' ✦</h1>';
-  if(d.subtitle)h+='<p style="text-align:center;font-size:13px;color:#888;margin-bottom:16px;font-style:italic">'+E(d.subtitle)+'</p>';
-  var doodleStars=['★','✦','◆','✧','☆'];
-  d.sections.forEach(function(s,i){
-    var icon=s.icon||doodleStars[i%5];
-    var isLast=i===d.sections.length-1;
-    if(s.type==='rules'){
-      h+='<div class="doodle-footer" style="margin-top:'+(m.density==='dense'?'12px':'16px')+'">★ '+E(s.title)+'：'+E(s.items[0]?s.items[0].detail||s.items[0].label:'')+'</div>';
-      return;
-    }
-    var showItems=s.items;
-    var maxItems=99;
-    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
-    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
-    if(s.type!=='schedule'&&showItems.length>maxItems){
-      showItems=showItems.slice(0,maxItems);
-      showItems._truncated=true;
-      showItems._totalCount=s.items.length;
-    }
-    h+='<div class="doodle-sec" style="padding-bottom:'+secGap+';margin-bottom:'+secGap+';'+(isLast?'border-bottom:none;margin-bottom:0':'')+'">';
-    h+='<h3 style="font-size:'+secFont+'">'+icon+' '+E(s.title)+'</h3>';
-    if(s.type==='schedule'){
-      showItems.forEach(function(t){
-        h+='<p style="font-size:'+itemFont+'">⏰ <b>'+E(t.label)+'</b> '+ED(t.detail)+'</p>';
-      });
-    }else{
-      if(showItems.length>1){
-        h+='<ul>';
-        showItems.forEach(function(t){
-          if(t.sub_items&&t.sub_items.length){
-            h+='<li style="font-size:'+itemFont+';list-style:none">'+renderItemContent(t,{font:itemFont})+'</li>';
-          }else{
-            var txt=t.detail||t.label||t;
-            if(t.label&&t.detail)txt=t.label+' · '+t.detail;
-            h+='<li style="font-size:'+itemFont+'">'+E(txt)+'</li>';
-          }
-        });
-        h+='</ul>';
-      }else{
-        showItems.forEach(function(t){
-          h+='<p style="font-size:'+itemFont+'">□ '+ED(t.detail||t.label)+'</p>';
-        });
-      }
-    }
-    if(showItems._truncated){
-      h+='<div style="font-size:11px;color:#999;margin-top:6px">...等'+showItems._totalCount+'条</div>';
-    }
-    h+='</div>';
-  });
-  h+='<div class="doodle-sticky">💡<br>重点<br>标记！</div>';
-  h+='</div></div>';
-  return h;
-}
-
-// bS13 思维导图 - AI版
-function bS13(d, m){
-  var colors=['#e8457c','#6366f1','#10b981','#f59e0b','#ec4899','#0891b2'];
-  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '24px' : '22px';
-  var rootSize = m.density === 'dense' ? '16px' : m.density === 'light' ? '20px' : '18px';
-  var itemFont = m.density === 'dense' ? '12px' : '13px';
-  var nodeTitleSize = m.density === 'dense' ? '13px' : '14px';
-  var secGap = m.density === 'dense' ? '10px' : '16px';
-  var maxMargin = m.density === 'dense' ? 100 : 140;
-  var minMargin = m.density === 'dense' ? 20 : 60;
-  var h='<div class="content s13"><div class="mm-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
-  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
-  h+='</div>';
-  h+='<div class="mm-root"><h2 style="font-size:'+rootSize+'">🧠 '+E(d.title)+'</h2></div>';
-  var secCount=d.sections.length;
-  d.sections.forEach(function(s,i){
-    var color=colors[i%colors.length];
-    var marginLeft=Math.round(maxMargin-(maxMargin-minMargin)*(i/(Math.max(secCount-1,1))));
-    var isLast=i===d.sections.length-1;
-    var showItems=s.items;
-    var maxItems=99;
-    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
-    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
-    if(s.type!=='schedule'&&showItems.length>maxItems){
-      showItems=showItems.slice(0,maxItems);
-      showItems._truncated=true;
-      showItems._totalCount=s.items.length;
-    }
-    h+='<div class="mm-branch" style="border-left-color:'+color+';margin-left:'+marginLeft+'px">';
-    h+='<div class="mm-node" style="border-left:4px solid '+color+';margin-bottom:'+(isLast?'0':secGap)+'px">';
-    h+='<h3 style="color:'+color+';font-size:'+nodeTitleSize+'">● '+E(s.title)+'</h3>';
-    if(s.type==='phases'&&showItems.length>0){
-      showItems.forEach(function(t,j){
-        h+='<div style="margin-bottom:'+(j<showItems.length-1?'8px':'0')+';padding-left:12px">';
-        h+=renderItemContent(t,{font:itemFont});
-        h+='</div>';
-      });
-    }else if(s.type==='schedule'&&showItems.length>0){
-      showItems.forEach(function(t){
-        h+='<div class="mm-schedule"><div class="mm-sched-item"><span class="mm-sched-time" style="color:'+color+'">'+E(t.label)+'</span><span class="mm-sched-act">'+ED(t.detail)+'</span></div></div>';
-      });
-    }else{
-      h+='<p style="font-size:'+itemFont+';color:#555;line-height:1.7">';
-      showItems.forEach(function(t){
-        var txt=t.detail||t.label||t;
-        if(t.label&&t.detail)txt=t.label+'：'+ED(t.detail);
-        else txt=ED(t.detail||t.label||'');
-        if(txt)h+='▸ '+txt+'<br>';
-      });
-      h+='</p>';
-    }
-    if(showItems._truncated){
-      h+='<div style="font-size:11px;color:#999;margin-top:6px">...等'+showItems._totalCount+'条</div>';
-    }
-    h+='</div></div>';
-  });
-  h+='</div>';
-  return h;
-}
-
-// bS14 暗色模式 - AI版
-function bS14(d, m){
-  var glowColors=['rgba(232,69,124,.3)','rgba(99,102,241,.3)','rgba(16,185,129,.3)','rgba(245,158,11,.3)','rgba(236,72,153,.3)','rgba(8,145,178,.3)'];
-  var lineColors=[
-    'linear-gradient(90deg,#e8457c,#6366f1)',
-    'linear-gradient(90deg,#6366f1,#10b981)',
-    'linear-gradient(90deg,#10b981,#f59e0b)',
-    'linear-gradient(90deg,#f59e0b,#ec4899)',
-    'linear-gradient(90deg,#ec4899,#0891b2)',
-    'linear-gradient(90deg,#0891b2,#e8457c)'
-  ];
-  var titleSize = m.density === 'dense' ? '20px' : m.density === 'light' ? '28px' : '24px';
-  var itemFont = m.density === 'dense' ? '12px' : '13px';
-  var cardTitleSize = m.density === 'dense' ? '14px' : '15px';
-  var cardPad = m.density === 'dense' ? '14px 16px' : '18px 20px';
-  var cardGap = m.density === 'dense' ? '10px' : '14px';
-  var heroPad = m.density === 'dense' ? '20px' : '28px';
-  var bodyPad = m.density === 'dense' ? '14px' : '20px';
-  var accentColors=['#e8457c','#6366f1','#10b981','#f59e0b','#ec4899','#0891b2'];
-  var h='<div class="content s14"><div class="dark-hero" style="padding:'+heroPad+'">';
-  h+='<div class="glow-tr"></div><div class="glow-bl"></div>';
-  h+='<h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
-  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
-  h+='</div><div class="dark-body" style="padding:'+bodyPad+'">';
-  d.sections.forEach(function(s,i){
-    var color=accentColors[i%accentColors.length];
-    var glow=glowColors[i%glowColors.length];
-    var line=lineColors[i%lineColors.length];
-    var isLast=i===d.sections.length-1;
-    if(s.type==='rules'){
-      h+='<div class="dark-card" style="margin-bottom:0;background:linear-gradient(135deg,#2d2d5e,#1a1a3e);border-color:#444466"><div class="top-line" style="background:'+line+'"></div>';
-      h+='<h3 style="font-size:'+cardTitleSize+';border-left-color:'+color+';text-shadow:0 0 10px '+glow+'">'+E(s.title)+'</h3>';
-      h+='<p>';
-      s.items.forEach(function(t){h+='▸ '+ED(t.detail||t.label)+'<br>'});
-      h+='</p></div>';
-      return;
-    }
-    var showItems=s.items;
-    var maxItems=99;
-    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
-    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
-    if(s.type!=='schedule'&&showItems.length>maxItems){
-      showItems=showItems.slice(0,maxItems);
-      showItems._truncated=true;
-      showItems._totalCount=s.items.length;
-    }
-    h+='<div class="dark-card" style="margin-bottom:'+(isLast?'0':cardGap)+'px;padding:'+cardPad+'"><div class="top-line" style="background:'+line+'"></div>';
-    h+='<h3 style="font-size:'+cardTitleSize+';border-left-color:'+color+';text-shadow:0 0 10px '+glow+'">'+E(s.title)+'</h3>';
-    if(s.type==='schedule'){
-      showItems.forEach(function(t){
-        h+='<p style="font-size:'+itemFont+'"><span style="color:'+color+';font-weight:600">'+E(t.label)+'</span>  '+ED(t.detail)+'</p>';
-      });
-    }else{
-      h+='<p style="font-size:'+itemFont+';color:#c8c8d4;line-height:1.8;padding-left:13px">';
-      showItems.forEach(function(t){
-        if(t.sub_items&&t.sub_items.length){
-          h+=renderItemContent(t,{font:itemFont,color:'#c8c8d4',titleColor:'#fff',bullet:'▸'});
-        }else{
-          var txt=t.detail||t.label||t;
-          if(t.label&&t.detail)txt=t.label+'  '+ED(t.detail);
-          else txt=ED(t.detail||t.label||'');
-          if(txt)h+='▸ '+txt+'<br>';
-        }
-      });
-      h+='</p>';
-    }
-    if(showItems._truncated){
-      h+='<div style="font-size:11px;color:#666688;margin-top:6px;padding-left:13px">...等'+showItems._totalCount+'条</div>';
-    }
-    h+='</div>';
-  });
-  h+='</div></div>';
-  return h;
-}
-
-// bS15 渐变卡片
-function bS15(d, m){
-  var gradients = [
-    'linear-gradient(135deg,#667eea,#764ba2)',
-    'linear-gradient(135deg,#f093fb,#f5576c)',
-    'linear-gradient(135deg,#4facfe,#00f2fe)',
-    'linear-gradient(135deg,#43e97b,#38f9d7)',
-    'linear-gradient(135deg,#fa709a,#fee140)',
-    'linear-gradient(135deg,#a18cd1,#fbc2eb)',
-    'linear-gradient(135deg,#fccb90,#d57eeb)',
-    'linear-gradient(135deg,#ff9a9e,#fecfef)'
-  ];
-  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '26px' : '22px';
-  var heroPad = m.density === 'dense' ? '16px' : '24px';
-  var cardPad = m.density === 'dense' ? '14px' : '18px';
-  var cardGap = m.density === 'dense' ? '10px' : '14px';
-  var itemFont = m.density === 'dense' ? '12px' : '13px';
-  var cardTitleSize = m.density === 'dense' ? '14px' : '16px';
-  var h='<div class="content s15"><div class="gc15-hero" style="padding:'+heroPad+' 20px '+(m.density==='dense'?'12px':'16px')+'"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
-  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
-  h+='</div><div class="gc15-divider"></div><div class="gc15-body" style="gap:'+cardGap+'px">';
-  d.sections.forEach(function(s,i){
-    var grad=gradients[i%gradients.length];
-    if(s.type==='rules'){
-      h+='<div class="gc15-card" style="background:'+grad+';padding:'+cardPad+'px;border-radius:14px"><div class="gc15-deco"></div>';
-      h+='<h3 style="font-size:'+cardTitleSize+'">'+E(s.title)+'</h3>';
-      h+='<p style="font-size:'+itemFont+'">';
-      s.items.forEach(function(t){h+='● '+ED(t.detail||t.label)+'<br>'});
-      h+='</p></div>';
-      return;
-    }
-    var showItems=s.items;
-    var maxItems=99;
-    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
-    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
-    if(s.type!=='schedule'&&showItems.length>maxItems){
-      showItems=showItems.slice(0,maxItems);
-      showItems._truncated=true;
-      showItems._totalCount=s.items.length;
-    }
-    h+='<div class="gc15-card" style="background:'+grad+';padding:'+cardPad+'px;border-radius:14px"><div class="gc15-deco"></div>';
-    h+='<h3 style="font-size:'+cardTitleSize+'">'+(s.icon||'')+' '+E(s.title)+'</h3>';
-    if(s.type==='schedule'){
-      h+='<p style="font-size:'+itemFont+'">';
-      showItems.forEach(function(t){h+='<span style="opacity:.75;font-weight:600">'+E(t.label)+'</span> '+ED(t.detail)+'<br>'});
-      h+='</p>';
-    }else{
-      h+='<p style="font-size:'+itemFont+'">';
-      showItems.forEach(function(t){
-        if(t.sub_items&&t.sub_items.length){
-          h+='<span style="opacity:.9">'+renderItemContent(t,{font:itemFont,color:'rgba(255,255,255,0.9)',titleColor:'#fff'})+'</span>';
-        }else{
-          var txt=t.detail||t.label||t;
-          if(t.label&&t.detail)txt=t.label+'  '+ED(t.detail);
-          else txt=ED(t.detail||t.label||'');
-          if(txt)h+='● '+txt+'<br>';
-        }
-      });
-      h+='</p>';
-    }
-    if(showItems._truncated){
-      h+='<div class="gc15-trunc">...等'+showItems._totalCount+'条</div>';
-    }
-    h+='</div>';
-  });
-  h+='</div></div>';
-  return h;
-}
-
-// bS16 便签/报事贴
-function bS16(d, m){
-  var colors=['#e8457c','#4facfe','#43e97b','#f59e0b','#a855f7','#ec4899','#14b8a6','#f97316'];
-  var rotations=[-2,1.5,-1,2,-1.5,0.5,-0.5,1];
-  var bgColors=['#fffef5','#f0f8ff','#f0fff4','#fffbeb','#f5f3ff','#fdf2f8','#f0fdfa','#fff7ed'];
-  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '26px' : '22px';
-  var cardPad = m.density === 'dense' ? '14px 14px 14px 18px' : '18px 16px 18px 20px';
-  var cardGap = m.density === 'dense' ? '8px' : m.sectionCount >= 6 ? '8px' : '12px';
-  var itemFont = m.density === 'dense' ? '12px' : '13px';
-  var cardTitleSize = m.density === 'dense' ? '13px' : '15px';
-  var h='<div class="content s16"><div class="note16-hero">';
-  h+='<span class="pin"></span><span class="pin"></span><span class="pin"></span>';
-  h+='<h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
-  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
-  h+='</div><div class="note16-body" style="gap:'+cardGap+'px">';
-  d.sections.forEach(function(s,i){
-    var color=colors[i%colors.length];
-    var rot=rotations[i%rotations.length];
-    var bg=bgColors[i%bgColors.length];
-    if(s.type==='rules'){
-      h+='<div class="note16-card" style="background:'+bg+';border-left:4px solid '+color+';transform:rotate('+rot+'deg);padding:'+cardPad+'"><div class="note16-fold"></div>';
-      h+='<h3 style="font-size:'+cardTitleSize+'">'+E(s.title)+'</h3>';
-      h+='<p style="font-size:'+itemFont+'">';
-      s.items.forEach(function(t){h+='✦ '+ED(t.detail||t.label)+'<br>'});
-      h+='</p></div>';
-      return;
-    }
-    var showItems=s.items;
-    var maxItems=99;
-    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
-    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
-    if(s.type!=='schedule'&&showItems.length>maxItems){
-      showItems=showItems.slice(0,maxItems);
-      showItems._truncated=true;
-      showItems._totalCount=s.items.length;
-    }
-    h+='<div class="note16-card" style="background:'+bg+';border-left:4px solid '+color+';transform:rotate('+rot+'deg);padding:'+cardPad+'"><div class="note16-fold"></div>';
-    h+='<h3 style="font-size:'+cardTitleSize+'">'+(s.icon||'')+' '+E(s.title)+'</h3>';
-    if(s.type==='schedule'){
-      h+='<p style="font-size:'+itemFont+'">';
-      showItems.forEach(function(t){h+='✦ <b>'+E(t.label)+'</b> '+ED(t.detail)+'<br>'});
-      h+='</p>';
-    }else{
-      h+='<p style="font-size:'+itemFont+'">';
-      showItems.forEach(function(t){
-        if(t.sub_items&&t.sub_items.length){
-          h+=renderItemContent(t,{font:itemFont});
-        }else{
-          var txt=t.detail||t.label||t;
-          if(t.label&&t.detail)txt=t.label+'  '+ED(t.detail);
-          else txt=ED(t.detail||t.label||'');
-          if(txt)h+='✦ '+txt+'<br>';
-        }
-      });
-      h+='</p>';
-    }
-    if(showItems._truncated){
-      h+='<div class="note16-trunc">...等'+showItems._totalCount+'条</div>';
-    }
-    h+='</div>';
-  });
-  h+='</div></div>';
-  return h;
-}
-
-// bS17 复古报纸
-function bS17(d, m){
-  var titleSize = m.density === 'dense' ? '18px' : m.density === 'light' ? '26px' : '22px';
-  var itemFont = m.density === 'dense' ? '12px' : '13px';
-  var secGap = m.density === 'dense' ? '8px' : m.sectionCount <= 4 ? '16px' : '12px';
-  var now=new Date();
-  var dateStr=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日';
-  var days=['日','一','二','三','四','五','六'];
-  dateStr+=' 星期'+days[now.getDay()];
-  var h='<div class="content s17">';
-  h+='<div class="news-masthead"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1></div>';
-  if(d.subtitle)h+='<div class="news-date">'+E(d.subtitle)+'</div>';
-  else h+='<div class="news-date">'+dateStr+'</div>';
-  h+='<div class="news-columns">';
-  d.sections.forEach(function(s,i){
-    if(s.type==='rules'){
-      h+='<div class="news-sec rules-sec" style="column-span:all;margin-bottom:'+secGap+'px">';
-      h+='<h3>'+E(s.title)+'</h3>';
-      s.items.forEach(function(t){h+='<p>'+ED(t.detail||t.label)+'</p>'});
-      h+='</div>';
-      return;
-    }
-    var showItems=s.items;
-    var maxItems=99;
-    if(s.type==='text'&&!m.density&&s.items.length>12){maxItems=12}
-    if(s.type==='text'&&m.density==='dense'&&s.items.length>8){maxItems=8}
-    if(s.type!=='schedule'&&showItems.length>maxItems){
-      showItems=showItems.slice(0,maxItems);
-      showItems._truncated=true;
-      showItems._totalCount=s.items.length;
-    }
-    h+='<div class="news-sec" style="margin-bottom:'+secGap+'px">';
-    h+='<h3>▎ '+E(s.title)+'</h3>';
-    if(s.type==='schedule'){
-      showItems.forEach(function(t){
-        h+='<p style="font-size:'+itemFont+'">▸ '+E(t.label)+' '+ED(t.detail)+'</p>';
-      });
-    }else{
-      h+='<p style="font-size:'+itemFont+'">';
-      showItems.forEach(function(t){
-        if(t.sub_items&&t.sub_items.length){
-          h+=renderItemContent(t,{font:itemFont});
-        }else{
-          var txt=t.detail||t.label||t;
-          if(t.label&&t.detail)txt=t.label+' — '+ED(t.detail);
-          else txt=ED(t.detail||t.label||'');
-          if(txt)h+='▸ '+txt+'<br>';
-        }
-      });
-      h+='</p>';
-    }
-    if(showItems._truncated){
-      h+='<div style="font-size:11px;color:#888;margin-top:4px">...等'+showItems._totalCount+'条</div>';
-    }
-    h+='</div>';
-  });
-  h+='</div></div>';
-  return h;
-}
-
-// bS18 社交媒体 - 小红书/朋友圈风格
-function bS18(d, m){
-  var cardFont = m.density === 'dense' ? '12px' : '13px';
-  var titleSize = m.density === 'dense' ? '18px' : '20px';
-  var timeLabels = ['刚刚','3分钟前','5分钟前','10分钟前','1小时前','2小时前','3小时前'];
-  var isDark = m.contentType === 'dark' || false;
-  var contentColor = isDark ? '#bbb' : '#555';
-
-  // 读取当前主题色，用于生成同色系变体
-  var cs = getComputedStyle(document.documentElement);
-  var pc = cs.getPropertyValue('--primary').trim() || '#e8457c';
-  var m18 = pc.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
-  var r18 = m18 ? parseInt(m18[1],16) : 232, g18 = m18 ? parseInt(m18[2],16) : 69, b18 = m18 ? parseInt(m18[3],16) : 124;
-  // 基于主题色生成 8 种色（通过不同亮度/饱和度），保持多彩但有统一感
-  var cardColors = [
-    pc,
-    '#6366f1','#10b981','#f59e0b','#a855f7','#ec4899','#0891b2','#f97316'
-  ];
-  // 将 hex 转 rgba 的辅助函数
-  function hexToRgba(hex, a){
-    var m = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
-    if(!m) return hex;
-    return 'rgba('+parseInt(m[1],16)+','+parseInt(m[2],16)+','+parseInt(m[3],16)+','+a+')';
-  }
-
-  var totalItems = d.sections.reduce(function(a, s){return a + s.items.length}, 0);
-
-  var h='<div class="content s18'+(isDark?' dark':'')+'">';
-  // Header
-  h+='<div class="social-header"><h1 style="font-size:'+titleSize+'">'+E(d.title)+'</h1>';
-  if(d.subtitle)h+='<p>'+E(d.subtitle)+'</p>';
-  h+='</div>';
-  // Stats bar
-  h+='<div class="social-stats"><div class="social-stat-item"><div class="num">'+d.sections.length+'</div><div class="label">个板块</div></div><div class="social-stat-item"><div class="num">'+totalItems+'</div><div class="label">条要点</div></div><div class="social-stat-item"><div class="num">18</div><div class="label">种风格</div></div></div>';
-  // Feed cards
-  h+='<div class="social-feed">';
-  d.sections.forEach(function(s,i){
-    var bg = cardColors[i % cardColors.length];
-    var showItems = s.items;
-    var maxItems = 99;
-    if (s.type !== 'schedule' && s.type !== 'phases' && s.type !== 'rules' && showItems.length > maxItems) {
-      showItems = showItems.slice(0, maxItems);
-      showItems._truncated = true;
-      showItems._totalCount = s.items.length;
-    }
-    var cardBg = hexToRgba(bg, 0.12);
-    var card = '<div class="social-card" style="background:'+cardBg+';border-left:3px solid '+bg+'">';
-    // Avatar + Name row
-    card += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
-    card += '<div class="avatar" style="background:'+bg+'">'+E((s.icon||'📌').charAt(0))+'</div>';
-    card += '<div><div class="name" style="color:'+bg+'">'+E(s.title)+'</div></div>';
-    card += '</div>';
-    // Time
-    card += '<div class="time">'+timeLabels[Math.min(i, timeLabels.length-1)]+'</div>';
-    // Content
-    showItems.forEach(function(t){
-      if(t.sub_items&&t.sub_items.length){
-        card += '<div style="font-size:'+cardFont+'">'+renderItemContent(t,{font:cardFont})+'</div>';
-      }else{
-        card += '<p style="font-size:'+cardFont+'">'+ED(t.detail||t.label)+'</p>';
-      }
-    });
-    // Truncated hint
-    if (showItems._truncated) {
-      card += '<p style="font-size:11px;color:#999">...等'+showItems._totalCount+'条</p>';
-    }
-    // Actions - color synced
-    card += '<div class="actions">';
-    card += '<span style="color:'+bg+'">❤ '+(Math.floor(Math.random()*500+100))+'</span>';
-    card += '<span style="color:'+bg+';opacity:.5">♡ '+(Math.floor(Math.random()*200+50))+'</span>';
-    card += '<span class="tag" style="color:'+bg+'">#'+E(s.title).replace(/\s/g,'').substring(0,8)+'</span>';
-    card += '</div>';
-    card += '</div>';
-    h += card;
-  });
-  h+='</div>';
-  // Rules
-  if(d.sections.some(function(s){return s.type==='rules'})){
-    var ruleSec = d.sections.find(function(s){return s.type==='rules'});
-    h+='<div class="social-rules'+(isDark?' dark':'')+'"><h3>'+E(ruleSec.title)+'</h3>';
-    ruleSec.items.forEach(function(t){h+='<p style="font-size:13px;color:'+contentColor+'">'+ED(t.detail||t.label)+'</p>'});
-    h+='</div>';
-  }
-  // Bottom hashtag
-  var tags=['','#'+E(d.title).replace(/\s/g,'')+'','#每日分享','#知识卡片'];
-  h+='<div class="social-footer">'+tags.join(' ')+'</div>';
-  h+='</div>';
-  return h;
-}
-
-var _genAborted=false;
-function cancelGenerate(){
-  _genAborted=true;
-  var gs=document.getElementById("genStatus");
-  var gc=document.getElementById("genCancel");
-  var gb=document.getElementById("genBtn");
-  if(gs)gs.style.display="none";
-  if(gc)gc.style.display="none";
-  if(gb)gb.disabled=false;
-}
-
-// flattenSubItems - 将sub_items嵌套内容展平追加到detail中，兼容所有模板
-function flattenSubItems(items){
-  if(!items)return;
-  items.forEach(function(item){
-    if(item.sub_items && item.sub_items.length){
-      // Build sub-content string from sub_items
-      var subParts=[];
-      item.sub_items.forEach(function(si){
-        var siText='';
-        if(si.label && si.detail){
-          siText=si.label+': '+si.detail;
-        }else if(si.label){
-          siText=si.label;
-        }else{
-          siText=si.detail||'';
-        }
-        // If sub_item has its own sub_items, flatten recursively and append
-        if(si.sub_items && si.sub_items.length){
-          var deepParts=[];
-          si.sub_items.forEach(function(dsi){
-            var dt=dsi.label&&dsi.detail ? dsi.label+': '+dsi.detail : (dsi.label||dsi.detail||'');
-            if(dt)deepParts.push(dt);
-          });
-          if(deepParts.length)siText+='（'+deepParts.join('、')+'）';
-        }
-        if(siText)subParts.push(siText);
-      });
-      // Append to detail
-      if(subParts.length){
-        if(item.detail){
-          item.detail+='\n'+subParts.join('\n');
-        }else{
-          item.detail=subParts.join('\n');
-        }
-      }
-      // Clear sub_items after flattening
-      item.sub_items=[];
-    }
-    // Also handle string items (from parseText fallback)
-    if(typeof item==='string'){
-      // skip
-    }
-  });
-}
-
 async function generate(){
   var text=document.getElementById("inputText").value.trim();
   if(!text){alert("请先粘贴内容");return}
   var info=document.getElementById("exportInfo");
   var gs=document.getElementById("genStatus");
   var gb=document.getElementById("genBtn");
-  var gc=document.getElementById("genCancel");
-  _genAborted=false;
-  if(gs){gs.style.display="inline-flex";gs.className="show"}
-  if(gc)gc.style.display="inline-block";
-  if(gb){gb.disabled=true}
-  info.textContent="⚡ 生成中...";
+  if(gs)gs.style.display="inline-block";
+  if(gb){gb.disabled=true;gb.style.opacity="0.6"}
+  info.textContent="🔄 模板生成中...";
   var d=null;
   try{d=await aiParse(text)}
   catch(e){console.log('AI解析失败，使用本地解析:',e);d=parseText(text)}
-  if(_genAborted)return;
-  if(!d||!d.sections.length){if(gs)gs.style.display="none";if(gc)gc.style.display="none";if(gb)gb.disabled=false;alert("未识别到内容结构");return}
+  if(!d||!d.sections.length){alert("未识别到内容结构");return}
   if(!d.subtitle)d.subtitle='';
   var m=measureContent(d);
-  // Content coverage check: warn if AI output seems too short
-  var inputLen=text.length;
-  var outputDetailLen=0;
-  d.sections.forEach(function(s){s.items.forEach(function(it){outputDetailLen+=(it.detail||'').length;});});
-  var coverage=inputLen>0?outputDetailLen/inputLen:0;
-  if(coverage<0.7&&inputLen>200){
-    console.warn('Low coverage:',(coverage*100).toFixed(0)+'%','input:',inputLen,'output:',outputDetailLen);
-    if(!confirm('AI可能精简了部分内容（覆盖率约'+Math.round(coverage*100)+'%），是否重新生成？'))_genAborted=true;
-  }
   d.sections.forEach(function(s){
     if(!s.icon)s.icon='📌';
     if(!s.type)s.type='text';
     if(s.items&&s.items.length&&typeof s.items[0]==='string'){
       s.items=s.items.map(function(t){return{label:'',detail:t,value:''}});
     }
-    // sub_items rendered natively by templates via renderItemContent()
   });
   var area=document.getElementById("contentArea");
-  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m)+bS9(d,m)+bS10(d,m)+bS11(d,m)+bS12(d,m)+bS13(d,m)+bS14(d,m)+bS15(d,m)+bS16(d,m)+bS17(d,m)+bS18(d,m);
+  area.innerHTML=bS1(d,m)+bS2(d,m)+bS3(d,m)+bS4(d,m)+bS5(d,m)+bS6(d,m)+bS7(d,m)+bS8(d,m);
   document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});
   document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});
   document.querySelector('.style-btn[data-s="1"]').classList.add("active");
   area.querySelector(".s1").classList.add("active");
-  if(gs)gs.style.display="none";if(gc)gc.style.display="none";if(gb)gb.disabled=false;
-  info.textContent="✅ 已生成"+d.sections.length+"个板块 · "+m.totalChars+"字 · 18种排版 (AI驱动)";
+  if(gs)gs.style.display="none";if(gb){gb.disabled=false;gb.style.opacity="1"}
+  info.textContent="✅ 已生成"+d.sections.length+"个板块的8种精美排版 (AI驱动)";
 }
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
-function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦","思维导图","暗色模式","渐变卡片","便签","复古报纸","社交媒体"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){var bg=idx===13?"#1a1a2e":idx===14?"#f0f0f5":idx===15?"#d4c4a8":idx===16?"#f5f0e1":idx===17?"#fafafa":"#f5f5f5";html2canvas(cs[idx],{scale:2,backgroundColor:bg,width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
+var currentMode='normal';
+function exportAll(){
+  var ns,cs,idx=0;
+  if(currentMode==='compare'){
+    ns=["条形图版","表格版","评分卡版","全能对比版"];
+    cs=document.querySelectorAll('.c1,.c2,.c3,.c4');
+  }else{
+    ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局"];
+    cs=document.querySelectorAll('.s1,.s2,.s3,.s4,.s5,.s6,.s7,.s8');
+  }
+  function next(){if(idx>=cs.length||!cs[idx])return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){html2canvas(cs[idx],{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
+
+// ========== 竞品对比功能 ==========
+var prodColors=['#e8457c','#94a3b8','#a8a29e','#78716c','#6b7280'];
+
+function switchMode(mode){
+  currentMode=mode;
+  var nb=document.getElementById('normStyleBtns'),cb=document.getElementById('cmpStyleBtns'),hint=document.querySelector('.hint'),info=document.getElementById('exportInfo'),inp=document.getElementById('inputText');
+  if(mode==='compare'){
+    nb.style.display='none';cb.style.display='flex';
+    hint.textContent='粘贴竞品信息，如：产品A vs 产品B，各项指标对比';
+    inp.placeholder='例：\n产品：华为Mate60 vs iPhone15 vs 三星S24\n\n### 核心性能\n芯片：麒麟9000S vs A17 Pro vs 骁龙8Gen3\n续航：4800mAh vs 3274mAh vs 4000mAh\n\n重点突出：续航';
+    info.textContent='竞品对比模式 · 4种风格';
+  }else{
+    nb.style.display='flex';cb.style.display='none';
+    hint.textContent='当前展示为精细排版示例。粘贴新内容可用通用模板快速预览。';
+    inp.placeholder='在这里粘贴你的内容...';
+    info.textContent='精细排版示例 · 8种风格 · 6种配色';
+  }
+}
+
+// 竞品风格按钮点击事件
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.cmp-style-btn');
+  if(!btn)return;
+  document.querySelectorAll('.cmp-style-btn').forEach(function(x){x.classList.remove('active')});
+  btn.classList.add('active');
+  var cs=btn.getAttribute('data-cs');
+  document.querySelectorAll('.content').forEach(function(x){x.classList.remove('active')});
+  var el=document.querySelector('.c'+cs);
+  if(el)el.classList.add('active');
+});
+
+function parseCompare(text){
+  var lines=text.split(/\n/).map(function(l){return l.trim()}).filter(function(l){return l});
+  var products=[],dimensions=[],highlights=[];
+  var title='竞品对比分析',subtitle='';
+  var curDim=null,curDimTitle='';
+  for(var i=0;i<lines.length;i++){
+    var line=lines[i];
+    if(!line)continue;
+    // 提取高亮
+    var hlMatch=line.match(/(?:重点突出|高亮|突出)[：:]\s*(.+)/);
+    if(hlMatch){highlights=hlMatch[1].split(/[、,，]/).map(function(h){return h.trim()});continue;}
+    // 提取标题
+    if(!products.length&&line.match(/^[\#]{0,3}\s*竞品|对比分析|产品对比/i)){
+      title=line.replace(/^#+\s*/,'').replace(/^[\*【】#]+/,'');
+      continue;
+    }
+    // 提取产品名
+    if(line.match(/^[#]{0,3}\s*产品|^[#]{0,3}\s*对比|产品[名称]?[：:]/i)||(!products.length&&line.match(/vs|对比/i))){
+      var vsLine=line.replace(/^[#\s]+/,'').replace(/产品[名称]?[：:]\s*/i,'');
+      var prods=vsLine.split(/\s+vs\s+/i);
+      if(prods.length<2)prods=vsLine.split(/\s+[与和]\s+/);
+      if(prods.length>=2){
+        products=prods.map(function(p){return p.trim()});
+        subtitle=products.join(' vs ');
+      }
+      continue;
+    }
+    // 维度标题
+    if(line.match(/^[#]{1,3}\s/) || line.match(/^[一二三四五六七八九十]+[、.]/) || (line.length<30 && !line.includes(':') && !line.includes('：') && line.length>2)){
+      if(curDim&&curDim.metrics.length){dimensions.push(curDim);}
+      var dimIcons={'性能':'⚡','价格':'💰','规格':'📐','屏幕':'📱','摄像':'📷','电池':'🔋','设计':'🎨','服务':'🛡️','支持':'📞','安全':'🔒','系统':'💻','功能':'🔧','体验':'✨','品牌':'🏷️'};
+      curDimTitle=line.replace(/^[#\s]+/,'').replace(/^[一二三四五六七八九十]+[、.]/,'');
+      var dimIcon='📌';
+      for(var dk in dimIcons){if(curDimTitle.indexOf(dk)>=0){dimIcon=dimIcons[dk];break;}}
+      curDim={icon:dimIcon,title:curDimTitle,metrics:[]};
+      continue;
+    }
+    // 指标行
+    if(products.length>=2&&curDim){
+      var sep=line.match(/[:：]/);
+      if(sep&&sep.index>0){
+        var mName=line.substring(0,sep.index).trim();
+        var mValStr=line.substring(sep.index+1).trim();
+        var vals=mValStr.split(/\s+vs\s+/i);
+        if(vals.length!==products.length){vals=mValStr.split(/\s+[、,，]\s*/);}
+        while(vals.length<products.length){vals.push('-');}
+        // 判断数值型
+        var isNum=true;
+        var numVals=[];
+        for(var vi=0;vi<vals.length;vi++){
+          var nv=parseFloat(vals[vi].replace(/[^0-9.]/g,''));
+          if(isNaN(nv)){isNum=false;break;}
+          numVals.push(nv);
+        }
+        var best=-1;
+        if(isNum){
+          var maxV=Math.max.apply(null,numVals),minV=Math.min.apply(null,numVals);
+          // 策略：续航/容量/尺寸越大越好，延迟/价格越小越好
+          var biggerBetter=/续航|容量|内存|存储|像素|分辨率|尺寸|屏幕|电池|时长|寿命|评分|满分|好评|用户|客户|市场份额|可用|支持|保障|覆盖|速度|并发|吞吐|QPS|TPS|核|线程|天数|年|月/.test(mName);
+          var target=biggerBetter?maxV:minV;
+          for(var bi=0;bi<numVals.length;bi++){if(numVals[bi]===target){best=bi;break;}}
+        }
+        curDim.metrics.push({name:mName,values:vals,numeric:isNum,numVals:numVals||[],best:best});
+      }
+    }
+  }
+  if(curDim&&curDim.metrics.length){dimensions.push(curDim);}
+  if(products.length<2){products=['产品A','产品B'];subtitle='产品A vs 产品B';}
+  return{title:title,subtitle:subtitle,products:products,dimensions:dimensions,highlights:highlights};
+}
+
+function cmpIsHighlight(dimName,metricName,highlights){
+  for(var i=0;i<highlights.length;i++){if(dimName.indexOf(highlights[i])>=0||metricName.indexOf(highlights[i])>=0)return true;}return false;
+}
+
+function cmpBarWidth(val,maxVal){var n=parseFloat(val.replace(/[^0-9.]/g,''));if(isNaN(n))return 30;return Math.max(8,Math.round(n/maxVal*100));}
+
+// 条形图版
+function bC1(d){
+  var h='<div class="content active c1 c-base"><div class="c-hero"><h1>⚔️ '+E(d.title)+'</h1>';
+  h+='<div class="c-products">';
+  d.products.forEach(function(p,i){h+='<span class="c-prod-tag" style="background:'+prodColors[i]+'">'+E(p)+'</span>';});
+  h+='</div></div>';
+  d.dimensions.forEach(function(dim){
+    var hl=cmpIsHighlight(dim.title,'',d.highlights);
+    h+='<div class="c-dim-title">'+dim.icon+' '+E(dim.title)+'</div>';
+    h+='<div class="c-dim-block'+(hl?' highlight':'')+'">';
+    dim.metrics.forEach(function(m){
+      var mhl=cmpIsHighlight(dim.title,m.name,d.highlights);
+      if(m.numeric){
+        var maxVal=Math.max.apply(null,m.numVals.concat([1]));
+        m.values.forEach(function(v,vi){
+          var bw=cmpBarWidth(v,maxVal);
+          var isBest=m.best===vi;
+          h+='<div class="c-bar c-bar-wrap"'+(mhl?' style="border-left:3px solid var(--primary);padding-left:8px"':'')+'>';
+          h+='<div class="c-bar-label"><span class="name" style="color:'+prodColors[vi]+'">'+E(d.products[vi])+'</span>';
+          h+='<span class="val">'+E(v)+(isBest?' 🏆':'')+'</span></div>';
+          h+='<div class="c-bar-track"><div class="c-bar-fill'+(isBest?' best':'')+'" style="width:'+bw+'%;background:'+prodColors[vi]+'"></div></div>';
+          h+='</div>';
+        });
+      }else{
+        h+='<div class="c-metric-row"'+(mhl?' style="border-left:3px solid var(--primary)"':'')+'>';
+        h+='<div class="c-metric-name">'+E(m.name)+'</div>';
+        h+='<div style="display:flex;flex:1;justify-content:space-around">';
+        m.values.forEach(function(v,vi){
+          var isBest=m.best===vi;
+          h+='<span class="c-metric-val" style="color:'+prodColors[vi]+'"'+(isBest?' class="c-winner"':'')+'>'+E(v)+(isBest?' 🏆':'')+'</span>';
+        });
+        h+='</div></div>';
+      }
+    });
+    h+='</div>';
+  });
+  h+='</div>';return h;
+}
+
+// 表格版
+function bC2(d){
+  var h='<div class="content c2 c-base"><div class="c-hero"><h1>📊 '+E(d.title)+'</h1>';
+  h+='<div class="c-products">';
+  d.products.forEach(function(p,i){h+='<span class="c-prod-tag" style="background:'+prodColors[i]+'">'+E(p)+'</span>';});
+  h+='</div></div>';
+  d.dimensions.forEach(function(dim){
+    var hl=cmpIsHighlight(dim.title,'',d.highlights);
+    h+='<div class="c-dim-title">'+dim.icon+' '+E(dim.title)+'</div>';
+    h+='<div class="c-table-wrap"><table><thead><tr><th style="background:#888">指标</th>';
+    d.products.forEach(function(p,i){h+='<th style="background:'+prodColors[i]+'">'+E(p)+'</th>';});
+    h+='</tr></thead><tbody>';
+    dim.metrics.forEach(function(m){
+      var mhl=cmpIsHighlight(dim.title,m.name,d.highlights);
+      h+='<tr'+(mhl?' style="background:#fff8f0"':'')+'>';
+      h+='<td>'+E(m.name)+'</td>';
+      m.values.forEach(function(v,vi){
+        var isBest=m.best===vi;
+        h+='<td'+(isBest?' class="best-cell"':'')+'>'+E(v)+'</td>';
+      });
+      h+='</tr>';
+    });
+    h+='</tbody></table></div>';
+  });
+  h+='</div>';return h;
+}
+
+// 评分卡版
+function bC3(d){
+  var scores=[];
+  d.products.forEach(function(){scores.push(0);});
+  var dimScores=d.dimensions.map(function(dim){
+    var ds=[];
+    dim.metrics.forEach(function(m){
+      if(!m.numeric){ds.push(null);return;}
+      var maxV=Math.max.apply(null,m.numVals.concat([1]));
+      var minV=Math.min.apply(null,m.numVals);
+      var range=maxV-minV;if(range===0)range=1;
+      m.numVals.forEach(function(nv,pi){
+        var biggerBetter=/续航|容量|内存|存储|像素|分辨率|尺寸|屏幕|电池|时长|寿命|评分|满分|好评|用户|客户|市场份额|可用|支持|保障|覆盖|速度|并发|吞吐|QPS|TPS|核|线程|天数|年|月/.test(m.name);
+        var score=biggerBetter?(nv-minV)/range*100:(maxV-nv)/range*100;
+        scores[pi]+=score;
+      });
+      ds.push(null);
+    });
+    return ds;
+  });
+  var totalMetrics=0;
+  d.dimensions.forEach(function(dim){totalMetrics+=dim.metrics.length;});
+  if(totalMetrics>0){scores=scores.map(function(s){return Math.round(s/totalMetrics);});}
+  var ranked=d.products.map(function(p,i){return{name:p,idx:i,score:scores[i]};}).sort(function(a,b){return b.score-a.score;});
+  var medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
+  var h='<div class="content c3 c-base"><div class="c-hero"><h1>🏆 '+E(d.title)+'</h1>';
+  h+='<div class="c-products">';
+  d.products.forEach(function(p,i){h+='<span class="c-prod-tag" style="background:'+prodColors[i]+'">'+E(p)+'</span>';});
+  h+='</div></div>';
+  // 各维度评分
+  d.dimensions.forEach(function(dim){
+    var hl=cmpIsHighlight(dim.title,'',d.highlights);
+    h+='<div class="c-dim-title">'+dim.icon+' '+E(dim.title)+(hl?' ✨':'')+'</div>';
+    h+='<div class="c-score c-ring-wrap">';
+    dim.metrics.forEach(function(m){
+      if(!m.numeric){
+        h+='<div class="c-ring-item"><div style="font-size:12px;color:#555;padding:20px 10px">'+E(m.name)+'<br>';m.values.forEach(function(v,vi){h+='<span style="color:'+prodColors[vi]+'">'+E(v)+'</span> ';});h+='</div></div>';return;
+      }
+      var maxV=Math.max.apply(null,m.numVals.concat([1]));
+      var minV=Math.min.apply(null,m.numVals);
+      var range=maxV-minV;if(range===0)range=1;
+      h+='<div class="c-ring-item"><div class="c-ring"><div class="c-ring-bg"></div>';
+      m.numVals.forEach(function(nv,vi){
+        var biggerBetter=/续航|容量|内存|存储|像素|分辨率|尺寸|屏幕|电池|时长|寿命|评分|满分|好评|用户|客户|市场份额|可用|支持|保障|覆盖|速度|并发|吞吐|QPS|TPS|核|线程|天数|年|月/.test(m.name);
+        var pct=biggerBetter?(nv-minV)/range*100:(maxV-nv)/range*100;
+        pct=Math.max(5,Math.round(pct));
+        h+='<div class="c-ring-fg" style="background:conic-gradient('+prodColors[vi]+' '+pct+'%,#e8e8e8 '+pct+'%);clip-path:polygon(50% 50%,50% 0%,'+(50+pct*0.8)+'% 0%)" ></div>';
+      });
+      h+='<div class="c-ring-inner"></div>';
+      h+='<span class="score-num">'+E(m.values[m.best>=0?m.best:0])+'</span>';
+      h+='</div><div class="score-lbl">'+E(m.name)+'</div></div>';
+    });
+    h+='</div>';
+  });
+  // 排名
+  h+='<div class="c-score c-rank-bar"><h4>📊 综合排名</h4>';
+  ranked.forEach(function(r,i){
+    h+='<div class="c-rank-item"><span class="c-rank-medal">'+medals[i]+'</span>';
+    h+='<span style="font-weight:600">'+E(r.name)+'</span>';
+    h+='<span>'+r.score+'分</span></div>';
+  });
+  h+='</div></div>';return h;
+}
+
+// 全能对比版
+function bC4(d){
+  var h='<div class="content c4 c-base"><div class="c-hero"><h1>🎯 '+E(d.title)+'</h1>';
+  h+='<div class="c-products">';
+  d.products.forEach(function(p,i){h+='<span class="c-prod-tag" style="background:'+prodColors[i]+'">'+E(p)+'</span>';});
+  h+='</div></div>';
+  // 数值维度用条形图
+  var hasBar=false,hasTable=false;
+  d.dimensions.forEach(function(dim){
+    var hl=cmpIsHighlight(dim.title,'',d.highlights);
+    var allNum=dim.metrics.every(function(m){return m.numeric;});
+    if(allNum){
+      if(!hasBar){h+='<div class="c-full-sec"><div class="c-full-sec-title">📈 数据指标对比</div>';hasBar=true;}
+      h+='<div class="c-dim-block'+(hl?' highlight':'')+'"><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px">'+dim.icon+' '+E(dim.title)+'</div>';
+      dim.metrics.forEach(function(m){
+        var maxVal=Math.max.apply(null,m.numVals.concat([1]));
+        m.values.forEach(function(v,vi){
+          var bw=cmpBarWidth(v,maxVal);
+          var isBest=m.best===vi;
+          h+='<div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:'+prodColors[vi]+'">'+E(d.products[vi])+'</span>';
+          h+='<span class="val">'+E(v)+(isBest?' 🏆':'')+'</span></div>';
+          h+='<div class="c-bar-track"><div class="c-bar-fill'+(isBest?' best':'')+'" style="width:'+bw+'%;background:'+prodColors[vi]+'"></div></div>';
+          h+='</div>';
+        });
+      });
+      h+='</div>';
+    }else{
+      if(!hasTable){h+='<div class="c-full-sec"><div class="c-full-sec-title">📋 详细信息对比</div>';hasTable=true;}
+      h+='<div class="c-dim-title">'+dim.icon+' '+E(dim.title)+(hl?' ✨':'')+'</div>';
+      h+='<div class="c-table-wrap"><table><thead><tr><th style="background:#888">指标</th>';
+      d.products.forEach(function(p,i){h+='<th style="background:'+prodColors[i]+'">'+E(p)+'</th>';});
+      h+='</tr></thead><tbody>';
+      dim.metrics.forEach(function(m){
+        h+='<tr><td>'+E(m.name)+'</td>';
+        m.values.forEach(function(v,vi){h+='<td'+(m.best===vi?' class="best-cell"':'')+'>'+E(v)+'</td>';});
+        h+='</tr>';
+      });
+      h+='</tbody></table></div>';
+    }
+  });
+  if(hasBar)h+='</div>';
+  if(hasTable)h+='</div>';
+  // 底部评分汇总
+  var scores=[];
+  d.products.forEach(function(){scores.push(0);});
+  var totalMetrics=0;
+  d.dimensions.forEach(function(dim){dim.metrics.forEach(function(m){
+    if(!m.numeric){totalMetrics++;return;}
+    totalMetrics++;
+    var maxV=Math.max.apply(null,m.numVals.concat([1]));var minV=Math.min.apply(null,m.numVals);var range=maxV-minV;if(range===0)range=1;
+    var biggerBetter=/续航|容量|内存|存储|像素|分辨率|尺寸|屏幕|电池|时长|寿命|评分|满分|好评|用户|客户|市场份额|可用|支持|保障|覆盖|速度|并发|吞吐|QPS|TPS|核|线程|天数|年|月/.test(m.name);
+    m.numVals.forEach(function(nv,pi){scores[pi]+=biggerBetter?(nv-minV)/range*100:(maxV-nv)/range*100;});
+  });});
+  if(totalMetrics>0){scores=scores.map(function(s){return Math.round(s/totalMetrics);});}
+  var ranked=d.products.map(function(p,i){return{name:p,idx:i,score:scores[i]};}).sort(function(a,b){return b.score-a.score;});
+  var medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
+  h+='<div class="c-score c-rank-bar"><h4>🏆 综合评分</h4>';
+  ranked.forEach(function(r,i){h+='<div class="c-rank-item"><span class="c-rank-medal">'+medals[i]+'</span><span style="font-weight:600">'+E(r.name)+'</span><span>'+r.score+'分</span></div>';});
+  h+='</div></div>';return h;
+}
+
+// 竞品对比生成入口
+function generateCompare(){
+  var text=document.getElementById('inputText').value.trim();
+  if(!text){alert('请先粘贴竞品信息');return;}
+  switchMode('compare');
+  var info=document.getElementById('exportInfo');
+  info.textContent='🔄 竞品对比生成中...';
+  var d=parseCompare(text);
+  if(!d.products||d.products.length<2){alert('未识别到竞品信息，请用 "vs" 分隔产品名');return;}
+  var area=document.getElementById('contentArea');
+  area.innerHTML=bC1(d)+bC2(d)+bC3(d)+bC4(d);
+  document.querySelectorAll('.cmp-style-btn').forEach(function(x){x.classList.remove('active')});
+  document.querySelector('.cmp-style-btn[data-cs="1"]').classList.add('active');
+  document.querySelectorAll('.content').forEach(function(x){x.classList.remove('active')});
+  area.querySelector('.c1').classList.add('active');
+  info.textContent='✅ 竞品对比已生成：'+d.products.length+'个产品 · '+d.dimensions.length+'个维度';
+}
 
 </script>
 
