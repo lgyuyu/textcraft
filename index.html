@@ -382,6 +382,43 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .export-bar .btn-all{background:#4f6df5}
 .export-bar .info{font-size:12px;color:#444;margin-left:auto}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}transform:scale(1.02)}
+.cmp-style-btn{padding:6px 14px;border:2px solid #e0e0e0;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font);color:#666;white-space:nowrap}
+.cmp-style-btn:hover{border-color:var(--primary);color:var(--primary)}
+.cmp-style-btn.active{background:var(--gradient);color:#fff;border-color:transparent}
+.c-base{background:var(--light);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
+.c-base .c-hero{background:var(--gradient);border-radius:12px;padding:28px 24px;color:#fff;text-align:center;margin-bottom:24px}
+.c-base .c-hero h1{font-size:22px;font-weight:700;margin-bottom:8px}
+.c-base .c-products{display:flex;justify-content:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+.c-base .c-prod-tag{padding:5px 14px;border-radius:20px;font-size:13px;font-weight:600;color:#fff}
+.c-base .c-dim-title{font-size:16px;font-weight:700;color:var(--text);margin:20px 0 12px;padding-left:12px;border-left:4px solid var(--primary);display:flex;align-items:center;gap:8px}
+.c-base .c-dim-block{background:#fff;border-radius:12px;padding:16px 18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.c-base .c-dim-block.highlight{border:2px solid var(--primary);box-shadow:0 0 12px rgba(232,69,124,.15)}
+.c-bar .c-bar-wrap{margin-bottom:6px}
+.c-bar .c-bar-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px}
+.c-bar .c-bar-label .name{color:#666}.c-bar .c-bar-label .val{color:#333;font-weight:600}
+.c-bar .c-bar-track{height:22px;background:#f0f0f0;border-radius:11px;overflow:hidden;position:relative}
+.c-bar .c-bar-fill{height:100%;border-radius:11px;min-width:4px}
+.c-bar .c-bar-fill.best::after{content:'\01F3C6';position:absolute;right:-22px;top:0;font-size:13px;line-height:22px}
+.c-table-wrap{overflow-x:auto;margin-bottom:14px}
+.c-table-wrap table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+.c-table-wrap th{padding:12px 14px;font-size:13px;font-weight:700;text-align:center;color:#fff}
+.c-table-wrap td{padding:10px 14px;font-size:13px;border-bottom:1px solid #f0f0f0;text-align:center;color:#555}
+.c-table-wrap td:first-child{text-align:left;font-weight:600;color:#333}
+.c-table-wrap tr:last-child td{border-bottom:none}
+.c-table-wrap .best-cell{font-weight:700;color:var(--primary)}
+.c-table-wrap .best-cell::before{content:'\2705 '}
+.c-score .c-rank-bar{background:var(--gradient);border-radius:12px;padding:18px;color:#fff;text-align:center;margin-top:16px}
+.c-score .c-rank-bar h4{font-size:15px;margin-bottom:8px}
+.c-score .c-rank-item{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0;font-size:13px}
+.c-score .c-rank-medal{font-size:18px}
+.c-full .c-full-sec{margin-bottom:20px}
+.c-full .c-full-sec-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.c-full .c-full-sec-title::before{content:'';width:4px;height:16px;background:var(--gradient);border-radius:2px}
+.c-metric-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f5f5f5}
+.c-metric-row:last-child{border-bottom:none}
+.c-metric-name{font-size:13px;color:#555;min-width:80px;flex-shrink:0}
+.c-metric-val{font-size:13px;color:#333;font-weight:600;flex:1;text-align:right}
+.c-winner{color:var(--primary)!important;font-weight:700!important}
 </style>
 </head>
 <body>
@@ -389,10 +426,10 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
   <h3>📝 粘贴你的内容，快速预览排版效果</h3>
   <textarea id="inputText" placeholder="在这里粘贴你的内容..."></textarea>
   <div class="hint">当前展示为精细排版示例。粘贴新内容可用通用模板快速预览，精细排版请联系墨痕-编程。</div>
-  <div class="btn-row"><button id="genBtn" onclick="generate()">✨ AI智能生成</button><span id="genStatus">⚡ 生成中...</span><button id="genCancel" onclick="cancelGenerate()">✕ 取消</button></div>
+  <div class="btn-row"><button id="genBtn" onclick="generate()" style="flex:1">🖼️ 排版生成</button><button id="cmpBtn" onclick="generateCompare()" style="flex:1;background:linear-gradient(135deg,#4f6df5,#818cf8)">⚔️ 竞品对比生成</button><span id="genStatus" style="display:none">⚡ 生成中...</span><button id="genCancel" onclick="cancelGenerate()" style="display:none">✕ 取消</button></div>
 </div>
 <div class="controls">
-  <div class="style-btns">
+  <div id="normStyleBtns" class="style-btns">
     <button class="style-btn active" data-s="1">经典卡片</button>
     <button class="style-btn" data-s="2">时间轴</button>
     <button class="style-btn" data-s="3">大卡片</button>
@@ -411,6 +448,12 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
     <button class="style-btn" data-s="16">便签</button>
     <button class="style-btn" data-s="17">复古报纸</button>
     <button class="style-btn" data-s="18">社交媒体</button>
+  </div>
+  <div id="cmpStyleBtns" class="style-btns" style="display:none">
+    <button class="cmp-style-btn active" data-cs="1">条形图版</button>
+    <button class="cmp-style-btn" data-cs="2">表格版</button>
+    <button class="cmp-style-btn" data-cs="3">评分卡版</button>
+    <button class="cmp-style-btn" data-cs="4">全能对比版</button>
   </div>
   <div class="color-dots">
     <div class="color-dot active" data-c="pink" title="暖阳粉"></div>
@@ -2127,7 +2170,233 @@ async function generate(){
   info.textContent="✅ 已生成"+d.sections.length+"个板块 · "+m.totalChars+"字 · 18种排版 (AI驱动)";
 }
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
-function exportAll(){var ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦","思维导图","暗色模式","渐变卡片","便签","复古报纸","社交媒体"],cs=document.querySelectorAll(".content"),idx=0;function next(){if(idx>=cs.length)return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){var bg=idx===13?"#1a1a2e":idx===14?"#f0f0f5":idx===15?"#d4c4a8":idx===16?"#f5f0e1":idx===17?"#fafafa":"#f5f5f5";html2canvas(cs[idx],{scale:2,backgroundColor:bg,width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
+var currentMode='normal';
+function exportAll(){
+  var ns,cs,idx=0;
+  if(currentMode==='compare'){
+    ns=["条形图版","表格版","评分卡版","全能对比版"];
+    cs=document.querySelectorAll('.c1,.c2,.c3,.c4');
+  }else{
+    ns=["经典卡片","时间轴","大卡片","极简留白","杂志风","笔记本","信息图","网格布局","瀑布流","日志","仪表盘","涂鸦","思维导图","暗色模式","渐变卡片","便签","复古报纸","社交媒体"];
+    cs=document.querySelectorAll('.s1,.s2,.s3,.s4,.s5,.s6,.s7,.s8,.s9,.s10,.s11,.s12,.s13,.s14,.s15,.s16,.s17,.s18');
+  }
+  function next(){if(idx>=cs.length||!cs[idx])return;document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});cs[idx].classList.add("active");setTimeout(function(){var bg=currentMode!=='compare'?(idx===13?"#1a1a2e":idx===14?"#f0f0f5":idx===15?"#d4c4a8":idx===16?"#f5f0e1":idx===17?"#fafafa":"#f5f5f5"):"#f5f5f5";html2canvas(cs[idx],{scale:2,backgroundColor:bg,width:800}).then(function(c){var a=document.createElement("a");a.download="排版-"+ns[idx]+".png";a.href=c.toDataURL("image/png");a.click();cs[idx].classList.remove("active");idx++;next()})},300)}next()}
+
+// ========== 竞品对比 ==========
+var prodColors=['#e8457c','#94a3b8','#a8a29e','#78716c','#6b7280'];
+function switchMode(mode){
+  currentMode=mode;
+  var nb=document.getElementById('normStyleBtns'),cb=document.getElementById('cmpStyleBtns'),hint=document.querySelector('.hint'),info=document.getElementById('exportInfo'),inp=document.getElementById('inputText'),eb=document.getElementById('exportBar');
+  if(mode==='compare'){
+    nb.style.display='none';cb.style.display='flex';
+    hint.textContent='粘贴竞品信息，如：产品A vs 产品B，各项指标对比';
+    inp.placeholder='例：产品：华为Mate60 vs iPhone15 vs 三星S24\n\n### 核心性能\n芯片：麒麟9000S vs A17 Pro vs 骁龙8Gen3\n续航：4800mAh vs 3274mAh vs 4000mAh\n\n重点突出：续航';
+    info.textContent='竞品对比模式 · 4种风格';
+  }else{
+    nb.style.display='flex';cb.style.display='none';
+    hint.textContent='当前展示为精细排版示例。粘贴新内容可用通用模板快速预览。';
+    inp.placeholder='在这里粘贴你的内容...';
+    info.textContent='精细排版示例 · 18种风格 · 6种配色';
+  }
+}
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.cmp-style-btn');
+  if(!btn)return;
+  document.querySelectorAll('.cmp-style-btn').forEach(function(x){x.classList.remove('active')});
+  btn.classList.add('active');
+  var cs=btn.getAttribute('data-cs');
+  document.querySelectorAll('.content').forEach(function(x){x.classList.remove('active')});
+  var el=document.querySelector('.c'+cs);if(el)el.classList.add('active');
+});
+
+function parseCompare(text){
+  var lines=text.split(/\n/).map(function(l){return l.trim()}).filter(function(l){return l});
+  var products=[],dimensions=[],highlights=[];
+  var title='竞品对比分析',subtitle='';
+  var curDim=null;
+  for(var i=0;i<lines.length;i++){
+    var line=lines[i];if(!line)continue;
+    var hlMatch=line.match(/(?:重点突出|高亮|突出)[：:]\s*(.+)/);
+    if(hlMatch){highlights=hlMatch[1].split(/[、,，]/).map(function(h){return h.trim()});continue;}
+    if(!products.length&&line.match(/^[\#]{0,3}\s*竞品|对比分析|产品对比/i)){title=line.replace(/^#+\s*/,'');continue;}
+    if(line.match(/^[#]{0,3}\s*产品|^产品[名称]?[：:]/i)||(!products.length&&line.match(/vs/i))){
+      var vsLine=line.replace(/^[#\s]+/,'').replace(/产品[名称]?[：:]\s*/i,'');
+      var prods=vsLine.split(/\s+vs\s+/i);
+      if(prods.length<2)prods=vsLine.split(/\s+[与和]\s+/);
+      if(prods.length>=2){products=prods.map(function(p){return p.trim()});subtitle=products.join(' vs ');}
+      continue;
+    }
+    if(line.match(/^[#]{1,3}\s/) || line.match(/^[一二三四五六七八九十]+[、.]/) || (line.length<30 && !line.match(/[:：]/) && line.length>2)){
+      if(curDim&&curDim.metrics.length)dimensions.push(curDim);
+      var dimIcons={'性能':'⚡','价格':'💰','规格':'📐','屏幕':'📱','摄像':'📷','电池':'🔋','设计':'🎨','服务':'🛡️','支持':'📞','安全':'🔒','系统':'💻','功能':'🔧','体验':'✨','品牌':'🏷️'};
+      var dimTitle=line.replace(/^[#\s]+/,'').replace(/^[一二三四五六七八九十]+[、.]/,'');
+      var dimIcon='📌';for(var dk in dimIcons){if(dimTitle.indexOf(dk)>=0){dimIcon=dimIcons[dk];break;}}
+      curDim={icon:dimIcon,title:dimTitle,metrics:[]};continue;
+    }
+    if(products.length>=2&&curDim){
+      var sep=line.match(/[:：]/);
+      if(sep&&sep.index>0){
+        var mName=line.substring(0,sep.index).trim();
+        var mValStr=line.substring(sep.index+1).trim();
+        var vals=mValStr.split(/\s+vs\s+/i);
+        if(vals.length!==products.length)vals=mValStr.split(/\s+[、,，]\s*/);
+        while(vals.length<products.length)vals.push('-');
+        var isNum=true,numVals=[];
+        for(var vi=0;vi<vals.length;vi++){var nv=parseFloat(vals[vi].replace(/[^0-9.]/g,''));if(isNaN(nv)){isNum=false;break;}numVals.push(nv);}
+        var best=-1;
+        if(isNum){
+          var maxV=Math.max.apply(null,numVals),minV=Math.min.apply(null,numVals);
+          var biggerBetter=/续航|容量|内存|存储|像素|分辨率|尺寸|屏幕|电池|时长|寿命|评分|满分|好评|用户|客户|市场份额|可用|支持|保障|覆盖|速度|并发|吞吐|QPS|TPS|核|线程|天数|年|月/.test(mName);
+          var target=biggerBetter?maxV:minV;
+          for(var bi=0;bi<numVals.length;bi++){if(numVals[bi]===target){best=bi;break;}}
+        }
+        curDim.metrics.push({name:mName,values:vals,numeric:isNum,numVals:numVals||[],best:best});
+      }
+    }
+  }
+  if(curDim&&curDim.metrics.length)dimensions.push(curDim);
+  if(products.length<2){products=['产品A','产品B'];subtitle='产品A vs 产品B';}
+  return{title:title,subtitle:subtitle,products:products,dimensions:dimensions,highlights:highlights};
+}
+function cmpIsHL(dimN,metN,hl){for(var i=0;i<hl.length;i++){if(dimN.indexOf(hl[i])>=0||metN.indexOf(hl[i])>=0)return true;}return false;}
+function cmpBW(val,mx){var n=parseFloat(val.replace(/[^0-9.]/g,''));if(isNaN(n))return 30;return Math.max(8,Math.round(n/mx*100));}
+
+function bC1(d){
+  var h='<div class="content active c1 c-base"><div class="c-hero"><h1>⚔️ '+E(d.title)+'</h1><div class="c-products">';
+  d.products.forEach(function(p,i){h+='<span class="c-prod-tag" style="background:'+prodColors[i]+'">'+E(p)+'</span>';});
+  h+='</div></div>';
+  d.dimensions.forEach(function(dim){
+    var hl=cmpIsHL(dim.title,'',d.highlights);
+    h+='<div class="c-dim-title">'+dim.icon+' '+E(dim.title)+'</div><div class="c-dim-block'+(hl?' highlight':'')+'">';
+    dim.metrics.forEach(function(m){
+      var mhl=cmpIsHL(dim.title,m.name,d.highlights);
+      if(m.numeric){
+        var maxVal=Math.max.apply(null,m.numVals.concat([1]));
+        m.values.forEach(function(v,vi){
+          var bw=cmpBW(v,maxVal),isBest=m.best===vi;
+          h+='<div class="c-bar c-bar-wrap"'+(mhl?' style="border-left:3px solid var(--primary);padding-left:8px"':'')+'><div class="c-bar-label"><span class="name" style="color:'+prodColors[vi]+'">'+E(d.products[vi])+'</span><span class="val">'+E(v)+(isBest?' 🏆':'')+'</span></div><div class="c-bar-track"><div class="c-bar-fill'+(isBest?' best':'')+'" style="width:'+bw+'%;background:'+prodColors[vi]+'"></div></div></div>';
+        });
+      }else{
+        h+='<div class="c-metric-row"'+(mhl?' style="border-left:3px solid var(--primary)"':'')+'><div class="c-metric-name">'+E(m.name)+'</div><div style="display:flex;flex:1;justify-content:space-around">';
+        m.values.forEach(function(v,vi){h+='<span class="c-metric-val" style="color:'+prodColors[vi]+'"'+(m.best===vi?' class="c-winner"':'')+'>'+E(v)+(m.best===vi?' 🏆':'')+'</span>';});
+        h+='</div></div>';
+      }
+    });h+='</div>';
+  });h+='</div>';return h;
+}
+
+function bC2(d){
+  var h='<div class="content c2 c-base"><div class="c-hero"><h1>📊 '+E(d.title)+'</h1><div class="c-products">';
+  d.products.forEach(function(p,i){h+='<span class="c-prod-tag" style="background:'+prodColors[i]+'">'+E(p)+'</span>';});
+  h+='</div></div>';
+  d.dimensions.forEach(function(dim){
+    h+='<div class="c-dim-title">'+dim.icon+' '+E(dim.title)+'</div><div class="c-table-wrap"><table><thead><tr><th style="background:#888">指标</th>';
+    d.products.forEach(function(p,i){h+='<th style="background:'+prodColors[i]+'">'+E(p)+'</th>';});
+    h+='</tr></thead><tbody>';
+    dim.metrics.forEach(function(m){
+      var mhl=cmpIsHL(dim.title,m.name,d.highlights);
+      h+='<tr'+(mhl?' style="background:#fff8f0"':'')+'><td>'+E(m.name)+'</td>';
+      m.values.forEach(function(v,vi){h+='<td'+(m.best===vi?' class="best-cell"':'')+'>'+E(v)+'</td>';});
+      h+='</tr>';});
+    h+='</tbody></table></div>';
+  });h+='</div>';return h;
+}
+
+function bC3(d){
+  var scores=[],totalMetrics=0;
+  d.products.forEach(function(){scores.push(0);});
+  d.dimensions.forEach(function(dim){
+    dim.metrics.forEach(function(m){
+      totalMetrics++;
+      if(!m.numeric)return;
+      var maxV=Math.max.apply(null,m.numVals.concat([1])),minV=Math.min.apply(null,m.numVals),range=maxV-minV;if(range===0)range=1;
+      var bb=/续航|容量|内存|存储|像素|分辨率|尺寸|屏幕|电池|时长|寿命|评分|满分|好评|用户|客户|市场份额|可用|支持|保障|覆盖|速度|并发|吞吐|QPS|TPS|核|线程|天数|年|月/.test(m.name);
+      m.numVals.forEach(function(nv,pi){scores[pi]+=bb?(nv-minV)/range*100:(maxV-nv)/range*100;});
+    });
+  });
+  if(totalMetrics>0)scores=scores.map(function(s){return Math.round(s/totalMetrics);});
+  var ranked=d.products.map(function(p,i){return{name:p,idx:i,score:scores[i]};}).sort(function(a,b){return b.score-a.score;});
+  var medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
+  var h='<div class="content c3 c-base"><div class="c-hero"><h1>🏆 '+E(d.title)+'</h1><div class="c-products">';
+  d.products.forEach(function(p,i){h+='<span class="c-prod-tag" style="background:'+prodColors[i]+'">'+E(p)+'</span>';});
+  h+='</div></div>';
+  d.dimensions.forEach(function(dim){
+    var hl=cmpIsHL(dim.title,'',d.highlights);
+    h+='<div class="c-dim-title">'+dim.icon+' '+E(dim.title)+(hl?' ✨':'')+'</div><div class="c-dim-block"><div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">';
+    dim.metrics.forEach(function(m){
+      if(!m.numeric){h+='<div style="text-align:center;min-width:100px;font-size:12px;color:#555;padding:12px 8px"><b>'+E(m.name)+'</b><br>';m.values.forEach(function(v,vi){h+='<span style="color:'+prodColors[vi]+'">'+E(v)+'</span><br>';});h+='</div>';return;}
+      var maxV=Math.max.apply(null,m.numVals.concat([1])),minV=Math.min.apply(null,m.numVals),range=maxV-minV;if(range===0)range=1;
+      var bb=/续航|容量|内存|存储|像素|分辨率|尺寸|屏幕|电池|时长|寿命|评分|满分|好评|用户|客户|市场份额|可用|支持|保障|覆盖|速度|并发|吞吐|QPS|TPS|核|线程|天数|年|月/.test(m.name);
+      m.numVals.forEach(function(nv,vi){
+        var pct=bb?(nv-minV)/range*100:(maxV-nv)/range*100;pct=Math.max(5,Math.round(pct));
+        var isBest=m.best===vi;
+        h+='<div style="text-align:center;min-width:100px"><div style="width:60px;height:60px;border-radius:50%;margin:0 auto 6px;position:relative;display:flex;align-items:center;justify-content:center"><div style="position:absolute;inset:0;border-radius:50%;background:conic-gradient('+prodColors[vi]+' '+pct+'%,#e8e8e8 '+pct+'%)"></div><div style="position:absolute;inset:6px;border-radius:50%;background:var(--light)"></div><span style="position:relative;z-index:1;font-size:14px;font-weight:700;color:var(--text)"'+(isBest?' title="🏆 最优"':'')+'>'+E(m.values[vi])+'</span></div><div style="font-size:11px;color:#888">'+E(d.products[vi])+'</div></div>';
+      });
+    });
+    h+='</div></div>';
+  });
+  h+='<div class="c-score c-rank-bar"><h4>📊 综合排名</h4>';
+  ranked.forEach(function(r,i){h+='<div class="c-rank-item"><span class="c-rank-medal">'+medals[i]+'</span><span style="font-weight:600">'+E(r.name)+'</span><span>'+r.score+'分</span></div>';});
+  h+='</div></div>';return h;
+}
+
+function bC4(d){
+  var scores=[],totalMetrics=0;
+  d.products.forEach(function(){scores.push(0);});
+  d.dimensions.forEach(function(dim){dim.metrics.forEach(function(m){
+    totalMetrics++;if(!m.numeric)return;
+    var maxV=Math.max.apply(null,m.numVals.concat([1])),minV=Math.min.apply(null,m.numVals),range=maxV-minV;if(range===0)range=1;
+    var bb=/续航|容量|内存|存储|像素|分辨率|尺寸|屏幕|电池|时长|寿命|评分|满分|好评|用户|客户|市场份额|可用|支持|保障|覆盖|速度|并发|吞吐|QPS|TPS|核|线程|天数|年|月/.test(m.name);
+    m.numVals.forEach(function(nv,pi){scores[pi]+=bb?(nv-minV)/range*100:(maxV-nv)/range*100;});
+  });});
+  if(totalMetrics>0)scores=scores.map(function(s){return Math.round(s/totalMetrics);});
+  var ranked=d.products.map(function(p,i){return{name:p,idx:i,score:scores[i]};}).sort(function(a,b){return b.score-a.score;});
+  var medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
+  var h='<div class="content c4 c-base"><div class="c-hero"><h1>🎯 '+E(d.title)+'</h1><div class="c-products">';
+  d.products.forEach(function(p,i){h+='<span class="c-prod-tag" style="background:'+prodColors[i]+'">'+E(p)+'</span>';});
+  h+='</div></div>';
+  var hasBar=false;
+  d.dimensions.forEach(function(dim){
+    var allNum=dim.metrics.every(function(m){return m.numeric;});
+    if(allNum){
+      if(!hasBar){h+='<div class="c-full-sec"><div class="c-full-sec-title">📈 数据指标对比</div>';hasBar=true;}
+      var hl=cmpIsHL(dim.title,'',d.highlights);
+      h+='<div class="c-dim-block'+(hl?' highlight':'')+'"><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px">'+dim.icon+' '+E(dim.title)+'</div>';
+      dim.metrics.forEach(function(m){
+        var maxVal=Math.max.apply(null,m.numVals.concat([1]));
+        m.values.forEach(function(v,vi){var bw=cmpBW(v,maxVal),isBest=m.best===vi;
+          h+='<div class="c-bar c-bar-wrap"><div class="c-bar-label"><span class="name" style="color:'+prodColors[vi]+'">'+E(d.products[vi])+'</span><span class="val">'+E(v)+(isBest?' 🏆':'')+'</span></div><div class="c-bar-track"><div class="c-bar-fill'+(isBest?' best':'')+'" style="width:'+bw+'%;background:'+prodColors[vi]+'"></div></div></div>';
+        });
+      });h+='</div>';
+    }else{
+      h+='<div class="c-full-sec"><div class="c-full-sec-title">📋 详细信息对比</div><div class="c-dim-title">'+dim.icon+' '+E(dim.title)+'</div><div class="c-table-wrap"><table><thead><tr><th style="background:#888">指标</th>';
+      d.products.forEach(function(p,i){h+='<th style="background:'+prodColors[i]+'">'+E(p)+'</th>';});
+      h+='</tr></thead><tbody>';
+      dim.metrics.forEach(function(m){h+='<tr><td>'+E(m.name)+'</td>';m.values.forEach(function(v,vi){h+='<td'+(m.best===vi?' class="best-cell"':'')+'>'+E(v)+'</td>';});h+='</tr>';});
+      h+='</tbody></table></div></div>';
+    }
+  });
+  if(hasBar)h+='</div>';
+  h+='<div class="c-score c-rank-bar"><h4>🏆 综合评分</h4>';
+  ranked.forEach(function(r,i){h+='<div class="c-rank-item"><span class="c-rank-medal">'+medals[i]+'</span><span style="font-weight:600">'+E(r.name)+'</span><span>'+r.score+'分</span></div>';});
+  h+='</div></div>';return h;
+}
+
+function generateCompare(){
+  var text=document.getElementById('inputText').value.trim();
+  if(!text){alert('请先粘贴竞品信息');return;}
+  switchMode('compare');
+  var info=document.getElementById('exportInfo');info.textContent='🔄 竞品对比生成中...';
+  var d=parseCompare(text);
+  if(!d.products||d.products.length<2){alert('未识别到竞品信息，请用 "vs" 分隔产品名');return;}
+  var area=document.getElementById('contentArea');
+  area.innerHTML=bC1(d)+bC2(d)+bC3(d)+bC4(d);
+  document.querySelectorAll('.cmp-style-btn').forEach(function(x){x.classList.remove('active')});
+  document.querySelector('.cmp-style-btn[data-cs="1"]').classList.add('active');
+  document.querySelectorAll('.content').forEach(function(x){x.classList.remove('active')});
+  area.querySelector('.c1').classList.add('active');
+  info.textContent='✅ 竞品对比已生成：'+d.products.length+'个产品 · '+d.dimensions.length+'个维度';
+}
 
 </script>
 
