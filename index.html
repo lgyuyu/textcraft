@@ -384,6 +384,11 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .export-bar .btn-all{background:#4f6df5}
 .export-bar .info{font-size:12px;color:#444;margin-left:auto}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}transform:scale(1.02)}
+.img-preview-item{position:relative;width:100px;height:100px;border-radius:8px;overflow:hidden;border:2px solid #e0e0e0;cursor:pointer;transition:border-color .2s}
+.img-preview-item:hover{border-color:#ef4444}
+.img-preview-item img{width:100%;height:100%;object-fit:cover}
+.img-preview-item .del-badge{position:absolute;top:2px;right:2px;width:20px;height:20px;background:rgba(0,0,0,.6);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;opacity:0;transition:opacity .2s}
+.img-preview-item:hover .del-badge{opacity:1}
 .cmp-style-btn{padding:6px 14px;border:2px solid #e0e0e0;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font);color:#666;white-space:nowrap}
 .cmp-style-btn:hover{border-color:var(--primary);color:var(--primary)}
 .cmp-style-btn.active{background:var(--gradient);color:#fff;border-color:transparent}
@@ -427,6 +432,12 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 <div class="editor-panel">
   <h3>📝 粘贴你的内容，快速预览排版效果</h3>
   <textarea id="inputText" placeholder="在这里粘贴你的内容..."></textarea>
+  <div id="imageArea" style="display:none;margin-top:10px;border:2px dashed #ddd;border-radius:10px;padding:12px;position:relative">
+    <div style="font-size:12px;color:#999;margin-bottom:8px">📎 已添加图片（点击可删除）</div>
+    <div id="imagePreview" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+    <div style="font-size:11px;color:#bbb;margin-top:8px">支持粘贴截图、拖拽图片、点击上传（最多5张）</div>
+  </div>
+  <input type="file" id="imageInput" multiple accept="image/*" style="display:none">
   <div class="hint">当前展示为精细排版示例。粘贴新内容可用通用模板快速预览，精细排版请联系墨痕-编程。</div>
   <div class="btn-row"><button id="genBtn" onclick="generate()" style="flex:1">🖼️ 排版生成</button><button id="cmpBtn" onclick="generateCompare()" style="flex:1;background:linear-gradient(135deg,#4f6df5,#818cf8)">⚔️ 竞品对比生成</button><span id="genStatus" style="display:none">⚡ 生成中...</span><button id="genCancel" onclick="cancelGenerate()" style="display:none">✕ 取消</button></div>
 </div>
@@ -799,6 +810,53 @@ var themes={pink:{primary:"#e8457c",light:"#fff0f3",gradient:"linear-gradient(13
 document.querySelectorAll(".style-btn").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".style-btn").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".content").forEach(function(x){x.classList.remove("active")});b.classList.add("active");var e=document.querySelector(".s"+b.dataset.s);if(e)e.classList.add("active")})});
 document.querySelectorAll(".color-dot").forEach(function(d){d.addEventListener("click",function(){document.querySelectorAll(".color-dot").forEach(function(x){x.classList.remove("active")});d.classList.add("active");var t=themes[d.dataset.c];R.setProperty("--primary",t.primary);R.setProperty("--light",t.light);R.setProperty("--gradient",t.gradient);R.setProperty("--text",t.text);var mc=t.primary.match(/^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);if(mc)R.setProperty("--primary-bg","rgba("+parseInt(mc[1],16)+","+parseInt(mc[2],16)+","+parseInt(mc[3],16)+",0.05)")})});
 
+var uploadedImages=[];
+var MAX_IMAGES=5,MAX_IMG_SIZE=4*1024*1024;
+function addImage(file){
+  if(uploadedImages.length>=MAX_IMAGES){alert('最多上传'+MAX_IMAGES+'张图片');return;}
+  if(file.size>MAX_IMG_SIZE){alert('图片大小不能超过4MB');return;}
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var base64=e.target.result;
+    uploadedImages.push(base64);
+    renderImagePreview();
+  };
+  reader.readAsDataURL(file);
+}
+function removeImage(idx){
+  uploadedImages.splice(idx,1);
+  renderImagePreview();
+}
+function renderImagePreview(){
+  var area=document.getElementById('imageArea');
+  var preview=document.getElementById('imagePreview');
+  if(uploadedImages.length>0){
+    area.style.display='block';
+    preview.innerHTML='';
+    uploadedImages.forEach(function(src,i){
+      var div=document.createElement('div');div.className='img-preview-item';
+      div.onclick=function(){removeImage(i);};
+      div.innerHTML='<img src="'+src+'"><div class="del-badge">\u2715</div>';
+      preview.appendChild(div);
+    });
+  }else{area.style.display='none';}
+}
+(function(){
+  var inp=document.getElementById('imageInput');
+  inp.addEventListener('change',function(e){for(var i=0;i<e.target.files.length;i++)addImage(e.target.files[i]);e.target.value='';});
+  var textarea=document.getElementById('inputText');
+  textarea.addEventListener('paste',function(e){
+    var items=e.clipboardData&&e.clipboardData.items;
+    if(!items)return;
+    for(var i=0;i<items.length;i++){if(items[i].type.indexOf('image')>=0){e.preventDefault();addImage(items[i].getAsFile());return;}}
+  });
+  var area=document.getElementById('imageArea');
+  area.addEventListener('dragover',function(e){e.preventDefault();area.style.borderColor='var(--primary)';});
+  area.addEventListener('dragleave',function(){area.style.borderColor='#ddd';});
+  area.addEventListener('drop',function(e){e.preventDefault();area.style.borderColor='#ddd';for(var i=0;i<e.dataTransfer.files.length;i++)addImage(e.dataTransfer.files[i]);});
+  area.addEventListener('click',function(e){if(e.target===area||e.target.closest('#imageArea')&&!e.target.closest('.img-preview-item'))document.getElementById('imageInput').click();});
+})();
+
 function E(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 var emojis=['🎯','📅','⏰','💡','📌','🏆','💪','✨'];
 function shape(i){var t=i%5,n=i+1;if(t===1)return '<div class="num" style="clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)">'+n+'</div>';if(t===2)return '<div class="num" style="clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)">'+n+'</div>';if(t===3)return '<div class="num" style="border-radius:8px">'+n+'</div>';if(t===4)return '<div class="num" style="border-radius:10px">'+n+'</div>';return '<div class="num">'+n+'</div>'}
@@ -808,11 +866,12 @@ var AI_URL='https://api.moonshot.cn/v1/chat/completions';
 var AI_KEY='sk-zzvrUixgjkur9EThE42jbtVyZdg9UCEehCZKCnvBspdV3pyX';
 var AI_URL='https://api.moonshot.cn/v1/chat/completions';
 
-async function aiCall(messages, max_tokens){
+async function aiCall(messages, max_tokens, useVision){
+  var model=useVision?'moonshot-v1-8k-vision-preview':'moonshot-v1-128k';
   var resp=await fetch(AI_URL,{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+AI_KEY},
-    body:JSON.stringify({model:'moonshot-v1-128k',messages:messages,max_tokens:max_tokens||8192,temperature:0.1})
+    body:JSON.stringify({model:useVision?'moonshot-v1-8k-vision-preview':'moonshot-v1-128k',messages:messages,max_tokens:max_tokens||8192,temperature:0.1})
   });
   var data=await resp.json();
   return data;
@@ -2411,8 +2470,17 @@ function generateCompare(){
 async function aiParseCompare(text){
   var sys=['你是一个竞品对比信息提取器。用户会粘贴一段文字，其中可能包含多个产品的描述。你需要识别出所有产品，并提取可以横向对比的指标。','用户文字可能是以下格式之一：','(A) 明确对比格式："产品A vs 产品B，性能X vs Y"','(B) 各产品独立描述：用"产品一：XXX""产品二：YYY"或"## XXX""## YYY"等方式分别描述','对于格式(B)，你必须智能提取可以对比的共同维度，比如两个产品都提到了价格，就归到"价格"维度。','返回格式（严格JSON，不要其他内容）：','{','  "title": "对比标题（根据内容自动生成）",','  "subtitle": "产品A vs 产品B vs ...",','  "products": ["产品名1","产品名2",...],','  "highlights": ["重点维度名"],','  "dimensions": [','    {','      "icon": "emoji",','      "title": "维度名",','      "metrics": [','        {"name": "指标名", "values": ["产品1的值","产品2的值",...], "numeric": true/false}','      ]','    }','  ]','}','','关键规则：','1. products中的产品名必须用真实的品牌/产品名（如"百年树人"、"有道领世"），绝对不要用"产品一""产品二"','2. values数组长度必须等于products长度','3. numeric：值是数字/可比较数值则为true，纯文字描述则为false','4. highlights：用户明确强调的维度，没有就空数组','5. icon：维度对应emoji（性能\u26A1 价格\uD83D\uDCB0 服务\uD83D\uDEE1\uFE0F 功能\uD83D\uDD27 体验\u2728 品牌\uD83C\uDFF7\uFE0F 安全\uD83D\uDD12 优势\uD83C\uDFC6 用户\uD83D\uDC64）','6. 对于格式(B)，每个产品独立描述的价格/功能/服务内容，你要智能归类到相同维度下对比','7. 某个产品在某指标上未提及的值写"未提及"','8. 数值指标尽量用统一单位便于对比（如统一为"元"），如果原文有区间写区间','9. 每个维度3-8个指标即可，不要把每个价格档位都列成独立指标，应该归类（如"起步价""最高价""服务形式"等）','10. 维度数量控制在3-6个，每个维度选最有对比价值的指标','11. 不要遗漏原文中的重要信息，包括优惠、特色服务等'].join('\n');
 
-  var messages=[{role:'system',content:sys},{role:'user',content:'请从以下文字中提取竞品对比信息：\n\n'+text}];
-  var result=await aiCall(messages,4096);
+  var hasImages=uploadedImages.length>0;
+  var userMsg;
+  if(hasImages){
+    var imgParts=uploadedImages.map(function(src){return{type:'image_url',image_url:{url:src}};});
+    imgParts.unshift({type:'text',text:'请从以下文字和图片中提取竞品对比信息。图片可能包含竞品对比表格、截图等。请仔细识别图片中的所有产品名称、价格、参数等数据，与文字内容合并提取。\n\n'+text});
+    userMsg={role:'user',content:imgParts};
+  }else{
+    userMsg={role:'user',content:'请从以下文字中提取竞品对比信息：\n\n'+text};
+  }
+  var messages=[{role:'system',content:sys},userMsg];
+  var result=await aiCall(messages,4096,hasImages);
   var msg=result.choices[0].message.content;
   
   // 处理截断
