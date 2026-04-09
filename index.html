@@ -373,6 +373,8 @@ body{font-family:var(--font);background:#f5f5f5;color:#333;max-width:800px;margi
 .btn-row #genBtn{padding:11px 28px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);background:var(--gradient);color:#fff;box-shadow:0 3px 12px rgba(232,69,124,.3);transition:all .15s}
 .btn-row #genBtn:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(232,69,124,.4)}
 .btn-row #genBtn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn-row #cmpBtn{padding:11px 28px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);color:#fff;box-shadow:0 3px 12px rgba(79,109,245,.3);transition:all .15s}
+.btn-row #cmpBtn:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(79,109,245,.4)}
 .btn-row #genStatus{display:none;font-size:13px;color:#888;font-weight:500;white-space:nowrap}
 .btn-row #genStatus.show{display:inline-flex;align-items:center;gap:6px;animation:pulse 1.2s infinite}
 .btn-row #genCancel{display:none;padding:9px 18px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);background:#fff;color:#888;white-space:nowrap;transition:all .15s}
@@ -2167,6 +2169,7 @@ async function generate(){
   document.querySelector('.style-btn[data-s="1"]').classList.add("active");
   area.querySelector(".s1").classList.add("active");
   if(gs)gs.style.display="none";if(gc)gc.style.display="none";if(gb)gb.disabled=false;
+  switchMode('normal');
   info.textContent="✅ 已生成"+d.sections.length+"个板块 · "+m.totalChars+"字 · 18种排版 (AI驱动)";
 }
 function exportCurrent(){var el=document.querySelector(".content.active");if(!el){alert("请先展示内容");return}html2canvas(el,{scale:2,backgroundColor:"#f5f5f5",width:800}).then(function(c){var a=document.createElement("a");a.download="排版-当前风格.png";a.href=c.toDataURL("image/png");a.click()})}
