@@ -2389,16 +2389,83 @@ function generateCompare(){
   var text=document.getElementById('inputText').value.trim();
   if(!text){alert('请先粘贴竞品信息');return;}
   switchMode('compare');
-  var info=document.getElementById('exportInfo');info.textContent='🔄 竞品对比生成中...';
-  var d=parseCompare(text);
-  if(!d.products||d.products.length<2){alert('未识别到竞品信息，请用 "vs" 分隔产品名');return;}
-  var area=document.getElementById('contentArea');
-  area.innerHTML=bC1(d)+bC2(d)+bC3(d)+bC4(d);
-  document.querySelectorAll('.cmp-style-btn').forEach(function(x){x.classList.remove('active')});
-  document.querySelector('.cmp-style-btn[data-cs="1"]').classList.add('active');
-  document.querySelectorAll('.content').forEach(function(x){x.classList.remove('active')});
-  area.querySelector('.c1').classList.add('active');
-  info.textContent='✅ 竞品对比已生成：'+d.products.length+'个产品 · '+d.dimensions.length+'个维度';
+  var info=document.getElementById('exportInfo');info.textContent='🔄 AI 竞品对比生成中...';
+  var gs=document.getElementById('genStatus');if(gs){gs.style.display='inline-flex';gs.className='show';}
+  var gc=document.getElementById('genCancel');if(gc){gc.style.display='inline-block';}
+  (async function(){
+    var d=null;
+    try{d=await aiParseCompare(text)}
+    catch(e){console.log('AI竞品解析失败，使用本地解析:',e);d=parseCompare(text);}
+    if(gs)gs.style.display='none';if(gc)gc.style.display='none';
+    if(!d||!d.products||d.products.length<2){alert('未识别到竞品信息，请粘贴包含多个产品对比内容的文字');return;}
+    var area=document.getElementById('contentArea');
+    area.innerHTML=bC1(d)+bC2(d)+bC3(d)+bC4(d);
+    document.querySelectorAll('.cmp-style-btn').forEach(function(x){x.classList.remove('active')});
+    document.querySelector('.cmp-style-btn[data-cs="1"]').classList.add('active');
+    document.querySelectorAll('.content').forEach(function(x){x.classList.remove('active')});
+    area.querySelector('.c1').classList.add('active');
+    info.textContent='✅ 竞品对比已生成：'+d.products.length+'个产品 · '+d.dimensions.length+'个维度 (AI驱动)';
+  })();
+}
+
+async function aiParseCompare(text){
+  var sys='你是一个竞品对比信息提取器。从用户提供的文字中提取产品和对比指标，输出严格JSON。\n\n返回格式（严格JSON，不要其他内容）：\n{\n  "title": "对比标题",\n  "subtitle": "产品A vs 产品B vs 产品C",\n  "products": ["产品A","产品B","产品C"],\n  "highlights": ["重点指标名1","重点指标名2"],\n  "dimensions": [\n    {\n      "icon": "emoji",\n      "title": "维度名称",\n      "metrics": [\n        {"name": "指标名", "values": ["产品A的值","产品B的值","产品C的值"], "numeric": true}\n      ]\n    }\n  ]\n}\n\n规则：\n1. products：按顺序列出所有对比的产品名（第一个是"我们"的产品）\n2. values 数组长度必须等于 products 长度\n3. numeric：如果值是数字/可比较的数值则为 true，纯文字描述则为 false\n4. highlights：用户明确强调要突出的指标名，没有就空数组\n5. icon：给每个维度选一个合适的 emoji（性能\u26A1 价格\uD83D\uDCB0 屏幕\uD83D\uDCF1 摄像\uD83D\uDCF7 电池\uD83D\uDD0B 设计\uD83C\uDFA8 服务\uD83D\uDEE1\uFE0F 系统\uD83D\uDCBB 功能\uD83D\uDD27 体验\u2728 品牌\uD83C\uDFF7\uFE0F 安全\uD83D\uDD12）\n6. 如果用户提到"我们"、"我方"、"自家"等，对应产品放第一个\n7. 尽量把信息归类到合理的维度中，不要遗漏任何对比点\n8. 值要保持原文，不要改写数字或单位\n\n示例：\n用户输入：\n"我们公司的大数据平台基于 ClickHouse 22.8，查询延迟 <100ms，支持百亿级数据秒级响应。竞品A用的 Presto，延迟大约500ms-1s。竞品B用的 StarRocks 3.3，延迟200ms左右。价格方面，我们按量计费 0.5元/GB，竞品A年费制 50万/年，竞品B 0.8元/GB。"\n\n输出：\n{\n  "title": "大数据平台竞品对比",\n  "subtitle": "我们平台 vs 竞品A vs 竞品B",\n  "products": ["我们平台","竞品A","竞品B"],\n  "highlights": ["查询延迟"],\n  "dimensions": [\n    {"icon":"\u26A1","title":"核心性能","metrics":[{"name":"查询延迟","values":["<100ms","500ms-1s","200ms"],"numeric":true},{"name":"数据规模","values":["百亿级","未提及","未提及"],"numeric":false}]},\n    {"icon":"\uD83D\uDCB0","title":"价格方案","metrics":[{"name":"计费方式","values":["0.5元/GB","50万/年","0.8元/GB"],"numeric":false}]}\n  ]\n}';
+
+  var messages=[{role:'system',content:sys},{role:'user',content:'请从以下文字中提取竞品对比信息：\n\n'+text}];
+  var result=await aiCall(messages,4096);
+  var msg=result.choices[0].message.content;
+  
+  // 处理截断
+  var finishReason=result.choices[0].finish_reason;
+  var round=1;
+  while(finishReason==='length' && round<3){
+    messages.push({role:'assistant',content:msg});
+    messages.push({role:'user',content:'继续输出剩余JSON，从截断处接着写。'});
+    result=await aiCall(messages,4096);
+    msg+=result.choices[0].message.content;
+    finishReason=result.choices[0].finish_reason;
+    round++;
+  }
+  
+  var jsonStart=msg.indexOf('{');
+  if(jsonStart===-1)throw new Error('AI返回格式错误');
+  var depth=0,jsonEnd=-1;
+  for(var ji=jsonStart;ji<msg.length;ji++){
+    if(msg[ji]==='{')depth++;
+    else if(msg[ji]==='}')depth--;
+    if(depth===0){jsonEnd=ji+1;break;}
+  }
+  if(jsonEnd===-1)throw new Error('AI返回格式错误: JSON未闭合');
+  var parsed=JSON.parse(msg.substring(jsonStart,jsonEnd));
+  
+  // 标准化
+  if(!parsed.products||parsed.products.length<2)throw new Error('产品数不足');
+  if(!parsed.highlights)parsed.highlights=[];
+  if(!parsed.dimensions)parsed.dimensions=[];
+  parsed.dimensions.forEach(function(dim){
+    if(!dim.icon)dim.icon='📌';
+    if(!dim.metrics)dim.metrics=[];
+    dim.metrics.forEach(function(m){
+      if(!m.name)m.name='';
+      if(!m.values)m.values=[];
+      while(m.values.length<parsed.products.length)m.values.push('-');
+      // 自动判断 numeric
+      if(m.numeric===undefined){
+        m.numeric=m.values.every(function(v){return !isNaN(parseFloat(v.replace(/[^0-9.]/g,'')));});
+      }
+      if(m.numeric){
+        m.numVals=m.values.map(function(v){return parseFloat(v.replace(/[^0-9.]/g,''))||0;});
+        var maxV=Math.max.apply(null,m.numVals),minV=Math.min.apply(null,m.numVals);
+        var biggerBetter=/续航|容量|内存|存储|像素|分辨率|尺寸|屏幕|电池|时长|寿命|评分|满分|好评|用户|客户|市场份额|可用|支持|保障|覆盖|速度|并发|吞吐|QPS|TPS|核|线程|天数|年|月|规模|数据量/.test(m.name);
+        var target=biggerBetter?maxV:minV;
+        m.best=-1;
+        for(var bi=0;bi<m.numVals.length;bi++){if(m.numVals[bi]===target){m.best=bi;break;}}
+      }else{
+        m.numVals=[];m.best=-1;
+      }
+    });
+  });
+  return parsed;
 }
 
 </script>
